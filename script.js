@@ -27,11 +27,11 @@ const configuracoes = {
 };
 
 const destaques = [
-    { url: "https://github.com/cobelp53/dashboard/imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53" },
-        titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Novo Espaço de Jogos: Entretenimento garantido com a montagem da área de videogames, fliperamas e ping-pong.<br><br>⚽ Reforma da Quadra: As obras na quadra de futebol estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.<br><br>Fiquem atentos: o apito inicial e o 'start' nos jogos estão chegando!"},
-    { url: "https://petrobrasbr-my.sharepoint.com/:i:/r/personal/s_wesllen_petrobras_com_br/Documents/pag53/33179.jpg?csf=1&web=1&e=9ZhgUC", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor." },
-    { url: "https://petrobrasbr-my.sharepoint.com/:i:/r/personal/s_wesllen_petrobras_com_br/Documents/pag53/saladejogos.jpg?csf=1&web=1&e=wWmeZ1", legenda: "Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." },
-    { url: "https://github.com/cobelp53/dashboard/blob/main/imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53" }
+    { url: "https://github.com/cobelp53/dashboard/imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53" }
+ //       titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Novo Espaço de Jogos: Entretenimento garantido com a montagem da área de videogames, fliperamas e ping-pong.<br><br>⚽ Reforma da Quadra: As obras na quadra de futebol estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.<br><br>Fiquem atentos: o apito inicial e o 'start' nos jogos estão chegando!"},
+ //   { url: "https://petrobrasbr-my.sharepoint.com/:i:/r/personal/s_wesllen_petrobras_com_br/Documents/pag53/33179.jpg?csf=1&web=1&e=9ZhgUC", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor." },
+//    { url: "https://petrobrasbr-my.sharepoint.com/:i:/r/personal/s_wesllen_petrobras_com_br/Documents/pag53/saladejogos.jpg?csf=1&web=1&e=wWmeZ1", legenda: "Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." },
+ //   { url: "https://github.com/cobelp53/dashboard/blob/main/imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53" }
     ];
 
 // 🔹 FUNÇÕES
