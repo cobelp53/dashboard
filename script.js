@@ -349,7 +349,7 @@ async function carregarGraficoVotacao() {
                         }
                     },
                     legend: { 
-                        position: 'right',
+                        position: 'bottom',
                         labels: { 
                             font: { size: 12 }, 
                             padding: 10,
