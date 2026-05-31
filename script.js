@@ -26,10 +26,11 @@ const configuracoes = {
 };
 
 const destaques = [
-    { url: "imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53" },
-    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Novo Espaço de Jogos: Entretenimento garantido com a montagem da área de videogames, fliperamas e ping-pong.<br><br>⚽ Reforma da Quadra: As obras na quadra de futebol estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.<br><br>Fiquem atentos: o apito inicial e o 'start' nos jogos estão chegando!"},
-    { url: "https://petrobrasbr-my.sharepoint.com/:i:/r/personal/s_wesllen_petrobras_com_br/Documents/pag53/33179.jpg?csf=1&web=1&e=9ZhgUC", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor." },
-    { url: "", legenda: "Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." }
+    
+    { url: "imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53", tempo: 7000 },
+    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Novo Espaço de Jogos: Já tem disponível fliperamas e ping-pong. Em breve mesa de carteado e Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.<br><br>Fiquem atentos: o apito inicial e o 'start' nos jogos estão chegando!", tempo: 13000 },
+    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 12000  },
+    { url: "imagens/salajogos.jpeg", legenda: "A Sala de Jogos está em reforma. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 10000  }
     ];
 
 // 🔹 FUNÇÕES
@@ -130,6 +131,7 @@ function renderizarCarrossel() {
 }
 
 let indiceImagem = 0;
+let timerCarrossel;
 
 function rotacionarImagens() {
     const slides = document.querySelectorAll('#carrossel-imagens > *'); // Seleciona imgs E divs de texto
@@ -146,6 +148,19 @@ function rotacionarImagens() {
 
     // Atualiza a legenda externa
     atualizarLegenda(indiceImagem);
+}
+
+function iniciarCarrossel() {
+
+    clearTimeout(timerCarrossel);
+    const tempoAtual =
+        destaques[indiceImagem].tempo ||
+        configuracoes.intervaloImagens;
+    timerCarrossel = setTimeout(() => {
+        rotacionarImagens();
+        iniciarCarrossel();
+    }, tempoAtual);
+
 }
 
 function atualizarLegenda(index) {
@@ -284,7 +299,7 @@ async function carregarGraficoVotacao() {
         const jsonString = text.substring(47).slice(0, -2);
         const data = JSON.parse(jsonString);
         const rows = data.table.rows;
-
+        
         if (!rows || rows.length === 0) throw new Error('Nenhuma resposta encontrada.');
 
         // Contagem dos votos
@@ -297,8 +312,19 @@ async function carregarGraficoVotacao() {
             }
         });
 
-        const labels = Object.keys(voteCounts);
-        const values = Object.values(voteCounts);
+        //const labels = Object.keys(voteCounts);
+        //const values = Object.values(voteCounts);
+
+        // Ordena do mais votado para o menos votado
+        const ranking = Object.entries(voteCounts)
+        .sort((a, b) => b[1] - a[1]);
+        const labels = ranking.map(item => item[0]);
+        const values = ranking.map(item => item[1]);
+
+        // Apenas os 3 primeiros para a legenda
+        const top3 = ranking.slice(0, 3).map(item => item[0]);
+
+
         const totalVotes = values.reduce((a, b) => a + b, 0);
 
         if (labels.length === 0) throw new Error('Nenhum voto válido encontrado.');
@@ -350,6 +376,7 @@ async function carregarGraficoVotacao() {
                     },
                     legend: { 
                         position: 'bottom',
+                        align: 'start',
                         labels: { 
                             font: { size: 12 }, 
                             padding: 10,
@@ -362,8 +389,12 @@ async function carregarGraficoVotacao() {
                             maxWidth: 130,
                             
                             // 🔹 NOVO: Filtro de segurança para evitar erro com dados vazios
+                            //filter: function(item, data) {
+                            //    return item.text && item.text.length > 0;
+                            //}
+
                             filter: function(item, data) {
-                                return item.text && item.text.length > 0;
+                            return top3.includes(item.text);
                             }
                         }
                     },
@@ -378,10 +409,10 @@ async function carregarGraficoVotacao() {
                         }
                     },
                     title: {
-                        display: true,
-                        text: `Total: ${totalVotes} votos`,
+                        display: totalVotes > 1,
+                        text: `${totalVotes} votos`,
                         font: { size: 16, weight: 'bold' },
-                        padding: 5
+                        padding: 0
                     }
                 },
                 layout: { 
@@ -416,7 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarGraficoVotacao();
     setInterval(carregarGraficoVotacao, 30000); // Atualiza a cada 30s
 
-    setInterval(rotacionarImagens, configuracoes.intervaloImagens);
+    iniciarCarrossel(); //setInterval(rotacionarImagens, configuracoes.intervaloImagens);
     setInterval(destacarEventoAtual, 60000);
     setTimeout(() => window.location.reload(), 4 * 60 * 60 * 1000);
 });

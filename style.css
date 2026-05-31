@@ -182,9 +182,9 @@ section h2 {
 
 .logo-cobel { width: 200px; margin: 4}
 .col-votacao { display: flex; flex-direction: column; gap: var(--gap); height: 100%; min-height: 0; text-align: center}
-.qr-bloco, .grafico-bloco { flex: 1 1 50%; min-height: 0; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border: 1px solid var(--borda); align-items: center; justify-content: center; gap: 0.4vw; overflow: hidden; }
-.qr-bloco h3, .grafico-bloco h3 { font-size: 0.9vw; color: var(--petro-verde); margin: 0; text-align: center; } 
-.qr-container img { width: 14vw; height: auto; border-radius: var(--radius); box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.12); }
+.qr-bloco, .grafico-bloco { flex: 1 1 50%; min-height: 0; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border: 1px solid var(--borda); align-items: center; justify-content: above; gap: 0.2vw; overflow: hidden; }
+.qr-bloco h3, .grafico-bloco h3 { font-size: 0.9vw; color: var(--petro-verde); margin-top: 0; text-align: center; } 
+.qr-container img { width: 12vw; height: auto; border-radius: var(--radius); box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.12); }
 .info-qr { background: #FFF; padding: 0.2vw; border-radius: 0.2vw; font-size: 0.8vw; text-align: center; line-height: 1.4; width: 120%;}
 .grafico-container { width: 90%; height: 90%; align-items: center; justify-content: center; }
 .grafico-container canvas { max-width: 95%; max-height: 95%; }
