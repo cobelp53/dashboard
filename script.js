@@ -375,28 +375,20 @@ async function carregarGraficoVotacao() {
                         }
                     },
                     legend: { 
-                        position: 'bottom',
-                        align: 'start',
-                        labels: { 
-                            font: { size: 12 }, 
-                            padding: 10,
-                            boxWidth: 20,
-                            boxHeight: 20,
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            
-                            // 🔹 NOVO: Controla largura máxima para quebrar texto longo
-                            maxWidth: 130,
-                            
-                            // 🔹 NOVO: Filtro de segurança para evitar erro com dados vazios
-                            //filter: function(item, data) {
-                            //    return item.text && item.text.length > 0;
-                            //}
-
-                            filter: function(item, data) {
-                            return top3.includes(item.text);
+                    position: window.innerWidth < 768 ? 'bottom' : 'bottom', // Mantém embaixo
+                    align: 'center', // Centraliza a legenda no mobile para não cortar
+                    labels: { 
+                    font: { size: window.innerWidth < 768 ? 10 : 12 }, // Diminui a fonte no celular
+                    padding: 8,
+                    boxWidth: 12,
+                    boxHeight: 12,
+                    usePointStyle: true,
+                    pointStyle: 'circle',
+                    maxWidth: window.innerWidth < 768 ? 90 : 130, // Reduz a largura máxima do texto da legenda no mobile
+                    filter: function(item, data) {
+                    return top3.includes(item.text);
                             }
-                        }
+                            }
                     },
                     tooltip: {
                         callbacks: {

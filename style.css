@@ -200,3 +200,152 @@ section h2 {
 .ticker-text { display: inline-block; padding-left: 100%; animation: scroll-ticker 45s linear infinite; font-size: 0.9vw; font-weight: 500; }
 @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 .ticker-hora { background: rgba(0,0,0,0.25); padding: 0 1vw; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9vw; border-left: 1px solid rgba(255,255,255,0.2); min-width: 12vw; z-index: 20; }
+
+/* ==========================================================================
+   MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    html, body {
+        width: 100%;
+        height: auto;
+        overflow-y: auto; /* Permite rolagem vertical no celular */
+        font-size: 14px; /* Base estável para fontes no mobile */
+    }
+
+    .painel-container {
+        height: auto;
+        padding: 12px;
+        gap: 16px;
+    }
+
+    /* 🔹 AJUSTE DO TOPO (HEADER) */
+    .topo {
+        grid-template-columns: auto 1fr; /* Remove a coluna da previsão */
+        height: auto;
+        padding: 12px;
+    }
+
+    /* Esconde a previsão do tempo e o bloco de QR Code */
+    .lado-direito, #previsao-widget, .esconder-mobile {
+        display: none !important;
+    }
+
+    .logo-petrobras {
+        height: 50px; /* Tamanho controlado para telas pequenas */
+    }
+
+    .centro-titulo h1 {
+        font-size: 1.8rem;
+    }
+    .centro-titulo h2 {
+        font-size: 1rem;
+    }
+
+    /* 🔹 REORDENAÇÃO DO GRID EM UMA COLUNA */
+    .conteudo-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        height: auto;
+        overflow: visible;
+    }
+
+    section {
+        height: auto;
+        min-height: unset;
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    section h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+    }
+
+    /* 🔹 PROGRAMAÇÃO EM LISTA VERTICAL */
+    .programacao-container {
+        height: auto;
+        gap: 12px;
+    }
+
+    .prog-bloco {
+        height: auto;
+        padding: 12px;
+        border-left-width: 6px;
+    }
+
+    .prog-bloco h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .lista-programacao {
+        overflow-y: visible; /* Usa a rolagem da página inteira */
+        gap: 8px;
+    }
+
+    .lista-programacao li {
+        font-size: 0.95rem;
+        padding: 10px;
+    }
+
+    /* 🔹 CARROSSEL ADAPTADO */
+    .carrossel {
+        height: 250px; /* Fixa uma altura excelente para o celular */
+    }
+
+    .slide-texto h3 {
+        font-size: 1.3rem;
+    }
+
+    .slide-texto p {
+        font-size: 0.95rem;
+    }
+
+    .legenda {
+        font-size: 0.85rem;
+        margin-top: 6px;
+    }
+
+    /* 🔹 BLOCO DO GRÁFICO */
+    .col-votacao {
+        height: auto;
+    }
+
+    .grafico-bloco {
+        height: 380px; /* Garante espaço para o gráfico e para a legenda */
+        padding: 16px;
+    }
+
+    .grafico-bloco h3 {
+        font-size: 1.1rem;
+    }
+
+    .grafico-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .grafico-container p {
+        font-size: 0.9rem;
+        margin-top: 8px;
+    }
+
+    /* 🔹 RODAPÉ (TICKER) */
+    .ticker-container {
+        height: 40px;
+    }
+
+    .ticker-text {
+        font-size: 0.9rem;
+        animation-duration: 25s; /* Um pouco mais rápido devido à tela menor */
+    }
+
+    .ticker-hora {
+        font-size: 0.85rem;
+        min-width: 140px;
+        padding: 0 8px;
+    }
+}
