@@ -19,7 +19,7 @@
 
 html, body {
     width: 100vw; height: 100vh;
-    overflow: hidden; /* Telão: trava scroll indesejado */
+    overflow: hidden; 
     background: var(--bg);
     color: var(--texto);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -36,7 +36,7 @@ html, body {
 
 .topo, .ticker-container { flex-shrink: 0; }
 
-/* 🔹 GRID PRINCIPAL PROPORCIONAL */
+/* 🔹 GRID PRINCIPAL */
 .conteudo-grid {
   flex: 1; min-height: 0;
   display: grid;
@@ -55,53 +55,35 @@ html, body {
     box-shadow: 0 var(--border-w) calc(var(--border-w) * 2.5) rgba(0,0,0,0.08);
     border-left: var(--border-w) solid var(--petro-verde);
     height: clamp(12vh, 8vh, 10vh);
-    
 }
-
 
 .lado-esquerdo, .centro-titulo, .lado-direito { display: flex; flex-direction: column;}
 .lado-esquerdo { justify-content: flex-start; }
 .lado-direito { justify-content: flex-end; align-items: center;}
 
-.logo-area { display: flex; align-items: center; gap: clamp(0.8vw, 1.5vw, 2.5vw); }
 .logo-petrobras { height: 11vh; width: auto; object-fit: contain; }
-.marca-texto { display: flex; flex-direction: column; line-height: 1.1; }
-.marca { font-size: 1.8vw; font-weight: 800; color: var(--petro-verde); }
-.plataforma { font-size: 1.1vw; font-weight: 600; color: var(--petro-azul); }
 
-/*
-.data-hora { font-size: clamp(0.85rem, 1.4vw, 1.05rem); font-weight: 600; color: var(--texto-claro); font-variant-numeric: tabular-nums; }
-*/
 .centro-titulo { text-align: center; }
-.centro-titulo h1, .centro-titulo h2 { font-size: 2.2vw; font-weight: 800; color: var(--petro-azul); letter-spacing: 1px; margin: 0; line-height: 1.2; }
-.centro-titulo h2 { font-size: 1.5vw;} 
+.centro-titulo h1 { font-size: 2.2vw; font-weight: 800; color: var(--petro-azul); margin: 0; }
+.centro-titulo h2 { font-size: 1.5vw; color: var(--petro-azul); margin: 0; } 
 
 .previsao-container {
-    display: flex;
-    align-items: center;
-    gap: 1vw; /* Aumentado de 8px */
-    background: #FFFFFF;
-    padding: 0.8vw; /* Aumentado de 6px 12px */
-    border-radius: 0.8vw;
-    border: 1px solid var(--borda);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    height: fit-content;
+    display: flex; align-items: center; gap: 1vw;
+    background: #FFFFFF; padding: 0.8vw;
+    border-radius: 0.8vw; border: 1px solid var(--borda);
 }
 
-.item-clima { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 3vw; padding: 0.1vw; }
+.item-clima { display: flex; flex-direction: column; align-items: center; min-width: 3vw; }
 .item-clima .dia-nome { font-size: 0.6vw; color: var(--texto-claro); text-transform: uppercase; font-weight: 700; }
-.item-clima .icone { font-size: 1.2vw; line-height: 1; margin: 0.1vw 0; }
-.item-clima .temps { font-size: 0.8vw; font-weight: 700; color: var(--petro-azul); line-height: 1; white-space: nowrap; }
-.item-clima .temps span { color: var(--texto-claro); font-weight: 400; font-size: 0.7vw; }
-.item-clima.hoje { background: #F0FDF4; border-radius: 4px; }
-.previsao-semana { display: flex; gap: 0.4vw; }
+.item-clima .icone { font-size: 1.2vw; }
+.item-clima .temps { font-size: 0.8vw; font-weight: 700; color: var(--petro-azul); }
 
-/* 🔹 SEÇÕES GENÉRICAS */
+/* 🔹 SEÇÕES */
 section {
   background: var(--card); border-radius: var(--radius); padding: var(--pad);
   box-shadow: 0 var(--border-w) calc(var(--border-w) * 2) rgba(0,0,0,0.06);
   display: flex; flex-direction: column; overflow: hidden;
-  height: 100%; min-height: 0;
+  height: 100%;
 }
 
 section h2 {
@@ -111,241 +93,119 @@ section h2 {
 }
 
 /* 🔹 PROGRAMAÇÃO */
-.programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; min-height: 0; }
-.prog-bloco { flex: 1; min-height: 0; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
+.programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; }
+.prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
 .prog-bloco.semana { border-left-color: var(--petro-verde); }
 .prog-bloco h3 { font-size: 0.9vw; color: var(--petro-verde); margin-bottom: 0.4vw; }
 
-.lista-programacao { list-style: none; display: flex; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; min-height: 0; padding-right: 4px; }
-.lista-programacao::-webkit-scrollbar { width: 0.4vw; }
-.lista-programacao::-webkit-scrollbar-thumb { background: var(--borda); border-radius: 1vw; }
-
-.lista-programacao li {
-  display: flex; align-items: baseline; gap: 0.4vw;
-  padding: 0.4vw; background: #FFFFFF;
-  border-radius: 0.4vw;
-  font-size: 0.7vw; line-height: 1.4;
-  border-left: 3px solid var(--borda); transition: all 0.3s ease;
-}
-
-.lista-programacao .hora, .lista-programacao .dia { font-weight: 700; color: var(--petro-azul);}
-
+.lista-programacao { list-style: none; display: flex; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
+.lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); }
 .lista-programacao li.destaque { border-left-color: var(--petro-amarelo); background: #FFFBEB; font-weight: 600; }
 
-/* 🔹 CARROSSEL */
-.carrossel { position: relative; border-radius: var(--radius); overflow: hidden; background: #CBD5E1; flex: 1; min-height: 0; }
-.carrossel img, .carrossel .slide-texto { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 0.8s ease; }
-.carrossel img.ativa, .carrossel .slide-texto.ativa { opacity: 1; }
-.slide-texto { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2vw; background: linear-gradient(135deg, var(--petro-azul), #003366); color: white; }
-.slide-texto h3 { font-size: 1.5vw; color: var(--petro-amarelo); margin-bottom: 1vw; text-transform: uppercase; }
-.slide-texto p { font-size: 1vw; text-align: center; line-height: 1.5; max-width: 90%; }
-.legenda { margin-top: 0.4vw; font-size: 0.8vw; color: var(--texto-claro); text-align: center; }
+/* 🔹 DESTAQUES / CARROSSEL (PC) */
+.col-destaques { flex: 1; display: flex; flex-direction: column; height: 100%; }
+.carrossel { position: relative; border-radius: var(--radius); overflow: hidden; background: #000; flex: 1; width: 100%; }
 
-
-
-/* 🔹 VOTAÇÃO & GRAFICO */
-.logo-cobel { 
-  max-width: 90%; /* Evita que a imagem estoure o tamanho do card */
-  height: auto; 
-  margin: 0 auto; /* Ajuda na centralização caso mude o comportamento */
+.carrossel img, .carrossel .slide-texto {
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0;
+    opacity: 0; transition: opacity 0.8s ease-in-out;
+    object-fit: cover; object-position: center; z-index: 1;
 }
 
+.carrossel .ativa { opacity: 1 !important; z-index: 2; }
+
+.slide-texto {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 2vw; background: linear-gradient(135deg, var(--petro-azul), #003366); color: white; text-align: center;
+}
+.slide-texto h3 { font-size: clamp(1.2vw, 1.5vw, 1.8vw); color: var(--petro-amarelo); margin-bottom: 1vw; }
+.slide-texto p { font-size: clamp(0.8vw, 1vw, 1.2vw); line-height: 1.5; max-width: 90%; }
+
+.legenda { flex-shrink: 0; padding: 8px; font-size: 0.85vw; color: var(--texto-claro); text-align: center; background: var(--card); }
+
+/* 🔹 VOTAÇÃO E GRÁFICO (PC) */
 .col-votacao { 
-  display: flex; 
-  flex-direction: column; 
-  gap: var(--gap); 
-  height: 120%; 
-  min-height: 20; 
-  text-align: center;
+  display: flex; flex-direction: column; 
+  gap: var(--gap); height: 100%; min-height: 0; 
 }
 
-/* Altere este bloco para incluir o alinhamento flex */
 .qr-bloco, .grafico-bloco { 
-  flex: 1 1 5%; 
-  min-height: 5; 
-  background: #F8FAFC; 
-  border-radius: var(--radius); 
-  padding: var(--pad); 
-  border: 1px solid var(--borda); 
-  
-  /* 💥 ADICIONE/CORRIJA ESTAS LINHAS ABAIXO: */
-  display: flex;
-  flex-direction: column;
-  align-items: center;      /* Centraliza horizontalmente tudo que está dentro */
-  justify-content: center;   /* Centraliza verticalmente se houver espaço */
-  gap: 0.5vw;
+  flex: 1; min-height: 0;
+  background: #F8FAFC; border-radius: var(--radius); 
+  padding: var(--pad); border: 1px solid var(--borda); 
+  display: flex; flex-direction: column;
+  align-items: center; 
   overflow: hidden; 
 }
 
+/* Garante que o título fique no topo e o gráfico embaixo no PC */
+.grafico-bloco { justify-content: flex-start; }
+.grafico-bloco h3 { margin-bottom: 5px; flex-shrink: 0; font-size: 0.9vw; color: var(--petro-verde); }
 
-/* 🔹 VOTAÇÃO & GRAFICO */
+.grafico-container { 
+  width: 100%; flex: 1; 
+  position: relative; display: flex; 
+  flex-direction: column; align-items: center; justify-content: center;
+  min-height: 0;
+}
 
-.logo-cobel { width: 200px; margin: 4}
-.col-votacao { display: flex; flex-direction: column; gap: var(--gap); height: 100%; min-height: 0; text-align: center}
-.qr-bloco, .grafico-bloco { flex: 1 1 50%; min-height: 0; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border: 1px solid var(--borda); align-items: center; justify-content: above; gap: 0.2vw; overflow: hidden; }
-.qr-bloco h3, .grafico-bloco h3 { font-size: 0.9vw; color: var(--petro-verde); margin-top: 0; text-align: center; } 
-.qr-container img { width: 12vw; height: auto; border-radius: var(--radius); box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.12); }
-.info-qr { background: #FFF; padding: 0.2vw; border-radius: 0.2vw; font-size: 0.8vw; text-align: center; line-height: 1.4; width: 120%;}
-.grafico-container { width: 90%; height: 90%; align-items: center; justify-content: center; }
-.grafico-container canvas { max-width: 95%; max-height: 95%; }
-.grafico-container p { font-size: 0.90vw; color: var(--texto-claro);}
-.grafico-loading { position: absolute; font-size: 0.8vw; color: var(--texto-claro); font-style: italic; }
-.grafico-error { font-size: 0.7vw; color: #d32f2f; text-align: center; }
-
+.grafico-container canvas {
+  max-width: 95% !important; max-height: 90% !important;
+}
 
 /* 🔹 TICKER */
-.ticker-container { background: var(--card); color: var(--petro-azul); border-radius: var(--radius); overflow: hidden; height: 3vh; display: flex; align-items: center; box-shadow: 0 calc(-1 * var(--border-w)) calc(var(--border-w) * 3) rgba(0,0,0,0.15); }
-.ticker-wrapper { display: flex; width: 100%; height: 100%; align-items: center; position: relative; }
-.ticker-content { flex: 1; overflow: hidden; white-space: nowrap; height: 100%; display: flex; align-items: center; }
-.ticker-text { display: inline-block; padding-left: 100%; animation: scroll-ticker 45s linear infinite; font-size: 0.9vw; font-weight: 500; }
+.ticker-container { background: var(--card); color: var(--petro-azul); border-radius: var(--radius); overflow: hidden; height: 3vh; display: flex; align-items: center; }
+.ticker-wrapper { display: flex; width: 100%; height: 100%; align-items: center; }
+.ticker-content { flex: 1; overflow: hidden; white-space: nowrap; }
+.ticker-text { display: inline-block; padding-left: 100%; animation: scroll-ticker 45s linear infinite; font-size: 0.9vw; }
 @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-.ticker-hora { background: rgba(0,0,0,0.25); padding: 0 1vw; height: 100%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9vw; border-left: 1px solid rgba(255,255,255,0.2); min-width: 12vw; z-index: 20; }
+.ticker-hora { background: rgba(0,0,0,0.05); padding: 0 1vw; height: 100%; display: flex; align-items: center; font-weight: 700; font-size: 0.9vw; min-width: 12vw; }
 
 /* ==========================================================================
    MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    
-    html, body {
-        width: 100%;
-        height: auto;
-        overflow-y: auto; /* Permite rolagem vertical no celular */
-        font-size: 14px; /* Base estável para fontes no mobile */
-    }
+    html, body { height: auto; overflow-y: auto; font-size: 14px; width: 100%; }
+    .painel-container { height: auto; padding: 10px; gap: 15px; }
 
-    .painel-container {
-        height: auto;
-        padding: 12px;
-        gap: 16px;
-    }
+    .topo { grid-template-columns: auto 1fr; height: auto; padding: 10px; }
+    .lado-direito, .esconder-mobile { display: none !important; }
+    .logo-petrobras { height: 45px; }
+    .centro-titulo h1 { font-size: 1.5rem; }
+    .centro-titulo h2 { font-size: 0.9rem; }
 
-    /* 🔹 AJUSTE DO TOPO (HEADER) */
-    .topo {
-        grid-template-columns: auto 1fr; /* Remove a coluna da previsão */
-        height: auto;
-        padding: 12px;
-    }
+    .conteudo-grid { display: flex; flex-direction: column; height: auto; overflow: visible; gap: 15px; }
+    section { height: auto; padding: 15px; min-height: unset; }
+    section h2 { font-size: 1.1rem; }
 
-    /* Esconde a previsão do tempo e o bloco de QR Code */
-    .lado-direito, #previsao-widget, .esconder-mobile {
-        display: none !important;
-    }
+    /* PROGRAMAÇÃO EM 2 COLUNAS NO MOBILE */
+    .programacao-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: auto; }
+    .prog-bloco { padding: 8px; border-left-width: 4px; height: auto; min-height: unset; }
+    .prog-bloco h3 { font-size: 0.9rem; }
+    .lista-programacao li { font-size: 0.75rem; flex-direction: column; align-items: flex-start; }
 
-    .logo-petrobras {
-        height: 50px; /* Tamanho controlado para telas pequenas */
+    /* CARROSSEL NO MOBILE */
+    .col-destaques { display: block; height: auto; }
+    .carrossel { height: 280px !important; display: block; position: relative; margin-bottom: 5px; }
+    .carrossel img, .carrossel .slide-texto { 
+        opacity: 0; width: 100% !important; height: 100% !important; 
+        object-fit: cover !important; position: absolute; 
     }
+    .carrossel .ativa { opacity: 1 !important; z-index: 5; }
+    .legenda { font-size: 0.8rem; position: relative; padding: 5px; }
 
-    .centro-titulo h1 {
-        font-size: 1.8rem;
+    /* GRÁFICO NO MOBILE (ALTURA CONTROLADA) */
+    .col-votacao { height: auto !important; min-height: unset !important; gap: 15px; }
+    .grafico-bloco { 
+        height: 320px !important; /* Altura firme para não esticar o site */
+        min-height: 320px !important; 
+        padding: 10px !important; 
+        justify-content: center;
     }
-    .centro-titulo h2 {
-        font-size: 1rem;
-    }
+    .grafico-bloco h3 { font-size: 1rem; }
+    .grafico-container { height: 100% !important; width: 100% !important; }
 
-    /* 🔹 REORDENAÇÃO DO GRID EM UMA COLUNA */
-    .conteudo-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        height: auto;
-        overflow: visible;
-    }
-
-    section {
-        height: auto;
-        min-height: unset;
-        padding: 16px;
-        border-radius: 12px;
-    }
-
-    section h2 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-    }
-
-    /* 🔹 PROGRAMAÇÃO EM LISTA VERTICAL */
-    .programacao-container {
-        height: auto;
-        gap: 12px;
-    }
-
-    .prog-bloco {
-        height: auto;
-        padding: 12px;
-        border-left-width: 6px;
-    }
-
-    .prog-bloco h3 {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
-    }
-
-    .lista-programacao {
-        overflow-y: visible; /* Usa a rolagem da página inteira */
-        gap: 8px;
-    }
-
-    .lista-programacao li {
-        font-size: 0.95rem;
-        padding: 10px;
-    }
-
-    /* 🔹 CARROSSEL ADAPTADO */
-    .carrossel {
-        height: 250px; /* Fixa uma altura excelente para o celular */
-    }
-
-    .slide-texto h3 {
-        font-size: 1.3rem;
-    }
-
-    .slide-texto p {
-        font-size: 0.95rem;
-    }
-
-    .legenda {
-        font-size: 0.85rem;
-        margin-top: 6px;
-    }
-
-    /* 🔹 BLOCO DO GRÁFICO */
-    .col-votacao {
-        height: auto;
-    }
-
-    .grafico-bloco {
-        height: 380px; /* Garante espaço para o gráfico e para a legenda */
-        padding: 16px;
-    }
-
-    .grafico-bloco h3 {
-        font-size: 1.1rem;
-    }
-
-    .grafico-container {
-        width: 100%;
-        height: 100%;
-    }
-
-    .grafico-container p {
-        font-size: 0.9rem;
-        margin-top: 8px;
-    }
-
-    /* 🔹 RODAPÉ (TICKER) */
-    .ticker-container {
-        height: 40px;
-    }
-
-    .ticker-text {
-        font-size: 0.9rem;
-        animation-duration: 25s; /* Um pouco mais rápido devido à tela menor */
-    }
-
-    .ticker-hora {
-        font-size: 0.85rem;
-        min-width: 140px;
-        padding: 0 8px;
-    }
+    .ticker-container { height: 35px; }
+    .ticker-text { font-size: 0.8rem; }
+    .ticker-hora { font-size: 0.8rem; min-width: 120px; }
 }

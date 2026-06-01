@@ -35,6 +35,32 @@ const destaques = [
 
 // 🔹 FUNÇÕES
 
+// 🔹 ADAPTA O TEXTO DE VOTAÇÃO SE FOR ACESSADO POR CELULAR
+function adaptarLinkVotacaoMobile() {
+    const linkVotacao = document.getElementById('link-votacao');
+    
+    if (linkVotacao) {
+        // Verifica se a largura da tela é menor ou igual a 768px (Mobile)
+        if (window.innerWidth <= 768) {
+            linkVotacao.innerText = "📲 Clique aqui para votar!";
+            linkVotacao.href = configuracoes.urlinteracao;
+            
+            // Adiciona um estilo visual amigável para parecer um botão/link clicável
+            linkVotacao.style.color = "var(--petro-azul)";
+            linkVotacao.style.fontWeight = "bold";
+            linkVotacao.style.textDecoration = "underline";
+            linkVotacao.style.cursor = "pointer";
+        } else {
+            // Caso a janela seja redimensionada de volta para o PC
+            linkVotacao.innerText = "Use o QR Code acima para votar!";
+            linkVotacao.href = "#";
+            linkVotacao.style.color = "var(--texto-claro)";
+            linkVotacao.style.fontWeight = "normal";
+            linkVotacao.style.textDecoration = "none";
+            linkVotacao.style.cursor = "default";
+        }
+    }
+}
 
 function renderizarProgramacao() {
     // Renderizar Dia
@@ -433,13 +459,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     renderizarProgramacao();
     renderizarCarrossel();
-    gerarQRCodes(); // ✅ Substitui a chamada antiga
+    gerarQRCodes(); 
+
+    // Adaptar o link para mobile na inicialização e caso mude o tamanho da janela
+    adaptarLinkVotacaoMobile();
+    window.addEventListener('resize', adaptarLinkVotacaoMobile);
 
     // 🔹 Carrega gráfico de votação
     carregarGraficoVotacao();
     setInterval(carregarGraficoVotacao, 30000); // Atualiza a cada 30s
 
-    iniciarCarrossel(); //setInterval(rotacionarImagens, configuracoes.intervaloImagens);
+    iniciarCarrossel(); 
     setInterval(destacarEventoAtual, 60000);
     setTimeout(() => window.location.reload(), 4 * 60 * 60 * 1000);
 });
