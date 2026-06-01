@@ -61,7 +61,7 @@ html, body {
 .lado-esquerdo { justify-content: flex-start; }
 .lado-direito { justify-content: flex-end; align-items: center;}
 
-.logo-petrobras { height: 11vh; width: auto; object-fit: contain; }
+.logo-petrobras { height: 9vh; width: auto; object-fit: contain; }
 
 .centro-titulo { text-align: center; }
 .centro-titulo h1 { font-size: 2.2vw; font-weight: 800; color: var(--petro-azul); margin: 0; }
@@ -170,7 +170,7 @@ section h2 {
 
     .topo { grid-template-columns: auto 1fr; height: auto; padding: 10px; }
     .lado-direito, .esconder-mobile { display: none !important; }
-    .logo-petrobras { height: 45px; }
+    .logo-petrobras { height: 50px; }
     .centro-titulo h1 { font-size: 1.5rem; }
     .centro-titulo h2 { font-size: 0.9rem; }
 
