@@ -134,7 +134,9 @@ section h2 {
 .programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; }
 .prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
 .prog-bloco.semana { border-left-color: var(--petro-verde); }
-.prog-bloco h3 { font-size: 1vw; color: var(--petro-verde); margin-bottom: 0.4vw; }
+.prog-bloco h3 { 
+        font-size: 1rem !important; /* Títulos "Rotina diária" e "Esta Semana" */
+    }
 
 .lista-programacao { list-style: none; display: flex; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
 .lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); }
@@ -151,14 +153,55 @@ section h2 {
 
 .carrossel .ativa { opacity: 1 !important; z-index: 2; }
 
+/* 🔹 SLIDE DE TEXTO (CORRIGIDO: FUNDO E CENTRALIZAÇÃO) */
 .slide-texto {
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 2vw; background: linear-gradient(135deg, var(--petro-azul), #003366); color: white; text-align: center;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important; /* Centraliza horizontalmente */
+    text-align: center !important;    /* Centraliza as linhas de texto */
+    padding: 2vw;
+    background: linear-gradient(135deg, var(--petro-azul), #003366) !important; /* Cor azul de fundo */
+    color: white !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
 }
-.slide-texto h3 { font-size: clamp(1.2vw, 1.5vw, 1.8vw); color: var(--petro-amarelo); margin-bottom: 1vw; }
-.slide-texto p { font-size: clamp(0.8vw, 1vw, 1.2vw); line-height: 1.5; max-width: 90%; }
 
-.legenda { flex-shrink: 0; padding: 8px; font-size: 1.5vw; color: var(--texto-claro); text-align: center; background: var(--card); }
+/* Garante que o slide de texto ativo apareça */
+.carrossel .slide-texto.ativa {
+    opacity: 1 !important;
+    z-index: 2;
+}
+
+.slide-texto h3 {
+    font-size: clamp(1.2vw, 1.5vw, 1.8vw);
+    color: var(--petro-amarelo);
+    margin-bottom: 1vw;
+}
+
+.slide-texto p {
+    font-size: clamp(0.8vw, 1vw, 1.2vw);
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+/* 🔹 LEGENDA (PC) */
+.legenda {
+    flex-shrink: 0;
+    padding: 10px;
+    font-size: 0.85vw;
+    color: var(--texto);
+    background: var(--card); /* Fundo branco para contraste */
+    text-align: center;
+    width: 100%;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
 
 .carrossel-wrapper {
     position: relative;
@@ -179,20 +222,20 @@ section h2 {
     border-radius: var(--radius);
 }
 
-/* Botões ajustados */
+/* 🔹 BOTÕES DO CARROSSEL - ESCONDIDOS NO PC */
 .btn-carrossel {
+    display: none; /* Oculta no PC conforme solicitado */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     background: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
-    font-size: 2.5vw;
-    padding: 10px;
     cursor: pointer;
     z-index: 10;
     border-radius: 50%;
-    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-carrossel:hover { background: var(--petro-amarelo); color: var(--petro-azul); }
@@ -236,6 +279,10 @@ section h2 {
 .ticker-text { display: inline-block; padding-left: 100%; animation: scroll-ticker 45s linear infinite; font-size: 0.9vw; }
 @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 .ticker-hora { background: rgba(0,0,0,0.05); padding: 0 1vw; height: 100%; display: flex; align-items: center; font-weight: 700; font-size: 0.9vw; min-width: 12vw; }
+
+
+
+
 
 /* ==========================================================================
    MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
@@ -283,7 +330,7 @@ section h2 {
     }
 
     .centro-titulo h1 {
-        font-size: 1.3rem !important;
+        font-size: 1.5rem !important;
         line-height: 1;
     }
 
@@ -307,6 +354,18 @@ section h2 {
         padding: 15px; 
     }
 
+    /* Títulos principais: Programação, Destaques, etc */
+    section h2 { 
+        font-size: 1.0rem !important; /* Aumentado para destaque */
+        margin-bottom: 12px;
+    }
+
+    /* Título do Gráfico */
+    .grafico-bloco h3 { 
+        font-size: 1.0rem !important; 
+        margin-bottom: 10px;
+    }
+
     /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado */
     .programacao-container { 
         display: grid; 
@@ -322,12 +381,14 @@ section h2 {
         min-height: unset; 
     }
 
-    .prog-bloco h3 { font-size: 0.9rem; }
+    .prog-bloco h3 { 
+        font-size: 1rem !important; /* Títulos "Rotina diária" e "Esta Semana" */
+    }
 
     .lista-programacao li { 
-        font-size: 0.75rem; 
-        flex-direction: column; 
-        align-items: flex-start; 
+        font-size: 0.9rem !important; /* Tamanho de leitura confortável */
+        padding: 8px;
+        line-height: 1.2;
     }
 
     /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
@@ -367,6 +428,38 @@ section h2 {
         opacity: 1 !important; 
         z-index: 5 !important; 
     }
+
+    /* 🔹 MOSTRAR BOTÕES APENAS NO MOBILE */
+    .btn-carrossel {
+        display: flex !important; 
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1.5rem !important;
+    }
+
+/* 🔹 SLIDE DE TEXTO NO MOBILE (CORRIGIDO) */
+    .slide-texto {
+        background: linear-gradient(135deg, var(--petro-azul), #003366) !important;
+        padding: 20px !important;
+    }
+
+    .slide-texto h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .slide-texto p {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .legenda {
+        font-size: 0.9rem !important;
+        padding: 8px !important;
+        background: #fff !important;
+        color: #333 !important;
+    }
+
 
     .btn-carrossel {
         width: 40px !important;
