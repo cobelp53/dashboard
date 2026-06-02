@@ -123,43 +123,32 @@ function destacarEventoAtual() {
 
 }
 
-function renderizarCarrossel() {
-    const container = document.getElementById('carrossel-imagens');
-    container.innerHTML = ''; // Limpa container
-
-    destaques.forEach((item, i) => {
-        if (item.url) {
-            // É uma IMAGEM
-            const img = document.createElement('img');
-            img.src = item.url;
-            img.alt = item.legenda || '';
-            img.className = i === 0 ? 'ativa' : '';
-            container.appendChild(img);
-        } else if (item.texto) {
-            // É um SLIDE DE TEXTO
-            const div = document.createElement('div');
-            div.className = `slide-texto ${i === 0 ? 'ativa' : ''}`;
-            
-            // Estrutura interna do slide de texto
-            let htmlContent = '';
-            if (item.titulo) {
-                htmlContent += `<h3>${item.titulo}</h3>`;
-            }
-            htmlContent += `<p>${item.texto}</p>`;
-            
-            div.innerHTML = htmlContent;
-            container.appendChild(div);
-        }
-    });
-
-    // Atualiza a legenda inicial
-    atualizarLegenda(0);
-}
 
 let indiceImagem = 0;
 let timerCarrossel;
 
-function rotacionarImagens() {
+function renderizarCarrossel() {
+    const container = document.getElementById('carrossel-imagens');
+    if (!container) return;
+    container.innerHTML = ''; 
+
+    destaques.forEach((item, i) => {
+        if (item.url) {
+            const img = document.createElement('img');
+            img.src = item.url;
+            img.className = i === 0 ? 'ativa' : '';
+            container.appendChild(img);
+        } else if (item.texto) {
+            const div = document.createElement('div');
+            div.className = `slide-texto ${i === 0 ? 'ativa' : ''}`;
+            div.innerHTML = (item.titulo ? `<h3>${item.titulo}</h3>` : '') + `<p>${item.texto}</p>`;
+            container.appendChild(div);
+        }
+    });
+    atualizarLegenda(0);
+}
+
+/*function rotacionarImagens() {
     const slides = document.querySelectorAll('#carrossel-imagens > *'); // Seleciona imgs E divs de texto
     if (slides.length === 0) return;
 
@@ -175,31 +164,58 @@ function rotacionarImagens() {
     // Atualiza a legenda externa
     atualizarLegenda(indiceImagem);
 }
+*/
+// 🔹 FUNÇÃO PRINCIPAL PARA MOVER O SLIDE (Aceita direção 1 ou -1)
+function mudarSlide(direcao) {
+    const slides = document.querySelectorAll('#carrossel-imagens > *');
+    if (slides.length === 0) return;
+
+    // Remove classe ativa do atual
+    slides[indiceImagem].classList.remove('ativa');
+
+    // Calcula próximo índice de forma infinita
+    indiceImagem = (indiceImagem + direcao + slides.length) % slides.length;
+
+    // Adiciona classe ativa ao próximo
+    slides[indiceImagem].classList.add('ativa');
+
+    // Atualiza a legenda
+    atualizarLegenda(indiceImagem);
+}
+
+// 🔹 FUNÇÃO PARA CLIQUE MANUAL (Reseta o tempo para não pular rápido)
+function mudarSlideManual(direcao) {
+    clearTimeout(timerCarrossel); 
+    mudarSlide(direcao);          
+    iniciarCarrossel();           
+}
+
 
 function iniciarCarrossel() {
-
     clearTimeout(timerCarrossel);
-    const tempoAtual =
-        destaques[indiceImagem].tempo ||
-        configuracoes.intervaloImagens;
+    const tempoAtual = destaques[indiceImagem].tempo || configuracoes.intervaloImagens;
+    
     timerCarrossel = setTimeout(() => {
-        rotacionarImagens();
+        mudarSlide(1); // Chama a função correta
         iniciarCarrossel();
     }, tempoAtual);
-
 }
 
 function atualizarLegenda(index) {
     const item = destaques[index];
     const elLegenda = document.getElementById('legenda-imagem');
-    
-    if (item && item.legenda) {
-        elLegenda.textContent = item.legenda;
-        elLegenda.style.display = 'inline-block';
-    } else {
-        elLegenda.style.display = 'none';
+    if (elLegenda) {
+        if (item && item.legenda) {
+            elLegenda.textContent = item.legenda;
+            elLegenda.style.display = 'block';
+        } else {
+            elLegenda.style.display = 'none';
+        }
     }
 }
+
+
+
 
 function gerarQRCodes() {
     const tamanho = 185; // Tamanho ajustado para caber os dois verticalmente

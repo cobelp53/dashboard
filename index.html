@@ -14,14 +14,20 @@
             <div class="lado-esquerdo">
                 <div class="logo-area">
                      <!-- Logo da Petrobras -->
-                    <img src="imagens/logocobel_reduzido.png" alt="Logo Petrobras" class="logo-petrobras">
+                    <img src="imagens/logopetrobras.png" alt="Logo Petrobras" class="logo-petrobras">
                     
                 </div>
             </div>
 
             <div class="centro-titulo">
-                <h1>COBEL - P53</h1>
-                <h2>COMISSÃO DE BEM ESTAR E LAZER</h2>
+                <div class="titulo-container-flex">
+                    <img src="imagens/logocobel_reduzido.png" alt="Logo Cobel" class="logo-cobel-topo">
+        
+                    <div class="titulo-texto">
+                        <h1>COBEL - P53</h1>
+                        <h2>COMISSÃO DE BEM ESTAR E LAZER</h2>
+                    </div>
+                </div>
             </div>
 
             <div class="lado-direito">
@@ -67,7 +73,12 @@
             <!-- Coluna Central: Imagens/Destaques -->
             <section class="col-destaques">
                 <h2>🖼️ DESTAQUES</h2>
-                <div id="carrossel-imagens" class="carrossel"></div>
+                <div class="carrossel-wrapper">
+                    <div id="carrossel-imagens" class="carrossel"></div>
+        
+                    <button class="btn-carrossel anterior" onclick="mudarSlideManual(-1)">&#10094;</button>
+                    <button class="btn-carrossel proximo" onclick="mudarSlideManual(1)">&#10095;</button>
+                </div>
                 <div id="legenda-imagem" class="legenda"></div>
             </section>
 

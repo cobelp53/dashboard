@@ -61,11 +61,49 @@ html, body {
 .lado-esquerdo { justify-content: flex-start; }
 .lado-direito { justify-content: flex-end; align-items: center;}
 
-.logo-petrobras { height: 9vh; width: auto; object-fit: contain; }
+.logo-petrobras { height: 10vh; width: auto; object-fit: contain; }
 
+/* 🔹 NOVO: CONTAINER PARA LOGO + TITULO */
+.titulo-container-flex {
+    display: flex;
+    align-items: center; /* Alinha o logo verticalmente com o centro das duas linhas de texto */
+    justify-content: center;
+    gap: 1.5vw; /* Espaço entre o logo e o texto */
+}
+
+.logo-cobel-topo {
+    height: 7vh; /* Altura proporcional ao topo */
+    width: auto;
+    object-fit: contain;
+}
+
+.titulo-texto {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Texto alinhado à esquerda para "abraçar" o logo que está na esquerda */
+}
+
+/* Ajuste nos títulos para não ficarem com margens estranhas */
+.centro-titulo h1 { 
+    font-size: 2.2vw; 
+    font-weight: 800; 
+    color: var(--petro-azul); 
+    margin: 0; 
+    line-height: 1;
+}
+
+.centro-titulo h2 { 
+    font-size: 1.2vw; /* Reduzi um pouco para equilibrar com o logo */
+    color: var(--petro-azul); 
+    margin: 0; 
+    line-height: 1.2;
+}
+
+/*
 .centro-titulo { text-align: center; }
 .centro-titulo h1 { font-size: 2.2vw; font-weight: 800; color: var(--petro-azul); margin: 0; }
 .centro-titulo h2 { font-size: 1.5vw; color: var(--petro-azul); margin: 0; } 
+*/
 
 .previsao-container {
     display: flex; align-items: center; gap: 1vw;
@@ -96,7 +134,7 @@ section h2 {
 .programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; }
 .prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
 .prog-bloco.semana { border-left-color: var(--petro-verde); }
-.prog-bloco h3 { font-size: 0.9vw; color: var(--petro-verde); margin-bottom: 0.4vw; }
+.prog-bloco h3 { font-size: 1vw; color: var(--petro-verde); margin-bottom: 0.4vw; }
 
 .lista-programacao { list-style: none; display: flex; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
 .lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); }
@@ -104,7 +142,6 @@ section h2 {
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
 .col-destaques { flex: 1; display: flex; flex-direction: column; height: 100%; }
-.carrossel { position: relative; border-radius: var(--radius); overflow: hidden; background: #000; flex: 1; width: 100%; }
 
 .carrossel img, .carrossel .slide-texto {
     width: 100%; height: 100%; position: absolute; top: 0; left: 0;
@@ -121,7 +158,46 @@ section h2 {
 .slide-texto h3 { font-size: clamp(1.2vw, 1.5vw, 1.8vw); color: var(--petro-amarelo); margin-bottom: 1vw; }
 .slide-texto p { font-size: clamp(0.8vw, 1vw, 1.2vw); line-height: 1.5; max-width: 90%; }
 
-.legenda { flex-shrink: 0; padding: 8px; font-size: 0.85vw; color: var(--texto-claro); text-align: center; background: var(--card); }
+.legenda { flex-shrink: 0; padding: 8px; font-size: 1.5vw; color: var(--texto-claro); text-align: center; background: var(--card); }
+
+.carrossel-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+}
+
+.carrossel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+    background: #000;
+    border-radius: var(--radius);
+}
+
+/* Botões ajustados */
+.btn-carrossel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    font-size: 2.5vw;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.btn-carrossel:hover { background: var(--petro-amarelo); color: var(--petro-azul); }
+.btn-carrossel.anterior { left: 15px; }
+.btn-carrossel.proximo { right: 15px; }
 
 /* 🔹 VOTAÇÃO E GRÁFICO (PC) */
 .col-votacao { 
@@ -165,46 +241,168 @@ section h2 {
    MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    html, body { height: auto; overflow-y: auto; font-size: 14px; width: 100%; }
-    .painel-container { height: auto; padding: 10px; gap: 15px; }
-
-    .topo { grid-template-columns: auto 1fr; height: auto; padding: 10px; }
-    .lado-direito, .esconder-mobile { display: none !important; }
-    .logo-petrobras { height: 50px; }
-    .centro-titulo h1 { font-size: 1.5rem; }
-    .centro-titulo h2 { font-size: 0.9rem; }
-
-    .conteudo-grid { display: flex; flex-direction: column; height: auto; overflow: visible; gap: 15px; }
-    section { height: auto; padding: 15px; min-height: unset; }
-    section h2 { font-size: 1.1rem; }
-
-    /* PROGRAMAÇÃO EM 2 COLUNAS NO MOBILE */
-    .programacao-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: auto; }
-    .prog-bloco { padding: 8px; border-left-width: 4px; height: auto; min-height: unset; }
-    .prog-bloco h3 { font-size: 0.9rem; }
-    .lista-programacao li { font-size: 0.75rem; flex-direction: column; align-items: flex-start; }
-
-    /* CARROSSEL NO MOBILE */
-    .col-destaques { display: block; height: auto; }
-    .carrossel { height: 280px !important; display: block; position: relative; margin-bottom: 5px; }
-    .carrossel img, .carrossel .slide-texto { 
-        opacity: 0; width: 100% !important; height: 100% !important; 
-        object-fit: cover !important; position: absolute; 
+    html, body { 
+        height: auto; 
+        overflow-y: auto; 
+        font-size: 14px; 
+        width: 100%; 
     }
-    .carrossel .ativa { opacity: 1 !important; z-index: 5; }
-    .legenda { font-size: 0.8rem; position: relative; padding: 5px; }
 
-    /* GRÁFICO NO MOBILE (ALTURA CONTROLADA) */
-    .col-votacao { height: auto !important; min-height: unset !important; gap: 15px; }
+    .painel-container { 
+        height: auto; 
+        padding: 10px; 
+        gap: 15px; 
+    }
+
+    /* 🔹 HEADER MOBILE: Esconde Petrobras e Previsão, Centraliza Cobel */
+    .lado-esquerdo, .lado-direito, .esconder-mobile { 
+        display: none !important; 
+    }
+
+    .topo {
+        grid-template-columns: 1fr !important;
+        height: auto;
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .titulo-container-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .logo-cobel-topo {
+        height: 45px !important;
+    }
+
+    .titulo-texto {
+        text-align: left;
+    }
+
+    .centro-titulo h1 {
+        font-size: 1.3rem !important;
+        line-height: 1;
+    }
+
+    .centro-titulo h2 {
+        font-size: 0.75rem !important;
+        white-space: nowrap;
+    }
+
+    /* 🔹 GRID MOBILE: Coluna única */
+    .conteudo-grid { 
+        display: flex; 
+        flex-direction: column; 
+        height: auto; 
+        overflow: visible; 
+        gap: 15px; 
+    }
+
+    section { 
+        height: auto !important; 
+        min-height: unset !important; 
+        padding: 15px; 
+    }
+
+    /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado */
+    .programacao-container { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 8px; 
+        height: auto; 
+    }
+
+    .prog-bloco { 
+        padding: 8px; 
+        border-left-width: 4px; 
+        height: auto; 
+        min-height: unset; 
+    }
+
+    .prog-bloco h3 { font-size: 0.9rem; }
+
+    .lista-programacao li { 
+        font-size: 0.75rem; 
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+
+    /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
+    .col-destaques { 
+        display: block !important; 
+        height: auto !important; 
+    }
+
+    .carrossel-wrapper {
+        position: relative !important;
+        height: 280px !important; /* 💡 Isso aqui faz a imagem aparecer */
+        width: 100% !important;
+        margin-bottom: 5px;
+        display: block !important;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .carrossel {
+        height: 100% !important;
+        width: 100% !important;
+        position: relative !important;
+    }
+
+    .carrossel img, .carrossel .slide-texto { 
+        opacity: 0; 
+        width: 100% !important; 
+        height: 100% !important; 
+        object-fit: cover !important; 
+        position: absolute !important; 
+        top: 0; 
+        left: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    .carrossel .ativa { 
+        opacity: 1 !important; 
+        z-index: 5 !important; 
+    }
+
+    .btn-carrossel {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.2rem !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        z-index: 10 !important;
+    }
+
+    .legenda { 
+        font-size: 0.8rem; 
+        position: relative; 
+        padding: 5px; 
+        text-align: center;
+    }
+
+    /* 🔹 GRÁFICO MOBILE */
+    .col-votacao { 
+        height: auto !important; 
+        min-height: unset !important; 
+        gap: 15px; 
+    }
+
     .grafico-bloco { 
-        height: 320px !important; /* Altura firme para não esticar o site */
+        height: 320px !important; 
         min-height: 320px !important; 
         padding: 10px !important; 
         justify-content: center;
     }
-    .grafico-bloco h3 { font-size: 1rem; }
-    .grafico-container { height: 100% !important; width: 100% !important; }
 
+    .grafico-container { 
+        height: 100% !important; 
+        width: 100% !important; 
+    }
+
+    /* 🔹 TICKER MOBILE */
     .ticker-container { height: 35px; }
     .ticker-text { font-size: 0.8rem; }
     .ticker-hora { font-size: 0.8rem; min-width: 120px; }
