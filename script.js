@@ -12,7 +12,7 @@ const programacaoDia = [
 const programacaoSemana = [
     { dia: "Dom", evento: "🥩 Churrasco de 11h ás 13h" },
     { dia: "Seg", evento: "🎤 Karaokê às 19h no cinema" },
-    { dia: "Ter", evento: "🍔 Hambúrguer de 21h às 22h"  },
+    { dia: "Ter", evento: "🏋🏽‍♂️ Dia livre"  },
     { dia: "Qua", evento: "🍕 Pizza de 21h às 22h" },
     { dia: "Qui", evento: "🎬 Cinema às 20h" },
     { dia: "Sex", evento: "🍔 Hambúrguer de 21h às 22h" },
