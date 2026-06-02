@@ -130,18 +130,19 @@ section {
 
 section h2 {
   font-size: 0.9vw; color: var(--petro-azul);
-  margin-bottom: 0.3vw; padding-bottom: 0.3vw;
+  margin-bottom: 0.8vw; padding-bottom: 0.3vw;
   border-bottom: 2px solid var(--borda); display: flex; align-items: center; gap: 0.7vw;
 }
 
 /* 🔹 PROGRAMAÇÃO */
 .programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; }
-.prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(3vw); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
+.prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(12vw); border-left: 0.5vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
 .prog-bloco.semana { border-left-color: var(--petro-verde); }
 .prog-bloco h3 { 
         font-size: 0.9vw;
         color: var(--petro-verde);
         margin-bottom: 0.8vw !important; /* Aumenta o espaço abaixo do título */
+        margin-left: 2vw;
         padding-bottom: 0.4vw;
         border-bottom: 1px solid rgba(0,0,0,0.05); /* Linha divisória sutil */
         font-weight: 700;
@@ -150,7 +151,7 @@ section h2 {
     }
 
 .lista-programacao { list-style: none; display: flex; margin-top: 0.1vw; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
-.lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); } */
+.lista-programacao li { display: flex; align-items: baseline; gap: 0.8vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 1vw; border-left: 3px solid var(--borda); } */
 
 /* Um leve arredondamento extra nos itens da lista para suavizar 
 .lista-programacao li {
