@@ -199,13 +199,13 @@ section h2 {
 }
 
 .slide-texto h3 {
-    font-size: clamp(1.2vw, 1.5vw, 1.8vw);
+    font-size: clamp(1.2vw, 2.5vw, 3.0vw);
     color: var(--petro-amarelo);
     margin-bottom: 1vw;
 }
 
 .slide-texto p {
-    font-size: clamp(0.8vw, 1vw, 1.2vw);
+    font-size: clamp(0.8vw, 1.5vw, 2.0vw);
     line-height: 1.5;
     max-width: 90%;
 }
