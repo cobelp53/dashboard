@@ -1,9 +1,10 @@
 :root {
-    --petro-verde: #006837;
+    --petro-verde: #10422a; /*#006837;*/
     --petro-azul: #004B87;
     --petro-amarelo: #FDB913;
-    --bg: #F4F5F7;
-    --card: #FFFFFF;
+    /*--bg: #F4F5F7; */
+    --bg: #87bafa; /* Um cinza levemente azulado */
+    --card: #ffffff;
     --texto: #1E293B;
     --texto-claro: #64748B;
     --borda: #E2E8F0;
@@ -26,6 +27,8 @@ html, body {
     font-size: var(--font-base);
     line-height: 1.45;
     background-color: var(--petro-verde);
+    background-image: radial-gradient(#d1d5db 0.2px, transparent 0.2px);
+    background-size: 4px 4px; /* Tamanho do padrão */
 }
 
 .painel-container {
@@ -122,6 +125,7 @@ section {
   box-shadow: 0 var(--border-w) calc(var(--border-w) * 2) rgba(0,0,0,0.06);
   display: flex; flex-direction: column; overflow: hidden;
   height: 100%;
+
 }
 
 section h2 {
@@ -135,11 +139,25 @@ section h2 {
 .prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(--pad); border-left: 0.6vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
 .prog-bloco.semana { border-left-color: var(--petro-verde); }
 .prog-bloco h3 { 
-        font-size: 1rem !important; /* Títulos "Rotina diária" e "Esta Semana" */
+        font-size: 0.9vw;
+        color: var(--petro-verde);
+        margin-bottom: 0.8vw !important; /* Aumenta o espaço abaixo do título */
+        padding-bottom: 0.4vw;
+        border-bottom: 1px solid rgba(0,0,0,0.05); /* Linha divisória sutil */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05vw; /* Títulos "Rotina diária" e "Esta Semana" */
     }
 
-.lista-programacao { list-style: none; display: flex; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
-.lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); }
+.lista-programacao { list-style: none; display: flex; margin-top: 0.3vw; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
+.lista-programacao li { display: flex; align-items: baseline; gap: 0.4vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 0.7vw; border-left: 3px solid var(--borda); } */
+
+/* Um leve arredondamento extra nos itens da lista para suavizar 
+.lista-programacao li {
+    border-radius: 0.6vw;
+    margin-bottom: 0.2vw;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);} */
+
 .lista-programacao li.destaque { border-left-color: var(--petro-amarelo); background: #FFFBEB; font-weight: 600; }
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
@@ -195,7 +213,7 @@ section h2 {
 .legenda {
     flex-shrink: 0;
     padding: 10px;
-    font-size: 0.85vw;
+    font-size: 1.5vw;
     color: var(--texto);
     background: var(--card); /* Fundo branco para contraste */
     text-align: center;
@@ -249,12 +267,40 @@ section h2 {
 }
 
 .qr-bloco, .grafico-bloco { 
+  /*padding: 1.2vw !important; /* Mais respiro nas bordas do card */
+  /*  justify-content: space-between !important; */
+  
   flex: 1; min-height: 0;
   background: #F8FAFC; border-radius: var(--radius); 
   padding: var(--pad); border: 1px solid var(--borda); 
   display: flex; flex-direction: column;
-  align-items: center; 
-  overflow: hidden; 
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: hidden;
+}
+.qr-bloco h3 { 
+    margin-top: 0vw;
+    margin-bottom: 0.5vw;
+    font-size: 0.9vw; 
+    color: var(--petro-verde); 
+}
+
+/* Espaço da instrução para o QR Code */
+.qr-bloco p.instrucao {
+    font-size: 0.8vw;
+    color: var(--texto-claro);
+    max-width: 90%;
+    line-height: 1.3;
+    margin-bottom: 1vw; /* Empurra o QR Code um pouco para baixo */
+}
+
+/* Ajuste do tamanho e sombra do QR Code para ele não parecer "perdido" */
+.qr-container img { 
+    width: 10.5vw; /* Aumentei levemente */
+    height: auto; 
+    border-radius: 1vw; 
+    box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1); /* Sombra mais suave e profunda */
+    border: 0 4px 10px rgba(0,0,0,0.1); /*0.5vw solid white; /* Moldura branca para destacar o QR */
 }
 
 /* Garante que o título fique no topo e o gráfico embaixo no PC */
@@ -266,6 +312,17 @@ section h2 {
   position: relative; display: flex; 
   flex-direction: column; align-items: center; justify-content: center;
   min-height: 0;
+}
+/* No PC, esconde o título mobile e mostra o de PC */
+.texto-mobile { display: none; }
+.texto-pc { display: inline; }
+
+/* Título interno do gráfico visível no PC */
+.titulo-interno-grafico {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9vw;
+    color: var(--petro-verde);
 }
 
 .grafico-container canvas {
@@ -483,11 +540,23 @@ section h2 {
         gap: 15px; 
     }
 
-    .grafico-bloco { 
-        height: 320px !important; 
-        min-height: 320px !important; 
-        padding: 10px !important; 
-        justify-content: center;
+    /* Ajusta o espaçamento do bloco do gráfico agora que não tem título interno */
+    .grafico-bloco {
+        padding: 20px 10px !important;
+        justify-content: center !important; /* Centraliza o gráfico no espaço total */
+    }
+
+    /* Troca os títulos da seção */
+    .texto-pc { display: none !important; }
+    .texto-mobile { display: inline !important; }
+
+    /* Esconde o título que ficava dentro do quadradinho branco */
+    .titulo-interno-grafico { 
+        display: none !important; 
+    }
+
+    .titulo-interacao {
+        font-size: 1.0rem !important;
     }
 
     .grafico-container { 

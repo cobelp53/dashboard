@@ -28,7 +28,7 @@ const configuracoes = {
 const destaques = [
     
     { url: "imagens/plataformadefrentedia.jpg", legenda: "Foto do mês - Plataforma P53", tempo: 7000 },
-    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Novo Espaço de Jogos: Já tem disponível fliperamas e ping-pong. Em breve mesa de carteado e Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.<br><br>Fiquem atentos: o apito inicial e o 'start' nos jogos estão chegando!", tempo: 13000 },
+    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já tem disponível fliperamas e ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>💡 Foco no Colaborador: Essas melhorias visam fortalecer a integração do nosso time e proporcionar um descanso mais completo para todos.", tempo: 13000 },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 12000  },
     { url: "imagens/salajogos.jpeg", legenda: "A Sala de Jogos está em reforma. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 10000  }
     ];
@@ -148,23 +148,7 @@ function renderizarCarrossel() {
     atualizarLegenda(0);
 }
 
-/*function rotacionarImagens() {
-    const slides = document.querySelectorAll('#carrossel-imagens > *'); // Seleciona imgs E divs de texto
-    if (slides.length === 0) return;
 
-    // Remove classe ativa do atual
-    slides[indiceImagem].classList.remove('ativa');
-
-    // Calcula próximo índice
-    indiceImagem = (indiceImagem + 1) % slides.length;
-
-    // Adiciona classe ativa ao próximo
-    slides[indiceImagem].classList.add('ativa');
-
-    // Atualiza a legenda externa
-    atualizarLegenda(indiceImagem);
-}
-*/
 // 🔹 FUNÇÃO PRINCIPAL PARA MOVER O SLIDE (Aceita direção 1 ou -1)
 function mudarSlide(direcao) {
     const slides = document.querySelectorAll('#carrossel-imagens > *');

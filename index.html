@@ -84,24 +84,24 @@
 
             <!-- Coluna Direita: Votação/QR -->
             <section class="col-votacao">
-                <h2>💬 Interaja com a COBEL </h2>
+                <h2 class="titulo-interacao">
+                    <span class="texto-pc">💬 Interaja com a COBEL</span>
+                    <span class="texto-mobile">📈 Resultado da Votação</span>
+                </h2>
 
-                <!-- QR Interacao (Adicionada a classe para ocultar no mobile) -->
                 <div class="qr-bloco esconder-mobile">
-                <!-- <h2><img src="imagens/painelinteracao.jpg" alt="Logo comissão de bem estar" class="logo-cobel"> </h2> -->
                     <h3>📲 Vote, participe e avalie!</h3>
                     <p class="instrucao">Vote no filme da semana, participe da Cobel e avalie os serviços da hotelaria!</p>
                     <div class="qr-container" id="qr-interacao"></div>
                 </div>
 
-                <!-- 🔹 NOVO: GRÁFICO DE PIZZA -->
                 <div class="grafico-bloco">
-                    <h3>📈 Resultado da Votação</h3>
+                    <h3 class="titulo-interno-grafico">📈 Resultado da Votação</h3>
+                    
                     <div class="grafico-container">
                         <canvas id="pieChart"></canvas>
                         <div id="grafico-loading" class="grafico-loading">Carregando...</div>
                         <div id="grafico-error" class="grafico-error" style="display:none;"></div>
-                        <!-- <p>Use o QR Code acima para votar!</p> -->
                         <p><a href="#" id="link-votacao" target="_blank" style="text-decoration: none; color: inherit;">Use o QR Code acima para votar!</a></p>
                     </div>
                 </div>
