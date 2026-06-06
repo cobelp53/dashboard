@@ -151,15 +151,13 @@ section h2 {
     }
 
 .lista-programacao { list-style: none; display: flex; margin-top: 0.1vw; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
-.lista-programacao li { display: flex; align-items: baseline; gap: 0.8vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 1vw; border-left: 3px solid var(--borda); } */
-
-/* Um leve arredondamento extra nos itens da lista para suavizar 
-.lista-programacao li {
-    border-radius: 0.6vw;
-    margin-bottom: 0.2vw;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);} */
-
-.lista-programacao li.destaque { border-left-color: var(--petro-amarelo); background: #FFFBEB; font-weight: 600; }
+.lista-programacao li { display: flex; align-items: baseline; gap: 0.8vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 1vw; border-left: 3px solid var(--borda); }
+.lista-programacao li.destaque { 
+    border-left-color: var(--petro-amarelo);
+    background: #FFFBEB;
+    font-weight: 800;
+    font-size: 1.05rem !important;
+}
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
 .col-destaques { flex: 1; display: flex; flex-direction: column; height: 100%; }
@@ -268,9 +266,6 @@ section h2 {
 }
 
 .qr-bloco, .grafico-bloco { 
-  /*padding: 1.2vw !important; /* Mais respiro nas bordas do card */
-  /*  justify-content: space-between !important; */
-  
   flex: 1; min-height: 0;
   background: #F8FAFC; border-radius: var(--radius); 
   padding: var(2.0vw); border: 1px solid var(--borda);
@@ -278,8 +273,12 @@ section h2 {
   line-height: 2; 
   display: flex; flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
   overflow: hidden;
+}
+/* Centraliza perfeitamente o conteúdo do bloco do QR Code */
+.qr-bloco {
+    justify-content: center !important; /* Força o alinhamento vertical bem no meio */
+    gap: 0.5vw; /* Cria um espacinho padrão e fixo entre o título, o texto e o QR Code */
 }
 .qr-bloco h3 { 
     margin-top: 0vw;
@@ -307,7 +306,9 @@ section h2 {
 }
 
 /* Garante que o título fique no topo e o gráfico embaixo no PC */
-.grafico-bloco { justify-content: flex-start; }
+.grafico-bloco { 
+    justify-content: flex-start; 
+}
 .grafico-bloco h3 { margin-bottom: 5px; flex-shrink: 0; font-size: 0.9vw; color: var(--petro-verde); }
 
 .grafico-container { 
@@ -426,6 +427,37 @@ section h2 {
         margin-bottom: 10px;
     }
 
+    /* 🔹 TRANSFORMA O LINK DE VOTAÇÃO EM UM BOTÃO NO MOBILE */
+    .grafico-bloco p {
+        width: 100% !important;
+        margin-top: 15px !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    #link-votacao {
+        display: block !important;
+        width: 100% !important;
+        max-width: 280px; /* Limita a largura para ficar estético */
+        background-color: var(--petro-azul) !important; /* Cor sólida de destaque */
+        color: #ffffff !important; /* Texto branco */
+        text-align: center !important;
+        padding: 12px 20px !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        transition: background-color 0.2s ease, transform 0.1s ease !important;
+    }
+
+    /* Feedback visual ao tocar no botão */
+    #link-votacao:active {
+        background-color: #003366 !important;
+        transform: scale(0.98) !important;
+    }
+
     /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado */
     .programacao-container { 
         display: grid; 
@@ -435,7 +467,7 @@ section h2 {
     }
 
     .prog-bloco { 
-        padding: 8px; 
+        padding: 0px; 
         border-left-width: 4px; 
         height: auto; 
         min-height: unset; 
@@ -449,6 +481,14 @@ section h2 {
         font-size: 0.9rem !important; /* Tamanho de leitura confortável */
         padding: 8px;
         line-height: 1.2;
+        background: #FFFFFF;
+        border-left: 4px solid var(--borda); /* Borda padrão cinza */
+    }
+    .lista-programacao li.destaque { 
+        border-left-color: var(--petro-amarelo) !important; 
+        background: #FFFBEB !important; 
+        font-weight: 700;
+        font-size: 1.3 vw !important; /* Tamanho de leitura confortável */
     }
 
     /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
@@ -545,8 +585,10 @@ section h2 {
 
     /* Ajusta o espaçamento do bloco do gráfico agora que não tem título interno */
     .grafico-bloco {
-        padding: 20px 10px !important;
-        justify-content: center !important; /* Centraliza o gráfico no espaço total */
+        padding: 15px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        /*justify-content: center !important; /* Centraliza o gráfico no espaço total */
     }
 
     /* Troca os títulos da seção */
@@ -563,8 +605,20 @@ section h2 {
     }
 
     .grafico-container { 
-        height: 100% !important; 
+        position: relative !important; /* Obrigatório para o Chart.js se basear */
+        height: 280px !important;      /* Define uma altura fixa segura */
         width: 100% !important; 
+        min-height: 280px !important;  /* Força a barra para o container não ceder */
+        max-height: 280px !important;  /* Teto máximo para travar o loop de crescimento */
+        overflow: hidden;              /* Garante que nada escape */
+    }
+    /* Garante que o canvas ocupe o espaço e mantenha o aspecto */
+    .grafico-container canvas {
+        position: absolute !important; /* Remove o canvas do fluxo normal para evitar o efeito "empurrão" */
+        top: 0;
+        left: 0;
+        width: 100% !important; 
+        height: 100% !important;
     }
 
     /* 🔹 TICKER MOBILE */
@@ -572,3 +626,232 @@ section h2 {
     .ticker-text { font-size: 0.8rem; }
     .ticker-hora { font-size: 0.8rem; min-width: 120px; }
 }
+
+/* ==========================================================================
+   ESTILOS ISOLADOS - ADMINISTRAÇÃO COBEL (NÃO AFETA O DASHBOARD)
+   ========================================================================== */
+
+/* 1. Modal Sobreposição */
+.cobel-modal-sobreposicao {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(2px);
+    z-index: 99999;
+    display: none; /* Controlado via JS */
+    align-items: center; justify-content: center;
+}
+
+.cobel-modal-caixa {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    text-align: center;
+    border: 3px solid var(--petro-azul);
+}
+
+.cobel-modal-caixa h3 {
+    font-size: 1.4rem;
+    color: var(--petro-azul);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.cobel-modal-caixa p {
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+.cobel-modal-caixa input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.cobel-modal-caixa input:focus {
+    border-color: var(--petro-verde);
+}
+
+.cobel-modal-botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.cobel-modal-botoes button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cobel-btn-cancelar {
+    background: #e2e8f0;
+    color: #475569;
+}
+.cobel-btn-cancelar:hover { background: #cbd5e1; }
+
+.cobel-btn-confirmar {
+    background: var(--petro-azul);
+    color: white;
+}
+.cobel-btn-confirmar:hover { background: #003366; }
+
+
+/* 2. Tela Admin Inteira */
+.cobel-admin-container {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #f1f5f9;
+    z-index: 100000;
+    display: none; /* Controlado via JS */
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.cobel-admin-barra-topo {
+    background: var(--petro-verde);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.cobel-admin-titulos h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--petro-amarelo);
+    margin: 0;
+}
+.cobel-admin-titulos p {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    margin-top: 4px;
+}
+
+.cobel-btn-fechar-admin {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.cobel-btn-fechar-admin:hover { background: #dc2626; }
+
+.cobel-admin-conteudo {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    overflow-y: auto;
+    height: calc(100vh - 85px);
+}
+
+.cobel-admin-card-instrucao, .cobel-admin-card-logs {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-admin-card-instrucao h3, .cobel-admin-card-logs h3 {
+    font-size: 1.2rem;
+    color: #1e293b;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.cobel-admin-card-instrucao p {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.cobel-log-quadrado {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.95rem;
+    min-height: 200px;
+    line-height: 1.8;
+}
+
+.cobel-log-sucesso { color: #4ade80; }
+.cobel-log-info { color: #38bdf8; }
+.cobel-log-alerta { color: #fbbf24; }
+
+/* Reset do responsivo para a tela admin */
+@media (max-width: 768px) {
+    .cobel-admin-barra-topo {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    .cobel-admin-conteudo { padding: 15px; }
+    .cobel-modal-caixa { width: 90%; padding: 20px; }
+}
+/* 3. Card de Ações e Botões de Operação */
+.cobel-admin-card-acoes {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-btn-acao-perigo {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    margin-top: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cobel-btn-acao-perigo:hover {
+    background: #b91c1c;
+}
+
+.cobel-btn-acao-perigo:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.cobel-status-mensagem {
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.cobel-txt-processando { color: #2563eb; }
+.cobel-txt-sucesso { color: #16a34a; }
+.cobel-txt-erro { color: #dc2626; }

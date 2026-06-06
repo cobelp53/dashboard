@@ -27,11 +27,11 @@ const configuracoes = {
 
 const destaques = [
     
-    { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 7000 },
-    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>", tempo: 10000 },
-    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 12000  },
-    { url: "imagens/salajogos.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 10000  },
-    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 10000  }
+    { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 2000 },
+    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 2000  },
+    { url: "imagens/salajogos.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 2000  },
+    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 2000  },
+    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>", tempo: 2000 } 
     ];
 
 // 🔹 FUNÇÕES
@@ -41,18 +41,16 @@ function adaptarLinkVotacaoMobile() {
     const linkVotacao = document.getElementById('link-votacao');
     
     if (linkVotacao) {
-        // Verifica se a largura da tela é menor ou igual a 768px (Mobile)
         if (window.innerWidth <= 768) {
             linkVotacao.innerText = "📲 Clique aqui para votar!";
             linkVotacao.href = configuracoes.urlinteracao;
             
-            // Adiciona um estilo visual amigável para parecer um botão/link clicável
             linkVotacao.style.color = "var(--petro-azul)";
             linkVotacao.style.fontWeight = "bold";
             linkVotacao.style.textDecoration = "underline";
             linkVotacao.style.cursor = "pointer";
+            linkVotacao.style.display = "inline-block";
         } else {
-            // Caso a janela seja redimensionada de volta para o PC
             linkVotacao.innerText = "Use o QR Code acima para votar!";
             linkVotacao.href = "#";
             linkVotacao.style.color = "var(--texto-claro)";
@@ -164,7 +162,7 @@ function mudarSlide(direcao) {
     // Adiciona classe ativa ao próximo
     slides[indiceImagem].classList.add('ativa');
 
-    // Atualiza a legenda
+    // Updates legenda
     atualizarLegenda(indiceImagem);
 }
 
@@ -339,9 +337,6 @@ async function carregarGraficoVotacao() {
             }
         });
 
-        //const labels = Object.keys(voteCounts);
-        //const values = Object.values(voteCounts);
-
         // Ordena do mais votado para o menos votado
         const ranking = Object.entries(voteCounts)
         .sort((a, b) => b[1] - a[1]);
@@ -405,7 +400,16 @@ async function carregarGraficoVotacao() {
                     position: window.innerWidth < 768 ? 'bottom' : 'bottom', // Mantém embaixo
                     align: 'center', // Centraliza a legenda no mobile para não cortar
                     labels: { 
-                    font: { size: window.innerWidth < 768 ? 10 : 12 }, // Diminui a fonte no celular
+                    font:{
+                        size: 14,       /* Tamanho da fonte em pixels (aumente aqui como preferir) */
+                        weight: 'bold', /* Pode ser 'normal' ou 'bold' */
+                        family: "'Segoe UI', sans-serif" /* Mantém a identidade do seu painel */
+                    },
+                    
+                    
+                    
+                    //{ size: window.innerWidth < 768 ? 10 : 12 }, // Diminui a fonte no celular
+                        
                     padding: 8,
                     boxWidth: 12,
                     boxHeight: 12,
@@ -473,4 +477,237 @@ document.addEventListener('DOMContentLoaded', () => {
     iniciarCarrossel(); 
     setInterval(destacarEventoAtual, 60000);
     setTimeout(() => window.location.reload(), 4 * 60 * 60 * 1000);
+});
+
+
+
+
+
+// ==========================================================
+//  CONTROLE INTEGRADO DA ADMINISTRAÇÃO COBEL
+// ==========================================================
+
+function cobelAbrirAcesso() {
+    const popup = document.getElementById('cobel-popup-senha');
+    const campo = document.getElementById('cobel-campo-senha');
+    const painel = document.getElementById('cobel-painel-principal');
+
+    if (popup && painel) {
+        popup.style.display = 'flex';
+        painel.style.filter = 'blur(6px)'; // Desfoca o fundo nativamente
+        if (campo) {
+            campo.value = '';
+            campo.focus();
+        }
+    }
+}
+
+function cobelFecharAcesso() {
+    const popup = document.getElementById('cobel-popup-senha');
+    const painel = document.getElementById('cobel-painel-principal');
+
+    if (popup && painel) {
+        popup.style.display = 'none';
+        painel.style.filter = 'none';
+    }
+}
+
+function cobelVerificarSenha() {
+    const campo = document.getElementById('cobel-campo-senha');
+    const telaAdmin = document.getElementById('cobel-tela-admin');
+
+    if (!campo || !telaAdmin) return;
+
+    // DEFINA SUA SENHA AQUI
+    if (campo.value === '1234') { 
+        cobelFecharAcesso();
+        telaAdmin.style.display = 'block';
+        cobelGerarLogsLocais(); // Alimenta a caixinha de logs
+    } else {
+        alert('Senha incorreta!');
+        campo.value = '';
+        campo.focus();
+    }
+}
+
+function cobelSairAdmin() {
+    const telaAdmin = document.getElementById('cobel-tela-admin');
+    if (telaAdmin) {
+        telaAdmin.style.display = 'none';
+    }
+}
+
+function cobelGerarLogsLocais() {
+    const caixaLog = document.getElementById('cobel-status-log');
+    if (!caixaLog) return;
+
+    const agora = new Date().toLocaleTimeString('pt-BR');
+    caixaLog.innerHTML = `
+        <p class="cobel-log-sucesso">[${agora}] SUCESSO: Gráfico da Planilha carregado (${document.getElementById('pieChart') ? 'Ativo' : 'Inativo'}).</p>
+        <p class="cobel-log-info">[${agora}] INFO: Carrossel rodando com ${destaques.length} slides.</p>
+        <p class="cobel-log-info">[${agora}] INFO: Agenda sincronizada (${programacaoDia.length} eventos de rotina).</p>
+        <p class="cobel-log-sucesso">[${agora}] SUCESSO: Widget do clima Open-Meteo online.</p>
+        <p class="cobel-log-alerta">[${agora}] MONITOR: Atualização em segundo plano configurada para 4 horas.</p>
+    `;
+}
+
+// Cole aqui o link obtido na Nova Implantação do Passo 1:
+const URL_APPS_SCRIPT = " https://script.google.com/macros/s/AKfycbztMjTKYovMJFVwIkdLFtGj8-Ar6FOxRkhQIKIeTCq0SiMxiuwCJouZ4Z4z4HRe5dAI/exec";
+
+// Carrega as legendas da planilha e coloca nos inputs e nos slides do carrossel
+async function carregarLegendasDinamicas() {
+    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) return;
+
+    try {
+        const resposta = await fetch(URL_APPS_SCRIPT, { method: 'GET', cache: 'no-cache' });
+        const configuracoesPlanilha = await resposta.json();
+
+        // 1. Insere nas caixas de edição da administração se elas existirem na tela
+        if (document.getElementById('edit-legenda-1')) document.getElementById('edit-legenda-1').value = configuracoesPlanilha.legenda_foto1 || "";
+        if (document.getElementById('edit-legenda-2')) document.getElementById('edit-legenda-2').value = configuracoesPlanilha.legenda_foto2 || "";
+        if (document.getElementById('edit-legenda-3')) document.getElementById('edit-legenda-3').value = configuracoesPlanilha.legenda_foto3 || "";
+
+        // 2. Atualiza o array estático "destaques" em memória para que o carrossel use as legendas da planilha
+        if (destaques[0]) destaques[0].legenda = configuracoesPlanilha.legenda_foto1 || destaques[0].legenda;
+        if (destaques[1]) destaques[1].legenda = configuracoesPlanilha.legenda_foto2 || destaques[1].legenda;
+        if (destaques[2]) destaques[2].legenda = configuracoesPlanilha.legenda_foto3 || destaques[2].legenda;
+
+        // 3. Recarrega o texto do slide atual para exibir a legenda atualizada imediatamente
+        atualizarLegenda(indiceImagem);
+
+    } catch (erro) {
+        console.error("Erro ao carregar dados dinâmicos da planilha:", erro);
+    }
+}
+
+// Salva as legendas usando o método GET blindado (via parâmetros de URL)
+async function cobelSalvarLegendas() {
+    const botao = document.getElementById('cobel-btn-salvar-legendas');
+    const statusTxt = document.getElementById('cobel-status-salvar');
+    
+    if (!botao || !statusTxt) {
+        console.error("Erro: Elementos do botão ou status não encontrados no HTML.");
+        return;
+    }
+
+    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
+        alert("Erro: Configure a URL do Apps Script no topo do script.js primeiro.");
+        return;
+    }
+
+    // Captura os valores digitados de forma segura
+    const l1 = document.getElementById('edit-legenda-1') ? document.getElementById('edit-legenda-1').value : "";
+    const l2 = document.getElementById('edit-legenda-2') ? document.getElementById('edit-legenda-2').value : "";
+    const l3 = document.getElementById('edit-legenda-3') ? document.getElementById('edit-legenda-3').value : "";
+
+    // Trava o botão para indicar visualmente o processamento
+    botao.disabled = true;
+    botao.innerText = "⏳ Salvando...";
+    statusTxt.style.color = "#2563eb"; 
+    statusTxt.innerText = "Enviando para a planilha...";
+
+    try {
+        // Constrói o link dinâmico codificando o texto de forma segura para URLs
+        const urlMontada = `${URL_APPS_SCRIPT}?acao=salvar_legendas&legenda_foto1=${encodeURIComponent(l1)}&legenda_foto2=${encodeURIComponent(l2)}&legenda_foto3=${encodeURIComponent(l3)}`;
+
+        // Dispara o sinal via GET em segundo plano (Bypass total de CORS)
+        await fetch(urlMontada, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+
+        // Feedback de sucesso na tela
+        statusTxt.style.color = "#16a34a"; 
+        statusTxt.innerText = "✨ Salvo com sucesso!";
+        botao.innerText = "💾 Salvar Legendas";
+        botao.disabled = false;
+
+        // Atualiza as legendas na memória local imediatamente
+        if (destaques[0]) destaques[0].legenda = l1;
+        if (destaques[1]) destaques[1].legenda = l2;
+        if (destaques[2]) destaques[2].legenda = l3;
+        
+        atualizarLegenda(indiceImagem);
+
+        // Limpa a mensagem de sucesso depois de 3 segundos
+        setTimeout(() => { statusTxt.innerText = ""; }, 3000);
+
+    } catch (erro) {
+        console.error("Erro ao salvar legendas:", erro);
+        statusTxt.style.color = "#dc2626"; 
+        statusTxt.innerText = "❌ Falha ao tentar salvar.";
+        botao.innerText = "💾 Salvar Legendas";
+        botao.disabled = false;
+    }
+}
+
+// 💥 NOVA FUNÇÃO: Limpa a planilha de votação integrando com a ação do Apps Script
+async function cobelLimparPlanilhaVotos() {
+    const botao = document.getElementById('cobel-btn-limpar');
+    const statusTxt = document.getElementById('cobel-status-acao');
+    const caixaLog = document.getElementById('cobel-status-log');
+    
+    // Alerta de segurança antes de apagar
+    if (!confirm("⚠️ ATENÇÃO: Você tem certeza absoluta que deseja apagar TODOS os votos da planilha? Esta ação não pode ser desfeita.")) {
+        return;
+    }
+
+    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
+        alert("Erro: Configure a URL do Apps Script primeiro.");
+        return;
+    }
+
+    // Trava o botão e avisa o usuário do andamento
+    if (botao) {
+        botao.disabled = true;
+        botao.innerText = "⏳ Limpando planilha, aguarde...";
+    }
+    if (statusTxt) {
+        statusTxt.style.color = "#2563eb";
+        statusTxt.innerText = "Conectando ao servidor Google...";
+    }
+
+    try {
+        // Envia o parâmetro correto que o nosso Apps Script unificado espera
+        const urlLimpeza = `${URL_APPS_SCRIPT}?acao=limpar_votacao`;
+
+        // Dispara o comando via GET (Bypass de CORS para rodar liso em produção)
+        await fetch(urlLimpeza, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+
+        // Feedback positivo imediato na interface
+        if (statusTxt) {
+            statusTxt.style.color = "#16a34a";
+            statusTxt.innerText = "✨ Sucesso! O comando de limpeza foi enviado.";
+        }
+        if (botao) {
+            botao.innerText = "🗑️ Limpar Todos os Votos Atuais";
+            botao.disabled = false;
+        }
+
+        const agora = new Date().toLocaleTimeString('pt-BR');
+        if (caixaLog) {
+            caixaLog.innerHTML = `<p style="color:#16a34a; margin: 4px 0;">[${agora}] SUCESSO: Comando de limpeza enviado à nuvem do Google.</p>` + caixaLog.innerHTML;
+        }
+
+        // Aguarda 3 segundos, limpa o aviso e força o recarregamento do gráfico zerado
+        setTimeout(() => {
+            if (statusTxt) statusTxt.innerText = "";
+            if (typeof carregarGraficoVotacao === "function") {
+                carregarGraficoVotacao();
+            }
+        }, 3000);
+
+    } catch (erro) {
+        console.error("Erro ao limpar votação:", erro);
+        if (statusTxt) {
+            statusTxt.style.color = "#dc2626";
+            statusTxt.innerText = "❌ Falha na conexão local.";
+        }
+        if (botao) {
+            botao.innerText = "🗑️ Limpar Todos os Votos Atuais";
+            botao.disabled = false;
+        }
+    }
+}
+
+// Dispara a leitura das informações assim que o painel carregar na tela
+window.addEventListener('load', () => {
+    carregarLegendasDinamicas();
 });
