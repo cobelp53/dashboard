@@ -21,7 +21,7 @@ const programacaoSemana = [
 ];
 
 const configuracoes = {
-    urlinteracao: "https://cobelp53.github.io/interacao/",
+    urlinteracao: "https://docs.google.com/forms/d/e/1FAIpQLScHi3wYt85jdh1P2hJXNlt2h2hB6KRbWYrl1PLE49xektVPpA/viewform",
     intervaloImagens: 10000
 };
 
@@ -444,12 +444,13 @@ async function carregarGraficoVotacao() {
             }
         });
 
-    } catch (err) {
+    }
+     catch (err) {
         console.error(err);
-        loadingEl.style.display = 'none';
-        canvas.style.display = 'none';
-        errorEl.style.display = 'block';
-        errorEl.textContent = 'Erro ao carregar gráfico.';
+        //loadingEl.style.display = 'none';
+        //canvas.style.display = 'none';
+        //errorEl.style.display = 'block';
+        //errorEl.textContent = 'Erro ao carregar gráfico.';
     }
 }
 
