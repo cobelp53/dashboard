@@ -29,7 +29,7 @@ const destaques = [
     
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000 },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000  },
-    { url: "imagens/salajogos.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 8000  },
+    { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 8000  },
     { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000  },
     { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>", tempo: 10000 } 
     ];
