@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="painel-container" id="cobel-painel-principal">
         <div class="topo">
@@ -33,6 +35,7 @@
                         <span class="dia-nome" id="data-hoje">--</span>
                         <span class="icone" id="icone-atual">--</span>
                         <span class="temps" id="temp-atual">--°</span>
+                        <span class="vento" id="vento-atual">--</span>
                     </div>
                     <div class="previsao-semana" id="previsao-semana" style="display:flex; gap:8px;"></div>
                 </div>
@@ -65,40 +68,43 @@
             </section>
 
             <section class="col-votacao">
-                    <h2 class="titulo-interacao">
-                        <span class="texto-pc">💬 PARTICIPE DA COBEL</span>
-                        <span class="texto-mobile">📈 RESULTADO DA</span>
-                    </h2>
-                    <div class="qr-bloco esconder-mobile">
-                        <h3>Use o QR Code e fique por dentro</h3>
-                        <p class="instrucao"></p>
-                        <div class="qr-container" id="qr-interacao"></div>
-                    </div> 
-                    
-                    <div class="grafico-bloco">
-                        <h3 class="titulo-interno-grafico">📈 Votação do filme</h3>
-                        
-                        <!-- O container agora guarda estritamente o gráfico e seus estados -->
-                        <div class="grafico-container">
-                            <canvas id="pieChart"></canvas>
-                            <div id="grafico-loading" class="grafico-loading">Carregando...</div>
-                            <div id="grafico-error" class="grafico-error" style="display:none;"></div>
-                        </div>
+                <h2 class="titulo-interacao">
+                    <span class="texto-pc">💬 PARTICIPE DA COBEL</span>
+                    <span class="texto-mobile">📈 RESULTADO DA</span>
+                </h2>
+                <div class="qr-bloco esconder-mobile">
+                    <h3>Use o QR Code e fique por dentro</h3>
+                    <p class="instrucao"></p>
+                    <div class="qr-container" id="qr-interacao"></div>
+                </div>
 
-                        <!-- 🚀 O BOTÃO FOI MOVIDO PARA CÁ (Fora do container do gráfico) -->
-                        <p style="text-align: center; margin-top: 15px;">
-                            <a href="#" id="link-votacao" target="_blank" style="text-decoration: none; color: inherit;">Use o QR Code acima para votar!</a>
-                        </p>
+                <div class="grafico-bloco">
+                    <h3 class="titulo-interno-grafico">📈 Votação do filme</h3>
+
+                    <!-- O container agora guarda estritamente o gráfico e seus estados -->
+                    <div class="grafico-container">
+                        <canvas id="pieChart"></canvas>
+                        <div id="grafico-loading" class="grafico-loading">Carregando...</div>
+                        <div id="grafico-error" class="grafico-error" style="display:none;"></div>
                     </div>
-                </section>
+
+                    <!-- 🚀 O BOTÃO FOI MOVIDO PARA CÁ (Fora do container do gráfico) -->
+                    <p style="text-align: center; margin-top: 15px;">
+                        <a href="#" id="link-votacao" target="_blank" style="text-decoration: none; color: inherit;">Use
+                            o QR Code acima para votar!</a>
+                    </p>
+                </div>
+            </section>
         </main>
 
         <footer class="ticker-container">
             <div class="ticker-wrapper">
                 <div class="ticker-content">
-                    <span id="ticker-msg" class="ticker-text">Sejam bem-vindos à Plataforma P53, boa estadia! | Portal desenvolvido pela Automação de P53 © 2026 </span>
+                    <span id="ticker-msg" class="ticker-text">Sejam bem-vindos à Plataforma P53, boa estadia! | Portal
+                        desenvolvido pela Automação de P53 © 2026 </span>
                 </div>
-                <div class="ticker-hora" onclick="cobelAbrirAcesso()" style="cursor: pointer;" title="Área Restrita Admin">
+                <div class="ticker-hora" onclick="cobelAbrirAcesso()" style="cursor: pointer;"
+                    title="Área Restrita Admin">
                     <span id="data-hora-ticker">--/--/---- --:--</span>
                 </div>
             </div>
@@ -110,7 +116,8 @@
         <div class="cobel-modal-caixa">
             <h3>🔐 Acesso Restrito</h3>
             <p>Insira a senha de administração COBEL:</p>
-            <input type="password" id="cobel-campo-senha" placeholder="Senha" onkeydown="if(event.key === 'Enter') cobelVerificarSenha()">
+            <input type="password" id="cobel-campo-senha" placeholder="Senha"
+                onkeydown="if(event.key === 'Enter') cobelVerificarSenha()">
             <div class="cobel-modal-botoes">
                 <button class="cobel-btn-cancelar" onclick="cobelFecharAcesso()">Cancelar</button>
                 <button class="cobel-btn-confirmar" onclick="cobelVerificarSenha()">Entrar</button>
@@ -132,29 +139,36 @@
             <!-- NOVO CARD: EDITOR DE LEGENDAS -->
             <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
                 <h3>🖼️ Editar Legendas do Carrossel (Teste)</h3>
-                <p style="margin-bottom: 15px; color: #64748b;">Modifique os textos abaixo e clique em salvar para atualizar o painel em tempo real.</p>
-                
+                <p style="margin-bottom: 15px; color: #64748b;">Modifique os textos abaixo e clique em salvar para
+                    atualizar o painel em tempo real.</p>
+
                 <div style="margin-bottom: 12px;">
                     <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 1:</label>
-                    <input type="text" id="edit-legenda-1" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
+                    <input type="text" id="edit-legenda-1"
+                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 2:</label>
-                    <input type="text" id="edit-legenda-2" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
+                    <input type="text" id="edit-legenda-2"
+                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
                 </div>
                 <div style="margin-bottom: 20px;">
                     <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 3:</label>
-                    <input type="text" id="edit-legenda-3" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
+                    <input type="text" id="edit-legenda-3"
+                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
                 </div>
 
-                <button id="cobel-btn-salvar-legendas" class="cobel-btn-salvar" onclick="cobelSalvarLegendas()" style="background:#16a34a; color:white; border:none; padding:12px 24px; font-weight:bold; border-radius:6px; cursor:pointer;">💾 Salvar Legendas</button>
+                <button id="cobel-btn-salvar-legendas" class="cobel-btn-salvar" onclick="cobelSalvarLegendas()"
+                    style="background:#16a34a; color:white; border:none; padding:12px 24px; font-weight:bold; border-radius:6px; cursor:pointer;">💾
+                    Salvar Legendas</button>
                 <span id="cobel-status-salvar" class="cobel-status-mensagem"></span>
             </div>
 
             <!-- CARD CONTROLE DE VOTAÇÃO -->
             <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
                 <h3>📊 Controle da Votação do Cinema</h3>
-                <button id="cobel-btn-limpar" class="cobel-btn-acao-perigo" onclick="cobelLimparPlanilhaVotos()">🗑️ Limpar Todos os Votos Atuais</button>
+                <button id="cobel-btn-limpar" class="cobel-btn-acao-perigo" onclick="cobelLimparPlanilhaVotos()">🗑️
+                    Limpar Todos os Votos Atuais</button>
                 <span id="cobel-status-acao" class="cobel-status-mensagem"></span>
             </div>
 
@@ -167,4 +181,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

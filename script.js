@@ -10,14 +10,14 @@ const programacaoDia = [
 ];
 
 const programacaoSemana = [
-    { dia: "Dom", evento: "🥩 Churrasco de 11h ás 13h" },
-    { dia: "Seg", evento: "🎤 Karaokê às 19h no cinema" },
-    { dia: "Ter", evento: "🏋🏽‍♂️ Dia livre"  },
-    { dia: "Qua", evento: "🍕 Pizza de 21h às 22h" },
-    { dia: "Qui", evento: "🎬 Cinema às 20h" },
-    { dia: "Sex", evento: "🍔 Hambúrguer de 21h às 22h" },
-    { dia: "Sab", evento: "🍕 Pizza de 21h às 22h" }
-    
+    { dia: "Dom", evento: "🥩 Churrasco de 11h as 13h" },
+    { dia: "Seg", evento: "🎤 Karaokê as 19h no cinema" },
+    { dia: "Ter", evento: "🏋🏽‍♂️ Dia livre" },
+    { dia: "Qua", evento: "🍕 Pizza de 21h as 22h" },
+    { dia: "Qui", evento: "🎬 Cinema as 20h" },
+    { dia: "Sex", evento: "🍔 Hambúrguer de 21h as 22h" },
+    { dia: "Sab", evento: "🍕 Pizza de 21h as 22h" }
+
 ];
 
 const configuracoes = {
@@ -26,25 +26,25 @@ const configuracoes = {
 };
 
 const destaques = [
-    
+
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000 },
-    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000  },
-    { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */ , tempo: 8000  },
-    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000  },
-    { titulo:"Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>", tempo: 10000 } 
-    ];
+    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000 },
+    { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!" /*"Depois do trabalho, Play na diversão. Nossa nova área de lazer está quase pronta." */, tempo: 8000 },
+    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000 },
+    { titulo: "Bem-Estar e Lazer em Evolução", texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>", tempo: 10000 }
+];
 
 // 🔹 FUNÇÕES
 
 // 🔹 ADAPTA O TEXTO DE VOTAÇÃO SE FOR ACESSADO POR CELULAR
 function adaptarLinkVotacaoMobile() {
     const linkVotacao = document.getElementById('link-votacao');
-    
+
     if (linkVotacao) {
         if (window.innerWidth <= 768) {
             linkVotacao.innerText = "📲 Clique aqui para votar!";
             linkVotacao.href = configuracoes.urlinteracao;
-            
+
             linkVotacao.style.color = "var(--petro-azul)";
             linkVotacao.style.fontWeight = "bold";
             linkVotacao.style.textDecoration = "underline";
@@ -79,25 +79,43 @@ function renderizarProgramacao() {
 
 function destacarEventoAtual() {
     const agora = new Date();
-    const diaHoje = agora.getDay()
+    const diaHoje = agora.getDay();
 
     const minutosAtuais = agora.getHours() * 60 + agora.getMinutes();
-    
+
     const itensDia = document.querySelectorAll('#lista-programacao-dia li');
-    let eventoDestacado = false;
+    let indiceDestacado = -1;
 
-    itensDia.forEach((li, index) => {
-        li.classList.remove('destaque');
-        const [h, m] = programacaoDia[index].hora.split(':').map(Number);
+    // 1. Procurar por um evento que começou nos últimos 60 minutos (destaque por até 1 hora)
+    for (let i = 0; i < programacaoDia.length; i++) {
+        const [h, m] = programacaoDia[i].hora.split(':').map(Number);
         const minutosEvento = h * 60 + m;
+        if (minutosAtuais >= minutosEvento && minutosAtuais < minutosEvento + 60) {
+            indiceDestacado = i; // Encontrou um evento ativo recentemente
+        }
+    }
 
-        // Destaca o primeiro evento que ainda não começou ou está em andamento
-        if (!eventoDestacado && minutosEvento >= minutosAtuais) {
+    // 2. Se não houver evento nos últimos 60 minutos, destacar o próximo evento do dia
+    if (indiceDestacado === -1) {
+        for (let i = 0; i < programacaoDia.length; i++) {
+            const [h, m] = programacaoDia[i].hora.split(':').map(Number);
+            const minutosEvento = h * 60 + m;
+            if (minutosEvento > minutosAtuais) {
+                indiceDestacado = i;
+                break;
+            }
+        }
+    }
+
+    // Aplica a classe de destaque no item correto e remove dos outros
+    itensDia.forEach((li, index) => {
+        if (index === indiceDestacado) {
             li.classList.add('destaque');
-            eventoDestacado = true;
+        } else {
+            li.classList.remove('destaque');
         }
     });
-  
+
     const itensSemana = document.querySelectorAll('#lista-programacao-semana li');
     let semanaDestacado = false;
 
@@ -111,8 +129,8 @@ function destacarEventoAtual() {
         }
     });
 
-    // Se todos já passaram, destaca o último como "encerrado"
-    if (!eventoDestacado && itensDia.length > 0) {
+    // Se todos já passaram e não há evento futuro ou ativo, destaca o último como "encerrado"
+    if (indiceDestacado === -1 && itensDia.length > 0) {
         itensDia[itensDia.length - 1].classList.add('destaque');
     }
 
@@ -129,7 +147,7 @@ let timerCarrossel;
 function renderizarCarrossel() {
     const container = document.getElementById('carrossel-imagens');
     if (!container) return;
-    container.innerHTML = ''; 
+    container.innerHTML = '';
 
     destaques.forEach((item, i) => {
         if (item.url) {
@@ -168,16 +186,16 @@ function mudarSlide(direcao) {
 
 // 🔹 FUNÇÃO PARA CLIQUE MANUAL (Reseta o tempo para não pular rápido)
 function mudarSlideManual(direcao) {
-    clearTimeout(timerCarrossel); 
-    mudarSlide(direcao);          
-    iniciarCarrossel();           
+    clearTimeout(timerCarrossel);
+    mudarSlide(direcao);
+    iniciarCarrossel();
 }
 
 
 function iniciarCarrossel() {
     clearTimeout(timerCarrossel);
     const tempoAtual = destaques[indiceImagem].tempo || configuracoes.intervaloImagens;
-    
+
     timerCarrossel = setTimeout(() => {
         mudarSlide(1); // Chama a função correta
         iniciarCarrossel();
@@ -211,7 +229,7 @@ function gerarQRCodes() {
 async function buscarPrevisaoHorizontal() {
     const lat = -22.042;
     const lon = -41.051;
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=America%2FSao_Paulo`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max&timezone=America%2FSao_Paulo`;
 
     try {
         const response = await fetch(url);
@@ -219,26 +237,32 @@ async function buscarPrevisaoHorizontal() {
 
         // 1. Atualiza o bloco "HOJE" (primeiro slot)
         const hojeEl = document.querySelector('.item-clima.hoje') || document.querySelector('.item-clima'); // Fallback
-        if(hojeEl) {
+        if (hojeEl) {
             hojeEl.classList.add('hoje'); // Adiciona destaque visual
             document.getElementById('data-hoje').innerText = new Date().toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '').toUpperCase();
             document.getElementById('icone-atual').innerText = traduzirWMO(data.current.weather_code).icone;
             // Mostra a temperatura atual no bloco de hoje
             document.getElementById('temp-atual').innerHTML = `${Math.round(data.current.temperature_2m)}°`;
+            // Mostra a velocidade do vento atual
+            const ventoAtualEl = document.getElementById('vento-atual');
+            if (ventoAtualEl) {
+                ventoAtualEl.innerHTML = `💨 ${Math.round(data.current.wind_speed_10m)} km/h`;
+            }
         }
 
-        // 2. Gera a lista dos PRÓXIMOS 4 dias (para não ficar muito longo)
+        // 2. Gera a lista dos PRÓXIMOS dias
         const containerSemana = document.getElementById('previsao-semana');
         containerSemana.innerHTML = '';
 
-        // Começa do índice 1 (amanhã) até 4
+        // Começa do índice 1 (amanhã) até 6
         for (let i = 1; i <= 6; i++) {
             if (!data.daily.time[i]) break;
-            
+
             const dataDia = new Date(data.daily.time[i] + "T00:00:00");
             const diaSemana = dataDia.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '').toUpperCase();
             const max = Math.round(data.daily.temperature_2m_max[i]);
             const min = Math.round(data.daily.temperature_2m_min[i]);
+            const windMax = Math.round(data.daily.wind_speed_10m_max[i]);
             const infoClima = traduzirWMO(data.daily.weather_code[i]);
 
             // Criação do bloco compacto
@@ -248,6 +272,7 @@ async function buscarPrevisaoHorizontal() {
                 <span class="dia-nome">${diaSemana}</span>
                 <span class="icone">${infoClima.icone}</span>
                 <span class="temps">${max}° <span>/ ${min}°</span></span>
+                <span class="vento">💨 ${windMax} km/h</span>
             `;
             containerSemana.appendChild(div);
         }
@@ -275,7 +300,7 @@ function traduzirWMO(code) {
 
 function atualizarDataHora() {
     const agora = new Date();
-    
+
     // Formatação completa para o Header (se ainda existir) ou uso geral
     const dd = String(agora.getDate()).padStart(2, '0');
     const mm = String(agora.getMonth() + 1).padStart(2, '0');
@@ -283,7 +308,7 @@ function atualizarDataHora() {
     const hh = String(agora.getHours()).padStart(2, '0');
     const min = String(agora.getMinutes()).padStart(2, '0');
     const ss = String(agora.getSeconds()).padStart(2, '0');
-    
+
     const dataFormatada = `${dd}/${mm}/${yyyy}`;
     const horaFormatada = `${hh}:${min}:${ss}`;
     const completo = `${dataFormatada} ${horaFormatada}`;
@@ -304,7 +329,7 @@ function atualizarDataHora() {
 // 🔹 GRÁFICO DE PIZZA - VOTAÇÃO GOOGLE FORMS
 async function carregarGraficoVotacao() {
     Chart.register(ChartDataLabels);
-    
+
     const CONFIG = {
         sheetId: '12uZTiil0aRZ80rlE3TNEMitlSn8E2cxZk4Srbefozk4',
         sheetName: 'Cine_pipoca_votacao',
@@ -319,12 +344,12 @@ async function carregarGraficoVotacao() {
     try {
         const response = await fetch(url);
         if (!response.ok) throw new Error('Não foi possível acessar a planilha.');
-        
+
         const text = await response.text();
         const jsonString = text.substring(47).slice(0, -2);
         const data = JSON.parse(jsonString);
         const rows = data.table.rows;
-        
+
         if (!rows || rows.length === 0) throw new Error('Nenhuma resposta encontrada.');
 
         // Contagem dos votos
@@ -339,7 +364,7 @@ async function carregarGraficoVotacao() {
 
         // Ordena do mais votado para o menos votado
         const ranking = Object.entries(voteCounts)
-        .sort((a, b) => b[1] - a[1]);
+            .sort((a, b) => b[1] - a[1]);
         const labels = ranking.map(item => item[0]);
         const values = ranking.map(item => item[1]);
 
@@ -391,35 +416,35 @@ async function carregarGraficoVotacao() {
                                 sum += data;
                             });
                             let percentage = value;
-                            
+
                             // Só mostra se for maior que 5% para não poluir
-                            return value > 0 ? percentage : ''; 
+                            return value > 0 ? percentage : '';
                         }
                     },
-                    legend: { 
-                    position: window.innerWidth < 768 ? 'bottom' : 'bottom', // Mantém embaixo
-                    align: 'center', // Centraliza a legenda no mobile para não cortar
-                    labels: { 
-                    font:{
-                        size: 14,       /* Tamanho da fonte em pixels (aumente aqui como preferir) */
-                        weight: 'bold', /* Pode ser 'normal' ou 'bold' */
-                        family: "'Segoe UI', sans-serif" /* Mantém a identidade do seu painel */
-                    },
-                    
-                    
-                    
-                    //{ size: window.innerWidth < 768 ? 10 : 12 }, // Diminui a fonte no celular
-                        
-                    padding: 8,
-                    boxWidth: 12,
-                    boxHeight: 12,
-                    usePointStyle: true,
-                    pointStyle: 'circle',
-                    maxWidth: window.innerWidth < 768 ? 90 : 130, // Reduz a largura máxima do texto da legenda no mobile
-                    filter: function(item, data) {
-                    return top3.includes(item.text);
+                    legend: {
+                        position: window.innerWidth < 768 ? 'bottom' : 'bottom', // Mantém embaixo
+                        align: 'center', // Centraliza a legenda no mobile para não cortar
+                        labels: {
+                            font: {
+                                size: 14,       /* Tamanho da fonte em pixels (aumente aqui como preferir) */
+                                weight: 'bold', /* Pode ser 'normal' ou 'bold' */
+                                family: "'Segoe UI', sans-serif" /* Mantém a identidade do seu painel */
+                            },
+
+
+
+                            //{ size: window.innerWidth < 768 ? 10 : 12 }, // Diminui a fonte no celular
+
+                            padding: 8,
+                            boxWidth: 12,
+                            boxHeight: 12,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            maxWidth: window.innerWidth < 768 ? 90 : 130, // Reduz a largura máxima do texto da legenda no mobile
+                            filter: function (item, data) {
+                                return top3.includes(item.text);
                             }
-                            }
+                        }
                     },
                     tooltip: {
                         callbacks: {
@@ -438,14 +463,14 @@ async function carregarGraficoVotacao() {
                         padding: 0
                     }
                 },
-                layout: { 
+                layout: {
                     padding: { top: 1, bottom: 1, right: 1 } // 🔹 Espaço extra para a legenda
                 }
             }
         });
 
     }
-     catch (err) {
+    catch (err) {
         console.error(err);
         //loadingEl.style.display = 'none';
         //canvas.style.display = 'none';
@@ -462,10 +487,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     atualizarDataHora();
     setInterval(atualizarDataHora, 1000); // Atualiza a cada segundo
-    
+
     renderizarProgramacao();
     renderizarCarrossel();
-    gerarQRCodes(); 
+    gerarQRCodes();
 
     // Adaptar o link para mobile na inicialização e caso mude o tamanho da janela
     adaptarLinkVotacaoMobile();
@@ -475,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarGraficoVotacao();
     setInterval(carregarGraficoVotacao, 30000); // Atualiza a cada 30s
 
-    iniciarCarrossel(); 
+    iniciarCarrossel();
     setInterval(destacarEventoAtual, 60000);
     setTimeout(() => window.location.reload(), 4 * 60 * 60 * 1000);
 });
@@ -520,7 +545,7 @@ function cobelVerificarSenha() {
     if (!campo || !telaAdmin) return;
 
     // DEFINA SUA SENHA AQUI
-    if (campo.value === '1234') { 
+    if (campo.value === '1234') {
         cobelFecharAcesso();
         telaAdmin.style.display = 'block';
         cobelGerarLogsLocais(); // Alimenta a caixinha de logs
@@ -557,7 +582,7 @@ const URL_APPS_SCRIPT = " https://script.google.com/macros/s/AKfycbztMjTKYovMJFV
 
 // Carrega as legendas da planilha e coloca nos inputs e nos slides do carrossel
 async function carregarLegendasDinamicas() {
-    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) return;
+    if (!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) return;
 
     try {
         const resposta = await fetch(URL_APPS_SCRIPT, { method: 'GET', cache: 'no-cache' });
@@ -585,13 +610,13 @@ async function carregarLegendasDinamicas() {
 async function cobelSalvarLegendas() {
     const botao = document.getElementById('cobel-btn-salvar-legendas');
     const statusTxt = document.getElementById('cobel-status-salvar');
-    
+
     if (!botao || !statusTxt) {
         console.error("Erro: Elementos do botão ou status não encontrados no HTML.");
         return;
     }
 
-    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
+    if (!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
         alert("Erro: Configure a URL do Apps Script no topo do script.js primeiro.");
         return;
     }
@@ -604,7 +629,7 @@ async function cobelSalvarLegendas() {
     // Trava o botão para indicar visualmente o processamento
     botao.disabled = true;
     botao.innerText = "⏳ Salvando...";
-    statusTxt.style.color = "#2563eb"; 
+    statusTxt.style.color = "#2563eb";
     statusTxt.innerText = "Enviando para a planilha...";
 
     try {
@@ -615,7 +640,7 @@ async function cobelSalvarLegendas() {
         await fetch(urlMontada, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
 
         // Feedback de sucesso na tela
-        statusTxt.style.color = "#16a34a"; 
+        statusTxt.style.color = "#16a34a";
         statusTxt.innerText = "✨ Salvo com sucesso!";
         botao.innerText = "💾 Salvar Legendas";
         botao.disabled = false;
@@ -624,7 +649,7 @@ async function cobelSalvarLegendas() {
         if (destaques[0]) destaques[0].legenda = l1;
         if (destaques[1]) destaques[1].legenda = l2;
         if (destaques[2]) destaques[2].legenda = l3;
-        
+
         atualizarLegenda(indiceImagem);
 
         // Limpa a mensagem de sucesso depois de 3 segundos
@@ -632,7 +657,7 @@ async function cobelSalvarLegendas() {
 
     } catch (erro) {
         console.error("Erro ao salvar legendas:", erro);
-        statusTxt.style.color = "#dc2626"; 
+        statusTxt.style.color = "#dc2626";
         statusTxt.innerText = "❌ Falha ao tentar salvar.";
         botao.innerText = "💾 Salvar Legendas";
         botao.disabled = false;
@@ -644,13 +669,13 @@ async function cobelLimparPlanilhaVotos() {
     const botao = document.getElementById('cobel-btn-limpar');
     const statusTxt = document.getElementById('cobel-status-acao');
     const caixaLog = document.getElementById('cobel-status-log');
-    
+
     // Alerta de segurança antes de apagar
     if (!confirm("⚠️ ATENÇÃO: Você tem certeza absoluta que deseja apagar TODOS os votos da planilha? Esta ação não pode ser desfeita.")) {
         return;
     }
 
-    if(!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
+    if (!URL_APPS_SCRIPT || URL_APPS_SCRIPT.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
         alert("Erro: Configure a URL do Apps Script primeiro.");
         return;
     }
@@ -708,7 +733,41 @@ async function cobelLimparPlanilhaVotos() {
     }
 }
 
+// 🔹 SISTEMA DE AUTO-RELOAD AO PUBLICAR NO GITHUB (POLLING DE ETAG/LAST-MODIFIED)
+let currentVersionTag = '';
+
+async function verificarAtualizacoes() {
+    try {
+        // HEAD request super leve para ler cabeçalhos sem baixar o corpo da página, com cache-buster
+        const resposta = await fetch(`./index.html?_cb=${Date.now()}`, { method: 'HEAD' });
+        const etag = resposta.headers.get('etag');
+        const lastModified = resposta.headers.get('last-modified');
+        const versaoNoServidor = etag || lastModified;
+
+        if (versaoNoServidor) {
+            if (!currentVersionTag) {
+                // Guarda a versão inicial da página carregada
+                currentVersionTag = versaoNoServidor;
+            } else if (currentVersionTag !== versaoNoServidor) {
+                console.log('Nova versão detectada no GitHub! Recarregando página...');
+                window.location.reload();
+            }
+        }
+    } catch (erro) {
+        // Ignora silenciosamente para não quebrar a tela (ex: executando localmente sem servidor HTTP)
+        console.warn('Não foi possível verificar atualizações de arquivos:', erro);
+    }
+}
+
+function iniciarVerificadorAtualizacoes() {
+    // Primeira verificação rápida após 30 segundos
+    setTimeout(verificarAtualizacoes, 30000);
+    // Verificações periódicas a cada 3 minutos (180000 ms)
+    setInterval(verificarAtualizacoes, 180000);
+}
+
 // Dispara a leitura das informações assim que o painel carregar na tela
 window.addEventListener('load', () => {
     carregarLegendasDinamicas();
+    iniciarVerificadorAtualizacoes();
 });

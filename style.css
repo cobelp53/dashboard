@@ -1,26 +1,36 @@
 :root {
-    --petro-verde: #10422a; /*#006837;*/
+    --petro-verde: #10422a;
+    /*#006837;*/
     --petro-azul: #004B87;
     --petro-amarelo: #FDB913;
     /*--bg: #F4F5F7; */
-    --bg: #87bafa; /* Um cinza levemente azulado */
+    --bg: #87bafa;
+    /* Um cinza levemente azulado */
     --card: #ffffff;
     --texto: #1E293B;
     --texto-claro: #64748B;
     --borda: #E2E8F0;
-    
+
     --gap: 0.8vw;
-    --pad: 0.5vw; 
+    --pad: 0.5vw;
     --font-base: 0.8vw;
     --radius: 1.2vw;
     --border-w: 0.1vw;
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-html, body {
-    width: 100vw; height: 100vh;
-    overflow: hidden; 
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
     background: var(--bg);
     color: var(--texto);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -28,54 +38,84 @@ html, body {
     line-height: 1.45;
     background-color: var(--petro-verde);
     background-image: radial-gradient(#d1d5db 0.2px, transparent 0.2px);
-    background-size: 4px 4px; /* Tamanho do padrão */
+    background-size: 4px 4px;
+    /* Tamanho do padrão */
 }
 
 .painel-container {
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  padding: var(--gap); gap: var(--gap);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--gap);
+    gap: var(--gap);
 }
 
-.topo, .ticker-container { flex-shrink: 0; }
+.topo,
+.ticker-container {
+    flex-shrink: 0;
+}
 
 /* 🔹 GRID PRINCIPAL */
 .conteudo-grid {
-  flex: 1; min-height: 0;
-  display: grid;
-  grid-template-columns: 0.7fr 2.0fr 0.6fr; 
-  gap: var(--gap);
-  overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 0.7fr 2.0fr 0.6fr;
+    gap: var(--gap);
+    overflow: hidden;
 }
 
 /* 🔹 HEADER */
 .topo {
     display: grid;
     grid-template-columns: 30fr 40fr 30fr;
-    align-items: center; gap: var(--gap);
-    background: var(--card); padding: var(--pad);
+    align-items: center;
+    gap: var(--gap);
+    background: var(--card);
+    padding: var(--pad);
     border-radius: var(--radius);
-    box-shadow: 0 var(--border-w) calc(var(--border-w) * 2.5) rgba(0,0,0,0.08);
+    box-shadow: 0 var(--border-w) calc(var(--border-w) * 2.5) rgba(0, 0, 0, 0.08);
     border-left: var(--border-w) solid var(--petro-verde);
-    height: clamp(12vh, 8vh, 10vh);
+    min-height: clamp(80px, 10vh, 110px);
+    height: auto;
 }
 
-.lado-esquerdo, .centro-titulo, .lado-direito { display: flex; flex-direction: column;}
-.lado-esquerdo { justify-content: flex-start; }
-.lado-direito { justify-content: flex-end; align-items: center;}
+.lado-esquerdo,
+.centro-titulo,
+.lado-direito {
+    display: flex;
+    flex-direction: column;
+}
 
-.logo-petrobras { height: 10vh; width: auto; object-fit: contain; }
+.lado-esquerdo {
+    justify-content: flex-start;
+}
+
+.lado-direito {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo-petrobras {
+    height: 10vh;
+    width: auto;
+    object-fit: contain;
+}
 
 /* 🔹 NOVO: CONTAINER PARA LOGO + TITULO */
 .titulo-container-flex {
     display: flex;
-    align-items: center; /* Alinha o logo verticalmente com o centro das duas linhas de texto */
+    align-items: center;
+    /* Alinha o logo verticalmente com o centro das duas linhas de texto */
     justify-content: center;
-    gap: 1.5vw; /* Espaço entre o logo e o texto */
+    gap: 1.5vw;
+    /* Espaço entre o logo e o texto */
 }
 
 .logo-cobel-topo {
-    height: 7vh; /* Altura proporcional ao topo */
+    height: 7vh;
+    /* Altura proporcional ao topo */
     width: auto;
     object-fit: contain;
 }
@@ -83,22 +123,24 @@ html, body {
 .titulo-texto {
     display: flex;
     flex-direction: column;
-    text-align: left; /* Texto alinhado à esquerda para "abraçar" o logo que está na esquerda */
+    text-align: left;
+    /* Texto alinhado à esquerda para "abraçar" o logo que está na esquerda */
 }
 
 /* Ajuste nos títulos para não ficarem com margens estranhas */
-.centro-titulo h1 { 
-    font-size: 2.2vw; 
-    font-weight: 800; 
-    color: var(--petro-azul); 
-    margin: 0; 
+.centro-titulo h1 {
+    font-size: 2.2vw;
+    font-weight: 800;
+    color: var(--petro-azul);
+    margin: 0;
     line-height: 1;
 }
 
-.centro-titulo h2 { 
-    font-size: 1.2vw; /* Reduzi um pouco para equilibrar com o logo */
-    color: var(--petro-azul); 
-    margin: 0; 
+.centro-titulo h2 {
+    font-size: 1.2vw;
+    /* Reduzi um pouco para equilibrar com o logo */
+    color: var(--petro-azul);
+    margin: 0;
     line-height: 1.2;
 }
 
@@ -109,76 +151,178 @@ html, body {
 */
 
 .previsao-container {
-    display: flex; align-items: center; gap: 1vw;
-    background: #FFFFFF; padding: 0.8vw;
-    border-radius: 0.8vw; border: 1px solid var(--borda);
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    background: #FFFFFF;
+    padding: 0.5vw 0.8vw;
+    border-radius: 0.8vw;
+    border: 1px solid var(--borda);
 }
 
-.item-clima { display: flex; flex-direction: column; align-items: center; min-width: 3vw; }
-.item-clima .dia-nome { font-size: 0.6vw; color: var(--texto-claro); text-transform: uppercase; font-weight: 700; }
-.item-clima .icone { font-size: 1.2vw; }
-.item-clima .temps { font-size: 0.8vw; font-weight: 700; color: var(--petro-azul); }
+.item-clima {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2.8vw;
+}
+
+.item-clima .dia-nome {
+    font-size: 0.55vw;
+    color: var(--texto-claro);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.item-clima .icone {
+    font-size: 1.1vw;
+    margin: 0.1vw 0;
+}
+
+.item-clima .temps {
+    font-size: 0.75vw;
+    font-weight: 700;
+    color: var(--petro-azul);
+    white-space: nowrap;
+}
+
+.item-clima .vento {
+    font-size: 0.55vw;
+    color: var(--texto-claro);
+    font-weight: 600;
+    white-space: nowrap;
+    margin-top: 0.1vw;
+}
 
 /* 🔹 SEÇÕES */
 section {
-  background: var(--card); border-radius: var(--radius); padding: var(--pad);
-  box-shadow: 0 var(--border-w) calc(var(--border-w) * 2) rgba(0,0,0,0.06);
-  display: flex; flex-direction: column; overflow: hidden;
-  height: 100%;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    box-shadow: 0 var(--border-w) calc(var(--border-w) * 2) rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
 
 }
 
 section h2 {
-  font-size: 0.9vw; color: var(--petro-azul);
-  margin-bottom: 0.8vw; padding-bottom: 0.3vw;
-  border-bottom: 2px solid var(--borda); display: flex; align-items: center; gap: 0.7vw;
+    font-size: 0.9vw;
+    color: var(--petro-azul);
+    margin-bottom: 0.8vw;
+    padding-bottom: 0.3vw;
+    border-bottom: 2px solid var(--borda);
+    display: flex;
+    align-items: center;
+    gap: 0.7vw;
 }
 
 /* 🔹 PROGRAMAÇÃO */
-.programacao-container { display: flex; flex-direction: column; gap: var(--gap); height: 100%; }
-.prog-bloco { flex: 1; background: #F8FAFC; border-radius: var(--radius); padding: var(12vw); border-left: 0.5vw solid var(--petro-azul); display: flex; flex-direction: column; overflow: hidden; }
-.prog-bloco.semana { border-left-color: var(--petro-verde); }
-.prog-bloco h3 { 
-        font-size: 0.9vw;
-        color: var(--petro-verde);
-        margin-bottom: 0.8vw !important; /* Aumenta o espaço abaixo do título */
-        margin-left: 2vw;
-        padding-bottom: 0.4vw;
-        border-bottom: 1px solid rgba(0,0,0,0.05); /* Linha divisória sutil */
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.05vw; /* Títulos "Rotina diária" e "Esta Semana" */
-    }
+.programacao-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    height: 100%;
+}
 
-.lista-programacao { list-style: none; display: flex; margin-top: 0.1vw; flex-direction: column; gap: 0.35vw; overflow-y: auto; flex: 1; }
-.lista-programacao li { display: flex; align-items: baseline; gap: 0.8vw; padding: 0.4vw; background: #FFFFFF; border-radius: 0.4vw; font-size: 1vw; border-left: 3px solid var(--borda); }
-.lista-programacao li.destaque { 
+.prog-bloco {
+    flex: 1;
+    background: #F8FAFC;
+    border-radius: var(--radius);
+    padding: var(12vw);
+    border-left: 0.5vw solid var(--petro-azul);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.prog-bloco.semana {
+    border-left-color: var(--petro-verde);
+}
+
+.prog-bloco h3 {
+    font-size: 0.9vw;
+    color: var(--petro-verde);
+    margin-bottom: 0.8vw !important;
+    /* Aumenta o espaço abaixo do título */
+    margin-left: 2vw;
+    padding-bottom: 0.4vw;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* Linha divisória sutil */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05vw;
+    /* Títulos "Rotina diária" e "Esta Semana" */
+}
+
+.lista-programacao {
+    list-style: none;
+    display: flex;
+    margin-top: 0.1vw;
+    flex-direction: column;
+    gap: 0.35vw;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.lista-programacao li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8vw;
+    padding: 0.4vw;
+    background: #FFFFFF;
+    border-radius: 0.4vw;
+    font-size: 1vw;
+    border-left: 3px solid var(--borda);
+}
+
+.lista-programacao li.destaque {
     border-left-color: var(--petro-amarelo);
     background: #FFFBEB;
     font-weight: 800;
-    font-size: 1.05rem !important;
+    font-size: 1.1em !important;
 }
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
-.col-destaques { flex: 1; display: flex; flex-direction: column; height: 100%; }
-
-.carrossel img, .carrossel .slide-texto {
-    width: 100%; height: 100%; position: absolute; top: 0; left: 0;
-    opacity: 0; transition: opacity 0.8s ease-in-out;
-    object-fit: cover; object-position: center; z-index: 1;
+.col-destaques {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.carrossel .ativa { opacity: 1 !important; z-index: 2; }
+.carrossel img,
+.carrossel .slide-texto {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+.carrossel .ativa {
+    opacity: 1 !important;
+    z-index: 2;
+}
 
 /* 🔹 SLIDE DE TEXTO (CORRIGIDO: FUNDO E CENTRALIZAÇÃO) */
 .slide-texto {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
-    align-items: center !important; /* Centraliza horizontalmente */
-    text-align: center !important;    /* Centraliza as linhas de texto */
+    align-items: center !important;
+    /* Centraliza horizontalmente */
+    text-align: center !important;
+    /* Centraliza as linhas de texto */
     padding: 2vw;
-    background: linear-gradient(135deg, var(--petro-azul), #003366) !important; /* Cor azul de fundo */
+    background: linear-gradient(135deg, var(--petro-azul), #003366) !important;
+    /* Cor azul de fundo */
     color: white !important;
     width: 100%;
     height: 100%;
@@ -214,7 +358,8 @@ section h2 {
     padding: 10px;
     font-size: 1.5vw;
     color: var(--texto);
-    background: var(--card); /* Fundo branco para contraste */
+    background: var(--card);
+    /* Fundo branco para contraste */
     text-align: center;
     width: 100%;
     border-radius: 0 0 var(--radius) var(--radius);
@@ -241,7 +386,8 @@ section h2 {
 
 /* 🔹 BOTÕES DO CARROSSEL - ESCONDIDOS NO PC */
 .btn-carrossel {
-    display: none; /* Oculta no PC conforme solicitado */
+    display: none;
+    /* Oculta no PC conforme solicitado */
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -255,36 +401,57 @@ section h2 {
     justify-content: center;
 }
 
-.btn-carrossel:hover { background: var(--petro-amarelo); color: var(--petro-azul); }
-.btn-carrossel.anterior { left: 15px; }
-.btn-carrossel.proximo { right: 15px; }
+.btn-carrossel:hover {
+    background: var(--petro-amarelo);
+    color: var(--petro-azul);
+}
+
+.btn-carrossel.anterior {
+    left: 15px;
+}
+
+.btn-carrossel.proximo {
+    right: 15px;
+}
 
 /* 🔹 VOTAÇÃO E GRÁFICO (PC) */
-.col-votacao { 
-  display: flex; flex-direction: column; 
-  gap: var(3vw); height: 100%; min-height: 0; 
+.col-votacao {
+    display: flex;
+    flex-direction: column;
+    gap: var(3vw);
+    height: 100%;
+    min-height: 0;
 }
 
-.qr-bloco, .grafico-bloco { 
-  flex: 1; min-height: 0;
-  background: #F8FAFC; border-radius: var(--radius); 
-  padding: var(2.0vw); border: 1px solid var(--borda);
-  font-size: 1.1vw;
-  line-height: 2; 
-  display: flex; flex-direction: column;
-  align-items: center;
-  overflow: hidden;
+.qr-bloco,
+.grafico-bloco {
+    flex: 1;
+    min-height: 0;
+    background: #F8FAFC;
+    border-radius: var(--radius);
+    padding: var(2.0vw);
+    border: 1px solid var(--borda);
+    font-size: 1.1vw;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
 }
+
 /* Centraliza perfeitamente o conteúdo do bloco do QR Code */
 .qr-bloco {
-    justify-content: center !important; /* Força o alinhamento vertical bem no meio */
-    gap: 0.5vw; /* Cria um espacinho padrão e fixo entre o título, o texto e o QR Code */
+    justify-content: center !important;
+    /* Força o alinhamento vertical bem no meio */
+    gap: 0.5vw;
+    /* Cria um espacinho padrão e fixo entre o título, o texto e o QR Code */
 }
-.qr-bloco h3 { 
+
+.qr-bloco h3 {
     margin-top: 0vw;
     margin-bottom: 0.5vw;
-    font-size: 1.0vw; 
-    color: var(--petro-verde); 
+    font-size: 1.0vw;
+    color: var(--petro-verde);
 }
 
 /* Espaço da instrução para o QR Code */
@@ -293,33 +460,53 @@ section h2 {
     color: var(--texto-claro);
     max-width: 90%;
     line-height: 1.3;
-    margin-bottom: 1vw; /* Empurra o QR Code um pouco para baixo */
+    margin-bottom: 1vw;
+    /* Empurra o QR Code um pouco para baixo */
 }
 
 /* Ajuste do tamanho e sombra do QR Code para ele não parecer "perdido" */
-.qr-container img { 
-    width: 12.5vw; /* Aumentei levemente */
-    height: auto; 
-    border-radius: 1vw; 
-    box-shadow: 0 0.5vw 1.5vw rgba(0,0,0,0.1); /* Sombra mais suave e profunda */
-    border: 0 4px 10px rgba(0,0,0,0.1); /*0.5vw solid white; /* Moldura branca para destacar o QR */
+.qr-container img {
+    width: 12.5vw;
+    /* Aumentei levemente */
+    height: auto;
+    border-radius: 1vw;
+    box-shadow: 0 0.5vw 1.5vw rgba(0, 0, 0, 0.1);
+    /* Sombra mais suave e profunda */
+    border: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /*0.5vw solid white; /* Moldura branca para destacar o QR */
 }
 
 /* Garante que o título fique no topo e o gráfico embaixo no PC */
-.grafico-bloco { 
-    justify-content: flex-start; 
+.grafico-bloco {
+    justify-content: flex-start;
 }
-.grafico-bloco h3 { margin-bottom: 5px; flex-shrink: 0; font-size: 0.9vw; color: var(--petro-verde); }
 
-.grafico-container { 
-  width: 100%; flex: 1; 
-  position: relative; display: flex; 
-  flex-direction: column; align-items: center; justify-content: center;
-  min-height: 0;
+.grafico-bloco h3 {
+    margin-bottom: 5px;
+    flex-shrink: 0;
+    font-size: 0.9vw;
+    color: var(--petro-verde);
 }
+
+.grafico-container {
+    width: 100%;
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
 /* No PC, esconde o título mobile e mostra o de PC */
-.texto-mobile { display: none; }
-.texto-pc { display: inline; }
+.texto-mobile {
+    display: none;
+}
+
+.texto-pc {
+    display: inline;
+}
 
 /* Título interno do gráfico visível no PC */
 .titulo-interno-grafico {
@@ -330,16 +517,61 @@ section h2 {
 }
 
 .grafico-container canvas {
-  max-width: 95% !important; max-height: 90% !important;
+    max-width: 95% !important;
+    max-height: 90% !important;
 }
 
 /* 🔹 TICKER */
-.ticker-container { background: var(--card); color: var(--petro-azul); border-radius: var(--radius); overflow: hidden; height: 3vh; display: flex; align-items: center; }
-.ticker-wrapper { display: flex; width: 100%; height: 100%; align-items: center; }
-.ticker-content { flex: 1; overflow: hidden; white-space: nowrap; }
-.ticker-text { display: inline-block; padding-left: 100%; animation: scroll-ticker 45s linear infinite; font-size: 0.9vw; }
-@keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-.ticker-hora { background: rgba(0,0,0,0.05); padding: 0 1vw; height: 100%; display: flex; align-items: center; font-weight: 700; font-size: 0.9vw; min-width: 12vw; }
+.ticker-container {
+    background: var(--card);
+    color: var(--petro-azul);
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 3vh;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.ticker-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-ticker 45s linear infinite;
+    font-size: 0.9vw;
+}
+
+@keyframes scroll-ticker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-hora {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0 1vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.9vw;
+    min-width: 12vw;
+}
 
 
 
@@ -349,22 +581,73 @@ section h2 {
    MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
    ========================================================================== */
 @media (max-width: 768px) {
-    html, body { 
-        height: auto; 
-        overflow-y: auto; 
-        font-size: 14px; 
-        width: 100%; 
+
+    html,
+    body {
+        height: auto;
+        overflow-y: auto;
+        font-size: 14px;
+        width: 100%;
     }
 
-    .painel-container { 
-        height: auto; 
-        padding: 10px; 
-        gap: 15px; 
+    .painel-container {
+        height: auto;
+        padding: 10px;
+        gap: 15px;
     }
 
     /* 🔹 HEADER MOBILE: Esconde Petrobras e Previsão, Centraliza Cobel */
-    .lado-esquerdo, .lado-direito, .esconder-mobile { 
-        display: none !important; 
+    .lado-esquerdo,
+    .esconder-mobile {
+        display: none !important;
+    }
+
+    .lado-direito {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-top: 10px;
+    }
+
+    .previsao-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        justify-content: center !important;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 12px !important;
+    }
+
+    .previsao-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .previsao-semana {
+        gap: 8px !important;
+    }
+
+    .item-clima {
+        min-width: 40px !important;
+    }
+
+    .item-clima .dia-nome {
+        font-size: 9px !important;
+    }
+
+    .item-clima .icone {
+        font-size: 16px !important;
+    }
+
+    .item-clima .temps {
+        font-size: 10px !important;
+    }
+
+    .item-clima .vento {
+        font-size: 8px !important;
+        margin-top: 2px !important;
     }
 
     .topo {
@@ -401,29 +684,30 @@ section h2 {
     }
 
     /* 🔹 GRID MOBILE: Coluna única */
-    .conteudo-grid { 
-        display: flex; 
-        flex-direction: column; 
-        height: auto; 
-        overflow: visible; 
-        gap: 15px; 
+    .conteudo-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+        gap: 15px;
     }
 
-    section { 
-        height: auto !important; 
-        min-height: unset !important; 
-        padding: 15px; 
+    section {
+        height: auto !important;
+        min-height: unset !important;
+        padding: 15px;
     }
 
     /* Títulos principais: Programação, Destaques, etc */
-    section h2 { 
-        font-size: 1.0rem !important; /* Aumentado para destaque */
+    section h2 {
+        font-size: 1.0rem !important;
+        /* Aumentado para destaque */
         margin-bottom: 12px;
     }
 
     /* Título do Gráfico */
-    .grafico-bloco h3 { 
-        font-size: 1.0rem !important; 
+    .grafico-bloco h3 {
+        font-size: 1.0rem !important;
         margin-bottom: 10px;
     }
 
@@ -438,9 +722,12 @@ section h2 {
     #link-votacao {
         display: block !important;
         width: 100% !important;
-        max-width: 280px; /* Limita a largura para ficar estético */
-        background-color: var(--petro-azul) !important; /* Cor sólida de destaque */
-        color: #ffffff !important; /* Texto branco */
+        max-width: 280px;
+        /* Limita a largura para ficar estético */
+        background-color: var(--petro-azul) !important;
+        /* Cor sólida de destaque */
+        color: #ffffff !important;
+        /* Texto branco */
         text-align: center !important;
         padding: 12px 20px !important;
         font-size: 1rem !important;
@@ -459,47 +746,52 @@ section h2 {
     }
 
     /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado */
-    .programacao-container { 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 8px; 
-        height: auto; 
+    .programacao-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        height: auto;
     }
 
-    .prog-bloco { 
-        padding: 0px; 
-        border-left-width: 4px; 
-        height: auto; 
-        min-height: unset; 
+    .prog-bloco {
+        padding: 0px;
+        border-left-width: 4px;
+        height: auto;
+        min-height: unset;
     }
 
-    .prog-bloco h3 { 
-        font-size: 1rem !important; /* Títulos "Rotina diária" e "Esta Semana" */
+    .prog-bloco h3 {
+        font-size: 1rem !important;
+        /* Títulos "Rotina diária" e "Esta Semana" */
     }
 
-    .lista-programacao li { 
-        font-size: 0.9rem !important; /* Tamanho de leitura confortável */
+    .lista-programacao li {
+        font-size: 0.9rem !important;
+        /* Tamanho de leitura confortável */
         padding: 8px;
         line-height: 1.2;
         background: #FFFFFF;
-        border-left: 4px solid var(--borda); /* Borda padrão cinza */
+        border-left: 4px solid var(--borda);
+        /* Borda padrão cinza */
     }
-    .lista-programacao li.destaque { 
-        border-left-color: var(--petro-amarelo) !important; 
-        background: #FFFBEB !important; 
+
+    .lista-programacao li.destaque {
+        border-left-color: var(--petro-amarelo) !important;
+        background: #FFFBEB !important;
         font-weight: 700;
-        font-size: 1.3 vw !important; /* Tamanho de leitura confortável */
+        font-size: 1.05em !important;
     }
 
     /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
-    .col-destaques { 
-        display: block !important; 
-        height: auto !important; 
+    .col-destaques {
+        display: block !important;
+        height: auto !important;
     }
 
     .carrossel-wrapper {
         position: relative !important;
-        height: 280px !important; /* 💡 Isso aqui faz a imagem aparecer */
+        height: 280px !important;
+        /* 💡 Isso aqui faz a imagem aparecer */
         width: 100% !important;
         margin-bottom: 5px;
         display: block !important;
@@ -513,31 +805,32 @@ section h2 {
         position: relative !important;
     }
 
-    .carrossel img, .carrossel .slide-texto { 
-        opacity: 0; 
-        width: 100% !important; 
-        height: 100% !important; 
-        object-fit: cover !important; 
-        position: absolute !important; 
-        top: 0; 
+    .carrossel img,
+    .carrossel .slide-texto {
+        opacity: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        position: absolute !important;
+        top: 0;
         left: 0;
         transition: opacity 0.5s ease;
     }
 
-    .carrossel .ativa { 
-        opacity: 1 !important; 
-        z-index: 5 !important; 
+    .carrossel .ativa {
+        opacity: 1 !important;
+        z-index: 5 !important;
     }
 
     /* 🔹 MOSTRAR BOTÕES APENAS NO MOBILE */
     .btn-carrossel {
-        display: flex !important; 
+        display: flex !important;
         width: 45px !important;
         height: 45px !important;
         font-size: 1.5rem !important;
     }
 
-/* 🔹 SLIDE DE TEXTO NO MOBILE (CORRIGIDO) */
+    /* 🔹 SLIDE DE TEXTO NO MOBILE (CORRIGIDO) */
     .slide-texto {
         background: linear-gradient(135deg, var(--petro-azul), #003366) !important;
         padding: 20px !important;
@@ -569,18 +862,18 @@ section h2 {
         z-index: 10 !important;
     }
 
-    .legenda { 
-        font-size: 0.8rem; 
-        position: relative; 
-        padding: 5px; 
+    .legenda {
+        font-size: 0.8rem;
+        position: relative;
+        padding: 5px;
         text-align: center;
     }
 
     /* 🔹 GRÁFICO MOBILE */
-    .col-votacao { 
-        height: auto !important; 
-        min-height: unset !important; 
-        gap: 15px; 
+    .col-votacao {
+        height: auto !important;
+        min-height: unset !important;
+        gap: 15px;
     }
 
     /* Ajusta o espaçamento do bloco do gráfico agora que não tem título interno */
@@ -592,39 +885,60 @@ section h2 {
     }
 
     /* Troca os títulos da seção */
-    .texto-pc { display: none !important; }
-    .texto-mobile { display: inline !important; }
+    .texto-pc {
+        display: none !important;
+    }
+
+    .texto-mobile {
+        display: inline !important;
+    }
 
     /* Esconde o título que ficava dentro do quadradinho branco */
-    .titulo-interno-grafico { 
-        display: none !important; 
+    .titulo-interno-grafico {
+        display: none !important;
     }
 
     .titulo-interacao {
         font-size: 1.1rem !important;
     }
 
-    .grafico-container { 
-        position: relative !important; /* Obrigatório para o Chart.js se basear */
-        height: 280px !important;      /* Define uma altura fixa segura */
-        width: 100% !important; 
-        min-height: 280px !important;  /* Força a barra para o container não ceder */
-        max-height: 280px !important;  /* Teto máximo para travar o loop de crescimento */
-        overflow: hidden;              /* Garante que nada escape */
+    .grafico-container {
+        position: relative !important;
+        /* Obrigatório para o Chart.js se basear */
+        height: 280px !important;
+        /* Define uma altura fixa segura */
+        width: 100% !important;
+        min-height: 280px !important;
+        /* Força a barra para o container não ceder */
+        max-height: 280px !important;
+        /* Teto máximo para travar o loop de crescimento */
+        overflow: hidden;
+        /* Garante que nada escape */
     }
+
     /* Garante que o canvas ocupe o espaço e mantenha o aspecto */
     .grafico-container canvas {
-        position: absolute !important; /* Remove o canvas do fluxo normal para evitar o efeito "empurrão" */
+        position: absolute !important;
+        /* Remove o canvas do fluxo normal para evitar o efeito "empurrão" */
         top: 0;
         left: 0;
-        width: 100% !important; 
+        width: 100% !important;
         height: 100% !important;
     }
 
     /* 🔹 TICKER MOBILE */
-    .ticker-container { height: 35px; }
-    .ticker-text { font-size: 0.8rem; }
-    .ticker-hora { font-size: 0.8rem; min-width: 120px; }
+    .ticker-container {
+        height: 35px;
+    }
+
+    .ticker-text {
+        font-size: 0.8rem;
+    }
+
+    .ticker-hora {
+        font-size: 0.8rem;
+        min-width: 120px;
+    }
 }
 
 /* ==========================================================================
@@ -634,12 +948,17 @@ section h2 {
 /* 1. Modal Sobreposição */
 .cobel-modal-sobreposicao {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(15, 23, 42, 0.75);
     backdrop-filter: blur(2px);
     z-index: 99999;
-    display: none; /* Controlado via JS */
-    align-items: center; justify-content: center;
+    display: none;
+    /* Controlado via JS */
+    align-items: center;
+    justify-content: center;
 }
 
 .cobel-modal-caixa {
@@ -647,7 +966,7 @@ section h2 {
     padding: 30px;
     border-radius: 12px;
     width: 380px;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
     text-align: center;
     border: 3px solid var(--petro-azul);
 }
@@ -700,22 +1019,32 @@ section h2 {
     background: #e2e8f0;
     color: #475569;
 }
-.cobel-btn-cancelar:hover { background: #cbd5e1; }
+
+.cobel-btn-cancelar:hover {
+    background: #cbd5e1;
+}
 
 .cobel-btn-confirmar {
     background: var(--petro-azul);
     color: white;
 }
-.cobel-btn-confirmar:hover { background: #003366; }
+
+.cobel-btn-confirmar:hover {
+    background: #003366;
+}
 
 
 /* 2. Tela Admin Inteira */
 .cobel-admin-container {
     position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: #f1f5f9;
     z-index: 100000;
-    display: none; /* Controlado via JS */
+    display: none;
+    /* Controlado via JS */
     flex-direction: column;
     font-family: sans-serif;
 }
@@ -727,7 +1056,7 @@ section h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .cobel-admin-titulos h2 {
@@ -736,6 +1065,7 @@ section h2 {
     color: var(--petro-amarelo);
     margin: 0;
 }
+
 .cobel-admin-titulos p {
     font-size: 0.9rem;
     opacity: 0.85;
@@ -753,7 +1083,10 @@ section h2 {
     cursor: pointer;
     transition: background 0.2s;
 }
-.cobel-btn-fechar-admin:hover { background: #dc2626; }
+
+.cobel-btn-fechar-admin:hover {
+    background: #dc2626;
+}
 
 .cobel-admin-conteudo {
     padding: 40px;
@@ -764,15 +1097,17 @@ section h2 {
     height: calc(100vh - 85px);
 }
 
-.cobel-admin-card-instrucao, .cobel-admin-card-logs {
+.cobel-admin-card-instrucao,
+.cobel-admin-card-logs {
     background: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     border: 1px solid #e2e8f0;
 }
 
-.cobel-admin-card-instrucao h3, .cobel-admin-card-logs h3 {
+.cobel-admin-card-instrucao h3,
+.cobel-admin-card-logs h3 {
     font-size: 1.2rem;
     color: #1e293b;
     margin-bottom: 12px;
@@ -796,9 +1131,17 @@ section h2 {
     line-height: 1.8;
 }
 
-.cobel-log-sucesso { color: #4ade80; }
-.cobel-log-info { color: #38bdf8; }
-.cobel-log-alerta { color: #fbbf24; }
+.cobel-log-sucesso {
+    color: #4ade80;
+}
+
+.cobel-log-info {
+    color: #38bdf8;
+}
+
+.cobel-log-alerta {
+    color: #fbbf24;
+}
 
 /* Reset do responsivo para a tela admin */
 @media (max-width: 768px) {
@@ -808,15 +1151,23 @@ section h2 {
         text-align: center;
         padding: 15px;
     }
-    .cobel-admin-conteudo { padding: 15px; }
-    .cobel-modal-caixa { width: 90%; padding: 20px; }
+
+    .cobel-admin-conteudo {
+        padding: 15px;
+    }
+
+    .cobel-modal-caixa {
+        width: 90%;
+        padding: 20px;
+    }
 }
+
 /* 3. Card de Ações e Botões de Operação */
 .cobel-admin-card-acoes {
     background: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     border: 1px solid #e2e8f0;
 }
 
@@ -852,6 +1203,14 @@ section h2 {
     font-size: 0.95rem;
 }
 
-.cobel-txt-processando { color: #2563eb; }
-.cobel-txt-sucesso { color: #16a34a; }
-.cobel-txt-erro { color: #dc2626; }
+.cobel-txt-processando {
+    color: #2563eb;
+}
+
+.cobel-txt-sucesso {
+    color: #16a34a;
+}
+
+.cobel-txt-erro {
+    color: #dc2626;
+}
