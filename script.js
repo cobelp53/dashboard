@@ -45,7 +45,7 @@ const CONFIG_GLOBAL = {
 
         // ID da Planilha Google obtida das respostas do Google Forms
         sheetId: "12uZTiil0aRZ80rlE3TNEMitlSn8E2cxZk4Srbefozk4",
-        sheetName: "Cine_pipoca_votacao",
+        sheetName: "Respostas ao formulário 1",
         voteColumnIndex: 1,                // Índice da coluna de votos (0-indexado, 1 = segunda coluna)
         frequenciaAtualizacaoMs: 30000,    // Atualização do gráfico de votos na tela (30 segundos)
         tamanhoQRCode: 185,                // Tamanho em pixels (largura x altura) do QR Code na tela
@@ -298,7 +298,7 @@ let indiceImagem = 0;
 let timerCarrossel;
 
 /**
- * Renderiza os slides (Imagens ou Caixa de Textos Informativos) na tela
+ * Renderiza os slides (Imagens, Vídeos ou Caixa de Textos Informativos) na tela
  */
 function renderizarCarrossel() {
     const container = document.getElementById('carrossel-imagens');
@@ -307,11 +307,26 @@ function renderizarCarrossel() {
 
     destaques.forEach((item, i) => {
         if (item.url) {
-            // Slide com imagem
-            const img = document.createElement('img');
-            img.src = item.url;
-            img.className = i === 0 ? 'ativa' : '';
-            container.appendChild(img);
+            // Verifica se o arquivo é um vídeo curto com base na extensão
+            const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item.url);
+            if (isVideo) {
+                // Slide de vídeo curto / looping
+                const video = document.createElement('video');
+                video.src = item.url;
+                video.className = i === 0 ? 'ativa' : '';
+                video.autoplay = true;
+                video.loop = true;
+                video.muted = true;
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                container.appendChild(video);
+            } else {
+                // Slide de imagem ou GIF tradicional
+                const img = document.createElement('img');
+                img.src = item.url;
+                img.className = i === 0 ? 'ativa' : '';
+                container.appendChild(img);
+            }
         } else if (item.texto) {
             // Slide de texto puro estilizado
             const div = document.createElement('div');
@@ -321,6 +336,13 @@ function renderizarCarrossel() {
         }
     });
     atualizarLegenda(0);
+
+    // Se o primeiro slide for vídeo, inicia a reprodução do início
+    const primeiroSlide = container.firstElementChild;
+    if (primeiroSlide && primeiroSlide.tagName === 'VIDEO') {
+        primeiroSlide.currentTime = 0;
+        primeiroSlide.play().catch(e => console.log("Erro ao reproduzir primeiro vídeo:", e));
+    }
 }
 
 /**
@@ -331,9 +353,20 @@ function mudarSlide(direcao) {
     const slides = document.querySelectorAll('#carrossel-imagens > *');
     if (slides.length === 0) return;
 
+    // Pausa o vídeo ativo anterior se for um elemento de vídeo
+    if (slides[indiceImagem] && slides[indiceImagem].tagName === 'VIDEO') {
+        slides[indiceImagem].pause();
+    }
+
     slides[indiceImagem].classList.remove('ativa');
     indiceImagem = (indiceImagem + direcao + slides.length) % slides.length;
     slides[indiceImagem].classList.add('ativa');
+
+    // Se o novo slide for vídeo, reinicia e reproduz
+    if (slides[indiceImagem] && slides[indiceImagem].tagName === 'VIDEO') {
+        slides[indiceImagem].currentTime = 0;
+        slides[indiceImagem].play().catch(e => console.log("Erro ao reproduzir vídeo:", e));
+    }
 
     atualizarLegenda(indiceImagem);
 }
@@ -518,11 +551,18 @@ async function carregarGraficoVotacao() {
 
         // Ordena o ranking por maior número de votos
         const ranking = Object.entries(contagemVotos).sort((a, b) => b[1] - a[1]);
-        const labels = ranking.map(item => item[0]);
-        const values = ranking.map(item => item[1]);
+
+        // Mapeia o ranking adicionando a classificação (1º, 2º, 3º...) para exibição no gráfico/legenda
+        const rankingPosicionado = ranking.map((item, index) => {
+            const pos = index + 1;
+            return [`${pos}º ${item[0]}`, item[1]];
+        });
+
+        const labels = rankingPosicionado.map(item => item[0]);
+        const values = rankingPosicionado.map(item => item[1]);
 
         // Mantém apenas os 3 itens mais votados para exibição na legenda
-        const top3 = ranking.slice(0, 3).map(item => item[0]);
+        const top3 = labels.slice(0, 3);
         const totalVotos = values.reduce((a, b) => a + b, 0);
 
         if (labels.length === 0) throw new Error('Nenhum voto elegível encontrado.');
@@ -534,6 +574,12 @@ async function carregarGraficoVotacao() {
 
         if (loadingEl) loadingEl.style.display = 'none';
         if (canvas) canvas.style.display = 'block';
+
+        // Atualiza o título do card para incluir a contagem total de votos de forma limpa e sem ocupar espaço do canvas
+        const elTitulo = document.getElementById('votacao-titulo');
+        if (elTitulo) {
+            elTitulo.innerText = `${CONFIG_GLOBAL.textos.rotuloVotacaoFilme} (${totalVotos} votos)`;
+        }
 
         // Inicializa o novo gráfico de pizza
         window.pieChartInstance = new Chart(canvas, {
@@ -566,13 +612,16 @@ async function carregarGraficoVotacao() {
                         position: 'bottom',
                         align: 'center',
                         labels: {
-                            font: { size: 14, weight: 'bold', family: "'Segoe UI', sans-serif" },
-                            padding: 8,
-                            boxWidth: 12,
-                            boxHeight: 12,
+                            font: {
+                                size: window.innerWidth < 768 ? 12 : 11,
+                                weight: 'bold',
+                                family: "'Segoe UI', sans-serif"
+                            },
+                            padding: window.innerWidth < 768 ? 8 : 4,
+                            boxWidth: 10,
+                            boxHeight: 10,
                             usePointStyle: true,
                             pointStyle: 'circle',
-                            maxWidth: window.innerWidth < 768 ? 90 : 130,
                             filter: function (item) {
                                 return top3.includes(item.text); // Filtra legenda mostrando apenas o Top 3
                             }
@@ -589,14 +638,11 @@ async function carregarGraficoVotacao() {
                         }
                     },
                     title: {
-                        display: totalVotos > 1,
-                        text: `${totalVotos} votos`,
-                        font: { size: 16, weight: 'bold' },
-                        padding: 0
+                        display: false // Oculta o título do ChartJS pois já atualizamos o título do card HTML principal
                     }
                 },
                 layout: {
-                    padding: { top: 1, bottom: 1, right: 1 }
+                    padding: { top: 2, bottom: 2, right: 2, left: 2 }
                 }
             }
         });

@@ -293,6 +293,7 @@ section h2 {
 }
 
 .carrossel img,
+.carrossel video,
 .carrossel .slide-texto {
     width: 100%;
     height: 100%;
@@ -429,7 +430,7 @@ section h2 {
     min-height: 0;
     background: #F8FAFC;
     border-radius: var(--radius);
-    padding: 1.5vw;
+    padding: 0.8vw 1.2vw;
     border: 1px solid var(--borda);
     font-size: 1.1vw;
     line-height: 2;
@@ -441,39 +442,28 @@ section h2 {
 
 /* Centraliza perfeitamente o conteúdo do bloco do QR Code */
 .qr-bloco {
-    justify-content: center !important;
+    justify-content: space-evenly !important;
     /* Força o alinhamento vertical bem no meio */
-    gap: 0.5vw;
-    /* Cria um espacinho padrão e fixo entre o título, o texto e o QR Code */
+    gap: 0.2vw;
+    /* Cria um espacinho padrão e fixo entre o título e o QR Code */
 }
 
 .qr-bloco h3 {
     margin-top: 0vw;
-    margin-bottom: 0.5vw;
-    font-size: 1.0vw;
-    color: var(--petro-verde);
-}
-
-/* Espaço da instrução para o QR Code */
-.qr-bloco p.instrucao {
+    margin-bottom: 0.2vw;
     font-size: 0.8vw;
-    color: var(--texto-claro);
-    max-width: 90%;
-    line-height: 1.3;
-    margin-bottom: 1vw;
-    /* Empurra o QR Code um pouco para baixo */
+    line-height: 1.2;
+    color: var(--petro-verde);
+    text-align: center;
 }
 
 /* Ajuste do tamanho e sombra do QR Code para ele não parecer "perdido" */
 .qr-container img {
-    width: 12.5vw;
-    /* Aumentei levemente */
+    width: min(12vw, 190px);
     height: auto;
-    border-radius: 1vw;
+    border-radius: 0.8vw;
     box-shadow: 0 0.5vw 1.5vw rgba(0, 0, 0, 0.1);
     /* Sombra mais suave e profunda */
-    border: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /*0.5vw solid white; /* Moldura branca para destacar o QR */
 }
 
 /* Garante que o título fique no topo e o gráfico embaixo no PC */
@@ -484,7 +474,8 @@ section h2 {
 .grafico-bloco h3 {
     margin-bottom: 5px;
     flex-shrink: 0;
-    font-size: 0.9vw;
+    font-size: 0.85vw;
+    line-height: 1.2;
     color: var(--petro-verde);
 }
 
@@ -517,8 +508,21 @@ section h2 {
 }
 
 .grafico-container canvas {
-    max-width: 95% !important;
-    max-height: 90% !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+#link-votacao {
+    font-size: 0.75vw;
+    color: var(--texto-claro);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+#link-votacao:hover {
+    color: var(--petro-azul);
 }
 
 /* 🔹 TICKER */
@@ -806,6 +810,7 @@ section h2 {
     }
 
     .carrossel img,
+    .carrossel video,
     .carrossel .slide-texto {
         opacity: 0;
         width: 100% !important;
