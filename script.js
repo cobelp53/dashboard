@@ -601,7 +601,7 @@ async function carregarGraficoVotacao() {
                     datalabels: {
                         color: '#fff',
                         anchor: 'center',
-                        align: 'end',
+                        align: 'center',
                         font: { size: 12, weight: 'bold' },
                         formatter: (value, ctx) => {
                             // Exibe o número de votos diretamente na fatia correspondente
@@ -609,23 +609,7 @@ async function carregarGraficoVotacao() {
                         }
                     },
                     legend: {
-                        position: 'bottom',
-                        align: 'center',
-                        labels: {
-                            font: {
-                                size: window.innerWidth < 768 ? 12 : 11,
-                                weight: 'bold',
-                                family: "'Segoe UI', sans-serif"
-                            },
-                            padding: window.innerWidth < 768 ? 8 : 4,
-                            boxWidth: 10,
-                            boxHeight: 10,
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            filter: function (item) {
-                                return top3.includes(item.text); // Filtra legenda mostrando apenas o Top 3
-                            }
-                        }
+                        display: false // Oculta a legenda interna do Chart.js para usarmos nossa legenda HTML customizada e responsiva
                     },
                     tooltip: {
                         callbacks: {
@@ -646,6 +630,33 @@ async function carregarGraficoVotacao() {
                 }
             }
         });
+
+        // Gera e injeta a legenda HTML customizada (empilhada verticalmente no mobile, horizontal no PC)
+        const containerLegenda = document.getElementById('grafico-legenda-custom');
+        if (containerLegenda) {
+            containerLegenda.innerHTML = '';
+            top3.forEach((label) => {
+                const idxOriginal = labels.indexOf(label);
+                if (idxOriginal !== -1) {
+                    const cor = CONFIG_GLOBAL.votacao.coresGrafico[idxOriginal % CONFIG_GLOBAL.votacao.coresGrafico.length];
+
+                    const item = document.createElement('div');
+                    item.className = 'legenda-item';
+
+                    const spanCor = document.createElement('span');
+                    spanCor.className = 'legenda-cor';
+                    spanCor.style.backgroundColor = cor;
+
+                    const spanTexto = document.createElement('span');
+                    spanTexto.className = 'legenda-texto';
+                    spanTexto.innerText = label;
+
+                    item.appendChild(spanCor);
+                    item.appendChild(spanTexto);
+                    containerLegenda.appendChild(item);
+                }
+            });
+        }
 
     } catch (err) {
         console.warn("Monitoramento de votos:", err.message);

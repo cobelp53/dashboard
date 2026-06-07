@@ -481,13 +481,41 @@ section h2 {
 
 .grafico-container {
     width: 100%;
-    flex: 1;
+    flex: 1; /* Permite que o gráfico cresça e ocupe o espaço vertical disponível no PC */
+    min-height: 100px; /* Garante uma altura mínima para manter a proporção ideal */
     position: relative;
+}
+
+/* Legenda de votação customizada (Responsiva) */
+.grafico-legenda {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 0;
+    align-items: center;
+    column-gap: 1.2vw;
+    row-gap: 0.3vw; /* Reduzido o espaçamento vertical entre as linhas do ranking no PC */
+    margin-top: 0.4vw;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-shrink: 0;
+    line-height: 1.2; /* Evita que o line-height da classe pai aumente a distância vertical */
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4vw;
+    font-size: 0.8vw;
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.2;
+}
+
+.legenda-cor {
+    width: 0.6vw;
+    height: 0.6vw;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
 /* No PC, esconde o título mobile e mostra o de PC */
@@ -598,6 +626,31 @@ section h2 {
         height: auto;
         padding: 10px;
         gap: 15px;
+    }
+
+    /* Permite um gráfico maior no mobile */
+    .grafico-container {
+        height: 250px !important;
+    }
+
+    /* Ajuste da legenda do gráfico para empilhar verticalmente no mobile */
+    .grafico-legenda {
+        flex-direction: column !important;
+        align-items: center !important; /* Centralizado na horizontal no mobile */
+        gap: 6px !important; /* Espaçamento menor no mobile */
+        margin-top: 12px !important;
+        padding-left: 0 !important; /* Sem recuo à esquerda para centralização perfeita */
+    }
+
+    .legenda-item {
+        font-size: 0.95rem !important;
+        gap: 8px !important;
+        justify-content: center !important; /* Garante alinhamento interno centralizado */
+    }
+
+    .legenda-cor {
+        width: 12px !important;
+        height: 12px !important;
     }
 
     /* 🔹 HEADER MOBILE: Esconde Petrobras e Previsão, Centraliza Cobel */
