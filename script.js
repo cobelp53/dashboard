@@ -828,6 +828,11 @@ function cobelPopulaFormularios() {
     document.getElementById('cfg-sheetId').value = CONFIG_GLOBAL.votacao.sheetId || "";
     document.getElementById('cfg-sheetName').value = CONFIG_GLOBAL.votacao.sheetName || "";
     document.getElementById('cfg-urlAppsScript').value = CONFIG_GLOBAL.votacao.urlAppsScript || "";
+    document.getElementById('cfg-tituloVotacaoPC').value = CONFIG_GLOBAL.textos.tituloVotacaoPC || "";
+    document.getElementById('cfg-tituloVotacaoMobile').value = CONFIG_GLOBAL.textos.tituloVotacaoMobile || "";
+    document.getElementById('cfg-subtituloVotacao').value = CONFIG_GLOBAL.textos.subtituloVotacao || "";
+    document.getElementById('cfg-textoVotacaoPCInstrucao').value = CONFIG_GLOBAL.textos.textoVotacaoPCInstrucao || "";
+    document.getElementById('cfg-rotuloVotacaoFilme').value = CONFIG_GLOBAL.textos.rotuloVotacaoFilme || "";
     document.getElementById('cfg-intervaloCarrosselPadraoMs').value = CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs || 10000;
     document.getElementById('cfg-senhaAdmin').value = CONFIG_GLOBAL.seguranca.senhaAdmin || "";
 
@@ -1150,6 +1155,11 @@ async function cobelSalvarConfiguracaoCompleta() {
     CONFIG_GLOBAL.votacao.sheetId = document.getElementById('cfg-sheetId').value.trim();
     CONFIG_GLOBAL.votacao.sheetName = document.getElementById('cfg-sheetName').value.trim();
     CONFIG_GLOBAL.votacao.urlAppsScript = document.getElementById('cfg-urlAppsScript').value.trim();
+    CONFIG_GLOBAL.textos.tituloVotacaoPC = document.getElementById('cfg-tituloVotacaoPC').value.trim();
+    CONFIG_GLOBAL.textos.tituloVotacaoMobile = document.getElementById('cfg-tituloVotacaoMobile').value.trim();
+    CONFIG_GLOBAL.textos.subtituloVotacao = document.getElementById('cfg-subtituloVotacao').value.trim();
+    CONFIG_GLOBAL.textos.textoVotacaoPCInstrucao = document.getElementById('cfg-textoVotacaoPCInstrucao').value.trim();
+    CONFIG_GLOBAL.textos.rotuloVotacaoFilme = document.getElementById('cfg-rotuloVotacaoFilme').value.trim();
     CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs = parseInt(document.getElementById('cfg-intervaloCarrosselPadraoMs').value.trim()) || 10000;
     CONFIG_GLOBAL.seguranca.senhaAdmin = document.getElementById('cfg-senhaAdmin').value.trim();
 
