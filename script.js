@@ -7,7 +7,7 @@
  * Centraliza todos os textos, intervalos de tempo, endpoints e credenciais.
  * Facilitará a integração futura com um painel de administração que altere estes valores.
  */
-const CONFIG_GLOBAL = {
+let CONFIG_GLOBAL = {
     // 🏷️ Textos fixos e títulos exibidos na interface (HTML)
     textos: {
         cabecalhoTitulo: "COBEL - P53",
@@ -79,7 +79,7 @@ const CONFIG_GLOBAL = {
 };
 
 // 🔹 DADOS DA ROTINA DIÁRIA (Exibida na coluna "Refeitório")
-const programacaoDia = [
+let programacaoDia = [
     { hora: "05:00", atividade: "Café da manhã" },
     { hora: "09:00", atividade: "Lanche da manhã" },
     { hora: "11:00", atividade: "Almoço" },
@@ -90,7 +90,7 @@ const programacaoDia = [
 ];
 
 // 🔹 DADOS DA PROGRAMAÇÃO SEMANAL (Exibida na coluna "Esta Semana")
-const programacaoSemana = [
+let programacaoSemana = [
     { dia: "Dom", evento: "🥩 Churrasco de 11h as 13h" },
     { dia: "Seg", evento: "🎤 Karaokê as 19h no cinema" },
     { dia: "Ter", evento: "🏋🏽‍♂️ Dia livre" },
@@ -102,7 +102,7 @@ const programacaoSemana = [
 
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
 // Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
-const destaques = [
+let destaques = [
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000 },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000 },
     { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000 },
@@ -308,6 +308,9 @@ function renderizarCarrossel() {
     if (!container) return;
     container.innerHTML = '';
 
+    // Sempre reseta para o primeiro slide para consistência com o array carregado
+    indiceImagem = 0;
+
     destaques.forEach((item, i) => {
         if (item.url) {
             // Verifica se o arquivo é um vídeo curto com base na extensão
@@ -356,22 +359,38 @@ function mudarSlide(direcao) {
     const slides = document.querySelectorAll('#carrossel-imagens > *');
     if (slides.length === 0) return;
 
-    // Pausa e limpa o evento onended do vídeo ativo anterior
-    const slideAnterior = slides[indiceImagem];
-    if (slideAnterior && slideAnterior.tagName === 'VIDEO') {
-        slideAnterior.pause();
-        slideAnterior.onended = null;
+    // Garante que o indiceImagem esteja dentro dos limites
+    if (indiceImagem >= slides.length || indiceImagem < 0) {
+        indiceImagem = 0;
     }
 
-    slides[indiceImagem].classList.remove('ativa');
-    indiceImagem = (indiceImagem + direcao + slides.length) % slides.length;
-    slides[indiceImagem].classList.add('ativa');
+    // Pausa e limpa o evento onended/onerror do vídeo ativo anterior
+    const slideAnterior = slides[indiceImagem];
+    if (slideAnterior) {
+        if (slideAnterior.tagName === 'VIDEO') {
+            slideAnterior.pause();
+            slideAnterior.onended = null;
+            slideAnterior.onerror = null;
+        }
+        slideAnterior.classList.remove('ativa');
+    }
 
-    // Se o novo slide for vídeo, reinicia e reproduz
+    indiceImagem = (indiceImagem + direcao + slides.length) % slides.length;
+    
+    // Checagem de segurança pós-incremento
+    if (indiceImagem >= slides.length || indiceImagem < 0) {
+        indiceImagem = 0;
+    }
+
     const novoSlide = slides[indiceImagem];
-    if (novoSlide && novoSlide.tagName === 'VIDEO') {
-        novoSlide.currentTime = 0;
-        novoSlide.play().catch(e => console.log("Erro ao reproduzir vídeo:", e));
+    if (novoSlide) {
+        novoSlide.classList.add('ativa');
+
+        // Se o novo slide for vídeo, reinicia e reproduz
+        if (novoSlide.tagName === 'VIDEO') {
+            novoSlide.currentTime = 0;
+            novoSlide.play().catch(e => console.log("Erro ao reproduzir vídeo:", e));
+        }
     }
 
     atualizarLegenda(indiceImagem);
@@ -394,12 +413,23 @@ function iniciarCarrossel() {
     clearTimeout(timerCarrossel);
 
     const slides = document.querySelectorAll('#carrossel-imagens > *');
-    const slideAtual = slides[indiceImagem];
+    if (slides.length === 0) return;
 
-    if (slideAtual && slideAtual.tagName === 'VIDEO') {
-        // Se for vídeo, removemos o loop e escutamos o evento 'ended' para passar o slide
+    if (indiceImagem >= slides.length || indiceImagem < 0) {
+        indiceImagem = 0;
+    }
+
+    const slideAtual = slides[indiceImagem];
+    if (!slideAtual) return;
+
+    if (slideAtual.tagName === 'VIDEO') {
         slideAtual.loop = false;
         slideAtual.onended = () => {
+            mudarSlide(1);
+            iniciarCarrossel();
+        };
+        slideAtual.onerror = () => {
+            console.warn("Erro ao reproduzir vídeo no carrossel, pulando slide...");
             mudarSlide(1);
             iniciarCarrossel();
         };
@@ -412,7 +442,8 @@ function iniciarCarrossel() {
         }, tempoSeguranca);
     } else {
         // Se for imagem ou texto, usa o temporizador normal do CONFIG_GLOBAL
-        const tempoAtual = destaques[indiceImagem].tempo || CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs;
+        const item = destaques[indiceImagem];
+        const tempoAtual = (item && item.tempo) || CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs || 10000;
         timerCarrossel = setTimeout(() => {
             mudarSlide(1);
             iniciarCarrossel();
@@ -424,6 +455,7 @@ function iniciarCarrossel() {
  * Atualiza o painel inferior de legenda com base no slide selecionado
  */
 function atualizarLegenda(index) {
+    if (index >= destaques.length || index < 0) return;
     const item = destaques[index];
     const elLegenda = document.getElementById('legenda-imagem');
     if (elLegenda) {
@@ -727,6 +759,20 @@ function cobelFecharAcesso() {
 }
 
 /**
+ * Fecha a tela de administração e retorna ao painel principal
+ */
+function cobelSairAdmin() {
+    const telaAdmin = document.getElementById('cobel-tela-admin');
+    if (telaAdmin) {
+        telaAdmin.style.display = 'none';
+    }
+    // Recarrega a exibição do dashboard para garantir que as alterações salvas apareçam na tela
+    inicializarTextosInterface();
+    renderizarProgramacao();
+    renderizarCarrossel();
+}
+
+/**
  * Valida a senha inserida contra o hash da configuração global e ativa a tela administrativa
  */
 function cobelVerificarSenha() {
@@ -737,8 +783,9 @@ function cobelVerificarSenha() {
 
     if (campo.value === CONFIG_GLOBAL.seguranca.senhaAdmin) {
         cobelFecharAcesso();
-        telaAdmin.style.display = 'block';
-        cobelGerarLogsLocais(); // Popula o painel de status local da administração
+        telaAdmin.style.display = 'flex'; // Usar flex para que as abas se comportem corretamente no layout vertical e permita rolagem
+        cobelPopulaFormularios();
+        cobelGerarLogsLocais();
     } else {
         alert('Senha incorreta!');
         campo.value = '';
@@ -747,110 +794,526 @@ function cobelVerificarSenha() {
 }
 
 /**
- * Oculta a janela de administração, voltando ao dashboard normal
+ * Controla a navegação das abas da administração
  */
-function cobelSairAdmin() {
-    const telaAdmin = document.getElementById('cobel-tela-admin');
-    if (telaAdmin) {
-        telaAdmin.style.display = 'none';
+function cobelAbrirAba(evt, tabId) {
+    const conteudos = document.querySelectorAll('.cobel-tab-conteudo');
+    conteudos.forEach(c => c.classList.remove('active'));
+
+    const links = document.querySelectorAll('.cobel-tab-link');
+    links.forEach(l => l.classList.remove('active'));
+
+    const tabElement = document.getElementById(tabId);
+    if (tabElement) tabElement.classList.add('active');
+    if (evt) evt.currentTarget.classList.add('active');
+}
+
+/**
+ * Preenche todos os campos do formulário administrativo com a configuração ativa
+ */
+function cobelPopulaFormularios() {
+    // 1. Configurações Gerais
+    document.getElementById('cfg-cabecalhoTitulo').value = CONFIG_GLOBAL.textos.cabecalhoTitulo || "";
+    document.getElementById('cfg-cabecalhoSubtitulo').value = CONFIG_GLOBAL.textos.cabecalhoSubtitulo || "";
+    document.getElementById('cfg-tituloProgramacao').value = CONFIG_GLOBAL.textos.tituloProgramacao || "";
+    document.getElementById('cfg-rodapeTicker').value = CONFIG_GLOBAL.textos.rodapeTicker || "";
+    document.getElementById('cfg-urlInteracaoForm').value = CONFIG_GLOBAL.votacao.urlInteracaoForm || "";
+    document.getElementById('cfg-sheetId').value = CONFIG_GLOBAL.votacao.sheetId || "";
+    document.getElementById('cfg-sheetName').value = CONFIG_GLOBAL.votacao.sheetName || "";
+    document.getElementById('cfg-urlAppsScript').value = CONFIG_GLOBAL.votacao.urlAppsScript || "";
+    document.getElementById('cfg-intervaloCarrosselPadraoMs').value = CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs || 10000;
+    document.getElementById('cfg-senhaAdmin').value = CONFIG_GLOBAL.seguranca.senhaAdmin || "";
+
+    // 2. Credenciais GitHub (Carrega do localStorage do navegador)
+    document.getElementById('git-owner').value = localStorage.getItem('cobel_git_owner') || "";
+    document.getElementById('git-repo').value = localStorage.getItem('cobel_git_repo') || "";
+    document.getElementById('git-branch').value = localStorage.getItem('cobel_git_branch') || "main";
+    document.getElementById('git-token').value = localStorage.getItem('cobel_git_token') || "";
+
+    // 3. Renderiza Listas Dinâmicas
+    cobelRefeitorioRenderLista();
+    cobelSemanaRenderLista();
+    cobelCarrosselRenderLista();
+}
+
+/**
+ * Renderiza a lista de horários do Refeitório na administração
+ */
+function cobelRefeitorioRenderLista() {
+    const tbody = document.getElementById('refeitorio-lista-rows');
+    if (!tbody) return;
+    tbody.innerHTML = programacaoDia.map((item, index) => `
+        <tr>
+            <td>
+                <input type="text" class="refeitorio-hora-input" value="${item.hora}" style="text-align: center;" placeholder="hh:mm">
+            </td>
+            <td>
+                <input type="text" class="refeitorio-atividade-input" value="${item.atividade}" style="width: 100%;" placeholder="Atividade">
+            </td>
+            <td style="text-align:center;">
+                <button class="cobel-btn-excluir" onclick="cobelRefeitorioExcluir(${index})">❌</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function cobelRefeitorioAdicionar() {
+    cobelLerListasDaMemoriaHTML();
+    programacaoDia.push({ hora: "00:00", atividade: "Nova Refeição" });
+    cobelRefeitorioRenderLista();
+}
+
+function cobelRefeitorioExcluir(index) {
+    cobelLerListasDaMemoriaHTML();
+    programacaoDia.splice(index, 1);
+    cobelRefeitorioRenderLista();
+}
+
+/**
+ * Renderiza a lista de eventos semanais na administração
+ */
+function cobelSemanaRenderLista() {
+    const tbody = document.getElementById('semana-lista-rows');
+    if (!tbody) return;
+    tbody.innerHTML = programacaoSemana.map((item, index) => `
+        <tr>
+            <td>
+                <input type="text" class="semana-dia-input" value="${item.dia}" style="text-align: center;" placeholder="Ex: Seg">
+            </td>
+            <td>
+                <input type="text" class="semana-evento-input" value="${item.evento}" style="width: 100%;" placeholder="Evento">
+            </td>
+            <td style="text-align:center;">
+                <button class="cobel-btn-excluir" onclick="cobelSemanaExcluir(${index})">❌</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+function cobelSemanaAdicionar() {
+    cobelLerListasDaMemoriaHTML();
+    programacaoSemana.push({ dia: "Seg", evento: "Nova atividade semanal" });
+    cobelSemanaRenderLista();
+}
+
+function cobelSemanaExcluir(index) {
+    cobelLerListasDaMemoriaHTML();
+    programacaoSemana.splice(index, 1);
+    cobelSemanaRenderLista();
+}
+
+/**
+ * Renderiza os cards dos slides do Carrossel na administração
+ */
+function cobelCarrosselRenderLista() {
+    const listDiv = document.getElementById('carrossel-lista-cards');
+    if (!listDiv) return;
+    listDiv.innerHTML = destaques.map((item, index) => {
+        const isVideo = item.url && /\.(mp4|webm|ogg|mov)$/i.test(item.url);
+        const isImage = item.url && !isVideo;
+        const isText = item.texto || item.titulo;
+
+        let previewHTML = '';
+        if (isImage) {
+            previewHTML = `<img src="${item.url}" alt="Preview">`;
+        } else if (isVideo) {
+            previewHTML = `<video src="${item.url}" muted playsinline></video>`;
+        } else {
+            previewHTML = `<span class="cobel-carrossel-card-preview-text">📝</span>`;
+        }
+
+        let fieldsHTML = '';
+        if (isText) {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">Título do Slide:</label>
+                    <input type="text" class="carrossel-item-titulo" value="${item.titulo || ''}" placeholder="Título">
+                </div>
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">Texto do Slide (aceita tags HTML):</label>
+                    <textarea class="carrossel-item-texto" rows="2" style="font-family:inherit;" placeholder="Texto">${item.texto || ''}</textarea>
+                </div>
+            `;
+        } else {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">URL do arquivo (upload automático):</label>
+                    <input type="text" class="carrossel-item-url" value="${item.url}" style="background:#f1f5f9;" readonly>
+                </div>
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">Legenda:</label>
+                    <input type="text" class="carrossel-item-legenda" value="${item.legenda || ''}" placeholder="Legenda da mídia">
+                </div>
+            `;
+        }
+
+        // Tempo individual
+        fieldsHTML += `
+            <div class="cobel-form-grid-2">
+                <div class="cobel-form-grupo" style="margin-bottom:0;">
+                    <label style="font-size:0.8rem;">Duração Individual (ms - opcional):</label>
+                    <input type="number" class="carrossel-item-tempo" value="${item.tempo || ''}" placeholder="Padrão: 10000">
+                </div>
+                <div class="cobel-form-grupo" style="margin-bottom:0; justify-content: flex-end;">
+                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isVideo ? "Vídeo" : "Imagem"}</span>
+                </div>
+            </div>
+        `;
+
+        return `
+            <div class="cobel-carrossel-card" data-index="${index}">
+                <div class="cobel-carrossel-card-preview">
+                    ${previewHTML}
+                </div>
+                <div class="cobel-carrossel-card-info">
+                    ${fieldsHTML}
+                </div>
+                <div class="cobel-carrossel-card-controles">
+                    <div>
+                        <button class="cobel-btn-ordenar" onclick="cobelCarrosselMover(${index}, -1)">⬆️</button>
+                        <button class="cobel-btn-ordenar" onclick="cobelCarrosselMover(${index}, 1)">⬇️</button>
+                    </div>
+                    <button class="cobel-btn-excluir" onclick="cobelCarrosselExcluir(${index})" style="margin-top:10px; width:100%;">❌ Excluir</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function cobelCarrosselAdicionarTexto() {
+    cobelLerListasDaMemoriaHTML();
+    destaques.push({ titulo: "Novo Slide", texto: "Insira seu text informativo aqui...", tempo: 10000 });
+    cobelCarrosselRenderLista();
+}
+
+function cobelCarrosselExcluir(index) {
+    cobelLerListasDaMemoriaHTML();
+    destaques.splice(index, 1);
+    cobelCarrosselRenderLista();
+}
+
+function cobelCarrosselMover(index, direcao) {
+    cobelLerListasDaMemoriaHTML();
+    const novoIndex = index + direcao;
+    if (novoIndex < 0 || novoIndex >= destaques.length) return;
+    
+    // Inverte os itens no array
+    const temp = destaques[index];
+    destaques[index] = destaques[novoIndex];
+    destaques[novoIndex] = temp;
+    
+    cobelCarrosselRenderLista();
+}
+
+/**
+ * Lê os campos digitados na interface da administração e os salva nas variáveis na memória do JS
+ */
+function cobelLerListasDaMemoriaHTML() {
+    // 1. Lê Refeitório
+    const refeitorioRows = document.querySelectorAll('#refeitorio-lista-rows tr');
+    const novoRefeitorio = [];
+    refeitorioRows.forEach(row => {
+        const hora = row.querySelector('.refeitorio-hora-input').value.trim();
+        const atividade = row.querySelector('.refeitorio-atividade-input').value.trim();
+        if (hora || atividade) {
+            novoRefeitorio.push({ hora, atividade });
+        }
+    });
+    if (refeitorioRows.length > 0 || programacaoDia.length === 0) {
+        programacaoDia = novoRefeitorio;
+    }
+
+    // 2. Lê Semana
+    const semanaRows = document.querySelectorAll('#semana-lista-rows tr');
+    const novaSemana = [];
+    semanaRows.forEach(row => {
+        const dia = row.querySelector('.semana-dia-input').value.trim();
+        const evento = row.querySelector('.semana-evento-input').value.trim();
+        if (dia || evento) {
+            novaSemana.push({ dia, evento });
+        }
+    });
+    if (semanaRows.length > 0 || programacaoSemana.length === 0) {
+        programacaoSemana = novaSemana;
+    }
+
+    // 3. Lê Carrossel
+    const carrosselCards = document.querySelectorAll('#carrossel-lista-cards .cobel-carrossel-card');
+    const novosDestaques = [];
+    carrosselCards.forEach(card => {
+        const idx = parseInt(card.getAttribute('data-index'));
+        const itemOriginal = destaques[idx];
+        const itemNovo = { ...itemOriginal };
+
+        if (itemOriginal.texto || itemOriginal.titulo) {
+            itemNovo.titulo = card.querySelector('.carrossel-item-titulo').value.trim();
+            itemNovo.texto = card.querySelector('.carrossel-item-texto').value.trim();
+        } else {
+            itemNovo.legenda = card.querySelector('.carrossel-item-legenda').value.trim();
+        }
+
+        const inputTempo = card.querySelector('.carrossel-item-tempo').value.trim();
+        if (inputTempo) {
+            itemNovo.tempo = parseInt(inputTempo);
+        } else {
+            delete itemNovo.tempo;
+        }
+        novosDestaques.push(itemNovo);
+    });
+    if (carrosselCards.length > 0 || destaques.length === 0) {
+        destaques = novosDestaques;
     }
 }
 
 /**
- * Exibe logs e diagnósticos rápidos de funcionamento interno no bloco de logs da administração
+ * Função utilitária para fazer commit de arquivos no GitHub usando a REST API
  */
-function cobelGerarLogsLocais() {
-    const caixaLog = document.getElementById('cobel-status-log');
-    if (!caixaLog) return;
-
-    const agora = new Date().toLocaleTimeString('pt-BR');
-    caixaLog.innerHTML = `
-        <p class="cobel-log-sucesso">[${agora}] SUCESSO: Gráfico da Planilha carregado (${document.getElementById('pieChart') ? 'Ativo' : 'Inativo'}).</p>
-        <p class="cobel-log-info">[${agora}] INFO: Carrossel rodando com ${destaques.length} slides.</p>
-        <p class="cobel-log-info">[${agora}] INFO: Agenda sincronizada (${programacaoDia.length} eventos de rotina).</p>
-        <p class="cobel-log-sucesso">[${agora}] SUCESSO: Widget do clima Open-Meteo online.</p>
-        <p class="cobel-log-alerta">[${agora}] MONITOR: Atualização preventiva de 4 horas ativa.</p>
-    `;
-}
-
-/**
- * Consulta a API Apps Script via GET para carregar legendas remotas salvas na planilha
- */
-async function carregarLegendasDinamicas() {
-    const scriptUrl = CONFIG_GLOBAL.votacao.urlAppsScript;
-    if (!scriptUrl || scriptUrl.includes("COLE_AQUI_A_SUA_NOVA_URL")) return;
-
+async function cobelGitCommitFile(owner, repo, branch, token, path, contentBase64, message) {
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    
+    // 1. Tenta pegar o SHA do arquivo anterior se ele existir (obrigatório para updates)
+    let sha = null;
     try {
-        const resposta = await fetch(scriptUrl, { method: 'GET', cache: 'no-cache' });
-        const configuracoesPlanilha = await resposta.json();
-
-        // 1. Popula as inputs de edição no HTML se a tela de admin estiver aberta
-        if (document.getElementById('edit-legenda-1')) document.getElementById('edit-legenda-1').value = configuracoesPlanilha.legenda_foto1 || "";
-        if (document.getElementById('edit-legenda-2')) document.getElementById('edit-legenda-2').value = configuracoesPlanilha.legenda_foto2 || "";
-        if (document.getElementById('edit-legenda-3')) document.getElementById('edit-legenda-3').value = configuracoesPlanilha.legenda_foto3 || "";
-
-        // 2. Transfere os textos da planilha para o array de destaques na memória local
-        if (destaques[0]) destaques[0].legenda = configuracoesPlanilha.legenda_foto1 || destaques[0].legenda;
-        if (destaques[1]) destaques[1].legenda = configuracoesPlanilha.legenda_foto2 || destaques[1].legenda;
-        if (destaques[2]) destaques[2].legenda = configuracoesPlanilha.legenda_foto3 || destaques[2].legenda;
-
-        // 3. Força a atualização da legenda na tela
-        atualizarLegenda(indiceImagem);
-
-    } catch (erro) {
-        console.error("Falha ao sincronizar legendas dinâmicas:", erro);
+        const getRes = await fetch(`${url}?ref=${branch}`, {
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        if (getRes.ok) {
+            const fileInfo = await getRes.json();
+            sha = fileInfo.sha;
+        }
+    } catch (e) {
+        console.log("Arquivo não existe no repositório ainda, será criado um novo.");
     }
+
+    // 2. Cria o body do commit
+    const body = {
+        message: message,
+        content: contentBase64,
+        branch: branch
+    };
+    if (sha) body.sha = sha;
+
+    // 3. PUT request para commitar
+    const putRes = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify(body)
+    });
+
+    if (!putRes.ok) {
+        const errText = await putRes.text();
+        throw new Error(`Erro na API do GitHub: ${putRes.status} - ${errText}`);
+    }
+    return await putRes.json();
 }
 
 /**
- * Salva as novas legendas digitadas na administração enviando-as de volta à planilha do Google
+ * Agrupa toda a configuração da tela administrativa e envia para o GitHub Pages (config.json)
  */
-async function cobelSalvarLegendas() {
-    const botao = document.getElementById('cobel-btn-salvar-legendas');
-    const statusTxt = document.getElementById('cobel-status-salvar');
-    const scriptUrl = CONFIG_GLOBAL.votacao.urlAppsScript;
+async function cobelSalvarConfiguracaoCompleta() {
+    // 1. Lê os dados atuais digitados nas tabelas/lists
+    cobelLerListasDaMemoriaHTML();
+    
+    // 2. Lê as configurações gerais dos inputs
+    CONFIG_GLOBAL.textos.cabecalhoTitulo = document.getElementById('cfg-cabecalhoTitulo').value.trim();
+    CONFIG_GLOBAL.textos.cabecalhoSubtitulo = document.getElementById('cfg-cabecalhoSubtitulo').value.trim();
+    CONFIG_GLOBAL.textos.tituloProgramacao = document.getElementById('cfg-tituloProgramacao').value.trim();
+    CONFIG_GLOBAL.textos.rodapeTicker = document.getElementById('cfg-rodapeTicker').value.trim();
+    CONFIG_GLOBAL.votacao.urlInteracaoForm = document.getElementById('cfg-urlInteracaoForm').value.trim();
+    CONFIG_GLOBAL.votacao.sheetId = document.getElementById('cfg-sheetId').value.trim();
+    CONFIG_GLOBAL.votacao.sheetName = document.getElementById('cfg-sheetName').value.trim();
+    CONFIG_GLOBAL.votacao.urlAppsScript = document.getElementById('cfg-urlAppsScript').value.trim();
+    CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs = parseInt(document.getElementById('cfg-intervaloCarrosselPadraoMs').value.trim()) || 10000;
+    CONFIG_GLOBAL.seguranca.senhaAdmin = document.getElementById('cfg-senhaAdmin').value.trim();
 
-    if (!botao || !statusTxt) return;
+    // 3. Lê credenciais do GitHub
+    const owner = document.getElementById('git-owner').value.trim();
+    const repo = document.getElementById('git-repo').value.trim();
+    const branch = document.getElementById('git-branch').value.trim() || 'main';
+    const token = document.getElementById('git-token').value.trim();
 
-    if (!scriptUrl || scriptUrl.includes("COLE_AQUI_A_SUA_NOVA_URL")) {
-        alert("Erro: Configure a URL do Apps Script nas configurações globais.");
+    const statusDiv = document.getElementById('cobel-status-global');
+    const saveBtn = document.getElementById('cobel-btn-salvar-geral');
+
+    if (!owner || !repo || !token) {
+        alert("⚠️ ATENÇÃO: Para salvar as configurações de forma persistente, você precisa preencher o Dono, Repositório e Token do GitHub na aba 'Integração GitHub'.");
+        cobelAbrirAba(null, 'tab-github');
+        const tabGithubLink = document.querySelector('[onclick*="tab-github"]');
+        if (tabGithubLink) {
+            document.querySelectorAll('.cobel-tab-link').forEach(l => l.classList.remove('active'));
+            tabGithubLink.classList.add('active');
+        }
         return;
     }
 
-    const l1 = document.getElementById('edit-legenda-1') ? document.getElementById('edit-legenda-1').value : "";
-    const l2 = document.getElementById('edit-legenda-2') ? document.getElementById('edit-legenda-2').value : "";
-    const l3 = document.getElementById('edit-legenda-3') ? document.getElementById('edit-legenda-3').value : "";
+    if (/\s/.test(owner) || /\s/.test(repo)) {
+        alert("⚠️ ATENÇÃO: O Dono ou o Repositório do GitHub não podem conter espaços! Por favor, corrija na aba 'Integração GitHub'. (Exemplo correto: Dono: cobelp53 | Repositório: dashboard)");
+        cobelAbrirAba(null, 'tab-github');
+        const tabGithubLink = document.querySelector('[onclick*="tab-github"]');
+        if (tabGithubLink) {
+            document.querySelectorAll('.cobel-tab-link').forEach(l => l.classList.remove('active'));
+            tabGithubLink.classList.add('active');
+        }
+        return;
+    }
 
-    botao.disabled = true;
-    botao.innerText = "⏳ Salvando...";
-    statusTxt.style.color = "#2563eb";
-    statusTxt.innerText = "Gravando na planilha...";
+    // Salva as credenciais do GitHub no localStorage do navegador para comodidade
+    localStorage.setItem('cobel_git_owner', owner);
+    localStorage.setItem('cobel_git_repo', repo);
+    localStorage.setItem('cobel_git_branch', branch);
+    localStorage.setItem('cobel_git_token', token);
+
+    // Feedback visual de salvamento
+    if (statusDiv) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = '#dbeafe';
+        statusDiv.style.color = '#1e40af';
+        statusDiv.style.borderLeft = '4px solid #3b82f6';
+        statusDiv.innerText = "⏳ Conectando à API do GitHub e enviando arquivo de configuração config.json...";
+    }
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerText = "⏳ Salvando...";
+    }
 
     try {
-        // Envia as legendas como parâmetros GET burlados para evitar qualquer bloqueio de CORS
-        const urlMontada = `${scriptUrl}?acao=salvar_legendas&legenda_foto1=${encodeURIComponent(l1)}&legenda_foto2=${encodeURIComponent(l2)}&legenda_foto3=${encodeURIComponent(l3)}`;
-        await fetch(urlMontada, { method: 'GET', mode: 'no-cors', cache: 'no-cache' });
+        // Monta o JSON final correspondente
+        const configOutput = {
+            CONFIG_GLOBAL,
+            programacaoDia,
+            programacaoSemana,
+            destaques
+        };
+        const configStr = JSON.stringify(configOutput, null, 2);
+        // Codifica a string JSON em Base64 de forma segura contra acentos/UTF-8
+        const configBase64 = btoa(unescape(encodeURIComponent(configStr)));
 
-        statusTxt.style.color = "#16a34a";
-        statusTxt.innerText = "✨ Salvo com sucesso!";
-        botao.innerText = "💾 Salvar Legendas";
-        botao.disabled = false;
+        // Realiza o commit no GitHub
+        await cobelGitCommitFile(owner, repo, branch, token, "config.json", configBase64, "chore: atualizacao de configuracoes via painel admin");
 
-        // Atualiza a memória de destaques local imediatamente
-        if (destaques[0]) destaques[0].legenda = l1;
-        if (destaques[1]) destaques[1].legenda = l2;
-        if (destaques[2]) destaques[2].legenda = l3;
+        if (statusDiv) {
+            statusDiv.style.background = '#dcfce7';
+            statusDiv.style.color = '#166534';
+            statusDiv.style.borderLeft = '4px solid #22c55e';
+            statusDiv.innerText = "✨ Configurações salvas e publicadas no GitHub com sucesso! O site principal atualizará sozinho nas telas em cerca de 1 a 2 minutos.";
+        }
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.innerText = "💾 Salvar Tudo no GitHub";
+        }
 
-        atualizarLegenda(indiceImagem);
-        setTimeout(() => { statusTxt.innerText = ""; }, 3000);
+        // Atualiza a tela de visualização por trás imediatamente
+        inicializarTextosInterface();
+        renderizarProgramacao();
+        renderizarCarrossel();
+        cobelPopulaFormularios(); // Re-popula para garantir índices corretos
+
+        setTimeout(() => {
+            if (statusDiv) statusDiv.style.display = 'none';
+        }, 8000);
 
     } catch (erro) {
-        console.error("Falha ao salvar legendas:", erro);
-        statusTxt.style.color = "#dc2626";
-        statusTxt.innerText = "❌ Falha ao tentar salvar.";
-        botao.innerText = "💾 Salvar Legendas";
-        botao.disabled = false;
+        console.error("Erro ao commitar config.json no GitHub:", erro);
+        if (statusDiv) {
+            statusDiv.style.background = '#fee2e2';
+            statusDiv.style.color = '#991b1b';
+            statusDiv.style.borderLeft = '4px solid #ef4444';
+            statusDiv.innerText = `❌ Falha ao tentar salvar no GitHub: ${erro.message}`;
+        }
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.innerText = "💾 Salvar Tudo no GitHub";
+        }
     }
+}
+
+/**
+ * Faz upload de imagem/vídeo para a pasta imagens/ do GitHub e adiciona ao carrossel
+ */
+async function cobelCarrosselFazerUpload(inputElement) {
+    const file = inputElement.files[0];
+    if (!file) return;
+
+    const owner = document.getElementById('git-owner').value.trim();
+    const repo = document.getElementById('git-repo').value.trim();
+    const branch = document.getElementById('git-branch').value.trim() || 'main';
+    const token = document.getElementById('git-token').value.trim();
+
+    if (!owner || !repo || !token) {
+        alert("⚠️ ATENÇÃO: Configure e salve as credenciais do GitHub na aba 'Integração GitHub' antes de fazer upload de arquivos.");
+        inputElement.value = '';
+        cobelAbrirAba(null, 'tab-github');
+        const tabGithubLink = document.querySelector('[onclick*="tab-github"]');
+        if (tabGithubLink) {
+            document.querySelectorAll('.cobel-tab-link').forEach(l => l.classList.remove('active'));
+            tabGithubLink.classList.add('active');
+        }
+        return;
+    }
+
+    if (/\s/.test(owner) || /\s/.test(repo)) {
+        alert("⚠️ ATENÇÃO: O Dono ou o Repositório do GitHub não podem conter espaços! Por favor, corrija na aba 'Integração GitHub'. (Exemplo correto: Dono: cobelp53 | Repositório: dashboard)");
+        inputElement.value = '';
+        cobelAbrirAba(null, 'tab-github');
+        const tabGithubLink = document.querySelector('[onclick*="tab-github"]');
+        if (tabGithubLink) {
+            document.querySelectorAll('.cobel-tab-link').forEach(l => l.classList.remove('active'));
+            tabGithubLink.classList.add('active');
+        }
+        return;
+    }
+
+    const statusDiv = document.getElementById('cobel-status-global');
+    if (statusDiv) {
+        statusDiv.style.display = 'block';
+        statusDiv.style.background = '#dbeafe';
+        statusDiv.style.color = '#1e40af';
+        statusDiv.style.borderLeft = '4px solid #3b82f6';
+        statusDiv.innerText = `⏳ Convertendo e enviando o arquivo ${file.name} para a pasta imagens/ no GitHub (isso pode levar alguns segundos dependendo do tamanho)...`;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        try {
+            const dataUrl = e.target.result;
+            const base64Content = dataUrl.split(',')[1];
+            
+            // Corrige o nome do arquivo para evitar acentos e espaços estranhos
+            const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, '_');
+            const path = `imagens/${safeName}`;
+
+            // 1. Commita o arquivo de mídia
+            await cobelGitCommitFile(owner, repo, branch, token, path, base64Content, `media: upload do arquivo ${safeName} via painel admin`);
+
+            // 2. Adiciona o slide na memória do carrossel
+            cobelLerListasDaMemoriaHTML();
+            destaques.push({
+                url: path,
+                legenda: `Novo Slide - ${safeName.split('.')[0]}`
+            });
+
+            // 3. Salva a nova configuração com o slide adicionado no config.json do GitHub
+            await cobelSalvarConfiguracaoCompleta();
+
+            alert(`🎉 Sucesso! O arquivo ${safeName} foi enviado e adicionado ao carrossel.`);
+        } catch (erro) {
+            console.error("Erro no upload do arquivo:", erro);
+            alert(`❌ Falha no upload do arquivo de mídia: ${erro.message}`);
+            if (statusDiv) statusDiv.style.display = 'none';
+        } finally {
+            inputElement.value = '';
+        }
+    };
+    
+    // Lê o arquivo como DataURL (Base64)
+    reader.readAsDataURL(file);
 }
 
 /**
@@ -961,7 +1424,31 @@ function iniciarVerificadorAtualizacoes() {
 // 🚦 DISPARADOR PRINCIPAL DO CARREGAMENTO DO PAINEL (ON-LOAD)
 // =========================================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Tenta carregar a configuração dinâmica do config.json
+ */
+async function carregarConfiguracao() {
+    try {
+        const resposta = await fetch('./config.json');
+        if (resposta.ok) {
+            const config = await resposta.json();
+            if (config.CONFIG_GLOBAL) CONFIG_GLOBAL = config.CONFIG_GLOBAL;
+            if (config.programacaoDia) programacaoDia = config.programacaoDia;
+            if (config.programacaoSemana) programacaoSemana = config.programacaoSemana;
+            if (config.destaques) destaques = config.destaques;
+            console.log("Configurações dinâmicas carregadas com sucesso.");
+        } else {
+            console.warn("config.json não pôde ser carregado, usando fallbacks locais.");
+        }
+    } catch (erro) {
+        console.warn("Erro ao ler config.json (isso é normal localmente sem servidor), usando padrões locais:", erro.message);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 0. Carrega a configuração dinâmica externa
+    await carregarConfiguracao();
+
     // 1. Inicializa todos os textos dinâmicos da interface
     inicializarTextosInterface();
 
@@ -996,6 +1483,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Evento disparado quando todos os recursos do painel estiverem prontos
 window.addEventListener('load', () => {
-    carregarLegendasDinamicas();
     iniciarVerificadorAtualizacoes();
 });

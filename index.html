@@ -134,49 +134,172 @@
                 <h2>🛠️ Painel de Controle - COBEL P53</h2>
                 <p>Gerenciamento Dinâmico do Dashboard</p>
             </div>
-            <button class="cobel-btn-fechar-admin" onclick="cobelSairAdmin()">Sair da Administração ❌</button>
+            <div class="cobel-admin-botoes-topo">
+                <button id="cobel-btn-salvar-geral" class="cobel-btn-salvar-geral" onclick="cobelSalvarConfiguracaoCompleta()">💾 Salvar Tudo no GitHub</button>
+                <button class="cobel-btn-fechar-admin" onclick="cobelSairAdmin()">Sair da Administração ❌</button>
+            </div>
         </div>
 
-        <div class="cobel-admin-conteudo">
-            <!-- NOVO CARD: EDITOR DE LEGENDAS -->
-            <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
-                <h3>🖼️ Editar Legendas do Carrossel (Teste)</h3>
-                <p style="margin-bottom: 15px; color: #64748b;">Modifique os textos abaixo e clique em salvar para
-                    atualizar o painel em tempo real.</p>
-
-                <div style="margin-bottom: 12px;">
-                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 1:</label>
-                    <input type="text" id="edit-legenda-1"
-                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
-                </div>
-                <div style="margin-bottom: 12px;">
-                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 2:</label>
-                    <input type="text" id="edit-legenda-2"
-                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label style="display:block; font-weight:bold; margin-bottom:5px;">Legenda da Foto 3:</label>
-                    <input type="text" id="edit-legenda-3"
-                        style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:4px;">
-                </div>
-
-                <button id="cobel-btn-salvar-legendas" class="cobel-btn-salvar" onclick="cobelSalvarLegendas()"
-                    style="background:#16a34a; color:white; border:none; padding:12px 24px; font-weight:bold; border-radius:6px; cursor:pointer;">💾
-                    Salvar Legendas</button>
-                <span id="cobel-status-salvar" class="cobel-status-mensagem"></span>
+        <div class="cobel-admin-layout">
+            <!-- Menu de Abas Lateral -->
+            <div class="cobel-admin-abas-menu">
+                <button class="cobel-tab-link active" onclick="cobelAbrirAba(event, 'tab-geral')">⚙️ Configurações Gerais</button>
+                <button class="cobel-tab-link" onclick="cobelAbrirAba(event, 'tab-refeitorio')">🍽️ Refeitório</button>
+                <button class="cobel-tab-link" onclick="cobelAbrirAba(event, 'tab-semana')">🗓️ Esta Semana</button>
+                <button class="cobel-tab-link" onclick="cobelAbrirAba(event, 'tab-carrossel')">🖼️ Carrossel (Slides)</button>
+                <button class="cobel-tab-link" onclick="cobelAbrirAba(event, 'tab-github')">🐙 Integração GitHub</button>
+                <button class="cobel-tab-link" onclick="cobelAbrirAba(event, 'tab-acoes')">📊 Ações e Votos</button>
             </div>
 
-            <!-- CARD CONTROLE DE VOTAÇÃO -->
-            <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
-                <h3>📊 Controle da Votação do Cinema</h3>
-                <button id="cobel-btn-limpar" class="cobel-btn-acao-perigo" onclick="cobelLimparPlanilhaVotos()">🗑️
-                    Limpar Todos os Votos Atuais</button>
-                <span id="cobel-status-acao" class="cobel-status-mensagem"></span>
-            </div>
+            <!-- Conteúdo das Abas -->
+            <div class="cobel-admin-abas-conteudo">
+                <!-- Status Global de Salvamento -->
+                <div id="cobel-status-global" class="cobel-status-geral-aviso" style="display:none;"></div>
 
-            <div class="cobel-admin-card-logs">
-                <h3>📋 Logs de Atividade</h3>
-                <div id="cobel-status-log" class="cobel-log-quadrado"></div>
+                <!-- ABA: GERAIS -->
+                <div id="tab-geral" class="cobel-tab-conteudo active">
+                    <h3>⚙️ Configurações Gerais de Texto e Links</h3>
+                    <div class="cobel-form-grupo">
+                        <label>Título do Cabeçalho:</label>
+                        <input type="text" id="cfg-cabecalhoTitulo">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Subtítulo do Cabeçalho:</label>
+                        <input type="text" id="cfg-cabecalhoSubtitulo">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Título Programação de Bordo:</label>
+                        <input type="text" id="cfg-tituloProgramacao">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Mensagem Rotativa (Ticker Rodapé):</label>
+                        <input type="text" id="cfg-rodapeTicker">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>URL do Formulário de Votação (Google Forms):</label>
+                        <input type="text" id="cfg-urlInteracaoForm">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>ID da Planilha de Votos (Google Sheets):</label>
+                        <input type="text" id="cfg-sheetId">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Nome da Página da Planilha (ex: Respostas ao formulário 1):</label>
+                        <input type="text" id="cfg-sheetName">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>URL do Web App Google Apps Script:</label>
+                        <input type="text" id="cfg-urlAppsScript">
+                    </div>
+                    <div class="cobel-form-grid-2">
+                        <div class="cobel-form-grupo">
+                            <label>Tempo Slide do Carrossel Padrão (ms):</label>
+                            <input type="number" id="cfg-intervaloCarrosselPadraoMs">
+                        </div>
+                        <div class="cobel-form-grupo">
+                            <label>Senha do Admin COBEL:</label>
+                            <input type="text" id="cfg-senhaAdmin">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ABA: REFEITÓRIO -->
+                <div id="tab-refeitorio" class="cobel-tab-conteudo">
+                    <div class="cobel-aba-titulo-flex">
+                        <h3>🍽️ Gerenciar Cardápio / Horários do Refeitório</h3>
+                        <button class="cobel-btn-adicionar" onclick="cobelRefeitorioAdicionar()">➕ Novo Horário</button>
+                    </div>
+                    <table class="cobel-admin-tabela">
+                        <thead>
+                            <tr>
+                                <th style="width:120px;">Horário</th>
+                                <th>Refeição / Atividade</th>
+                                <th style="width:100px; text-align:center;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="refeitorio-lista-rows">
+                            <!-- JS preenche -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ABA: SEMANA -->
+                <div id="tab-semana" class="cobel-tab-conteudo">
+                    <div class="cobel-aba-titulo-flex">
+                        <h3>🗓️ Gerenciar Programação da Semana</h3>
+                        <button class="cobel-btn-adicionar" onclick="cobelSemanaAdicionar()">➕ Novo Evento</button>
+                    </div>
+                    <table class="cobel-admin-tabela">
+                        <thead>
+                            <tr>
+                                <th style="width:120px;">Dia / Rótulo</th>
+                                <th>Evento / Atividade</th>
+                                <th style="width:100px; text-align:center;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="semana-lista-rows">
+                            <!-- JS preenche -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- ABA: CARROSSEL -->
+                <div id="tab-carrossel" class="cobel-tab-conteudo">
+                    <div class="cobel-aba-titulo-flex">
+                        <h3>🖼️ Gerenciar Carrossel (Slides, Imagens e Vídeos)</h3>
+                        <div class="cobel-botoes-acoes-carrossel">
+                            <button class="cobel-btn-adicionar" onclick="cobelCarrosselAdicionarTexto()">📝 Novo Card de Texto</button>
+                            <button type="button" class="cobel-btn-upload-label" onclick="document.getElementById('carrossel-file-upload').click()">📤 Upload Foto/Vídeo</button>
+                            <input type="file" id="carrossel-file-upload" accept="image/*,video/*" onchange="cobelCarrosselFazerUpload(this)" style="display:none;">
+                        </div>
+                    </div>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 15px;">Dica: Use os botões ⬆️ e ⬇️ para ordenar a sequência dos slides.</p>
+                    <div id="carrossel-lista-cards" class="cobel-admin-carrossel-lista">
+                        <!-- JS preenche -->
+                    </div>
+                </div>
+
+                <!-- ABA: GITHUB -->
+                <div id="tab-github" class="cobel-tab-conteudo">
+                    <h3>🐙 Configurações da Integração com o GitHub</h3>
+                    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">
+                        Para que o painel de administração salve as configurações de forma persistente e o dashboard autodeplore no ar, configure os campos abaixo com o repositório onde o site está hospedado.
+                    </p>
+                    <div class="cobel-form-grupo">
+                        <label>Dono do Repositório (Username / Organização):</label>
+                        <input type="text" id="git-owner" placeholder="ex: cobelp53">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Nome do Repositório:</label>
+                        <input type="text" id="git-repo" placeholder="ex: dashboard">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>Branch Principal:</label>
+                        <input type="text" id="git-branch" placeholder="ex: main">
+                    </div>
+                    <div class="cobel-form-grupo">
+                        <label>GitHub Personal Access Token (PAT):</label>
+                        <input type="password" id="git-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxx">
+                        <span style="color: #94a3b8; font-size: 0.8rem; display:block; margin-top: 5px;">Este token fica guardado localmente e serve para salvar as configurações e mídias de volta no repositório.</span>
+                    </div>
+                </div>
+
+                <!-- ABA: AÇÕES -->
+                <div id="tab-acoes" class="cobel-tab-conteudo">
+                    <h3>📊 Controle de Votação e Administração</h3>
+                    <p style="color:#64748b; font-size: 0.95rem; margin-bottom: 20px;">Zerar a contagem de votos da planilha e monitorar o status do painel.</p>
+                    <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
+                        <h4>🗑️ Zerar Planilha de Votos</h4>
+                        <p style="color:#64748b; font-size: 0.9rem; margin-bottom: 10px;">Remove permanentemente todas as respostas de votos de filmes acumulados.</p>
+                        <button id="cobel-btn-limpar" class="cobel-btn-acao-perigo" onclick="cobelLimparPlanilhaVotos()">🗑️ Limpar Todos os Votos Atuais</button>
+                        <span id="cobel-status-acao" class="cobel-status-mensagem"></span>
+                    </div>
+
+                    <div class="cobel-admin-card-logs">
+                        <h4>📋 Logs de Atividade Local</h4>
+                        <div id="cobel-status-log" class="cobel-log-quadrado"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
