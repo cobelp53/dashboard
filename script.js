@@ -72,6 +72,7 @@ const CONFIG_GLOBAL = {
         frequenciaDestaqueProgramacaoMs: 60000, // Checagem do evento atual da programação (1 minuto)
         duracaoDestaqueEventoMinutos: 60,       // Tempo de duração do destaque de um evento (60 minutos)
         intervaloCarrosselPadraoMs: 10000,      // Tempo padrão de exibição de um slide caso não tenha tempo individual
+        limiteTempoVideoMs: 60000,               // Tempo limite de segurança para exibição de um vídeo (60 segundos)
         frequenciaReloadCompletoMs: 14400000,   // Recarregamento forçado da página para prevenção de travamentos (4 horas)
         frequenciaChecagemCommitMs: 180000,     // Checagem de novas versões publicadas no GitHub Pages (3 minutos)
     }
@@ -100,11 +101,13 @@ const programacaoSemana = [
 ];
 
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
+// Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
 const destaques = [
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000 },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000 },
     { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000 },
     { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000 },
+    { url: "imagens/karaoke.mov", legenda: "Solte a voz! Karaokê todas as segundas às 19h no cinema." },
     {
         titulo: "Bem-Estar e Lazer em Evolução",
         texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>",
@@ -310,13 +313,13 @@ function renderizarCarrossel() {
             // Verifica se o arquivo é um vídeo curto com base na extensão
             const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item.url);
             if (isVideo) {
-                // Slide de vídeo curto / looping
+                // Slide de vídeo (rodam até o final e passam pro próximo slide)
                 const video = document.createElement('video');
                 video.src = item.url;
                 video.className = i === 0 ? 'ativa' : '';
                 video.autoplay = true;
-                video.loop = true;
-                video.muted = true;
+                video.loop = false; // Não entra em loop, pois queremos mudar de slide no final
+                video.muted = true; // Muted é obrigatório para o Autoplay funcionar nos navegadores
                 video.setAttribute('playsinline', '');
                 video.setAttribute('webkit-playsinline', '');
                 container.appendChild(video);
@@ -353,9 +356,11 @@ function mudarSlide(direcao) {
     const slides = document.querySelectorAll('#carrossel-imagens > *');
     if (slides.length === 0) return;
 
-    // Pausa o vídeo ativo anterior se for um elemento de vídeo
-    if (slides[indiceImagem] && slides[indiceImagem].tagName === 'VIDEO') {
-        slides[indiceImagem].pause();
+    // Pausa e limpa o evento onended do vídeo ativo anterior
+    const slideAnterior = slides[indiceImagem];
+    if (slideAnterior && slideAnterior.tagName === 'VIDEO') {
+        slideAnterior.pause();
+        slideAnterior.onended = null;
     }
 
     slides[indiceImagem].classList.remove('ativa');
@@ -363,9 +368,10 @@ function mudarSlide(direcao) {
     slides[indiceImagem].classList.add('ativa');
 
     // Se o novo slide for vídeo, reinicia e reproduz
-    if (slides[indiceImagem] && slides[indiceImagem].tagName === 'VIDEO') {
-        slides[indiceImagem].currentTime = 0;
-        slides[indiceImagem].play().catch(e => console.log("Erro ao reproduzir vídeo:", e));
+    const novoSlide = slides[indiceImagem];
+    if (novoSlide && novoSlide.tagName === 'VIDEO') {
+        novoSlide.currentTime = 0;
+        novoSlide.play().catch(e => console.log("Erro ao reproduzir vídeo:", e));
     }
 
     atualizarLegenda(indiceImagem);
@@ -382,15 +388,36 @@ function mudarSlideManual(direcao) {
 
 /**
  * Gerencia o loop temporal do carrossel considerando o tempo configurado por slide
+ * Se o slide atual for um vídeo, aguarda sua conclusão natural para avançar.
  */
 function iniciarCarrossel() {
     clearTimeout(timerCarrossel);
-    const tempoAtual = destaques[indiceImagem].tempo || CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs;
 
-    timerCarrossel = setTimeout(() => {
-        mudarSlide(1);
-        iniciarCarrossel();
-    }, tempoAtual);
+    const slides = document.querySelectorAll('#carrossel-imagens > *');
+    const slideAtual = slides[indiceImagem];
+
+    if (slideAtual && slideAtual.tagName === 'VIDEO') {
+        // Se for vídeo, removemos o loop e escutamos o evento 'ended' para passar o slide
+        slideAtual.loop = false;
+        slideAtual.onended = () => {
+            mudarSlide(1);
+            iniciarCarrossel();
+        };
+
+        // Fallback de segurança: se o vídeo travar ou for muito longo, muda após o tempo limite
+        const tempoSeguranca = CONFIG_GLOBAL.sistemas.limiteTempoVideoMs || 60000;
+        timerCarrossel = setTimeout(() => {
+            mudarSlide(1);
+            iniciarCarrossel();
+        }, tempoSeguranca);
+    } else {
+        // Se for imagem ou texto, usa o temporizador normal do CONFIG_GLOBAL
+        const tempoAtual = destaques[indiceImagem].tempo || CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs;
+        timerCarrossel = setTimeout(() => {
+            mudarSlide(1);
+            iniciarCarrossel();
+        }, tempoAtual);
+    }
 }
 
 /**
