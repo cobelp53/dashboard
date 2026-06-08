@@ -1083,7 +1083,7 @@ async function cobelGitCommitFile(owner, repo, branch, token, path, contentBase6
     try {
         const getRes = await fetch(`${url}?ref=${branch}`, {
             headers: {
-                'Authorization': `token ${token}`,
+                'Authorization': `Bearer ${token}`,
                 'Accept': 'application/vnd.github.v3+json'
             }
         });
@@ -1107,7 +1107,7 @@ async function cobelGitCommitFile(owner, repo, branch, token, path, contentBase6
     const putRes = await fetch(url, {
         method: 'PUT',
         headers: {
-            'Authorization': `token ${token}`,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
             'Accept': 'application/vnd.github.v3+json'
         },
