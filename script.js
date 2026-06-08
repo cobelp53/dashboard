@@ -944,8 +944,8 @@ function cobelCarrosselRenderLista() {
         } else {
             fieldsHTML = `
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
-                    <label style="font-size:0.8rem;">URL do arquivo (upload automático):</label>
-                    <input type="text" class="carrossel-item-url" value="${item.url}" style="background:#f1f5f9;" readonly>
+                    <label style="font-size:0.8rem;">Caminho da mídia no GitHub (ex: imagens/sua_foto.jpg):</label>
+                    <input type="text" class="carrossel-item-url" value="${item.url}" placeholder="ex: imagens/foto.jpg" onchange="cobelCarrosselAtualizarUrl(${index}, this.value)">
                 </div>
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
                     <label style="font-size:0.8rem;">Legenda:</label>
@@ -989,7 +989,19 @@ function cobelCarrosselRenderLista() {
 
 function cobelCarrosselAdicionarTexto() {
     cobelLerListasDaMemoriaHTML();
-    destaques.push({ titulo: "Novo Slide", texto: "Insira seu text informativo aqui...", tempo: 10000 });
+    destaques.push({ titulo: "Novo Slide", texto: "Insira seu texto informativo aqui...", tempo: 10000 });
+    cobelCarrosselRenderLista();
+}
+
+function cobelCarrosselAdicionarMidia() {
+    cobelLerListasDaMemoriaHTML();
+    destaques.push({ url: "imagens/seu_arquivo.jpg", legenda: "Legenda da nova mídia", tempo: 10000 });
+    cobelCarrosselRenderLista();
+}
+
+function cobelCarrosselAtualizarUrl(index, valor) {
+    cobelLerListasDaMemoriaHTML();
+    destaques[index].url = valor.trim();
     cobelCarrosselRenderLista();
 }
 
@@ -1056,6 +1068,7 @@ function cobelLerListasDaMemoriaHTML() {
             itemNovo.titulo = card.querySelector('.carrossel-item-titulo').value.trim();
             itemNovo.texto = card.querySelector('.carrossel-item-texto').value.trim();
         } else {
+            itemNovo.url = card.querySelector('.carrossel-item-url').value.trim();
             itemNovo.legenda = card.querySelector('.carrossel-item-legenda').value.trim();
         }
 
