@@ -1,0 +1,147 @@
+{
+  "CONFIG_GLOBAL": {
+    "textos": {
+      "cabecalhoTitulo": "COBEL - P53",
+      "cabecalhoSubtitulo": "COMISSÃO DE BEM ESTAR E LAZER",
+      "tituloProgramacao": "📅 PROGRAMAÇÃO DE BORDO",
+      "tituloRefeitorio": "🍽️ Refeitório",
+      "tituloEstaSemana": "🗓️ Esta Semana",
+      "tituloDestaques": "🖼️ DESTAQUES",
+      "tituloVotacaoPC": "💬 PARTICIPE DA COBEL",
+      "tituloVotacaoMobile": "📈 RESULTADO DA VOTAÇÃO",
+      "subtituloVotacao": "Use o QR Code e fique por dentro",
+      "rotuloVotacaoFilme": "🗳️ Votação do filme",
+      "textoVotacaoPCInstrucao": "Use o QR Code acima para votar!",
+      "textoVotacaoMobileBotao": "📲 CLIQUE AQUI PARA VOTAR!",
+      "textoVotoSucesso": "✨ Sucesso! O comando de limpeza foi enviado.",
+      "rodapeTicker": "Sejam bem-vindos à Plataforma P53, boa estadia! | Portal desenvolvido pela Automação de P53 © 2026"
+    },
+    "seguranca": {
+      "senhaAdmin": "1234"
+    },
+    "clima": {
+      "latitude": -22.042,
+      "longitude": -41.051,
+      "frequenciaAtualizacaoMs": 1800000
+    },
+    "votacao": {
+      "urlInteracaoForm": "https://docs.google.com/forms/d/e/1FAIpQLScHi3wYt85jdh1P2hJXNlt2h2hB6KRbWYrl1PLE49xektVPpA/viewform",
+      "sheetId": "12uZTiil0aRZ80rlE3TNEMitlSn8E2cxZk4Srbefozk4",
+      "sheetName": "Respostas ao formulário 1",
+      "voteColumnIndex": 1,
+      "frequenciaAtualizacaoMs": 30000,
+      "tamanhoQRCode": 185,
+      "coresGrafico": [
+        "#006837",
+        "#004B87",
+        "#FDB913",
+        "#FF6384",
+        "#9966FF",
+        "#FF9F40",
+        "#7BC67E",
+        "#E7E9ED"
+      ],
+      "urlAppsScript": "https://script.google.com/macros/s/AKfycbztMjTKYovMJFVwIkdLFtGj8-Ar6FOxRkhQIKIeTCq0SiMxiuwCJouZ4Z4z4HRe5dAI/exec"
+    },
+    "sistemas": {
+      "frequenciaRelogioMs": 1000,
+      "frequenciaDestaqueProgramacaoMs": 60000,
+      "duracaoDestaqueEventoMinutos": 60,
+      "intervaloCarrosselPadraoMs": 10000,
+      "limiteTempoVideoMs": 60000,
+      "frequenciaReloadCompletoMs": 14400000,
+      "frequenciaChecagemCommitMs": 180000
+    }
+  },
+  "programacaoDia": [
+    {
+      "hora": "05:00",
+      "atividade": "Café da manhã"
+    },
+    {
+      "hora": "09:00",
+      "atividade": "Lanche da manhã"
+    },
+    {
+      "hora": "11:00",
+      "atividade": "Almoço"
+    },
+    {
+      "hora": "15:00",
+      "atividade": "Lanche da tarde"
+    },
+    {
+      "hora": "18:00",
+      "atividade": "Jantar"
+    },
+    {
+      "hora": "21:00",
+      "atividade": "Lanche"
+    },
+    {
+      "hora": "23:30",
+      "atividade": "Ceia"
+    }
+  ],
+  "programacaoSemana": [
+    {
+      "dia": "Dom",
+      "evento": "🥩 Churrasco de 11h as 13h"
+    },
+    {
+      "dia": "Seg",
+      "evento": "🎤 Karaokê as 19h no cinema"
+    },
+    {
+      "dia": "Ter",
+      "evento": "🏋🏽‍♂️ Dia livre"
+    },
+    {
+      "dia": "Qua",
+      "evento": "🍕 Pizza de 21h as 22h"
+    },
+    {
+      "dia": "Qui",
+      "evento": "🎬 Cinema as 20h"
+    },
+    {
+      "dia": "Sex",
+      "evento": "🍔 Hambúrguer de 21h as 22h"
+    },
+    {
+      "dia": "Sab",
+      "evento": "🍕 Pizza de 21h as 22h"
+    }
+  ],
+  "destaques": [
+    {
+      "url": "imagens/paltaformanoite1.jpeg",
+      "legenda": "Foto do mês - Plataforma P53",
+      "tempo": 3000
+    },
+    {
+      "url": "imagens/quadra.jpeg",
+      "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.",
+      "tempo": 3000
+    },
+    {
+      "url": "imagens/salajogos5.jpg",
+      "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!",
+      "tempo": 8000
+    },
+    {
+      "url": "imagens/pipoqueiramontagem.JPG",
+      "legenda": "E o Cine Pipoca fez juz ao nome!!",
+      "tempo": 3000
+    },
+    {
+      "url": "imagens/karaoke.mov",
+      "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
+    },
+    {
+      "titulo": "Bem-Estar e Lazer em Evolução",
+      "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>",
+      "tempo": 10000
+    }
+  ]
+}
