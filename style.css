@@ -281,7 +281,6 @@ section h2 {
     border-left-color: var(--petro-amarelo);
     background: #FFFBEB;
     font-weight: 800;
-    font-size: 1.18em !important; /* Ajustada a fonte do destaque no PC */
 }
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
@@ -836,7 +835,6 @@ section h2 {
         border-left-color: var(--petro-amarelo) !important;
         background: #FFFBEB !important;
         font-weight: 800; /* Mais negrito no mobile */
-        font-size: 1.12em !important; /* Ajustada a fonte do destaque no mobile */
     }
 
     /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
@@ -1104,38 +1102,40 @@ section h2 {
     display: none;
     /* Controlado via JS */
     flex-direction: column;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 .cobel-admin-barra-topo {
     background: var(--petro-verde);
     color: white;
-    padding: 20px 40px;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    flex-shrink: 0;
 }
 
 .cobel-admin-titulos h2 {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--petro-amarelo);
     margin: 0;
 }
 
 .cobel-admin-titulos p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     opacity: 0.85;
-    margin-top: 4px;
+    margin-top: 2px;
 }
 
 .cobel-btn-fechar-admin {
     background: #ef4444;
     color: white;
     border: none;
-    padding: 12px 24px;
-    font-size: 1rem;
+    padding: 10px 20px;
+    font-size: 0.9rem;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
@@ -1146,16 +1146,336 @@ section h2 {
     background: #dc2626;
 }
 
-.cobel-admin-conteudo {
-    padding: 40px;
+.cobel-admin-layout {
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    overflow-y: auto;
-    height: calc(100vh - 85px);
+    flex: 1;
+    min-height: 0; /* Previne overflow do container pai flex */
+    overflow: hidden;
 }
 
-.cobel-admin-card-instrucao,
+/* Menu de Abas Lateral */
+.cobel-admin-abas-menu {
+    width: 250px;
+    background: #1e293b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    border-right: 1px solid #334155;
+    flex-shrink: 0;
+}
+
+.cobel-tab-link {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    padding: 14px 24px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid transparent;
+    outline: none;
+}
+
+.cobel-tab-link:hover {
+    background: #334155;
+    color: white;
+}
+
+.cobel-tab-link.active {
+    background: #0f172a;
+    color: var(--petro-amarelo);
+    border-left-color: var(--petro-amarelo);
+}
+
+/* Conteúdo das Abas */
+.cobel-admin-abas-conteudo {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+}
+
+.cobel-tab-conteudo {
+    display: none;
+    width: 100%;
+}
+
+.cobel-tab-conteudo.active {
+    display: block;
+    animation: cobelFadeIn 0.2s ease-out;
+}
+
+@keyframes cobelFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Formulários */
+.cobel-form-grupo {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cobel-form-grupo label {
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.cobel-form-grupo input[type="text"],
+.cobel-form-grupo input[type="number"],
+.cobel-form-grupo input[type="password"],
+.cobel-form-grupo textarea,
+.cobel-form-grupo select {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    outline: none;
+    background: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.cobel-form-grupo input:focus,
+.cobel-form-grupo textarea:focus,
+.cobel-form-grupo select:focus {
+    border-color: var(--petro-azul);
+    box-shadow: 0 0 0 3px rgba(0, 75, 135, 0.15);
+}
+
+.cobel-form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Tabelas da Administração */
+.cobel-admin-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-admin-tabela th {
+    background: #f1f5f9;
+    color: #475569;
+    font-weight: 700;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.cobel-admin-tabela td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.cobel-admin-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.cobel-aba-titulo-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.cobel-aba-titulo-flex h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+/* Botões */
+.cobel-btn-adicionar {
+    background: var(--petro-azul);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-adicionar:hover {
+    background: #003366;
+}
+
+.cobel-btn-excluir {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-excluir:hover {
+    background: #dc2626;
+}
+
+.cobel-btn-ordenar {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 6px 10px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 4px;
+    transition: all 0.2s;
+}
+
+.cobel-btn-ordenar:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Lista do Carrossel */
+.cobel-admin-carrossel-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cobel-carrossel-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.cobel-carrossel-card-preview {
+    width: 120px;
+    height: 90px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+    flex-shrink: 0;
+}
+
+.cobel-carrossel-card-preview img,
+.cobel-carrossel-card-preview video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cobel-carrossel-card-preview-text {
+    font-size: 2rem;
+    color: var(--petro-azul);
+}
+
+.cobel-carrossel-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cobel-carrossel-card-controles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    min-width: 110px;
+    border-left: 1px solid #f1f5f9;
+    padding-left: 15px;
+}
+
+.cobel-btn-salvar-geral {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-salvar-geral:hover {
+    background: #15803d;
+}
+
+.cobel-status-geral-aviso {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    border-left: 4px solid #3b82f6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.cobel-botoes-acoes-carrossel {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.cobel-btn-upload-label {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cobel-btn-upload-label:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Logs e Diagnóstico */
 .cobel-admin-card-logs {
     background: white;
     padding: 25px;
@@ -1164,18 +1484,12 @@ section h2 {
     border: 1px solid #e2e8f0;
 }
 
-.cobel-admin-card-instrucao h3,
-.cobel-admin-card-logs h3 {
-    font-size: 1.2rem;
+.cobel-admin-card-logs h4 {
+    font-size: 1.1rem;
     color: #1e293b;
+    margin-top: 0;
     margin-bottom: 12px;
     font-weight: 600;
-}
-
-.cobel-admin-card-instrucao p {
-    color: #475569;
-    font-size: 1rem;
-    line-height: 1.6;
 }
 
 .cobel-log-quadrado {
@@ -1184,9 +1498,11 @@ section h2 {
     padding: 20px;
     border-radius: 6px;
     font-family: monospace;
-    font-size: 0.95rem;
-    min-height: 200px;
-    line-height: 1.8;
+    font-size: 0.9rem;
+    min-height: 180px;
+    line-height: 1.7;
+    overflow-y: auto;
+    max-height: 250px;
 }
 
 .cobel-log-sucesso {
@@ -1201,26 +1517,7 @@ section h2 {
     color: #fbbf24;
 }
 
-/* Reset do responsivo para a tela admin */
-@media (max-width: 768px) {
-    .cobel-admin-barra-topo {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-        padding: 15px;
-    }
-
-    .cobel-admin-conteudo {
-        padding: 15px;
-    }
-
-    .cobel-modal-caixa {
-        width: 90%;
-        padding: 20px;
-    }
-}
-
-/* 3. Card de Ações e Botões de Operação */
+/* Seção de Ações */
 .cobel-admin-card-acoes {
     background: white;
     padding: 25px;
@@ -1229,17 +1526,25 @@ section h2 {
     border: 1px solid #e2e8f0;
 }
 
+.cobel-admin-card-acoes h4 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
 .cobel-btn-acao-perigo {
     background: #dc2626;
     color: white;
     border: none;
-    padding: 14px 28px;
-    font-size: 1rem;
+    padding: 12px 24px;
+    font-size: 0.9rem;
     font-weight: bold;
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s, opacity 0.2s;
-    margin-top: 15px;
+    margin-top: 10px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -1271,4 +1576,79 @@ section h2 {
 
 .cobel-txt-erro {
     color: #dc2626;
+}
+
+/* ==========================================================================
+   RESET DO RESPONSIVO PARA A TELA ADMIN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .cobel-admin-barra-topo {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .cobel-admin-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+    
+    .cobel-admin-abas-menu {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 0;
+        scrollbar-width: none;
+        border-right: none;
+        border-bottom: 1px solid #334155;
+    }
+    
+    .cobel-admin-abas-menu::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .cobel-tab-link {
+        padding: 10px 16px;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        font-size: 0.85rem;
+        justify-content: center;
+    }
+    
+    .cobel-tab-link.active {
+        border-bottom-color: var(--petro-amarelo);
+    }
+    
+    .cobel-admin-abas-conteudo {
+        padding: 15px;
+        overflow-y: visible;
+    }
+    
+    .cobel-form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .cobel-carrossel-card {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .cobel-carrossel-card-preview {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .cobel-carrossel-card-controles {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #f1f5f9;
+        padding-left: 0;
+        padding-top: 10px;
+    }
 }
