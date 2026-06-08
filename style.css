@@ -281,7 +281,7 @@ section h2 {
     border-left-color: var(--petro-amarelo);
     background: #FFFBEB;
     font-weight: 800;
-    font-size: 1.1em !important;
+    font-size: 1.18em !important; /* Ajustada a fonte do destaque no PC */
 }
 
 /* 🔹 DESTAQUES / CARROSSEL (PC) */
@@ -802,10 +802,10 @@ section h2 {
         transform: scale(0.98) !important;
     }
 
-    /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado */
+    /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado (Refeitório menor, Esta Semana maior) */
     .programacao-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 0.8fr 1.2fr;
         gap: 8px;
         height: auto;
     }
@@ -835,8 +835,8 @@ section h2 {
     .lista-programacao li.destaque {
         border-left-color: var(--petro-amarelo) !important;
         background: #FFFBEB !important;
-        font-weight: 700;
-        font-size: 1.05em !important;
+        font-weight: 800; /* Mais negrito no mobile */
+        font-size: 1.12em !important; /* Ajustada a fonte do destaque no mobile */
     }
 
     /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
