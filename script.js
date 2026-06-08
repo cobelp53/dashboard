@@ -75,6 +75,13 @@ let CONFIG_GLOBAL = {
         limiteTempoVideoMs: 60000,               // Tempo limite de segurança para exibição de um vídeo (60 segundos)
         frequenciaReloadCompletoMs: 14400000,   // Recarregamento forçado da página para prevenção de travamentos (4 horas)
         frequenciaChecagemCommitMs: 180000,     // Checagem de novas versões publicadas no GitHub Pages (3 minutos)
+    },
+
+    // 🐙 Configurações públicas do repositório GitHub para sincronização de preenchimento
+    github: {
+        owner: "cobelp53",
+        repo: "dashboard",
+        branch: "main"
     }
 };
 
@@ -824,10 +831,10 @@ function cobelPopulaFormularios() {
     document.getElementById('cfg-intervaloCarrosselPadraoMs').value = CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs || 10000;
     document.getElementById('cfg-senhaAdmin').value = CONFIG_GLOBAL.seguranca.senhaAdmin || "";
 
-    // 2. Credenciais GitHub (Carrega do localStorage do navegador)
-    document.getElementById('git-owner').value = localStorage.getItem('cobel_git_owner') || "";
-    document.getElementById('git-repo').value = localStorage.getItem('cobel_git_repo') || "";
-    document.getElementById('git-branch').value = localStorage.getItem('cobel_git_branch') || "main";
+    // 2. Credenciais GitHub (Carrega do localStorage ou cai de volta na config global do config.json)
+    document.getElementById('git-owner').value = localStorage.getItem('cobel_git_owner') || CONFIG_GLOBAL.github?.owner || "";
+    document.getElementById('git-repo').value = localStorage.getItem('cobel_git_repo') || CONFIG_GLOBAL.github?.repo || "";
+    document.getElementById('git-branch').value = localStorage.getItem('cobel_git_branch') || CONFIG_GLOBAL.github?.branch || "main";
     document.getElementById('git-token').value = localStorage.getItem('cobel_git_token') || "";
 
     // 3. Renderiza Listas Dinâmicas
@@ -1169,6 +1176,13 @@ async function cobelSalvarConfiguracaoCompleta() {
     localStorage.setItem('cobel_git_repo', repo);
     localStorage.setItem('cobel_git_branch', branch);
     localStorage.setItem('cobel_git_token', token);
+
+    // Salva na configuração global para compartilhar dados públicos do repositório com outros dispositivos (como celular)
+    CONFIG_GLOBAL.github = {
+        owner: owner,
+        repo: repo,
+        branch: branch
+    };
 
     // Feedback visual de salvamento
     if (statusDiv) {
