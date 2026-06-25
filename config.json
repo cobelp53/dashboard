@@ -120,9 +120,13 @@
   ],
   "destaques": [
     {
-      "url": "imagens/plataformadefrentedia.jpeg",
-      "legenda": "Foto do mês - Plataforma P53",
+      "url": "imagens/helipontoaerea.jpg",
+      "legenda": "Heliponto da P53",
       "tempo": 3000
+    },
+    {
+      "url": "imagens/karaoke.mp4",
+      "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
     },
     {
       "url": "imagens/salajogos5.jpg",
@@ -138,10 +142,6 @@
       "url": "imagens/quadra.jpeg",
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.",
       "tempo": 3000
-    },
-    {
-      "url": "imagens/karaoke.mp4",
-      "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
     },
     {
       "titulo": "Bem-Estar e Lazer em Evolução",
