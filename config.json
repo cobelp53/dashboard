@@ -9,9 +9,9 @@
       "tituloDestaques": "🖼️ DESTAQUES",
       "tituloVotacaoPC": "💬 PARTICIPE DA COBEL",
       "tituloVotacaoMobile": "📈 RESULTADO DA VOTAÇÃO",
-      "subtituloVotacao": "Leve no bolso nossa programação!",
+      "subtituloVotacao": "Leve no bolso a programação de bordo e dos jogos da Copa!",
       "rotuloVotacaoFilme": "🗳️ Votação do filme",
-      "textoVotacaoPCInstrucao": "Use o QR Code acima para votar!",
+      "textoVotacaoPCInstrucao": "Use o QR Code acima para votar e acessar nosso painel.",
       "textoVotacaoMobileBotao": "📲 CLIQUE AQUI PARA VOTAR!",
       "textoVotoSucesso": "✨ Sucesso! O comando de limpeza foi enviado.",
       "rodapeTicker": "Sejam bem-vindos à Plataforma P53, boa estadia! | Portal desenvolvido pela Automação de P53 © 2026"
@@ -121,7 +121,7 @@
   "destaques": [
     {
       "tipo": "copa",
-      "tempo": 10000,
+      "tempo": 15000,
       "visivel": true
     },
     {
@@ -138,13 +138,13 @@
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/pipoqueiramontagem.JPG",
       "legenda": "E o Cine Pipoca fez juz ao nome!!"
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/quadra.jpeg",
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor."
     },
