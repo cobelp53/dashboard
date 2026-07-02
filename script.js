@@ -110,15 +110,16 @@ let programacaoSemana = [
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
 // Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
 let destaques = [
-    { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000 },
-    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000 },
-    { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000 },
-    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000 },
-    { url: "imagens/karaoke.mov", legenda: "Solte a voz! Karaokê todas as segundas às 19h no cinema." },
+    { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000, visivel: true },
+    { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000, visivel: true },
+    { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000, visivel: true },
+    { url: "imagens/pipoqueiramontagem.JPG", legenda: "E o Cine Pipoca fez juz ao nome!!", tempo: 3000, visivel: true },
+    { url: "imagens/karaoke.mov", legenda: "Solte a voz! Karaokê todas as segundas às 19h no cinema.", visivel: true },
     {
         titulo: "Bem-Estar e Lazer em Evolução",
         texto: "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>",
-        tempo: 10000
+        tempo: 10000,
+        visivel: true
     }
 ];
 
@@ -306,6 +307,7 @@ function atualizarDataHora() {
 
 let indiceImagem = 0;
 let timerCarrossel;
+let destaquesAtivos = [];
 
 /**
  * Renderiza os slides (Imagens, Vídeos ou Caixa de Textos Informativos) na tela
@@ -318,7 +320,10 @@ function renderizarCarrossel() {
     // Sempre reseta para o primeiro slide para consistência com o array carregado
     indiceImagem = 0;
 
-    destaques.forEach((item, i) => {
+    // Filtra apenas os destaques marcados como visíveis
+    destaquesAtivos = destaques.filter(item => item.visivel !== false);
+
+    destaquesAtivos.forEach((item, i) => {
         if (item.url) {
             // Verifica se o arquivo é um vídeo curto com base na extensão
             const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item.url);
@@ -449,7 +454,7 @@ function iniciarCarrossel() {
         }, tempoSeguranca);
     } else {
         // Se for imagem ou texto, usa o temporizador normal do CONFIG_GLOBAL
-        const item = destaques[indiceImagem];
+        const item = destaquesAtivos[indiceImagem];
         const tempoAtual = (item && item.tempo) || CONFIG_GLOBAL.sistemas.intervaloCarrosselPadraoMs || 10000;
         timerCarrossel = setTimeout(() => {
             mudarSlide(1);
@@ -462,8 +467,8 @@ function iniciarCarrossel() {
  * Atualiza o painel inferior de legenda com base no slide selecionado
  */
 function atualizarLegenda(index) {
-    if (index >= destaques.length || index < 0) return;
-    const item = destaques[index];
+    if (index >= destaquesAtivos.length || index < 0) return;
+    const item = destaquesAtivos[index];
     const elLegenda = document.getElementById('legenda-imagem');
     if (elLegenda) {
         if (item && item.legenda) {
@@ -959,14 +964,18 @@ function cobelCarrosselRenderLista() {
             `;
         }
 
-        // Tempo individual
+        // Tempo individual + Visível
         fieldsHTML += `
             <div class="cobel-form-grid-2">
                 <div class="cobel-form-grupo" style="margin-bottom:0;">
                     <label style="font-size:0.8rem;">Duração Individual (ms - opcional):</label>
                     <input type="number" class="carrossel-item-tempo" value="${item.tempo || ''}" placeholder="Padrão: 10000">
                 </div>
-                <div class="cobel-form-grupo" style="margin-bottom:0; justify-content: flex-end;">
+                <div class="cobel-form-grupo" style="margin-bottom:0; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <input type="checkbox" class="carrossel-item-visivel" ${item.visivel !== false ? 'checked' : ''} style="width: auto; cursor: pointer;">
+                        <label style="font-size:0.85rem; font-weight: bold; color: var(--texto); cursor: pointer; margin: 0;">Visível no Painel</label>
+                    </div>
                     <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isVideo ? "Vídeo" : "Imagem"}</span>
                 </div>
             </div>
@@ -1083,6 +1092,14 @@ function cobelLerListasDaMemoriaHTML() {
         } else {
             delete itemNovo.tempo;
         }
+
+        const inputVisivel = card.querySelector('.carrossel-item-visivel');
+        if (inputVisivel) {
+            itemNovo.visivel = inputVisivel.checked;
+        } else {
+            itemNovo.visivel = true;
+        }
+
         novosDestaques.push(itemNovo);
     });
     if (carrosselCards.length > 0 || destaques.length === 0) {

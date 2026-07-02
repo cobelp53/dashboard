@@ -122,31 +122,37 @@
     {
       "url": "imagens/plataformadefrentedia.jpg",
       "legenda": "Foto do mês - Plataforma P53",
-      "tempo": 3000
+      "tempo": 3000,
+      "visivel": true
     },
     {
       "url": "imagens/salajogos5.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!",
-      "tempo": 8000
+      "tempo": 8000,
+      "visivel": true
     },
     {
       "url": "imagens/pipoqueiramontagem.JPG",
       "legenda": "E o Cine Pipoca fez juz ao nome!!",
-      "tempo": 3000
+      "tempo": 3000,
+      "visivel": true
     },
     {
       "url": "imagens/quadra.jpeg",
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.",
-      "tempo": 3000
+      "tempo": 3000,
+      "visivel": true
     },
     {
       "url": "imagens/karaoke.mp4",
-      "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
+      "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema.",
+      "visivel": true
     },
     {
       "titulo": "Bem-Estar e Lazer em Evolução",
       "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>",
-      "tempo": 10000
+      "tempo": 10000,
+      "visivel": true
     }
   ]
 }
