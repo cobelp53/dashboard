@@ -1,0 +1,1987 @@
+:root {
+    --petro-verde: #10422a;
+    /*#006837;*/
+    --petro-azul: #004B87;
+    --petro-amarelo: #FDB913;
+    /*--bg: #F4F5F7; */
+    --bg: #87bafa;
+    /* Um cinza levemente azulado */
+    --card: #ffffff;
+    --texto: #1E293B;
+    --texto-claro: #64748B;
+    --borda: #E2E8F0;
+
+    --gap: 0.8vw;
+    --pad: 0.5vw;
+    --font-base: 0.8vw;
+    --radius: 1.2vw;
+    --border-w: 0.1vw;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--texto);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: var(--font-base);
+    line-height: 1.45;
+    background-color: var(--petro-verde);
+    background-image: radial-gradient(#d1d5db 0.2px, transparent 0.2px);
+    background-size: 4px 4px;
+    /* Tamanho do padrão */
+}
+
+.painel-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--gap);
+    gap: var(--gap);
+}
+
+.topo,
+.ticker-container {
+    flex-shrink: 0;
+}
+
+/* 🔹 GRID PRINCIPAL */
+.conteudo-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 0.7fr 2.0fr 0.6fr;
+    gap: var(--gap);
+    overflow: hidden;
+}
+
+/* 🔹 HEADER */
+.topo {
+    display: grid;
+    grid-template-columns: 30fr 40fr 30fr;
+    align-items: center;
+    gap: var(--gap);
+    background: var(--card);
+    padding: var(--pad);
+    border-radius: var(--radius);
+    box-shadow: 0 var(--border-w) calc(var(--border-w) * 2.5) rgba(0, 0, 0, 0.08);
+    border-left: var(--border-w) solid var(--petro-verde);
+    min-height: clamp(80px, 10vh, 110px);
+    height: auto;
+}
+
+.lado-esquerdo,
+.centro-titulo,
+.lado-direito {
+    display: flex;
+    flex-direction: column;
+}
+
+.lado-esquerdo {
+    justify-content: flex-start;
+}
+
+.lado-direito {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo-petrobras {
+    height: 10vh;
+    width: auto;
+    object-fit: contain;
+}
+
+/* 🔹 NOVO: CONTAINER PARA LOGO + TITULO */
+.titulo-container-flex {
+    display: flex;
+    align-items: center;
+    /* Alinha o logo verticalmente com o centro das duas linhas de texto */
+    justify-content: center;
+    gap: 1.5vw;
+    /* Espaço entre o logo e o texto */
+}
+
+.logo-cobel-topo {
+    height: 7vh;
+    /* Altura proporcional ao topo */
+    width: auto;
+    object-fit: contain;
+}
+
+.titulo-texto {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    /* Texto centralizado para melhor alinhamento */
+}
+
+/* Ajuste nos títulos para não ficarem com margens estranhas */
+.centro-titulo h1 {
+    font-size: 2.2vw;
+    font-weight: 800;
+    color: var(--petro-azul);
+    margin: 0;
+    line-height: 1;
+}
+
+.centro-titulo h2 {
+    font-size: 1.2vw;
+    /* Reduzi um pouco para equilibrar com o logo */
+    color: var(--petro-azul);
+    margin: 0;
+    line-height: 1.2;
+}
+
+/*
+.centro-titulo { text-align: center; }
+.centro-titulo h1 { font-size: 2.2vw; font-weight: 800; color: var(--petro-azul); margin: 0; }
+.centro-titulo h2 { font-size: 1.5vw; color: var(--petro-azul); margin: 0; } 
+*/
+
+.previsao-container {
+    display: flex;
+    align-items: center;
+    gap: 0.6vw;
+    background: #FFFFFF;
+    padding: 0.5vw 0.8vw;
+    border-radius: 0.8vw;
+    border: 1px solid var(--borda);
+}
+
+.item-clima {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2.8vw;
+}
+
+.item-clima .dia-nome {
+    font-size: 0.55vw;
+    color: var(--texto-claro);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.item-clima .icone {
+    font-size: 1.1vw;
+    margin: 0.1vw 0;
+}
+
+.item-clima .temps {
+    font-size: 0.75vw;
+    font-weight: 700;
+    color: var(--petro-azul);
+    white-space: nowrap;
+}
+
+.item-clima .vento {
+    font-size: 0.55vw;
+    color: var(--texto-claro);
+    font-weight: 600;
+    white-space: nowrap;
+    margin-top: 0.1vw;
+}
+
+/* 🔹 SEÇÕES */
+section {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    box-shadow: 0 var(--border-w) calc(var(--border-w) * 2) rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+
+}
+
+section h2 {
+    font-size: 0.9vw;
+    color: var(--petro-azul);
+    margin-bottom: 0.8vw;
+    padding-bottom: 0.3vw;
+    border-bottom: 2px solid var(--borda);
+    display: flex;
+    align-items: center;
+    gap: 0.7vw;
+}
+
+/* 🔹 PROGRAMAÇÃO */
+.programacao-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    flex: 1; /* Permite que o container se ajuste dinamicamente dentro da section */
+    min-height: 0; /* Previne overflow vertical do container flex */
+}
+
+.prog-bloco {
+    flex: 1;
+    background: #F8FAFC;
+    border-radius: var(--radius);
+    padding: 0.8vw 1vw; /* Espaçamento mais confortável no PC */
+    border-left: 0.5vw solid var(--petro-azul);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.prog-bloco.semana {
+    border-left-color: var(--petro-verde);
+}
+
+.prog-bloco h3 {
+    font-size: 0.9vw; /* Retornado para tamanho confortável */
+    color: var(--petro-verde);
+    margin-bottom: 0.6vw !important; /* Espaçamento equilibrado abaixo do título */
+    margin-left: 0.5vw; /* Ajustado recuo do ícone/texto */
+    padding-bottom: 0.3vw;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    /* Linha divisória sutil */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05vw;
+    /* Títulos "Rotina diária" e "Esta Semana" */
+}
+
+.lista-programacao {
+    list-style: none;
+    display: flex;
+    margin-top: 0.1vw;
+    flex-direction: column;
+    gap: 0.3vw; /* Espaçamento vertical equilibrado entre os itens da lista */
+    overflow-y: auto;
+    flex: 1;
+}
+
+.lista-programacao li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8vw;
+    padding: 0.35vw 0.4vw; /* Espaçamento vertical confortável interno nos itens */
+    background: #FFFFFF;
+    border-radius: 0.4vw;
+    font-size: 0.95vw; /* Tamanho confortável para leitura no PC */
+    border-left: 3px solid var(--borda);
+}
+
+.lista-programacao li.destaque {
+    border-left-color: var(--petro-amarelo);
+    background: #FFFBEB;
+    font-weight: 800;
+}
+
+/* 🔹 DESTAQUES / CARROSSEL (PC) */
+.col-destaques {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.carrossel img,
+.carrossel video,
+.carrossel .slide-texto {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+}
+
+.carrossel .ativa {
+    opacity: 1 !important;
+    z-index: 2;
+}
+
+/* 🔹 SLIDE DE TEXTO (CORRIGIDO: FUNDO E CENTRALIZAÇÃO) */
+.slide-texto {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    /* Centraliza horizontalmente */
+    text-align: center !important;
+    /* Centraliza as linhas de texto */
+    padding: 2vw;
+    background: linear-gradient(135deg, var(--petro-azul), #003366) !important;
+    /* Cor azul de fundo */
+    color: white !important;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+}
+
+/* Garante que o slide de texto ativo apareça */
+.carrossel .slide-texto.ativa {
+    opacity: 1 !important;
+    z-index: 2;
+}
+
+.slide-texto h3 {
+    font-size: clamp(1.2vw, 2.5vw, 3.0vw);
+    color: var(--petro-amarelo);
+    margin-bottom: 1vw;
+}
+
+.slide-texto p {
+    font-size: clamp(0.8vw, 1.5vw, 2.0vw);
+    line-height: 1.5;
+    max-width: 90%;
+}
+
+/* 🔹 LEGENDA (PC) */
+.legenda {
+    flex-shrink: 0;
+    padding: 10px;
+    font-size: 1.5vw;
+    color: var(--texto);
+    background: var(--card);
+    /* Fundo branco para contraste */
+    text-align: center;
+    width: 100%;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.carrossel-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+}
+
+.carrossel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    overflow: hidden;
+    background: #000;
+    border-radius: var(--radius);
+}
+
+/* 🔹 BOTÕES DO CARROSSEL - ESCONDIDOS NO PC */
+.btn-carrossel {
+    display: none;
+    /* Oculta no PC conforme solicitado */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-carrossel:hover {
+    background: var(--petro-amarelo);
+    color: var(--petro-azul);
+}
+
+.btn-carrossel.anterior {
+    left: 15px;
+}
+
+.btn-carrossel.proximo {
+    right: 15px;
+}
+
+/* 🔹 VOTAÇÃO E GRÁFICO (PC) */
+.col-votacao {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2vw;
+    height: 100%;
+    min-height: 0;
+}
+
+.qr-bloco,
+.grafico-bloco {
+    flex: 1;
+    min-height: 0;
+    background: #F8FAFC;
+    border-radius: var(--radius);
+    padding: 0.8vw 1.2vw;
+    border: 1px solid var(--borda);
+    font-size: 1.1vw;
+    line-height: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Centraliza perfeitamente o conteúdo do bloco do QR Code */
+.qr-bloco {
+    justify-content: space-evenly !important;
+    /* Força o alinhamento vertical bem no meio */
+    gap: 0.2vw;
+    /* Cria um espacinho padrão e fixo entre o título e o QR Code */
+}
+
+.qr-bloco h3 {
+    margin-top: 0vw;
+    margin-bottom: 0.2vw;
+    font-size: 0.8vw;
+    line-height: 1.2;
+    color: var(--petro-verde);
+    text-align: center;
+}
+
+/* Ajuste do tamanho e sombra do QR Code para ele não parecer "perdido" */
+.qr-container img {
+    width: min(12vw, 190px);
+    height: auto;
+    border-radius: 0.8vw;
+    box-shadow: 0 0.5vw 1.5vw rgba(0, 0, 0, 0.1);
+    /* Sombra mais suave e profunda */
+}
+
+/* Garante que o título fique no topo e o gráfico embaixo no PC */
+.grafico-bloco {
+    justify-content: flex-start;
+}
+
+.grafico-bloco h3 {
+    margin-bottom: 5px;
+    flex-shrink: 0;
+    font-size: 0.85vw;
+    line-height: 1.2;
+    color: var(--petro-verde);
+}
+
+.grafico-container {
+    width: 100%;
+    flex: 1; /* Permite que o gráfico cresça e ocupe o espaço vertical disponível no PC */
+    min-height: 100px; /* Garante uma altura mínima para manter a proporção ideal */
+    position: relative;
+}
+
+/* Legenda de votação customizada (Responsiva) */
+.grafico-legenda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1.2vw;
+    row-gap: 0.3vw; /* Reduzido o espaçamento vertical entre as linhas do ranking no PC */
+    margin-top: 0.4vw;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-shrink: 0;
+    line-height: 1.2; /* Evita que o line-height da classe pai aumente a distância vertical */
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4vw;
+    font-size: 0.8vw;
+    font-weight: 700;
+    color: var(--texto);
+    line-height: 1.2;
+}
+
+.legenda-cor {
+    width: 0.6vw;
+    height: 0.6vw;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* No PC, esconde o título mobile e mostra o de PC */
+.texto-mobile {
+    display: none;
+}
+
+.texto-pc {
+    display: inline;
+}
+
+/* Título interno do gráfico visível no PC */
+.titulo-interno-grafico {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9vw;
+    color: var(--petro-verde);
+}
+
+.grafico-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+#link-votacao {
+    font-size: 0.75vw;
+    color: var(--texto-claro);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+#link-votacao:hover {
+    color: var(--petro-azul);
+}
+
+/* 🔹 TICKER */
+.ticker-container {
+    background: var(--card);
+    color: var(--petro-azul);
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 3vh;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.ticker-content {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-ticker 45s linear infinite;
+    font-size: 0.9vw;
+}
+
+@keyframes scroll-ticker {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-hora {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0 1vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 0.9vw;
+    min-width: 12vw;
+}
+
+
+
+
+
+/* ==========================================================================
+   MUDANÇAS PARA VERSÃO MOBILE (TELAS ATÉ 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        height: auto;
+        overflow-y: auto;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .painel-container {
+        height: auto;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    /* Permite um gráfico maior no mobile */
+    .grafico-container {
+        height: 250px !important;
+    }
+
+    /* Ajuste da legenda do gráfico para empilhar verticalmente no mobile */
+    .grafico-legenda {
+        flex-direction: column !important;
+        align-items: center !important; /* Centralizado na horizontal no mobile */
+        gap: 6px !important; /* Espaçamento menor no mobile */
+        margin-top: 12px !important;
+        padding-left: 0 !important; /* Sem recuo à esquerda para centralização perfeita */
+    }
+
+    .legenda-item {
+        font-size: 0.95rem !important;
+        gap: 8px !important;
+        justify-content: center !important; /* Garante alinhamento interno centralizado */
+    }
+
+    .legenda-cor {
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    /* 🔹 HEADER MOBILE: Esconde Petrobras e Previsão, Centraliza Cobel */
+    .lado-esquerdo,
+    .esconder-mobile {
+        display: none !important;
+    }
+
+    .lado-direito {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-top: 10px;
+    }
+
+    .previsao-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 8px 10px !important;
+        border-radius: 8px !important;
+        justify-content: center !important;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 12px !important;
+    }
+
+    .previsao-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .previsao-semana {
+        gap: 8px !important;
+    }
+
+    .item-clima {
+        min-width: 40px !important;
+    }
+
+    .item-clima .dia-nome {
+        font-size: 9px !important;
+    }
+
+    .item-clima .icone {
+        font-size: 16px !important;
+    }
+
+    .item-clima .temps {
+        font-size: 10px !important;
+    }
+
+    .item-clima .vento {
+        font-size: 8px !important;
+        margin-top: 2px !important;
+    }
+
+    .topo {
+        grid-template-columns: 1fr !important;
+        height: auto;
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .titulo-container-flex {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    .logo-cobel-topo {
+        height: 45px !important;
+    }
+
+    .titulo-texto {
+        text-align: center;
+    }
+
+    .centro-titulo h1 {
+        font-size: 1.5rem !important;
+        line-height: 1;
+    }
+
+    .centro-titulo h2 {
+        font-size: 0.75rem !important;
+        white-space: nowrap;
+    }
+
+    /* 🔹 GRID MOBILE: Coluna única */
+    .conteudo-grid {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+        gap: 15px;
+    }
+
+    section {
+        height: auto !important;
+        min-height: unset !important;
+        padding: 15px;
+    }
+
+    /* Títulos principais: Programação, Destaques, etc */
+    section h2 {
+        font-size: 1.0rem !important;
+        /* Aumentado para destaque */
+        margin-bottom: 12px;
+    }
+
+    /* Título do Gráfico */
+    .grafico-bloco h3 {
+        font-size: 1.0rem !important;
+        margin-bottom: 10px;
+    }
+
+    /* 🔹 TRANSFORMA O LINK DE VOTAÇÃO EM UM BOTÃO NO MOBILE */
+    .grafico-bloco p {
+        width: 100% !important;
+        margin-top: 15px !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    #link-votacao {
+        display: block !important;
+        width: 100% !important;
+        max-width: 280px;
+        /* Limita a largura para ficar estético */
+        background-color: var(--petro-azul) !important;
+        /* Cor sólida de destaque */
+        color: #ffffff !important;
+        /* Texto branco */
+        text-align: center !important;
+        padding: 12px 20px !important;
+        font-size: 1rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px;
+        border-radius: 8px !important;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+        transition: background-color 0.2s ease, transform 0.1s ease !important;
+    }
+
+    /* Feedback visual ao tocar no botão */
+    #link-votacao:active {
+        background-color: #003366 !important;
+        transform: scale(0.98) !important;
+    }
+
+    /* 🔹 PROGRAMAÇÃO: 2 colunas lado a lado (Refeitório menor, Esta Semana maior) */
+    .programacao-container {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 8px;
+        height: auto;
+    }
+
+    .prog-bloco {
+        padding: 0px;
+        border-left-width: 4px;
+        height: auto;
+        min-height: unset;
+    }
+
+    .prog-bloco h3 {
+        font-size: 1rem !important;
+        /* Títulos "Rotina diária" e "Esta Semana" */
+    }
+
+    .lista-programacao li {
+        font-size: 0.9rem !important;
+        /* Tamanho de leitura confortável */
+        padding: 8px;
+        line-height: 1.2;
+        background: #FFFFFF;
+        border-left: 4px solid var(--borda);
+        /* Borda padrão cinza */
+    }
+
+    .lista-programacao li.destaque {
+        border-left-color: var(--petro-amarelo) !important;
+        background: #FFFBEB !important;
+        font-weight: 800; /* Mais negrito no mobile */
+    }
+
+    /* 🔹 CARROSSEL MOBILE (AJUSTE DEFINITIVO) */
+    .col-destaques {
+        display: block !important;
+        height: auto !important;
+    }
+
+    .carrossel-wrapper {
+        position: relative !important;
+        height: auto !important;
+        /* 💡 Altura automática baseada no slide ativo */
+        width: 100% !important;
+        margin-bottom: 5px;
+        display: block !important;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .carrossel {
+        height: auto !important;
+        width: 100% !important;
+        position: relative !important;
+    }
+
+    .carrossel img,
+    .carrossel video,
+    .carrossel .slide-texto {
+        opacity: 0;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        transition: opacity 0.5s ease;
+    }
+
+    /* 💡 Altura dinâmica conforme o slide ativo no Mobile */
+    .carrossel img.ativa,
+    .carrossel video.ativa,
+    .carrossel .slide-iframe-container.ativa {
+        position: relative !important;
+        height: 280px !important; /* Altura padrão para imagens, vídeos e iframes */
+        opacity: 1 !important;
+        z-index: 5 !important;
+    }
+
+    .carrossel .slide-texto.ativa:not(.slide-iframe-container) {
+        position: relative !important;
+        height: auto !important; /* Altura auto para textos e Copa */
+        min-height: 250px;
+        opacity: 1 !important;
+        z-index: 5 !important;
+    }
+
+    /* 🔹 MOSTRAR BOTÕES APENAS NO MOBILE */
+    .btn-carrossel {
+        display: flex !important;
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 1.5rem !important;
+    }
+
+    /* 🔹 SLIDE DE TEXTO NO MOBILE (CORRIGIDO) */
+    .slide-texto {
+        background: linear-gradient(135deg, var(--petro-azul), #003366) !important;
+        padding: 20px !important;
+    }
+
+    .slide-texto h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+
+    .slide-texto p {
+        font-size: 0.95rem !important;
+        line-height: 1.4 !important;
+    }
+
+    .legenda {
+        font-size: 0.9rem !important;
+        padding: 8px !important;
+        background: #fff !important;
+        color: #333 !important;
+    }
+
+
+    .btn-carrossel {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.2rem !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        z-index: 10 !important;
+    }
+
+    .legenda {
+        font-size: 0.8rem;
+        position: relative;
+        padding: 5px;
+        text-align: center;
+    }
+
+    /* 🔹 GRÁFICO MOBILE */
+    .col-votacao {
+        height: auto !important;
+        min-height: unset !important;
+        gap: 15px;
+    }
+
+    /* Ajusta o espaçamento do bloco do gráfico agora que não tem título interno */
+    .grafico-bloco {
+        padding: 15px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        /*justify-content: center !important; /* Centraliza o gráfico no espaço total */
+    }
+
+    /* Troca os títulos da seção */
+    .texto-pc {
+        display: none !important;
+    }
+
+    .texto-mobile {
+        display: inline !important;
+    }
+
+    /* Esconde o título que ficava dentro do quadradinho branco */
+    .titulo-interno-grafico {
+        display: none !important;
+    }
+
+    .titulo-interacao {
+        font-size: 1.1rem !important;
+    }
+
+    .grafico-container {
+        position: relative !important;
+        /* Obrigatório para o Chart.js se basear */
+        height: 280px !important;
+        /* Define uma altura fixa segura */
+        width: 100% !important;
+        min-height: 280px !important;
+        /* Força a barra para o container não ceder */
+        max-height: 280px !important;
+        /* Teto máximo para travar o loop de crescimento */
+        overflow: hidden;
+        /* Garante que nada escape */
+    }
+
+    /* Garante que o canvas ocupe o espaço e mantenha o aspecto */
+    .grafico-container canvas {
+        position: absolute !important;
+        /* Remove o canvas do fluxo normal para evitar o efeito "empurrão" */
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    /* 🔹 TICKER MOBILE */
+    .ticker-container {
+        height: 35px;
+    }
+
+    .ticker-text {
+        font-size: 0.8rem;
+    }
+
+    .ticker-hora {
+        font-size: 0.8rem;
+        min-width: 120px;
+    }
+}
+
+/* ==========================================================================
+   ESTILOS ISOLADOS - ADMINISTRAÇÃO COBEL (NÃO AFETA O DASHBOARD)
+   ========================================================================== */
+
+/* 1. Modal Sobreposição */
+.cobel-modal-sobreposicao {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(2px);
+    z-index: 99999;
+    display: none;
+    /* Controlado via JS */
+    align-items: center;
+    justify-content: center;
+}
+
+.cobel-modal-caixa {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    border: 3px solid var(--petro-azul);
+}
+
+.cobel-modal-caixa h3 {
+    font-size: 1.4rem;
+    color: var(--petro-azul);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.cobel-modal-caixa p {
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+.cobel-modal-caixa input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 20px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.cobel-modal-caixa input:focus {
+    border-color: var(--petro-verde);
+}
+
+.cobel-modal-botoes {
+    display: flex;
+    gap: 10px;
+}
+
+.cobel-modal-botoes button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cobel-btn-cancelar {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.cobel-btn-cancelar:hover {
+    background: #cbd5e1;
+}
+
+.cobel-btn-confirmar {
+    background: var(--petro-azul);
+    color: white;
+}
+
+.cobel-btn-confirmar:hover {
+    background: #003366;
+}
+
+
+/* 2. Tela Admin Inteira */
+.cobel-admin-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #f1f5f9;
+    z-index: 100000;
+    display: none;
+    /* Controlado via JS */
+    flex-direction: column;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.cobel-admin-barra-topo {
+    background: var(--petro-verde);
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.cobel-admin-titulos h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--petro-amarelo);
+    margin: 0;
+}
+
+.cobel-admin-titulos p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-top: 2px;
+}
+
+.cobel-btn-fechar-admin {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.cobel-btn-fechar-admin:hover {
+    background: #dc2626;
+}
+
+.cobel-admin-layout {
+    display: flex;
+    flex: 1;
+    min-height: 0; /* Previne overflow do container pai flex */
+    overflow: hidden;
+}
+
+/* Menu de Abas Lateral */
+.cobel-admin-abas-menu {
+    width: 250px;
+    background: #1e293b;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    border-right: 1px solid #334155;
+    flex-shrink: 0;
+}
+
+.cobel-tab-link {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    padding: 14px 24px;
+    text-align: left;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid transparent;
+    outline: none;
+}
+
+.cobel-tab-link:hover {
+    background: #334155;
+    color: white;
+}
+
+.cobel-tab-link.active {
+    background: #0f172a;
+    color: var(--petro-amarelo);
+    border-left-color: var(--petro-amarelo);
+}
+
+/* Conteúdo das Abas */
+.cobel-admin-abas-conteudo {
+    flex: 1;
+    padding: 30px 40px;
+    overflow-y: auto;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+}
+
+.cobel-tab-conteudo {
+    display: none;
+    width: 100%;
+}
+
+.cobel-tab-conteudo.active {
+    display: block;
+    animation: cobelFadeIn 0.2s ease-out;
+}
+
+@keyframes cobelFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Formulários */
+.cobel-form-grupo {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cobel-form-grupo label {
+    font-weight: 700;
+    color: #334155;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+}
+
+.cobel-form-grupo input[type="text"],
+.cobel-form-grupo input[type="number"],
+.cobel-form-grupo input[type="password"],
+.cobel-form-grupo textarea,
+.cobel-form-grupo select {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #1e293b;
+    outline: none;
+    background: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.cobel-form-grupo input:focus,
+.cobel-form-grupo textarea:focus,
+.cobel-form-grupo select:focus {
+    border-color: var(--petro-azul);
+    box-shadow: 0 0 0 3px rgba(0, 75, 135, 0.15);
+}
+
+.cobel-form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Tabelas da Administração */
+.cobel-admin-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-admin-tabela th {
+    background: #f1f5f9;
+    color: #475569;
+    font-weight: 700;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #cbd5e1;
+}
+
+.cobel-admin-tabela td {
+    padding: 10px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: middle;
+}
+
+.cobel-admin-tabela tr:last-child td {
+    border-bottom: none;
+}
+
+.cobel-aba-titulo-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.cobel-aba-titulo-flex h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+/* Botões */
+.cobel-btn-adicionar {
+    background: var(--petro-azul);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-adicionar:hover {
+    background: #003366;
+}
+
+.cobel-btn-excluir {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-excluir:hover {
+    background: #dc2626;
+}
+
+.cobel-btn-ordenar {
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 6px 10px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 4px;
+    transition: all 0.2s;
+}
+
+.cobel-btn-ordenar:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Lista do Carrossel */
+.cobel-admin-carrossel-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cobel-carrossel-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.cobel-carrossel-card-preview {
+    width: 120px;
+    height: 90px;
+    background: #f1f5f9;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+    flex-shrink: 0;
+}
+
+.cobel-carrossel-card-preview img,
+.cobel-carrossel-card-preview video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cobel-carrossel-card-preview-text {
+    font-size: 2rem;
+    color: var(--petro-azul);
+}
+
+.cobel-carrossel-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cobel-carrossel-card-controles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 8px;
+    min-width: 110px;
+    border-left: 1px solid #f1f5f9;
+    padding-left: 15px;
+}
+
+.cobel-btn-salvar-geral {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
+
+.cobel-btn-salvar-geral:hover {
+    background: #15803d;
+}
+
+.cobel-status-geral-aviso {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    border-left: 4px solid #3b82f6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.cobel-botoes-acoes-carrossel {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.cobel-btn-upload-label {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cobel-btn-upload-label:hover {
+    background: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Logs e Diagnóstico */
+.cobel-admin-card-logs {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-admin-card-logs h4 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.cobel-log-quadrado {
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 20px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    min-height: 180px;
+    line-height: 1.7;
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+.cobel-log-sucesso {
+    color: #4ade80;
+}
+
+.cobel-log-info {
+    color: #38bdf8;
+}
+
+.cobel-log-alerta {
+    color: #fbbf24;
+}
+
+/* Seção de Ações */
+.cobel-admin-card-acoes {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.cobel-admin-card-acoes h4 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.cobel-btn-acao-perigo {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cobel-btn-acao-perigo:hover {
+    background: #b91c1c;
+}
+
+.cobel-btn-acao-perigo:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.cobel-status-mensagem {
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.cobel-txt-processando {
+    color: #2563eb;
+}
+
+.cobel-txt-sucesso {
+    color: #16a34a;
+}
+
+.cobel-txt-erro {
+    color: #dc2626;
+}
+
+/* ==========================================================================
+   RESET DO RESPONSIVO PARA A TELA ADMIN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .cobel-admin-container {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .cobel-admin-barra-topo {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .cobel-admin-layout {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
+    }
+    
+    .cobel-admin-abas-menu {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px 0;
+        scrollbar-width: none;
+        border-right: none;
+        border-bottom: 1px solid #334155;
+    }
+    
+    .cobel-admin-abas-menu::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .cobel-tab-link {
+        padding: 10px 16px;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        font-size: 0.85rem;
+        justify-content: center;
+    }
+    
+    .cobel-tab-link.active {
+        border-bottom-color: var(--petro-amarelo);
+    }
+    
+    .cobel-admin-abas-conteudo {
+        padding: 15px;
+        overflow-y: visible;
+    }
+    
+    .cobel-form-grid-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+    
+    .cobel-carrossel-card {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .cobel-carrossel-card-preview {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .cobel-carrossel-card-controles {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid #f1f5f9;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+}
+
+/* ==========================================================================
+   🏆 ESTILOS DO WIDGET DA COPA DO MUNDO 2026
+   ========================================================================== */
+
+.slide-copa-container {
+    background: linear-gradient(135deg, #093725, #004B87) !important; /* Verde Petrobras escuro mesclando com Azul */
+    padding: 1.5vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow-y: auto;
+}
+
+.copa-widget-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+
+.copa-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.copa-header h2 {
+    font-size: 1.8vw !important;
+    color: var(--petro-amarelo) !important;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05vw;
+}
+
+.copa-header p {
+    font-size: 0.9vw !important;
+    color: #cbd5e1 !important;
+    margin: 0.2vw 0 0 0;
+}
+
+/* Seção Ao Vivo */
+.copa-ao-vivo-secao {
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    border-radius: 0.8vw;
+    padding: 0.6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4vw;
+    animation: border-pulse 2s infinite alternate;
+}
+
+.copa-badge-aovivo {
+    background: #dc2626;
+    color: white;
+    font-size: 0.75vw;
+    font-weight: 800;
+    padding: 0.15vw 0.5vw;
+    border-radius: 0.3vw;
+    letter-spacing: 0.05vw;
+    animation: pulse-badge 1s infinite alternate;
+}
+
+.copa-jogos-aovivo-lista {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+/* Colunas de Resultados e Agenda */
+.copa-colunas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.copa-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.8vw;
+    padding: 0.8vw;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex: 1 1 280px; /* Garante que as colunas fiquem lado a lado se houver espaço, ou quebrem caso contrário */
+    min-width: 0;
+}
+
+.copa-coluna h3 {
+    font-size: 1vw !important;
+    color: var(--petro-amarelo);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.3vw;
+    margin: 0 0 0.2vw 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.copa-lista-jogos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.copa-lista-jogos::-webkit-scrollbar {
+    width: 0.3vw;
+}
+
+.copa-lista-jogos::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.2vw;
+}
+
+/* Cards dos Jogos */
+.copa-card-jogo {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.6vw;
+    padding: 0.5vw 0.8vw;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1.2fr;
+    align-items: center;
+    gap: 0.4vw;
+    transition: background 0.2s ease;
+}
+
+.copa-card-jogo:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.copa-card-jogo.aovivo {
+    background: rgba(220, 38, 38, 0.2);
+    border-color: rgba(220, 38, 38, 0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Destaque para jogo do Brasil */
+.copa-card-jogo.destaque-br {
+    border: 2px solid var(--petro-amarelo);
+    background: rgba(253, 185, 19, 0.08);
+    animation: gold-glow 2s infinite alternate;
+}
+
+.copa-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 0.95vw;
+    font-weight: 600;
+    color: white;
+}
+
+.copa-time.col-time-home {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.copa-time.col-time-away {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.copa-time span {
+    font-size: 1.3vw;
+}
+
+.copa-time .nome-time {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8.5vw;
+}
+
+.copa-placar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4vw;
+    font-size: 1.1vw;
+    font-weight: 800;
+    color: var(--petro-amarelo);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.2vw 0.5vw;
+    border-radius: 0.4vw;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copa-placar.aovivo {
+    position: relative;
+    padding-bottom: 0.8vw;
+}
+
+.copa-placar.aovivo .tempo-jogo {
+    position: absolute;
+    bottom: 0.1vw;
+    font-size: 0.55vw;
+    color: #ef4444;
+    font-weight: 700;
+    letter-spacing: 0.02vw;
+}
+
+.copa-placar.agendado {
+    font-size: 0.75vw;
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.12);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.sem-jogos {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.8vw;
+    margin-top: 1.5vw;
+    font-style: italic;
+}
+
+/* Animações */
+@keyframes pulse-badge {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+@keyframes border-pulse {
+    0% { border-color: rgba(220, 38, 38, 0.2); }
+    100% { border-color: rgba(220, 38, 38, 0.6); }
+}
+
+@keyframes gold-glow {
+    0% { box-shadow: 0 0 5px rgba(253, 185, 19, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(253, 185, 19, 0.5); }
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .slide-copa-container {
+        padding: 15px !important;
+        height: auto !important;
+        position: relative !important;
+    }
+    
+    .copa-widget-container {
+        gap: 12px;
+    }
+
+    .copa-header h2 {
+        font-size: 1.4rem !important;
+    }
+
+    .copa-header p {
+        font-size: 0.85rem !important;
+    }
+    
+    .copa-colunas-container {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 15px;
+    }
+    
+    .copa-coluna {
+        flex: 1 1 auto;
+        padding: 10px;
+    }
+
+    .copa-coluna h3 {
+        font-size: 0.95rem !important;
+    }
+    
+    .copa-card-jogo {
+        padding: 8px 12px;
+        grid-template-columns: 1fr 60px 1fr;
+        gap: 6px;
+    }
+
+    .copa-time {
+        font-size: 0.9rem;
+    }
+    
+    .copa-time .nome-time {
+        max-width: 90px;
+    }
+
+    .copa-time span {
+        font-size: 1.2rem;
+    }
+
+    .copa-placar {
+        font-size: 1rem;
+        padding: 3px 6px;
+    }
+
+    .copa-placar.agendado {
+        font-size: 0.7rem;
+    }
+    
+    .copa-badge-aovivo {
+        font-size: 0.7rem;
+    }
+}
