@@ -133,7 +133,7 @@
     },
     {
       "tempo": 8000,
-      "visivel": true,
+      "visivel": false,
       "url": "imagens/salajogos5.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!"
     },
@@ -150,13 +150,13 @@
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor."
     },
     {
-      "visivel": true,
+      "visivel": false,
       "url": "imagens/karaoke.mp4",
       "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
     },
     {
       "tempo": 10000,
-      "visivel": true,
+      "visivel": false,
       "titulo": "Bem-Estar e Lazer em Evolução",
       "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
     }
