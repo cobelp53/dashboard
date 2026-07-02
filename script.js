@@ -352,7 +352,7 @@ function renderizarCarrossel() {
                                     <div class="copa-card-jogo aovivo ${isBr ? 'destaque-br' : ''}">
                                         <div class="copa-time">
                                             <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
-                                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                                            <span class="nome-time">${obterAbreviacaoFIFA(g.home_team_name_en)}</span>
                                         </div>
                                         <div class="copa-placar aovivo">
                                             <span class="gols">${g.home_score}</span>
@@ -361,7 +361,7 @@ function renderizarCarrossel() {
                                             <span class="tempo-jogo">${g.time_elapsed}'</span>
                                         </div>
                                         <div class="copa-time">
-                                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                                            <span class="nome-time">${obterAbreviacaoFIFA(g.away_team_name_en)}</span>
                                             <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
                                         </div>
                                     </div>
@@ -378,7 +378,7 @@ function renderizarCarrossel() {
                     <div class="copa-card-jogo ${isBr ? 'destaque-br' : ''}">
                         <div class="copa-time col-time-home">
                             <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
-                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                            <span class="nome-time">${obterAbreviacaoFIFA(g.home_team_name_en)}</span>
                         </div>
                         <div class="copa-placar">
                             <span class="gols">${g.home_score}</span>
@@ -386,7 +386,7 @@ function renderizarCarrossel() {
                             <span class="gols">${g.away_score}</span>
                         </div>
                         <div class="copa-time col-time-away">
-                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                            <span class="nome-time">${obterAbreviacaoFIFA(g.away_team_name_en)}</span>
                             <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
                         </div>
                     </div>
@@ -399,13 +399,13 @@ function renderizarCarrossel() {
                     <div class="copa-card-jogo ${isBr ? 'destaque-br' : ''}">
                         <div class="copa-time col-time-home">
                             <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
-                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                            <span class="nome-time">${obterAbreviacaoFIFA(g.home_team_name_en)}</span>
                         </div>
                         <div class="copa-placar agendado">
                             <span class="data-jogo">${formatarDataJogoCopa(g.local_date, g.stadium_id)}</span>
                         </div>
                         <div class="copa-time col-time-away">
-                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                            <span class="nome-time">${obterAbreviacaoFIFA(g.away_team_name_en)}</span>
                             <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
                         </div>
                     </div>
@@ -1742,7 +1742,30 @@ const bandeirasPaisesCopa = {
     "Peru": "🇵🇪", "Venezuela": "🇻🇪"
 };
 
+const fifaPaisesCopa = {
+    "Canada": "CAN", "Mexico": "MEX", "United States": "USA",
+    "Argentina": "ARG", "Brazil": "BRA", "France": "FRA",
+    "Spain": "ESP", "England": "ENG", "Portugal": "POR",
+    "Belgium": "BEL", "Croatia": "CRO", "Netherlands": "NED",
+    "Italy": "ITA", "Germany": "GER", "Uruguay": "URU",
+    "Colombia": "COL", "Morocco": "MAR", "Japan": "JPN",
+    "Senegal": "SEN", "Ecuador": "ECU", "Switzerland": "SUI",
+    "Algeria": "ALG", "Bosnia and Herzegovina": "BIH",
+    "Democratic Republic of the Congo": "COD", "Ukraine": "UKR",
+    "Poland": "POL", "Denmark": "DEN", "Chile": "CHI",
+    "Panama": "PAN", "Ghana": "GHA", "Uzbekistan": "UZB",
+    "Jordan": "JOR", "Peru": "PER", "Venezuela": "VEN",
+    "Republic of Korea": "KOR", "South Korea": "KOR",
+    "Czech Republic": "CZE", "South Africa": "RSA",
+    "Qatar": "QAT", "Austria": "AUT"
+};
+
 let dadosJogosCopa = [];
+
+function obterAbreviacaoFIFA(nome) {
+    if (!nome) return "TBD";
+    return fifaPaisesCopa[nome] || nome.substring(0, 3).toUpperCase();
+}
 
 function traduzirPaisCopa(nome) {
     if (!nome) return "TBD";
