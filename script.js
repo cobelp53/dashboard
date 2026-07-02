@@ -42,6 +42,7 @@ let CONFIG_GLOBAL = {
     votacao: {
         // Link direto do Formulário de Votação (Google Forms)
         urlInteracaoForm: "https://docs.google.com/forms/d/e/1FAIpQLScHi3wYt85jdh1P2hJXNlt2h2hB6KRbWYrl1PLE49xektVPpA/viewform",
+        urlBoasVindas: "https://cobelp53.github.io/dashboard/",
 
         // ID da Planilha Google obtida das respostas do Google Forms
         sheetId: "12uZTiil0aRZ80rlE3TNEMitlSn8E2cxZk4Srbefozk4",
@@ -505,17 +506,7 @@ function renderizarCarrossel() {
  */
 function ajustarAlturaCarrosselMobile(slide) {
     const wrapper = document.querySelector('.carrossel-wrapper');
-    if (!wrapper) return;
-    
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isMobile) {
-        if (slide && slide.classList.contains('slide-copa-container')) {
-            wrapper.style.setProperty('height', '450px', 'important');
-        } else {
-            wrapper.style.setProperty('height', '280px', 'important');
-        }
-    } else {
+    if (wrapper) {
         wrapper.style.removeProperty('height');
     }
 }
@@ -736,7 +727,8 @@ function traduzirWMO(code) {
  */
 function gerarQRCodes() {
     const tamanho = CONFIG_GLOBAL.votacao.tamanhoQRCode;
-    const urlQRCode = `https://api.qrserver.com/v1/create-qr-code/?size=${tamanho}x${tamanho}&data=${encodeURIComponent(CONFIG_GLOBAL.votacao.urlInteracaoForm)}&bgcolor=ffffff&color=006837&margin=6`;
+    const urlDestino = CONFIG_GLOBAL.votacao.urlBoasVindas || CONFIG_GLOBAL.votacao.urlInteracaoForm;
+    const urlQRCode = `https://api.qrserver.com/v1/create-qr-code/?size=${tamanho}x${tamanho}&data=${encodeURIComponent(urlDestino)}&bgcolor=ffffff&color=006837&margin=6`;
 
     const containerQR = document.getElementById('qr-interacao');
     if (containerQR) {
@@ -994,6 +986,7 @@ function cobelPopulaFormularios() {
     document.getElementById('cfg-tituloProgramacao').value = CONFIG_GLOBAL.textos.tituloProgramacao || "";
     document.getElementById('cfg-rodapeTicker').value = CONFIG_GLOBAL.textos.rodapeTicker || "";
     document.getElementById('cfg-urlInteracaoForm').value = CONFIG_GLOBAL.votacao.urlInteracaoForm || "";
+    document.getElementById('cfg-urlBoasVindas').value = CONFIG_GLOBAL.votacao.urlBoasVindas || "";
     document.getElementById('cfg-sheetId').value = CONFIG_GLOBAL.votacao.sheetId || "";
     document.getElementById('cfg-sheetName').value = CONFIG_GLOBAL.votacao.sheetName || "";
     document.getElementById('cfg-urlAppsScript').value = CONFIG_GLOBAL.votacao.urlAppsScript || "";
@@ -1421,6 +1414,7 @@ async function cobelSalvarConfiguracaoCompleta() {
     CONFIG_GLOBAL.textos.tituloProgramacao = document.getElementById('cfg-tituloProgramacao').value.trim();
     CONFIG_GLOBAL.textos.rodapeTicker = document.getElementById('cfg-rodapeTicker').value.trim();
     CONFIG_GLOBAL.votacao.urlInteracaoForm = document.getElementById('cfg-urlInteracaoForm').value.trim();
+    CONFIG_GLOBAL.votacao.urlBoasVindas = document.getElementById('cfg-urlBoasVindas').value.trim();
     CONFIG_GLOBAL.votacao.sheetId = document.getElementById('cfg-sheetId').value.trim();
     CONFIG_GLOBAL.votacao.sheetName = document.getElementById('cfg-sheetName').value.trim();
     CONFIG_GLOBAL.votacao.urlAppsScript = document.getElementById('cfg-urlAppsScript').value.trim();

@@ -845,8 +845,8 @@ section h2 {
 
     .carrossel-wrapper {
         position: relative !important;
-        height: 280px !important;
-        /* 💡 Isso aqui faz a imagem aparecer */
+        height: auto !important;
+        /* 💡 Altura automática baseada no slide ativo */
         width: 100% !important;
         margin-bottom: 5px;
         display: block !important;
@@ -855,7 +855,7 @@ section h2 {
     }
 
     .carrossel {
-        height: 100% !important;
+        height: auto !important;
         width: 100% !important;
         position: relative !important;
     }
@@ -873,7 +873,20 @@ section h2 {
         transition: opacity 0.5s ease;
     }
 
-    .carrossel .ativa {
+    /* 💡 Altura dinâmica conforme o slide ativo no Mobile */
+    .carrossel img.ativa,
+    .carrossel video.ativa,
+    .carrossel .slide-iframe-container.ativa {
+        position: relative !important;
+        height: 280px !important; /* Altura padrão para imagens, vídeos e iframes */
+        opacity: 1 !important;
+        z-index: 5 !important;
+    }
+
+    .carrossel .slide-texto.ativa:not(.slide-iframe-container) {
+        position: relative !important;
+        height: auto !important; /* Altura auto para textos e Copa */
+        min-height: 250px;
         opacity: 1 !important;
         z-index: 5 !important;
     }
@@ -1911,7 +1924,6 @@ section h2 {
     .slide-copa-container {
         padding: 15px !important;
         height: auto !important;
-        overflow-y: visible !important;
         position: relative !important;
     }
     

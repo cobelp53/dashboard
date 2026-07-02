@@ -26,6 +26,7 @@
     },
     "votacao": {
       "urlInteracaoForm": "https://docs.google.com/forms/d/e/1FAIpQLScHi3wYt85jdh1P2hJXNlt2h2hB6KRbWYrl1PLE49xektVPpA/viewform",
+      "urlBoasVindas": "https://cobelp53.github.io/dashboard/",
       "sheetId": "12uZTiil0aRZ80rlE3TNEMitlSn8E2cxZk4Srbefozk4",
       "sheetName": "Respostas ao formulário 1",
       "voteColumnIndex": 1,
@@ -126,7 +127,7 @@
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/plataformadefrentedia.jpg",
       "legenda": "Foto do mês - Plataforma P53"
     },
@@ -138,13 +139,13 @@
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/pipoqueiramontagem.JPG",
       "legenda": "E o Cine Pipoca fez juz ao nome!!"
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/quadra.jpeg",
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor."
     },
