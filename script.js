@@ -338,7 +338,23 @@ function renderizarCarrossel() {
             proximos.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
             const topResultados = finalizados.slice(0, 3);
-            const topProximos = proximos.slice(0, 3);
+            
+            // Lógica especial para garantir o próximo jogo do Brasil nas Próximas Partidas
+            let topProximos = [];
+            const nextBrazilGame = proximos.find(g => g.home_team_name_en === "Brazil" || g.away_team_name_en === "Brazil");
+            
+            if (nextBrazilGame) {
+                const firstTwo = proximos.slice(0, 2);
+                const jaEstaNosPrimeiros = firstTwo.some(g => g.id === nextBrazilGame.id);
+                
+                if (jaEstaNosPrimeiros) {
+                    topProximos = proximos.slice(0, 3);
+                } else {
+                    topProximos = [...firstTwo, nextBrazilGame];
+                }
+            } else {
+                topProximos = proximos.slice(0, 3);
+            }
 
             let htmlJogosAoVivo = '';
             if (aoVivo.length > 0) {
@@ -487,6 +503,31 @@ function renderizarCarrossel() {
  * Altera o slide ativo na tela infinitamente na direção escolhida
  * @param {number} direcao - Direção do slide (1 para frente, -1 para trás)
  */
+function ajustarAlturaCarrosselMobile(slide) {
+    const wrapper = document.querySelector('.carrossel-wrapper');
+    if (!wrapper) return;
+    
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        if (slide && slide.classList.contains('slide-copa-container')) {
+            wrapper.style.setProperty('height', '450px', 'important');
+        } else {
+            wrapper.style.setProperty('height', '280px', 'important');
+        }
+    } else {
+        wrapper.style.removeProperty('height');
+    }
+}
+
+// Ouvinte de resize para ajustar a altura dinamicamente ao redimensionar a tela
+window.addEventListener('resize', () => {
+    const slides = document.querySelectorAll('#carrossel-imagens > *');
+    if (slides.length > 0 && indiceImagem < slides.length) {
+        ajustarAlturaCarrosselMobile(slides[indiceImagem]);
+    }
+});
+
 function mudarSlide(direcao) {
     const slides = document.querySelectorAll('#carrossel-imagens > *');
     if (slides.length === 0) return;
@@ -517,6 +558,7 @@ function mudarSlide(direcao) {
     const novoSlide = slides[indiceImagem];
     if (novoSlide) {
         novoSlide.classList.add('ativa');
+        ajustarAlturaCarrosselMobile(novoSlide);
 
         // Se o novo slide for vídeo, reinicia e reproduz
         if (novoSlide.tagName === 'VIDEO') {
@@ -553,6 +595,8 @@ function iniciarCarrossel() {
 
     const slideAtual = slides[indiceImagem];
     if (!slideAtual) return;
+    
+    ajustarAlturaCarrosselMobile(slideAtual);
 
     if (slideAtual.tagName === 'VIDEO') {
         slideAtual.loop = false;
@@ -1787,8 +1831,8 @@ function formatarDataJogoCopa(localDateStr, stadiumId) {
     const horaPartes = partes[1].split(":");
     if (dataPartes.length < 3 || horaPartes.length < 2) return localDateStr;
     
-    const dia = parseInt(dataPartes[0]);
-    const mes = parseInt(dataPartes[1]) - 1; // 0-based
+    const mes = parseInt(dataPartes[0]) - 1; // 0-based (Mês primeiro no formato MM/DD/YYYY da API)
+    const dia = parseInt(dataPartes[1]);     // Dia segundo
     const ano = parseInt(dataPartes[2]);
     const hora = parseInt(horaPartes[0]);
     const minuto = parseInt(horaPartes[1]);
