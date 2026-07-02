@@ -135,7 +135,7 @@
       "url": "imagens/pipoqueiramontagem.JPG",
       "legenda": "E o Cine Pipoca fez juz ao nome!!",
       "tempo": 3000,
-      "visivel": true
+      "visivel": false
     },
     {
       "url": "imagens/quadra.jpeg",
