@@ -110,6 +110,7 @@ let programacaoSemana = [
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
 // Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
 let destaques = [
+    { tipo: "copa", tempo: 15000, visivel: true },
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000, visivel: true },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000, visivel: true },
     { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000, visivel: true },
@@ -324,22 +325,141 @@ function renderizarCarrossel() {
     destaquesAtivos = destaques.filter(item => item.visivel !== false);
 
     destaquesAtivos.forEach((item, i) => {
-        if (item.url) {
-            // Verifica se o arquivo é um vídeo curto com base na extensão
+        if (item.tipo === "copa") {
+            // Slide da Copa do Mundo 2026 com dados da API
+            const div = document.createElement('div');
+            div.className = `slide-texto slide-copa-container ${i === 0 ? 'ativa' : ''}`;
+
+            const finalizados = dadosJogosCopa.filter(g => g.finished === "TRUE" || g.time_elapsed === "finished");
+            const aoVivo = dadosJogosCopa.filter(g => g.finished === "FALSE" && g.time_elapsed !== "notstarted");
+            const proximos = dadosJogosCopa.filter(g => g.finished === "FALSE" && g.time_elapsed === "notstarted");
+
+            finalizados.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+            proximos.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+
+            const topResultados = finalizados.slice(0, 3);
+            const topProximos = proximos.slice(0, 3);
+
+            let htmlJogosAoVivo = '';
+            if (aoVivo.length > 0) {
+                htmlJogosAoVivo = `
+                    <div class="copa-ao-vivo-secao">
+                        <span class="copa-badge-aovivo">🔴 AO VIVO</span>
+                        <div class="copa-jogos-aovivo-lista">
+                            ${aoVivo.map(g => {
+                                const isBr = g.home_team_name_en === "Brazil" || g.away_team_name_en === "Brazil";
+                                return `
+                                    <div class="copa-card-jogo aovivo ${isBr ? 'destaque-br' : ''}">
+                                        <div class="copa-time">
+                                            <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
+                                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                                        </div>
+                                        <div class="copa-placar aovivo">
+                                            <span class="gols">${g.home_score}</span>
+                                            <span class="vs">x</span>
+                                            <span class="gols">${g.away_score}</span>
+                                            <span class="tempo-jogo">${g.time_elapsed}'</span>
+                                        </div>
+                                        <div class="copa-time">
+                                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                                            <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const htmlResultados = topResultados.map(g => {
+                const isBr = g.home_team_name_en === "Brazil" || g.away_team_name_en === "Brazil";
+                return `
+                    <div class="copa-card-jogo ${isBr ? 'destaque-br' : ''}">
+                        <div class="copa-time col-time-home">
+                            <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
+                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                        </div>
+                        <div class="copa-placar">
+                            <span class="gols">${g.home_score}</span>
+                            <span class="vs">-</span>
+                            <span class="gols">${g.away_score}</span>
+                        </div>
+                        <div class="copa-time col-time-away">
+                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                            <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const htmlProximos = topProximos.map(g => {
+                const isBr = g.home_team_name_en === "Brazil" || g.away_team_name_en === "Brazil";
+                return `
+                    <div class="copa-card-jogo ${isBr ? 'destaque-br' : ''}">
+                        <div class="copa-time col-time-home">
+                            <span>${obterBandeiraCopa(g.home_team_name_en)}</span>
+                            <span class="nome-time">${traduzirPaisCopa(g.home_team_name_en)}</span>
+                        </div>
+                        <div class="copa-placar agendado">
+                            <span class="data-jogo">${formatarDataJogoCopa(g.local_date, g.stadium_id)}</span>
+                        </div>
+                        <div class="copa-time col-time-away">
+                            <span class="nome-time">${traduzirPaisCopa(g.away_team_name_en)}</span>
+                            <span>${obterBandeiraCopa(g.away_team_name_en)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            div.innerHTML = `
+                <div class="copa-widget-container">
+                    <div class="copa-header">
+                        <h2>🏆 COPA DO MUNDO FIFA 2026</h2>
+                        <p>Acompanhamento de Resultados e Agenda</p>
+                    </div>
+                    ${htmlJogosAoVivo}
+                    <div class="copa-colunas-container">
+                        <div class="copa-coluna">
+                            <h3>⚽ ÚLTIMOS JOGOS</h3>
+                            <div class="copa-lista-jogos">
+                                ${htmlResultados || '<p class="sem-jogos">Nenhum resultado recente.</p>'}
+                            </div>
+                        </div>
+                        <div class="copa-coluna">
+                            <h3>📅 PRÓXIMAS PARTIDAS</h3>
+                            <div class="copa-lista-jogos">
+                                ${htmlProximos || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        } else if (item.tipo === "iframe" || item.tipo === "url") {
+            // Slide contendo iframe/URL externa
+            const iframe = document.createElement('iframe');
+            iframe.src = item.url;
+            iframe.className = i === 0 ? 'ativa' : '';
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.background = '#ffffff';
+            container.appendChild(iframe);
+        } else if (item.url) {
+            // Slide de vídeo ou imagem/GIF
             const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(item.url);
             if (isVideo) {
-                // Slide de vídeo (rodam até o final e passam pro próximo slide)
                 const video = document.createElement('video');
                 video.src = item.url;
                 video.className = i === 0 ? 'ativa' : '';
                 video.autoplay = true;
-                video.loop = false; // Não entra em loop, pois queremos mudar de slide no final
-                video.muted = true; // Muted é obrigatório para o Autoplay funcionar nos navegadores
+                video.loop = false;
+                video.muted = true;
                 video.setAttribute('playsinline', '');
                 video.setAttribute('webkit-playsinline', '');
                 container.appendChild(video);
             } else {
-                // Slide de imagem ou GIF tradicional
                 const img = document.createElement('img');
                 img.src = item.url;
                 img.className = i === 0 ? 'ativa' : '';
@@ -926,18 +1046,38 @@ function cobelCarrosselRenderLista() {
     const listDiv = document.getElementById('carrossel-lista-cards');
     if (!listDiv) return;
     listDiv.innerHTML = destaques.map((item, index) => {
-        const isVideo = item.url && /\.(mp4|webm|ogg|mov)$/i.test(item.url);
-        const isImage = item.url && !isVideo;
-        const isText = item.texto || item.titulo;
+        const isCopa = item.tipo === "copa";
+        const isIframe = item.tipo === "iframe" || item.tipo === "url";
+        const isText = (item.texto || item.titulo) && !isCopa && !isIframe;
+        const isMedia = !isCopa && !isIframe && !isText;
+
+        const isVideo = isMedia && item.url && /\.(mp4|webm|ogg|mov)$/i.test(item.url);
+        const isImage = isMedia && item.url && !isVideo;
 
         let previewHTML = '';
         if (isImage) {
             previewHTML = `<img src="${item.url}" alt="Preview">`;
         } else if (isVideo) {
             previewHTML = `<video src="${item.url}" muted playsinline></video>`;
+        } else if (isIframe) {
+            previewHTML = `<span class="cobel-carrossel-card-preview-text">🌐</span>`;
+        } else if (isCopa) {
+            previewHTML = `<span class="cobel-carrossel-card-preview-text">🏆</span>`;
         } else {
             previewHTML = `<span class="cobel-carrossel-card-preview-text">📝</span>`;
         }
+
+        let selectTipoHTML = `
+            <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                <label style="font-size:0.8rem; font-weight: bold; color: var(--texto-claro);">Tipo de Slide:</label>
+                <select onchange="cobelCarrosselMudarTipo(${index}, this.value)" style="width: 100%; padding: 4px; border-radius: 4px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 0.85rem; background: white; cursor: pointer;">
+                    <option value="media" ${isMedia ? 'selected' : ''}>🖼️ Imagem / Vídeo</option>
+                    <option value="texto" ${isText ? 'selected' : ''}>📝 Card de Texto</option>
+                    <option value="iframe" ${isIframe ? 'selected' : ''}>🌐 URL (Iframe)</option>
+                    <option value="copa" ${isCopa ? 'selected' : ''}>🏆 Copa do Mundo 2026 (Automático)</option>
+                </select>
+            </div>
+        `;
 
         let fieldsHTML = '';
         if (isText) {
@@ -951,11 +1091,29 @@ function cobelCarrosselRenderLista() {
                     <textarea class="carrossel-item-texto" rows="2" style="font-family:inherit;" placeholder="Texto">${item.texto || ''}</textarea>
                 </div>
             `;
+        } else if (isIframe) {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">URL da página web (ex: https://previsao.open-meteo.com):</label>
+                    <input type="text" class="carrossel-item-url" value="${item.url || ''}" placeholder="https://...">
+                </div>
+                <div class="cobel-form-grupo" style="margin-bottom:8px;">
+                    <label style="font-size:0.8rem;">Legenda:</label>
+                    <input type="text" class="carrossel-item-legenda" value="${item.legenda || ''}" placeholder="Legenda do frame">
+                </div>
+            `;
+        } else if (isCopa) {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px; border-radius: 6px; flex-direction: column; align-items: flex-start; gap: 4px;">
+                    <p style="margin: 0; color: #166534; font-size: 0.85rem; font-weight: bold;">🏆 Painel da Copa do Mundo FIFA 2026</p>
+                    <p style="margin: 0; color: #15803d; font-size: 0.8rem; line-height: 1.3;">Este slide atualiza automaticamente com os resultados reais e a agenda de jogos a partir da API pública do torneio. Não é necessário preencher placares manualmente!</p>
+                </div>
+            `;
         } else {
             fieldsHTML = `
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
                     <label style="font-size:0.8rem;">Caminho da mídia no GitHub (ex: imagens/sua_foto.jpg):</label>
-                    <input type="text" class="carrossel-item-url" value="${item.url}" placeholder="ex: imagens/foto.jpg" onchange="cobelCarrosselAtualizarUrl(${index}, this.value)">
+                    <input type="text" class="carrossel-item-url" value="${item.url || ''}" placeholder="ex: imagens/foto.jpg" onchange="cobelCarrosselAtualizarUrl(${index}, this.value)">
                 </div>
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
                     <label style="font-size:0.8rem;">Legenda:</label>
@@ -963,6 +1121,8 @@ function cobelCarrosselRenderLista() {
                 </div>
             `;
         }
+
+        fieldsHTML = selectTipoHTML + fieldsHTML;
 
         // Tempo individual + Visível
         fieldsHTML += `
@@ -976,7 +1136,7 @@ function cobelCarrosselRenderLista() {
                         <input type="checkbox" class="carrossel-item-visivel" ${item.visivel !== false ? 'checked' : ''} style="width: auto; cursor: pointer;">
                         <label style="font-size:0.85rem; font-weight: bold; color: var(--texto); cursor: pointer; margin: 0;">Visível no Painel</label>
                     </div>
-                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isVideo ? "Vídeo" : "Imagem"}</span>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isCopa ? "Copa 2026" : isIframe ? "Iframe" : isVideo ? "Vídeo" : "Imagem"}</span>
                 </div>
             </div>
         `;
@@ -999,6 +1159,34 @@ function cobelCarrosselRenderLista() {
             </div>
         `;
     }).join('');
+}
+
+function cobelCarrosselMudarTipo(index, novoTipo) {
+    cobelLerListasDaMemoriaHTML();
+    const item = destaques[index];
+    
+    // Reseta propriedades
+    delete item.titulo;
+    delete item.texto;
+    delete item.url;
+    delete item.legenda;
+    delete item.tipo;
+    
+    if (novoTipo === "texto") {
+        item.titulo = "Novo Card";
+        item.texto = "Insira o texto aqui...";
+    } else if (novoTipo === "iframe") {
+        item.url = "https://";
+        item.tipo = "iframe";
+        item.legenda = "";
+    } else if (novoTipo === "copa") {
+        item.tipo = "copa";
+    } else {
+        item.url = "imagens/seu_arquivo.jpg";
+        item.legenda = "Legenda do slide";
+    }
+    
+    cobelCarrosselRenderLista();
 }
 
 function cobelCarrosselAdicionarTexto() {
@@ -1078,17 +1266,37 @@ function cobelLerListasDaMemoriaHTML() {
         const itemOriginal = destaques[idx];
         const itemNovo = { ...itemOriginal };
 
-        if (itemOriginal.texto || itemOriginal.titulo) {
-            itemNovo.titulo = card.querySelector('.carrossel-item-titulo').value.trim();
-            itemNovo.texto = card.querySelector('.carrossel-item-texto').value.trim();
+        const inputTitulo = card.querySelector('.carrossel-item-titulo');
+        const inputTexto = card.querySelector('.carrossel-item-texto');
+        const inputUrl = card.querySelector('.carrossel-item-url');
+        const inputLegenda = card.querySelector('.carrossel-item-legenda');
+
+        delete itemNovo.titulo;
+        delete itemNovo.texto;
+        delete itemNovo.url;
+        delete itemNovo.legenda;
+
+        if (inputTitulo && inputTexto) {
+            itemNovo.titulo = inputTitulo.value.trim();
+            itemNovo.texto = inputTexto.value.trim();
+            delete itemNovo.tipo;
+        } else if (inputUrl && inputLegenda) {
+            itemNovo.url = inputUrl.value.trim();
+            itemNovo.legenda = inputLegenda.value.trim();
+            if (itemOriginal.tipo === "iframe" || itemOriginal.tipo === "url") {
+                itemNovo.tipo = "iframe";
+            }
+        } else if (itemOriginal.tipo === "copa") {
+            itemNovo.tipo = "copa";
         } else {
-            itemNovo.url = card.querySelector('.carrossel-item-url').value.trim();
-            itemNovo.legenda = card.querySelector('.carrossel-item-legenda').value.trim();
+            if (itemOriginal.url) itemNovo.url = itemOriginal.url;
+            if (itemOriginal.legenda) itemNovo.legenda = itemOriginal.legenda;
+            if (itemOriginal.tipo) itemNovo.tipo = itemOriginal.tipo;
         }
 
-        const inputTempo = card.querySelector('.carrossel-item-tempo').value.trim();
-        if (inputTempo) {
-            itemNovo.tempo = parseInt(inputTempo);
+        const inputTempo = card.querySelector('.carrossel-item-tempo');
+        if (inputTempo && inputTempo.value.trim()) {
+            itemNovo.tempo = parseInt(inputTempo.value.trim());
         } else {
             delete itemNovo.tempo;
         }
@@ -1499,9 +1707,138 @@ async function carregarConfiguracao() {
     }
 }
 
+// =========================================================================
+// 🏆 LÓGICA E INTEGRAÇÃO DO WIDGET DA COPA DO MUNDO 2026
+// =========================================================================
+
+const traducaoPaisesCopa = {
+    "Brazil": "Brasil", "Germany": "Alemanha", "Spain": "Espanha", "Argentina": "Argentina", "France": "França",
+    "Belgium": "Bélgica", "Portugal": "Portugal", "Croatia": "Croácia", "Netherlands": "Holanda", "England": "Inglaterra",
+    "Mexico": "México", "Italy": "Itália", "Uruguay": "Uruguai", "Colombia": "Colômbia", "Morocco": "Marrocos",
+    "Switzerland": "Suíça", "Japan": "Japão", "South Korea": "Coreia do Sul", "United States": "Estados Unidos",
+    "South Africa": "África do Sul", "Czech Republic": "República Tcheca", "Canada": "Canadá",
+    "Bosnia and Herzegovina": "Bósnia e Herzegovina", "Paraguay": "Paraguai", "Haiti": "Haiti", "Scotland": "Escócia",
+    "Australia": "Austrália", "Turkey": "Turquia", "Qatar": "Catar", "Ivory Coast": "Costa do Marfim",
+    "Ecuador": "Equador", "Curaçao": "Curaçao", "Tunisia": "Tunísia", "Sweden": "Suécia", "Iran": "Irã",
+    "New Zealand": "Nova Zelândia", "Saudi Arabia": "Arábia Saudita", "Cape Verde": "Cabo Verde", "Egypt": "Egito",
+    "Senegal": "Senegal", "Iraq": "Iraque", "Norway": "Noruega", "Algeria": "Argélia", "Austria": "Áustria",
+    "Jordan": "Jordânia", "Democratic Republic of the Congo": "RD do Congo", "Uzbekistan": "Uzbequistão", "Ghana": "Gana",
+    "Panama": "Panamá", "Chile": "Chile", "Denmark": "Dinamarca", "Poland": "Polônia", "Ukraine": "Ucrânia",
+    "Peru": "Peru", "Venezuela": "Venezuela"
+};
+
+const bandeirasPaisesCopa = {
+    "Brazil": "🇧🇷", "Germany": "🇩🇪", "Spain": "🇪🇸", "Argentina": "🇦🇷", "France": "🇫🇷",
+    "Belgium": "🇧🇪", "Portugal": "🇵🇹", "Croatia": "🇭🇷", "Netherlands": "🇳🇱", "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "Mexico": "🇲🇽", "Uruguay": "🇺🇾", "Colombia": "🇨🇴", "Morocco": "🇲🇦", "Switzerland": "🇨🇭",
+    "Japan": "🇯🇵", "South Korea": "🇰🇷", "United States": "🇺🇸", "South Africa": "🇿🇦",
+    "Czech Republic": "🇨🇿", "Canada": "🇨🇦", "Bosnia and Herzegovina": "🇧🇦", "Paraguay": "🇵🇾",
+    "Haiti": "🇧🇭", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿", "Australia": "🇦🇺", "Turkey": "🇹🇷", "Qatar": "🇶🇦",
+    "Ivory Coast": "🇨🇮", "Ecuador": "🇪🇨", "Curaçao": "🇨🇼", "Tunisia": "🇹🇳", "Sweden": "🇸🇪",
+    "Iran": "🇮🇷", "New Zealand": "🇳🇿", "Saudi Arabia": "🇸🇦", "Cape Verde": "🇨🇻", "Egypt": "🇪🇬",
+    "Senegal": "🇸🇳", "Iraq": "🇮🇶", "Norway": "🇳🇴", "Algeria": "🇩🇿", "Austria": "🇦🇹",
+    "Jordan": "🇯🇴", "Democratic Republic of the Congo": "🇨🇩", "Uzbekistan": "🇺🇿", "Ghana": "🇬🇭",
+    "Panama": "🇵🇦", "Chile": "🇨🇱", "Denmark": "🇩🇰", "Poland": "🇵🇱", "Ukraine": "🇺🇦",
+    "Peru": "🇵🇪", "Venezuela": "🇻🇪"
+};
+
+let dadosJogosCopa = [];
+
+function traduzirPaisCopa(nome) {
+    if (!nome) return "TBD";
+    return traducaoPaisesCopa[nome] || nome;
+}
+
+function obterBandeiraCopa(nome) {
+    if (!nome) return "🏳️";
+    return bandeirasPaisesCopa[nome] || "🏳️";
+}
+
+function formatarDataJogoCopa(localDateStr, stadiumId) {
+    if (!localDateStr) return "";
+    
+    // Parse da data local: "DD/MM/YYYY HH:MM"
+    const partes = localDateStr.split(" ");
+    if (partes.length < 2) return localDateStr;
+    const dataPartes = partes[0].split("/");
+    const horaPartes = partes[1].split(":");
+    if (dataPartes.length < 3 || horaPartes.length < 2) return localDateStr;
+    
+    const dia = parseInt(dataPartes[0]);
+    const mes = parseInt(dataPartes[1]) - 1; // 0-based
+    const ano = parseInt(dataPartes[2]);
+    const hora = parseInt(horaPartes[0]);
+    const minuto = parseInt(horaPartes[1]);
+    
+    const dataRef = new Date(ano, mes, dia, hora, minuto);
+    
+    // Converte o horário do estádio para o Horário de Brasília (UTC-3)
+    let offsetHoras = 0;
+    const sId = String(stadiumId);
+    
+    if (["1", "2", "3"].includes(sId)) {
+        // México (CDMX, Guadalajara, Monterrey): CST (UTC-6) -> BRT (UTC-3) = +3h
+        offsetHoras = 3;
+    } else if (["4", "5", "6"].includes(sId)) {
+        // EUA Central (Dallas, Houston, Kansas City): CDT (UTC-5) -> BRT (UTC-3) = +2h
+        offsetHoras = 2;
+    } else if (["7", "8", "9", "10", "11", "12"].includes(sId)) {
+        // Costa Leste (Miami, New York, Boston, Philadelphia, Atlanta, Toronto): EDT (UTC-4) -> BRT (UTC-3) = +1h
+        offsetHoras = 1;
+    } else if (["13", "14", "15", "16"].includes(sId)) {
+        // Costa Oeste (Los Angeles, San Francisco, Seattle, Vancouver): PDT (UTC-7) -> BRT (UTC-3) = +4h
+        offsetHoras = 4;
+    }
+    
+    dataRef.setHours(dataRef.getHours() + offsetHoras);
+    
+    const dd = String(dataRef.getDate()).padStart(2, '0');
+    const mm = String(dataRef.getMonth() + 1).padStart(2, '0');
+    const hh = String(dataRef.getHours()).padStart(2, '0');
+    const min = String(dataRef.getMinutes()).padStart(2, '0');
+    
+    return `${dd}/${mm} - ${hh}:${min}`;
+}
+
+async function buscarDadosCopa() {
+    const url = "https://worldcup26.ir/get/games";
+    try {
+        const res = await fetch(url);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && data.games && Array.isArray(data.games)) {
+                dadosJogosCopa = data.games;
+                localStorage.setItem('cobel_copa_jogos', JSON.stringify(dadosJogosCopa));
+                console.log("Dados da Copa do Mundo 2026 atualizados via API.");
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn("Erro ao buscar API da Copa, usando cache local:", e.message);
+    }
+
+    const cached = localStorage.getItem('cobel_copa_jogos');
+    if (cached) {
+        dadosJogosCopa = JSON.parse(cached);
+    } else {
+        // Fallback inicial estático
+        dadosJogosCopa = [
+            { id: "83", home_team_name_en: "Portugal", away_team_name_en: "Croatia", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 19:00", stadium_id: "12", type: "r32" },
+            { id: "84", home_team_name_en: "Spain", away_team_name_en: "Austria", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 12:00", stadium_id: "16", type: "r32" },
+            { id: "85", home_team_name_en: "Switzerland", away_team_name_en: "Algeria", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 20:00", stadium_id: "13", type: "r32" },
+            { id: "82", home_team_name_en: "Belgium", away_team_name_en: "Senegal", home_score: "3", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 13:00", stadium_id: "14", type: "r32" },
+            { id: "81", home_team_name_en: "United States", away_team_name_en: "Bosnia and Herzegovina", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 17:00", stadium_id: "15", type: "r32" }
+        ];
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 0. Carrega a configuração dinâmica externa
     await carregarConfiguracao();
+
+    // Busca dados da Copa do Mundo 2026
+    await buscarDadosCopa();
+    setInterval(buscarDadosCopa, 900000); // Atualiza a cada 15 minutos
 
     // 1. Inicializa todos os textos dinâmicos da interface
     inicializarTextosInterface();

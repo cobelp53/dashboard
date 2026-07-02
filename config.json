@@ -120,6 +120,11 @@
   ],
   "destaques": [
     {
+      "tipo": "copa",
+      "tempo": 15000,
+      "visivel": true
+    },
+    {
       "url": "imagens/plataformadefrentedia.jpg",
       "legenda": "Foto do mês - Plataforma P53",
       "tempo": 3000,
@@ -135,7 +140,7 @@
       "url": "imagens/pipoqueiramontagem.JPG",
       "legenda": "E o Cine Pipoca fez juz ao nome!!",
       "tempo": 3000,
-      "visivel": false
+      "visivel": true
     },
     {
       "url": "imagens/quadra.jpeg",

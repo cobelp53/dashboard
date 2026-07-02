@@ -123,8 +123,8 @@ body {
 .titulo-texto {
     display: flex;
     flex-direction: column;
-    text-align: left;
-    /* Texto alinhado à esquerda para "abraçar" o logo que está na esquerda */
+    text-align: center;
+    /* Texto centralizado para melhor alinhamento */
 }
 
 /* Ajuste nos títulos para não ficarem com margens estranhas */
@@ -726,7 +726,7 @@ section h2 {
     }
 
     .titulo-texto {
-        text-align: left;
+        text-align: center;
     }
 
     .centro-titulo h1 {
@@ -1655,5 +1655,321 @@ section h2 {
         border-top: 1px solid #f1f5f9;
         padding-left: 0;
         padding-top: 10px;
+    }
+}
+
+/* ==========================================================================
+   🏆 ESTILOS DO WIDGET DA COPA DO MUNDO 2026
+   ========================================================================== */
+
+.slide-copa-container {
+    background: linear-gradient(135deg, #093725, #004B87) !important; /* Verde Petrobras escuro mesclando com Azul */
+    padding: 1.5vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow-y: auto;
+}
+
+.copa-widget-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+
+.copa-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.copa-header h2 {
+    font-size: 1.8vw !important;
+    color: var(--petro-amarelo) !important;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05vw;
+}
+
+.copa-header p {
+    font-size: 0.9vw !important;
+    color: #cbd5e1 !important;
+    margin: 0.2vw 0 0 0;
+}
+
+/* Seção Ao Vivo */
+.copa-ao-vivo-secao {
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    border-radius: 0.8vw;
+    padding: 0.6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4vw;
+    animation: border-pulse 2s infinite alternate;
+}
+
+.copa-badge-aovivo {
+    background: #dc2626;
+    color: white;
+    font-size: 0.75vw;
+    font-weight: 800;
+    padding: 0.15vw 0.5vw;
+    border-radius: 0.3vw;
+    letter-spacing: 0.05vw;
+    animation: pulse-badge 1s infinite alternate;
+}
+
+.copa-jogos-aovivo-lista {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
+}
+
+/* Colunas de Resultados e Agenda */
+.copa-colunas-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5vw;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.copa-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6vw;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.8vw;
+    padding: 0.8vw;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex: 1 1 280px; /* Garante que as colunas fiquem lado a lado se houver espaço, ou quebrem caso contrário */
+    min-width: 0;
+}
+
+.copa-coluna h3 {
+    font-size: 1vw !important;
+    color: var(--petro-amarelo);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.3vw;
+    margin: 0 0 0.2vw 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.copa-lista-jogos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.copa-lista-jogos::-webkit-scrollbar {
+    width: 0.3vw;
+}
+
+.copa-lista-jogos::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 0.2vw;
+}
+
+/* Cards dos Jogos */
+.copa-card-jogo {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.6vw;
+    padding: 0.5vw 0.8vw;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr 1.2fr;
+    align-items: center;
+    gap: 0.4vw;
+    transition: background 0.2s ease;
+}
+
+.copa-card-jogo:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.copa-card-jogo.aovivo {
+    background: rgba(220, 38, 38, 0.2);
+    border-color: rgba(220, 38, 38, 0.3);
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Destaque para jogo do Brasil */
+.copa-card-jogo.destaque-br {
+    border: 2px solid var(--petro-amarelo);
+    background: rgba(253, 185, 19, 0.08);
+    animation: gold-glow 2s infinite alternate;
+}
+
+.copa-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 0.95vw;
+    font-weight: 600;
+    color: white;
+}
+
+.copa-time.col-time-home {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.copa-time.col-time-away {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.copa-time span {
+    font-size: 1.3vw;
+}
+
+.copa-time .nome-time {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 8.5vw;
+}
+
+.copa-placar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4vw;
+    font-size: 1.1vw;
+    font-weight: 800;
+    color: var(--petro-amarelo);
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.2vw 0.5vw;
+    border-radius: 0.4vw;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.copa-placar.aovivo {
+    position: relative;
+    padding-bottom: 0.8vw;
+}
+
+.copa-placar.aovivo .tempo-jogo {
+    position: absolute;
+    bottom: 0.1vw;
+    font-size: 0.55vw;
+    color: #ef4444;
+    font-weight: 700;
+    letter-spacing: 0.02vw;
+}
+
+.copa-placar.agendado {
+    font-size: 0.75vw;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.sem-jogos {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.8vw;
+    margin-top: 1.5vw;
+    font-style: italic;
+}
+
+/* Animações */
+@keyframes pulse-badge {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+@keyframes border-pulse {
+    0% { border-color: rgba(220, 38, 38, 0.2); }
+    100% { border-color: rgba(220, 38, 38, 0.6); }
+}
+
+@keyframes gold-glow {
+    0% { box-shadow: 0 0 5px rgba(253, 185, 19, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(253, 185, 19, 0.5); }
+}
+
+/* Responsividade Mobile */
+@media (max-width: 768px) {
+    .slide-copa-container {
+        padding: 15px !important;
+        height: auto !important;
+        overflow-y: visible !important;
+        position: relative !important;
+    }
+    
+    .copa-widget-container {
+        gap: 12px;
+    }
+
+    .copa-header h2 {
+        font-size: 1.4rem !important;
+    }
+
+    .copa-header p {
+        font-size: 0.85rem !important;
+    }
+    
+    .copa-colunas-container {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 15px;
+    }
+    
+    .copa-coluna {
+        flex: 1 1 auto;
+        padding: 10px;
+    }
+
+    .copa-coluna h3 {
+        font-size: 0.95rem !important;
+    }
+    
+    .copa-card-jogo {
+        padding: 8px 12px;
+        grid-template-columns: 1fr 60px 1fr;
+        gap: 6px;
+    }
+
+    .copa-time {
+        font-size: 0.9rem;
+    }
+    
+    .copa-time .nome-time {
+        max-width: 90px;
+    }
+
+    .copa-time span {
+        font-size: 1.2rem;
+    }
+
+    .copa-placar {
+        font-size: 1rem;
+        padding: 3px 6px;
+    }
+
+    .copa-placar.agendado {
+        font-size: 0.7rem;
+    }
+    
+    .copa-badge-aovivo {
+        font-size: 0.7rem;
     }
 }
