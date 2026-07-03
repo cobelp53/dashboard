@@ -122,7 +122,7 @@
   "destaques": [
     {
       "tipo": "copa",
-      "tempo": 15000,
+      "tempo": 6000,
       "visivel": true
     },
     {
