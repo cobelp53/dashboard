@@ -340,21 +340,21 @@ function renderizarCarrossel() {
 
             const topResultados = finalizados.slice(0, 3);
             
-            // Lógica especial para garantir o próximo jogo do Brasil nas Próximas Partidas
+            // Lógica especial para garantir o próximo jogo do Brasil nas Próximas Partidas (limite expandido para 4)
             let topProximos = [];
             const nextBrazilGame = proximos.find(g => g.home_team_name_en === "Brazil" || g.away_team_name_en === "Brazil");
             
             if (nextBrazilGame) {
-                const firstTwo = proximos.slice(0, 2);
-                const jaEstaNosPrimeiros = firstTwo.some(g => g.id === nextBrazilGame.id);
+                const firstThree = proximos.slice(0, 3);
+                const jaEstaNosPrimeiros = firstThree.some(g => g.id === nextBrazilGame.id);
                 
                 if (jaEstaNosPrimeiros) {
-                    topProximos = proximos.slice(0, 3);
+                    topProximos = proximos.slice(0, 4);
                 } else {
-                    topProximos = [...firstTwo, nextBrazilGame];
+                    topProximos = [...firstThree, nextBrazilGame];
                 }
             } else {
-                topProximos = proximos.slice(0, 3);
+                topProximos = proximos.slice(0, 4);
             }
 
             let htmlJogosAoVivo = '';
