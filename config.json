@@ -165,6 +165,11 @@
       "visivel": true,
       "url": "imagens/brigadistas.jpg",
       "legenda": ""
+    },
+    {
+      "visivel": true,
+      "url": "imagens/pordosol.mov",
+      "legenda": "O pôr do sol da P53 é diferenciado!"
     }
   ]
 }
