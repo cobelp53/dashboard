@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'Twemoji Country Flags';
+    unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
+    src: url('TwemojiCountryFlags.woff2') format('woff2');
+}
+
 :root {
     --petro-verde: #10422a;
     /*#006837;*/
@@ -33,7 +39,7 @@ body {
     overflow: hidden;
     background: var(--bg);
     color: var(--texto);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Twemoji Country Flags', 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: var(--font-base);
     line-height: 1.45;
     background-color: var(--petro-verde);

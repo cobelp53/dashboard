@@ -1863,6 +1863,8 @@ function formatarDataJogoCopa(localDateStr, stadiumId) {
 
 async function buscarDadosCopa() {
     const url = "https://worldcup26.ir/get/games";
+    
+    // 1. Tenta buscar da API oficial
     try {
         const res = await fetch(url);
         if (res.ok) {
@@ -1870,25 +1872,45 @@ async function buscarDadosCopa() {
             if (data && data.games && Array.isArray(data.games)) {
                 dadosJogosCopa = data.games;
                 localStorage.setItem('cobel_copa_jogos', JSON.stringify(dadosJogosCopa));
-                console.log("Dados da Copa do Mundo 2026 atualizados via API.");
+                console.log("Dados da Copa do Mundo 2026 atualizados via API oficial.");
                 return;
             }
         }
     } catch (e) {
-        console.warn("Erro ao buscar API da Copa, usando cache local:", e.message);
+        console.warn("Bloqueado ou erro na API oficial, tentando espelho local...", e.message);
     }
 
+    // 2. Tenta buscar do espelho local na própria hospedagem (atualizado pelo GitHub Actions)
+    try {
+        const res = await fetch(`./copa_data.json?v=${new Date().getTime()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data)) {
+                dadosJogosCopa = data;
+                localStorage.setItem('cobel_copa_jogos', JSON.stringify(dadosJogosCopa));
+                console.log("Dados da Copa do Mundo 2026 atualizados via espelho local.");
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn("Erro ao buscar espelho local copa_data.json:", e.message);
+    }
+
+    // 3. Fallback final usando cache ou dados estáticos atualizados
     const cached = localStorage.getItem('cobel_copa_jogos');
     if (cached) {
         dadosJogosCopa = JSON.parse(cached);
     } else {
-        // Fallback inicial estático
+        // Dados estáticos estritamente atualizados como plano de fundo offline
         dadosJogosCopa = [
-            { id: "83", home_team_name_en: "Portugal", away_team_name_en: "Croatia", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 19:00", stadium_id: "12", type: "r32" },
-            { id: "84", home_team_name_en: "Spain", away_team_name_en: "Austria", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 12:00", stadium_id: "16", type: "r32" },
-            { id: "85", home_team_name_en: "Switzerland", away_team_name_en: "Algeria", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/02/2026 20:00", stadium_id: "13", type: "r32" },
+            { id: "81", home_team_name_en: "United States", away_team_name_en: "Bosnia and Herzegovina", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 17:00", stadium_id: "15", type: "r32" },
             { id: "82", home_team_name_en: "Belgium", away_team_name_en: "Senegal", home_score: "3", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 13:00", stadium_id: "14", type: "r32" },
-            { id: "81", home_team_name_en: "United States", away_team_name_en: "Bosnia and Herzegovina", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 17:00", stadium_id: "15", type: "r32" }
+            { id: "83", home_team_name_en: "Portugal", away_team_name_en: "Croatia", home_score: "2", away_score: "1", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 19:00", stadium_id: "12", type: "r32" },
+            { id: "84", home_team_name_en: "Spain", away_team_name_en: "Austria", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 12:00", stadium_id: "16", type: "r32" },
+            { id: "85", home_team_name_en: "Switzerland", away_team_name_en: "Algeria", home_score: "1", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 20:00", stadium_id: "13", type: "r32" },
+            { id: "86", home_team_name_en: "Brazil", away_team_name_en: "Japan", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/03/2026 16:00", stadium_id: "1", type: "r32" },
+            { id: "87", home_team_name_en: "Argentina", away_team_name_en: "France", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 13:00", stadium_id: "2", type: "r32" },
+            { id: "88", home_team_name_en: "Germany", away_team_name_en: "Netherlands", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 17:00", stadium_id: "3", type: "r32" }
         ];
     }
 }
