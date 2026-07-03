@@ -168,9 +168,9 @@
     },
     {
       "visivel": true,
+      "tempo": 10000,
       "url": "imagens/pordosol.MP4",
-      "legenda": "O pôr do sol da P53 é diferenciado!",
-      "tempo": 10000
+      "legenda": "O pôr do sol da P53 é diferenciado!"
     }
   ]
 }
