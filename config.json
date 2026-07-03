@@ -126,6 +126,12 @@
       "visivel": true
     },
     {
+      "tempo": 5000,
+      "visivel": true,
+      "url": "imagens/bannervacina.png",
+      "legenda": ""
+    },
+    {
       "tempo": 3000,
       "visivel": false,
       "url": "imagens/plataformadefrentedia.jpg",
@@ -136,12 +142,6 @@
       "visivel": false,
       "url": "imagens/salajogos5.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!"
-    },
-    {
-      "tempo": 3000,
-      "visivel": false,
-      "url": "imagens/pipoqueiramontagem.JPG",
-      "legenda": "E o Cine Pipoca fez juz ao nome!!"
     },
     {
       "tempo": 3000,
@@ -169,13 +169,8 @@
     {
       "visivel": true,
       "url": "imagens/pordosol.MP4",
-      "legenda": "O pôr do sol da P53 é diferenciado!"
-    },
-    {
-      "tempo": 5000,
-      "visivel": true,
-      "url": "imagens/bannervacina.png",
-      "legenda": ""
+      "legenda": "O pôr do sol da P53 é diferenciado!",
+      "tempo": 10000
     }
   ]
 }
