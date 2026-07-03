@@ -1795,7 +1795,9 @@ const fifaPaisesCopa = {
     "Jordan": "JOR", "Peru": "PER", "Venezuela": "VEN",
     "Republic of Korea": "KOR", "South Korea": "KOR",
     "Czech Republic": "CZE", "South Africa": "RSA",
-    "Qatar": "QAT", "Austria": "AUT"
+    "Qatar": "QAT", "Austria": "AUT",
+    "Australia": "AUS", "Egypt": "EGY", "Cape Verde": "CPV",
+    "Paraguay": "PAR", "Norway": "NOR"
 };
 
 let dadosJogosCopa = [];
@@ -1903,14 +1905,21 @@ async function buscarDadosCopa() {
     } else {
         // Dados estáticos estritamente atualizados como plano de fundo offline
         dadosJogosCopa = [
-            { id: "81", home_team_name_en: "United States", away_team_name_en: "Bosnia and Herzegovina", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 17:00", stadium_id: "15", type: "r32" },
-            { id: "82", home_team_name_en: "Belgium", away_team_name_en: "Senegal", home_score: "3", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 13:00", stadium_id: "14", type: "r32" },
-            { id: "83", home_team_name_en: "Portugal", away_team_name_en: "Croatia", home_score: "2", away_score: "1", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 19:00", stadium_id: "12", type: "r32" },
-            { id: "84", home_team_name_en: "Spain", away_team_name_en: "Austria", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 12:00", stadium_id: "16", type: "r32" },
-            { id: "85", home_team_name_en: "Switzerland", away_team_name_en: "Algeria", home_score: "1", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 20:00", stadium_id: "13", type: "r32" },
-            { id: "86", home_team_name_en: "Brazil", away_team_name_en: "Japan", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/03/2026 16:00", stadium_id: "1", type: "r32" },
-            { id: "87", home_team_name_en: "Argentina", away_team_name_en: "France", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 13:00", stadium_id: "2", type: "r32" },
-            { id: "88", home_team_name_en: "Germany", away_team_name_en: "Netherlands", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 17:00", stadium_id: "3", type: "r32" }
+            { id: "81", home_team_name_en: "United States", away_team_name_en: "Bosnia and Herzegovina", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 17:00", stadium_id: "99", type: "r32" },
+            { id: "82", home_team_name_en: "Belgium", away_team_name_en: "Senegal", home_score: "3", away_score: "2", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 13:00", stadium_id: "99", type: "r32" },
+            { id: "83", home_team_name_en: "Portugal", away_team_name_en: "Croatia", home_score: "2", away_score: "1", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 19:00", stadium_id: "99", type: "r32" },
+            { id: "84", home_team_name_en: "Spain", away_team_name_en: "Austria", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/02/2026 12:00", stadium_id: "99", type: "r32" },
+            { id: "85", home_team_name_en: "Switzerland", away_team_name_en: "Algeria", home_score: "2", away_score: "0", finished: "TRUE", time_elapsed: "finished", local_date: "07/03/2026 09:00", stadium_id: "99", type: "r32" },
+            { id: "80", home_team_name_en: "England", away_team_name_en: "Democratic Republic of the Congo", home_score: "2", away_score: "1", finished: "TRUE", time_elapsed: "finished", local_date: "07/01/2026 21:00", stadium_id: "99", type: "r32" },
+            { id: "86", home_team_name_en: "Australia", away_team_name_en: "Egypt", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/03/2026 15:00", stadium_id: "99", type: "r32" },
+            { id: "87", home_team_name_en: "Argentina", away_team_name_en: "Cape Verde", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/03/2026 19:00", stadium_id: "99", type: "r32" },
+            { id: "88", home_team_name_en: "Colombia", away_team_name_en: "Ghana", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/03/2026 22:30", stadium_id: "99", type: "r32" },
+            { id: "89", home_team_name_en: "Canada", away_team_name_en: "Morocco", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 14:00", stadium_id: "99", type: "r32" },
+            { id: "90", home_team_name_en: "Paraguay", away_team_name_en: "France", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/04/2026 18:00", stadium_id: "99", type: "r32" },
+            { id: "91", home_team_name_en: "Brazil", away_team_name_en: "Norway", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/05/2026 17:00", stadium_id: "99", type: "r32" },
+            { id: "92", home_team_name_en: "Mexico", away_team_name_en: "England", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/05/2026 21:00", stadium_id: "99", type: "r32" },
+            { id: "93", home_team_name_en: "Portugal", away_team_name_en: "Spain", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/06/2026 16:00", stadium_id: "99", type: "r32" },
+            { id: "94", home_team_name_en: "United States", away_team_name_en: "Belgium", home_score: "0", away_score: "0", finished: "FALSE", time_elapsed: "notstarted", local_date: "07/06/2026 21:00", stadium_id: "99", type: "r32" }
         ];
     }
 }
