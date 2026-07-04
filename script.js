@@ -335,8 +335,25 @@ function renderizarCarrossel() {
             const aoVivo = dadosJogosCopa.filter(g => g.finished === "FALSE" && g.time_elapsed !== "notstarted");
             const proximos = dadosJogosCopa.filter(g => g.finished === "FALSE" && g.time_elapsed === "notstarted");
 
-            finalizados.sort((a, b) => parseInt(b.id) - parseInt(a.id));
-            proximos.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+            // Ordenação estritamente cronológica por Data/Hora (MM/DD/YYYY HH:MM)
+            const obterTimestampJogo = (localDateStr) => {
+                if (!localDateStr) return 0;
+                const partes = localDateStr.split(" ");
+                if (partes.length < 2) return 0;
+                const dataPartes = partes[0].split("/");
+                const horaPartes = partes[1].split(":");
+                if (dataPartes.length < 3 || horaPartes.length < 2) return 0;
+                return new Date(
+                    parseInt(dataPartes[2]), // ano
+                    parseInt(dataPartes[0]) - 1, // mes
+                    parseInt(dataPartes[1]), // dia
+                    parseInt(horaPartes[0]), // hora
+                    parseInt(horaPartes[1]) // minuto
+                ).getTime();
+            };
+
+            finalizados.sort((a, b) => obterTimestampJogo(b.local_date) - obterTimestampJogo(a.local_date));
+            proximos.sort((a, b) => obterTimestampJogo(a.local_date) - obterTimestampJogo(b.local_date));
 
             const topResultados = finalizados.slice(0, 3);
             
