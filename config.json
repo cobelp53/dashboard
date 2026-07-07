@@ -150,7 +150,7 @@
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor."
     },
     {
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/karaoke.mp4",
       "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
     },
