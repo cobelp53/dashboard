@@ -127,19 +127,19 @@
     },
     {
       "tempo": 10000,
-      "visivel": true,
+      "visivel": false,
       "url": "imagens/bannervacina.png",
       "legenda": ""
     },
     {
       "tempo": 3000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/plataformadefrentedia.jpg",
-      "legenda": "Foto do mês - Plataforma P53"
+      "legenda": "Plataforma P53"
     },
     {
       "tempo": 8000,
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/salajogos5.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!"
     },
@@ -161,12 +161,12 @@
       "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
     },
     {
-      "visivel": true,
+      "visivel": false,
       "url": "imagens/nascerdosol.mov",
       "legenda": ""
     },
     {
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/pordosol.MP4",
       "legenda": "O pôr do sol da P53 é diferenciado!"
     }
