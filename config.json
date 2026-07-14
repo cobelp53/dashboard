@@ -139,19 +139,19 @@
     },
     {
       "tempo": 8000,
-      "visivel": true,
+      "visivel": false,
       "url": "imagens/salajogos5.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!"
     },
     {
       "tempo": 3000,
-      "visivel": false,
-      "url": "imagens/quadra.jpeg",
+      "visivel": true,
+      "url": "imagens/quadra.JPG",
       "legenda": "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor."
     },
     {
       "visivel": true,
-      "url": "imagens/karaoke.mp4",
+      "url": "imagens/karaoke.MP4",
       "legenda": "Solte a voz! Karaokê todas as segundas às 19h no cinema."
     },
     {
