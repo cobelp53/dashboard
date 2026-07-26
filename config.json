@@ -139,9 +139,9 @@
     },
     {
       "tempo": 8000,
-      "visivel": false,
-      "url": "imagens/salajogos5.jpg",
-      "legenda": "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!"
+      "visivel": true,
+      "url": "imagens/salajogos6.jpg",
+      "legenda": "A Sala de Jogos está ficando cada dia melhor."
     },
     {
       "tempo": 3000,
