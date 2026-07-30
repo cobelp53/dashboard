@@ -314,16 +314,99 @@ let destaquesAtivos = [];
 /**
  * Renderiza os slides (Imagens, Vídeos ou Caixa de Textos Informativos) na tela
  */
+// Filtra os destaques de acordo com as regras de agendamento (data/hora e dias da semana)
+function obterDestaquesFiltrados() {
+    const agora = new Date();
+    // Ex: "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"
+    const diasSemanaNomes = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+    const diaSemanaAtual = diasSemanaNomes[agora.getDay()];
+
+    return destaques.filter(item => {
+        // Se visivel for false, oculta
+        if (item.visivel === false) return false;
+
+        // 1. Programação por Data/Hora de início e fim
+        if (item.dataInicio) {
+            const dataIni = new Date(item.dataInicio.replace(" ", "T"));
+            if (!isNaN(dataIni.getTime()) && agora < dataIni) {
+                return false;
+            }
+        }
+        if (item.dataFim) {
+            const dataFim = new Date(item.dataFim.replace(" ", "T"));
+            if (!isNaN(dataFim.getTime()) && agora > dataFim) {
+                return false;
+            }
+        }
+
+        // 2. Programação por Dia da Semana (e.g. ["Qua", "Sab"] ou "Qua")
+        if (item.diasSemana) {
+            const dias = Array.isArray(item.diasSemana) ? item.diasSemana : [item.diasSemana];
+            if (dias.length > 0 && !dias.includes(diaSemanaAtual)) {
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
+// Verifica periodicamente se os destaques agendados mudaram e atualiza o carrossel se necessário
+function verificarDestaquesAgendados() {
+    const novosDestaques = obterDestaquesFiltrados();
+    
+    // Comparar se os itens mudaram (por tipo, url, titulo, texto)
+    let mudou = novosDestaques.length !== destaquesAtivos.length;
+    if (!mudou) {
+        for (let i = 0; i < novosDestaques.length; i++) {
+            if (novosDestaques[i].url !== destaquesAtivos[i].url ||
+                novosDestaques[i].tipo !== destaquesAtivos[i].tipo ||
+                novosDestaques[i].titulo !== destaquesAtivos[i].titulo ||
+                novosDestaques[i].texto !== destaquesAtivos[i].texto ||
+                novosDestaques[i].tempo !== destaquesAtivos[i].tempo ||
+                JSON.stringify(novosDestaques[i].diasSemana) !== JSON.stringify(destaquesAtivos[i].diasSemana) ||
+                novosDestaques[i].dataInicio !== destaquesAtivos[i].dataInicio ||
+                novosDestaques[i].dataFim !== destaquesAtivos[i].dataFim) {
+                mudou = true;
+                break;
+            }
+        }
+    }
+    
+    if (mudou) {
+        console.log("Programação de banners mudou! Re-renderizando carrossel.");
+        // Parar o carrossel atual
+        clearTimeout(timerCarrossel);
+        // Atualizar lista ativa
+        destaquesAtivos = novosDestaques;
+        
+        // Obter container e renderizar
+        const container = document.getElementById('carrossel-imagens');
+        if (container) {
+            if (indiceImagem >= destaquesAtivos.length) {
+                indiceImagem = 0;
+            }
+            renderizarCarrossel();
+            iniciarCarrossel();
+        }
+    }
+}
+
+/**
+ * Renderiza os slides (Imagens, Vídeos ou Caixa de Textos Informativos) na tela
+ */
 function renderizarCarrossel() {
     const container = document.getElementById('carrossel-imagens');
     if (!container) return;
     container.innerHTML = '';
 
-    // Sempre reseta para o primeiro slide para consistência com o array carregado
-    indiceImagem = 0;
+    // Sempre reseta para o primeiro slide para consistência com o array carregado se indiceImagem for inválido
+    if (indiceImagem >= destaquesAtivos.length || indiceImagem < 0) {
+        indiceImagem = 0;
+    }
 
-    // Filtra apenas os destaques marcados como visíveis
-    destaquesAtivos = destaques.filter(item => item.visivel !== false);
+    // Filtra os destaques de acordo com as regras de agendamento (data/hora e dias da semana)
+    destaquesAtivos = obterDestaquesFiltrados();
 
     destaquesAtivos.forEach((item, i) => {
         if (item.tipo === "copa") {
@@ -1195,6 +1278,42 @@ function cobelCarrosselRenderLista() {
             </div>
         `;
 
+        const dataInicioVal = item.dataInicio ? item.dataInicio.replace(" ", "T") : "";
+        const dataFimVal = item.dataFim ? item.dataFim.replace(" ", "T") : "";
+        
+        const diasSemanaNomes = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
+        const diasSemanaHTML = diasSemanaNomes.map(dia => {
+            const checked = item.diasSemana && (Array.isArray(item.diasSemana) ? item.diasSemana.includes(dia) : item.diasSemana === dia) ? 'checked' : '';
+            return `
+                <label style="font-size:0.75rem; font-weight:normal; display:inline-flex; align-items:center; gap:2px; margin-right:6px; cursor:pointer; color: var(--texto-claro);">
+                    <input type="checkbox" class="carrossel-item-dia-semana" data-dia="${dia}" ${checked} style="width:auto; height:auto; margin:0; cursor:pointer;"> ${dia}
+                </label>
+            `;
+        }).join('');
+
+        fieldsHTML += `
+            <div style="margin-top: 10px; padding: 10px; border-radius: 8px; background: rgba(0, 75, 135, 0.05); border: 1px solid rgba(0, 75, 135, 0.1);">
+                <span style="font-size: 0.75rem; font-weight: 800; color: var(--petro-azul); display: block; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;">📅 PROGRAMAÇÃO DE VISIBILIDADE</span>
+                <div class="cobel-form-grid-2" style="margin-bottom: 8px;">
+                    <div class="cobel-form-grupo" style="margin-bottom: 0;">
+                        <label style="font-size: 0.75rem; margin-bottom: 2px;">Início da Exibição:</label>
+                        <input type="datetime-local" class="carrossel-item-inicio" value="${dataInicioVal}" style="font-size: 0.8rem; padding: 4px;">
+                    </div>
+                    <div class="cobel-form-grupo" style="margin-bottom: 0;">
+                        <label style="font-size: 0.75rem; margin-bottom: 2px;">Fim da Exibição:</label>
+                        <input type="datetime-local" class="carrossel-item-fim" value="${dataFimVal}" style="font-size: 0.8rem; padding: 4px;">
+                    </div>
+                </div>
+
+                <div class="cobel-form-grupo" style="margin-bottom: 0;">
+                    <label style="font-size: 0.75rem; margin-bottom: 4px;">Exibir nos Dias da Semana:</label>
+                    <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                        ${diasSemanaHTML}
+                    </div>
+                </div>
+            </div>
+        `;
+
         return `
             <div class="cobel-carrossel-card" data-index="${index}">
                 <div class="cobel-carrossel-card-preview">
@@ -1360,6 +1479,28 @@ function cobelLerListasDaMemoriaHTML() {
             itemNovo.visivel = inputVisivel.checked;
         } else {
             itemNovo.visivel = true;
+        }
+
+        // Lê campos de agendamento temporal e semanal
+        const inputInicio = card.querySelector('.carrossel-item-inicio');
+        if (inputInicio && inputInicio.value) {
+            itemNovo.dataInicio = inputInicio.value.replace("T", " ");
+        } else {
+            delete itemNovo.dataInicio;
+        }
+
+        const inputFim = card.querySelector('.carrossel-item-fim');
+        if (inputFim && inputFim.value) {
+            itemNovo.dataFim = inputFim.value.replace("T", " ");
+        } else {
+            delete itemNovo.dataFim;
+        }
+
+        const checkboxesDias = card.querySelectorAll('.carrossel-item-dia-semana:checked');
+        if (checkboxesDias.length > 0) {
+            itemNovo.diasSemana = Array.from(checkboxesDias).map(cb => cb.getAttribute('data-dia'));
+        } else {
+            delete itemNovo.diasSemana;
         }
 
         novosDestaques.push(itemNovo);
@@ -1976,6 +2117,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 7. loops de execução de Destaques e Destaque temporal da agenda
     iniciarCarrossel();
     setInterval(destacarEventoAtual, CONFIG_GLOBAL.sistemas.frequenciaDestaqueProgramacaoMs);
+    
+    // Loop de verificação dos banners agendados do carrossel (a cada 30 segundos)
+    setInterval(verificarDestaquesAgendados, 30000);
 
     // 8. Reinicialização preventiva de 4 horas
     setTimeout(() => window.location.reload(), CONFIG_GLOBAL.sistemas.frequenciaReloadCompletoMs);
