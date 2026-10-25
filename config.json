@@ -128,8 +128,11 @@
     {
       "tempo": 5000,
       "visivel": true,
-      "url": "imagens/banner cinema.jpg",
-      "legenda": "Use o QR Code para votar!"
+      "url": "imagens/banner_cinema.jpg",
+      "legenda": "",
+      "diasSemana": [
+        "Dom"
+      ]
     },
     {
       "tempo": 3000,
