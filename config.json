@@ -92,7 +92,7 @@
   "programacaoSemana": [
     {
       "dia": "Dom",
-      "evento": "🥩 Churrasco de 11h as 13h"
+      "evento": "🥩 Churrasco - 11h as 13h"
     },
     {
       "dia": "Seg",
@@ -104,7 +104,7 @@
     },
     {
       "dia": "Qua",
-      "evento": "🍕 Pizza de 21h as 22h"
+      "evento": "🍕 Pizza - 21h as 22h"
     },
     {
       "dia": "Qui",
@@ -112,11 +112,11 @@
     },
     {
       "dia": "Sex",
-      "evento": "🍔 Hambúrguer de 21h as 21h30h"
+      "evento": "🍔 Hambúrguer - 21h às 21h30h"
     },
     {
       "dia": "Sab",
-      "evento": "🍕 Pizza de 21h as 22h"
+      "evento": "🍕 Pizza - 21h as 22h"
     }
   ],
   "destaques": [
