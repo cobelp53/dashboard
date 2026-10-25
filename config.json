@@ -121,6 +121,11 @@
   ],
   "destaques": [
     {
+      "tipo": "brasileirao",
+      "tempo": 15000,
+      "visivel": true
+    },
+    {
       "tipo": "copa",
       "tempo": 14000,
       "visivel": false

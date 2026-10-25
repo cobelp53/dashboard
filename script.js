@@ -111,7 +111,8 @@ let programacaoSemana = [
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
 // Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
 let destaques = [
-    { tipo: "copa", tempo: 15000, visivel: true },
+    { tipo: "brasileirao", tempo: 15000, visivel: true },
+    { tipo: "copa", tempo: 15000, visivel: false },
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000, visivel: true },
     { url: "imagens/quadra.jpeg", legenda: "A bola vai voltar a rolar! A reforma da nossa quadra de futebol está a todo vapor.", tempo: 3000, visivel: true },
     { url: "imagens/salajogos5.jpg", legenda: "A Sala de Jogos está ficando cada dia melhor. Novidades a caminho!", tempo: 8000, visivel: true },
@@ -547,6 +548,167 @@ function renderizarCarrossel() {
                             <h3>📅 PRÓXIMAS PARTIDAS</h3>
                             <div class="copa-lista-jogos">
                                 ${htmlProximos || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        } else if (item.tipo === "brasileirao") {
+            // Slide do Campeonato Brasileiro Série A (Opção 2: Jogos da Rodada + Tabela de Classificação)
+            const div = document.createElement('div');
+            div.className = `slide-texto slide-brasileirao-container ${i === 0 ? 'ativa' : ''}`;
+
+            const dados = dadosBrasileirao || {};
+            const rodadaAtual = dados.rodada_atual || 32;
+            const jogos = dados.jogos || [];
+            const tabela = dados.tabela || [];
+
+            const aoVivo = jogos.filter(j => j.status === "aovivo");
+            const finalizados = jogos.filter(j => j.status === "finalizado");
+            const agendados = jogos.filter(j => j.status === "agendado");
+
+            let htmlJogosAoVivo = '';
+            if (aoVivo.length > 0) {
+                htmlJogosAoVivo = `
+                    <div class="brasileirao-ao-vivo-secao">
+                        <span class="brasileirao-badge-aovivo">🔴 AO VIVO</span>
+                        <div class="brasileirao-jogos-aovivo-lista">
+                            ${aoVivo.map(j => `
+                                <div class="brasileirao-card-jogo aovivo">
+                                    <div class="brasileirao-time col-time-home">
+                                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+                                    </div>
+                                    <div class="brasileirao-placar aovivo">
+                                        <span class="gols">${j.gols_mandante !== null ? j.gols_mandante : 0}</span>
+                                        <span class="vs">x</span>
+                                        <span class="gols">${j.gols_visitante !== null ? j.gols_visitante : 0}</span>
+                                        <span class="tempo-jogo">${j.tempo || "Ao vivo"}</span>
+                                    </div>
+                                    <div class="brasileirao-time col-time-away">
+                                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const htmlFinalizados = finalizados.map(j => `
+                <div class="brasileirao-card-jogo">
+                    <div class="brasileirao-time col-time-home">
+                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+                    </div>
+                    <div class="brasileirao-placar">
+                        <span class="gols">${j.gols_mandante}</span>
+                        <span class="vs">-</span>
+                        <span class="gols">${j.gols_visitante}</span>
+                    </div>
+                    <div class="brasileirao-time col-time-away">
+                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+                    </div>
+                </div>
+            `).join('');
+
+            const htmlAgendados = agendados.map(j => `
+                <div class="brasileirao-card-jogo agendado">
+                    <div class="brasileirao-time col-time-home">
+                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+                    </div>
+                    <div class="brasileirao-placar agendado">
+                        <span class="data-jogo">${j.data || 'A definir'}</span>
+                    </div>
+                    <div class="brasileirao-time col-time-away">
+                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+                    </div>
+                </div>
+            `).join('');
+
+            // Mostra a tabela completa (scrollável)
+            const htmlTabelaLinhas = tabela.map(t => {
+                let badgeClass = 'pos-neutra';
+                if (t.posicao <= 4) badgeClass = 'pos-libertadores';
+                else if (t.posicao <= 6) badgeClass = 'pos-pre-liberta';
+                else if (t.posicao <= 12) badgeClass = 'pos-sul-americana';
+                else if (t.posicao >= 17) badgeClass = 'pos-z4';
+
+                const sgTexto = t.sg > 0 ? `+${t.sg}` : `${t.sg}`;
+
+                return `
+                    <tr class="${badgeClass}-linha">
+                        <td class="col-pos"><span class="badge-pos ${badgeClass}">${t.posicao}º</span></td>
+                        <td class="col-time">
+                            ${gerarHTMLClubeEscudo(t.time, t.sigla)}
+                            <span class="nome-clube-tabela">${t.time}</span>
+                        </td>
+                        <td class="col-pts"><strong>${t.pontos}</strong></td>
+                        <td class="col-dado">${t.jogos}</td>
+                        <td class="col-dado">${t.vitorias}</td>
+                        <td class="col-dado">${sgTexto}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            div.innerHTML = `
+                <div class="brasileirao-widget-container">
+                    <div class="brasileirao-header">
+                        <h2>⚽ BRASILEIRÃO • SÉRIE A</h2>
+                        <p>Rodada ${rodadaAtual} • Resultados, Agenda e Classificação</p>
+                    </div>
+
+                    ${htmlJogosAoVivo}
+
+                    <div class="brasileirao-colunas-container">
+                        <!-- Coluna 1: Jogos da Rodada -->
+                        <div class="brasileirao-coluna brasileirao-coluna-jogos">
+                            <h3>📅 JOGOS DA RODADA</h3>
+                            <div class="brasileirao-secao-jogos">
+                                <div class="brasileirao-subtitulo-jogos">ÚLTIMOS RESULTADOS</div>
+                                <div class="brasileirao-lista-jogos">
+                                    ${htmlFinalizados || '<p class="sem-jogos">Nenhum resultado registrado.</p>'}
+                                </div>
+
+                                <div class="brasileirao-subtitulo-jogos">PRÓXIMAS PARTIDAS</div>
+                                <div class="brasileirao-lista-jogos">
+                                    ${htmlAgendados || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coluna 2: Tabela de Classificação -->
+                        <div class="brasileirao-coluna brasileirao-coluna-tabela">
+                            <div class="brasileirao-tabela-header-flex">
+                                <h3>🏆 CLASSIFICAÇÃO</h3>
+                                <div class="brasileirao-legenda-tabela">
+                                    <span class="legenda-item"><span class="cor-legenda lib"></span> G-4</span>
+                                    <span class="legenda-item"><span class="cor-legenda pre"></span> Pré</span>
+                                    <span class="legenda-item"><span class="cor-legenda sula"></span> Sula</span>
+                                    <span class="legenda-item"><span class="cor-legenda z4"></span> Z-4</span>
+                                </div>
+                            </div>
+                            <div class="brasileirao-tabela-wrapper">
+                                <table class="brasileirao-tabela">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-pos">#</th>
+                                            <th class="col-time">Clube</th>
+                                            <th class="col-pts">PTS</th>
+                                            <th class="col-dado">J</th>
+                                            <th class="col-dado">V</th>
+                                            <th class="col-dado">SG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${htmlTabelaLinhas}
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -1183,10 +1345,11 @@ function cobelCarrosselRenderLista() {
     const listDiv = document.getElementById('carrossel-lista-cards');
     if (!listDiv) return;
     listDiv.innerHTML = destaques.map((item, index) => {
+        const isBrasileirao = item.tipo === "brasileirao";
         const isCopa = item.tipo === "copa";
         const isIframe = item.tipo === "iframe" || item.tipo === "url";
-        const isText = (item.texto || item.titulo) && !isCopa && !isIframe;
-        const isMedia = !isCopa && !isIframe && !isText;
+        const isText = (item.texto || item.titulo) && !isCopa && !isBrasileirao && !isIframe;
+        const isMedia = !isCopa && !isBrasileirao && !isIframe && !isText;
 
         const isVideo = isMedia && item.url && /\.(mp4|webm|ogg|mov)$/i.test(item.url);
         const isImage = isMedia && item.url && !isVideo;
@@ -1198,6 +1361,8 @@ function cobelCarrosselRenderLista() {
             previewHTML = `<video src="${item.url}" muted playsinline></video>`;
         } else if (isIframe) {
             previewHTML = `<span class="cobel-carrossel-card-preview-text">🌐</span>`;
+        } else if (isBrasileirao) {
+            previewHTML = `<span class="cobel-carrossel-card-preview-text">⚽</span>`;
         } else if (isCopa) {
             previewHTML = `<span class="cobel-carrossel-card-preview-text">🏆</span>`;
         } else {
@@ -1211,6 +1376,7 @@ function cobelCarrosselRenderLista() {
                     <option value="media" ${isMedia ? 'selected' : ''}>🖼️ Imagem / Vídeo</option>
                     <option value="texto" ${isText ? 'selected' : ''}>📝 Card de Texto</option>
                     <option value="iframe" ${isIframe ? 'selected' : ''}>🌐 URL (Iframe)</option>
+                    <option value="brasileirao" ${isBrasileirao ? 'selected' : ''}>⚽ Brasileirão Série A (Automático)</option>
                     <option value="copa" ${isCopa ? 'selected' : ''}>🏆 Copa do Mundo 2026 (Automático)</option>
                 </select>
             </div>
@@ -1237,6 +1403,13 @@ function cobelCarrosselRenderLista() {
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
                     <label style="font-size:0.8rem;">Legenda:</label>
                     <input type="text" class="carrossel-item-legenda" value="${item.legenda || ''}" placeholder="Legenda do frame">
+                </div>
+            `;
+        } else if (isBrasileirao) {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px; border-radius: 6px; flex-direction: column; align-items: flex-start; gap: 4px;">
+                    <p style="margin: 0; color: #166534; font-size: 0.85rem; font-weight: bold;">⚽ Painel do Brasileirão Série A</p>
+                    <p style="margin: 0; color: #15803d; font-size: 0.8rem; line-height: 1.3;">Exibe automaticamente os jogos da rodada (ao vivo, últimos placares, próximas partidas) e a tabela de classificação (G-4, Z-4, pontos e saldo). Não requer preenchimento manual!</p>
                 </div>
             `;
         } else if (isCopa) {
@@ -1273,7 +1446,7 @@ function cobelCarrosselRenderLista() {
                         <input type="checkbox" class="carrossel-item-visivel" ${item.visivel !== false ? 'checked' : ''} style="width: auto; cursor: pointer;">
                         <label style="font-size:0.85rem; font-weight: bold; color: var(--texto); cursor: pointer; margin: 0;">Visível no Painel</label>
                     </div>
-                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isCopa ? "Copa 2026" : isIframe ? "Iframe" : isVideo ? "Vídeo" : "Imagem"}</span>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isBrasileirao ? "Brasileirão" : isCopa ? "Copa 2026" : isIframe ? "Iframe" : isVideo ? "Vídeo" : "Imagem"}</span>
                 </div>
             </div>
         `;
@@ -1352,6 +1525,8 @@ function cobelCarrosselMudarTipo(index, novoTipo) {
         item.url = "https://";
         item.tipo = "iframe";
         item.legenda = "";
+    } else if (novoTipo === "brasileirao") {
+        item.tipo = "brasileirao";
     } else if (novoTipo === "copa") {
         item.tipo = "copa";
     } else {
@@ -1459,6 +1634,8 @@ function cobelLerListasDaMemoriaHTML() {
             if (itemOriginal.tipo === "iframe" || itemOriginal.tipo === "url") {
                 itemNovo.tipo = "iframe";
             }
+        } else if (itemOriginal.tipo === "brasileirao") {
+            itemNovo.tipo = "brasileirao";
         } else if (itemOriginal.tipo === "copa") {
             itemNovo.tipo = "copa";
         } else {
@@ -1904,6 +2081,156 @@ async function carregarConfiguracao() {
 }
 
 // =========================================================================
+// ⚽ LÓGICA E INTEGRAÇÃO DO WIDGET DO BRASILEIRÃO SÉRIE A
+// =========================================================================
+
+const clubesBrasileirao = {
+    "Palmeiras": { sigla: "PAL", cor1: "#006437", cor2: "#ffffff", escudo: "imagens/escudos/palmeiras.png" },
+    "Flamengo": { sigla: "FLA", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/flamengo.svg" },
+    "Cruzeiro": { sigla: "CRU", cor1: "#003399", cor2: "#ffffff", escudo: "imagens/escudos/cruzeiro.svg" },
+    "Athletico-PR": { sigla: "CAP", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/athletico-pr.png" },
+    "Fluminense": { sigla: "FLU", cor1: "#800020", cor2: "#006633", escudo: "imagens/escudos/fluminense.svg" },
+    "Atlético-MG": { sigla: "CAM", cor1: "#000000", cor2: "#ffffff", escudo: "imagens/escudos/atletico-mg.svg" },
+    "Bahia": { sigla: "BAH", cor1: "#002f6c", cor2: "#e00000", escudo: "imagens/escudos/bahia.svg" },
+    "Santos": { sigla: "SAN", cor1: "#ffffff", cor2: "#000000", escudo: "imagens/escudos/santos.svg" },
+    "São Paulo": { sigla: "SAO", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/sao-paulo.svg" },
+    "Red Bull Bragantino": { sigla: "RBB", cor1: "#ffffff", cor2: "#c00000", escudo: "imagens/escudos/bragantino.png" },
+    "Bragantino": { sigla: "RBB", cor1: "#ffffff", cor2: "#c00000", escudo: "imagens/escudos/bragantino.png" },
+    "Botafogo": { sigla: "BOT", cor1: "#000000", cor2: "#ffffff", escudo: "imagens/escudos/botafogo.svg" },
+    "Coritiba": { sigla: "CFC", cor1: "#00552b", cor2: "#ffffff", escudo: "imagens/escudos/coritiba.svg" },
+    "Vasco": { sigla: "VAS", cor1: "#000000", cor2: "#ffffff", escudo: "imagens/escudos/vasco.svg" },
+    "Vitória": { sigla: "VIT", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/vitoria.png" },
+    "Mirassol": { sigla: "MIR", cor1: "#fdd000", cor2: "#006400", escudo: "imagens/escudos/mirassol.png" },
+    "Internacional": { sigla: "INT", cor1: "#e50000", cor2: "#ffffff", escudo: "imagens/escudos/internacional.svg" },
+    "Corinthians": { sigla: "COR", cor1: "#000000", cor2: "#ffffff", escudo: "imagens/escudos/corinthians.svg" },
+    "Grêmio": { sigla: "GRE", cor1: "#0d80bf", cor2: "#000000", escudo: "imagens/escudos/gremio.svg" },
+    "Remo": { sigla: "REM", cor1: "#001a40", cor2: "#ffffff", escudo: "imagens/escudos/remo.png" },
+    "Chapecoense": { sigla: "CHA", cor1: "#007a3d", cor2: "#ffffff", escudo: "imagens/escudos/chapecoense.png" },
+    "Fortaleza": { sigla: "FOR", cor1: "#002b66", cor2: "#e00000", escudo: "imagens/escudos/fortaleza.png" },
+    "Juventude": { sigla: "JUV", cor1: "#008000", cor2: "#ffffff", escudo: "imagens/escudos/juventude.svg" },
+    "Sport": { sigla: "SPO", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/sport.svg" },
+    "Ceará": { sigla: "CEA", cor1: "#000000", cor2: "#ffffff", escudo: "imagens/escudos/ceara.svg" },
+    "Criciúma": { sigla: "CRI", cor1: "#fdd000", cor2: "#000000", escudo: "imagens/escudos/criciuma.png" },
+    "Cuiabá": { sigla: "CUI", cor1: "#006400", cor2: "#fdd000", escudo: "imagens/escudos/cuiaba.svg" },
+    "Atlético-GO": { sigla: "ACG", cor1: "#c00000", cor2: "#000000", escudo: "imagens/escudos/atletico-go.svg" }
+};
+
+let dadosBrasileirao = null;
+
+function obterInfoClube(nome, siglaParam) {
+    if (!nome && !siglaParam) return { sigla: "TBD", cor1: "#334155", cor2: "#64748b", escudo: "" };
+    if (nome && clubesBrasileirao[nome]) return clubesBrasileirao[nome];
+    
+    for (const k in clubesBrasileirao) {
+        if (clubesBrasileirao[k].sigla === siglaParam || clubesBrasileirao[k].sigla === nome) {
+            return clubesBrasileirao[k];
+        }
+    }
+    
+    return {
+        sigla: siglaParam || (nome ? nome.substring(0, 3).toUpperCase() : "TBD"),
+        cor1: "#1e293b",
+        cor2: "#475569",
+        escudo: ""
+    };
+}
+
+function gerarHTMLClubeEscudo(nome, siglaParam) {
+    const info = obterInfoClube(nome, siglaParam);
+    const sigla = siglaParam || info.sigla || (nome ? nome.substring(0, 3).toUpperCase() : "TBD");
+    const cor1 = info.cor1 || "#1e293b";
+    const cor2 = info.cor2 || "#ffffff";
+    const escudoUrl = info.escudo;
+
+    if (escudoUrl) {
+        return `
+            <span class="escudo-clube-wrapper" title="${nome || sigla}">
+                <img class="escudo-clube-img" src="${escudoUrl}" alt="${sigla}" loading="lazy" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='inline-flex';">
+                <span class="escudo-clube-fallback" style="display:none; background: linear-gradient(135deg, ${cor1}, ${cor2});">${sigla}</span>
+            </span>
+        `;
+    } else {
+        return `
+            <span class="escudo-clube-wrapper" title="${nome || sigla}">
+                <span class="escudo-clube-fallback" style="background: linear-gradient(135deg, ${cor1}, ${cor2});">${sigla}</span>
+            </span>
+        `;
+    }
+}
+
+async function buscarDadosBrasileirao() {
+    // 1. Tenta buscar do arquivo local brasileirao_data.json atualizado
+    try {
+        const res = await fetch(`./brasileirao_data.json?v=${new Date().getTime()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && (data.jogos || data.tabela)) {
+                dadosBrasileirao = data;
+                localStorage.setItem('cobel_brasileirao_dados', JSON.stringify(dadosBrasileirao));
+                console.log("Dados do Brasileirão atualizados via arquivo local.");
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn("Aviso ao buscar brasileirao_data.json:", e.message);
+    }
+
+    // 2. Fallback via cache no localStorage (apenas se for de 2026 / rodada atual)
+    const cached = localStorage.getItem('cobel_brasileirao_dados');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (parsed && parsed.rodada_atual >= 32) {
+                dadosBrasileirao = parsed;
+                return;
+            } else {
+                localStorage.removeItem('cobel_brasileirao_dados');
+            }
+        } catch (e) {}
+    }
+
+    // 3. Fallback estático (Rodada 32 - Outubro/2026)
+    dadosBrasileirao = {
+        campeonato: "Campeonato Brasileiro Série A 2026",
+        rodada_atual: 32,
+        jogos: [
+            { id: 1, mandante: "Palmeiras", mandante_sigla: "PAL", visitante: "Red Bull Bragantino", visitante_sigla: "RBB", gols_mandante: 2, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "Arena Barueri" },
+            { id: 2, mandante: "Internacional", mandante_sigla: "INT", visitante: "Botafogo", visitante_sigla: "BOT", gols_mandante: 3, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sábado - 16:30", estadio: "Beira-Rio" },
+            { id: 3, mandante: "Vasco", mandante_sigla: "VAS", visitante: "Corinthians", visitante_sigla: "COR", gols_mandante: 3, gols_visitante: 2, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "São Januário" },
+            { id: 4, mandante: "Santos", mandante_sigla: "SAN", visitante: "Bahia", visitante_sigla: "BAH", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 21:00", estadio: "Vila Belmiro" },
+            { id: 5, mandante: "Mirassol", mandante_sigla: "MIR", visitante: "São Paulo", visitante_sigla: "SAO", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "Maião" },
+            { id: 6, mandante: "Cruzeiro", mandante_sigla: "CRU", visitante: "Remo", visitante_sigla: "REM", gols_mandante: 1, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sexta - 21:30", estadio: "Mineirão" },
+            { id: 7, mandante: "Chapecoense", mandante_sigla: "CHA", visitante: "Fluminense", visitante_sigla: "FLU", gols_mandante: 2, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 19:00", estadio: "Arena Condá" },
+            { id: 8, mandante: "Vitória", mandante_sigla: "VIT", visitante: "Athletico-PR", visitante_sigla: "CAP", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 16:00", estadio: "Barradão" },
+            { id: 9, mandante: "Coritiba", mandante_sigla: "CFC", visitante: "Grêmio", visitante_sigla: "GRE", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Segunda - 19:30", estadio: "Couto Pereira" },
+            { id: 10, mandante: "Flamengo", mandante_sigla: "FLA", visitante: "Atlético-MG", visitante_sigla: "CAM", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Segunda - 20:00", estadio: "Maracanã" }
+        ],
+        tabela: [
+            { posicao: 1, time: "Palmeiras", sigla: "PAL", pontos: 69, jogos: 32, vitorias: 20, empates: 9, derrotas: 3, sg: 34 },
+            { posicao: 2, time: "Flamengo", sigla: "FLA", pontos: 67, jogos: 31, vitorias: 20, empates: 7, derrotas: 4, sg: 36 },
+            { posicao: 3, time: "Cruzeiro", sigla: "CRU", pontos: 54, jogos: 32, vitorias: 16, empates: 6, derrotas: 10, sg: 5 },
+            { posicao: 4, time: "Athletico-PR", sigla: "CAP", pontos: 54, jogos: 32, vitorias: 15, empates: 9, derrotas: 8, sg: 12 },
+            { posicao: 5, time: "Fluminense", sigla: "FLU", pontos: 51, jogos: 32, vitorias: 14, empates: 9, derrotas: 9, sg: 9 },
+            { posicao: 6, time: "Atlético-MG", sigla: "CAM", pontos: 50, jogos: 31, vitorias: 14, empates: 8, derrotas: 9, sg: 7 },
+            { posicao: 7, time: "Bahia", sigla: "BAH", pontos: 50, jogos: 32, vitorias: 13, empates: 11, derrotas: 8, sg: 5 },
+            { posicao: 8, time: "Santos", sigla: "SAN", pontos: 46, jogos: 32, vitorias: 12, empates: 10, derrotas: 10, sg: 2 },
+            { posicao: 9, time: "São Paulo", sigla: "SAO", pontos: 43, jogos: 32, vitorias: 12, empates: 7, derrotas: 13, sg: 1 },
+            { posicao: 10, time: "Red Bull Bragantino", sigla: "RBB", pontos: 41, jogos: 32, vitorias: 11, empates: 8, derrotas: 13, sg: 1 },
+            { posicao: 11, time: "Botafogo", sigla: "BOT", pontos: 39, jogos: 32, vitorias: 10, empates: 9, derrotas: 13, sg: -7 },
+            { posicao: 12, time: "Coritiba", sigla: "CFC", pontos: 39, jogos: 31, vitorias: 10, empates: 9, derrotas: 12, sg: -11 },
+            { posicao: 13, time: "Vasco", sigla: "VAS", pontos: 38, jogos: 31, vitorias: 10, empates: 8, derrotas: 13, sg: -6 },
+            { posicao: 14, time: "Vitória", sigla: "VIT", pontos: 38, jogos: 32, vitorias: 10, empates: 8, derrotas: 14, sg: -11 },
+            { posicao: 15, time: "Mirassol", sigla: "MIR", pontos: 37, jogos: 32, vitorias: 9, empates: 10, derrotas: 13, sg: -8 },
+            { posicao: 16, time: "Internacional", sigla: "INT", pontos: 35, jogos: 32, vitorias: 8, empates: 11, derrotas: 13, sg: -4 },
+            { posicao: 17, time: "Corinthians", sigla: "COR", pontos: 33, jogos: 32, vitorias: 8, empates: 9, derrotas: 15, sg: -8 },
+            { posicao: 18, time: "Grêmio", sigla: "GRE", pontos: 31, jogos: 31, vitorias: 7, empates: 10, derrotas: 14, sg: -10 },
+            { posicao: 19, time: "Remo", sigla: "REM", pontos: 26, jogos: 32, vitorias: 5, empates: 11, derrotas: 16, sg: -16 },
+            { posicao: 20, time: "Chapecoense", sigla: "CHA", pontos: 21, jogos: 31, vitorias: 4, empates: 9, derrotas: 18, sg: -31 }
+        ]
+    };
+}
+
+// =========================================================================
 // 🏆 LÓGICA E INTEGRAÇÃO DO WIDGET DA COPA DO MUNDO 2026
 // =========================================================================
 
@@ -2085,6 +2412,10 @@ async function buscarDadosCopa() {
 document.addEventListener('DOMContentLoaded', async () => {
     // 0. Carrega a configuração dinâmica externa
     await carregarConfiguracao();
+
+    // Busca dados do Brasileirão Série A
+    await buscarDadosBrasileirao();
+    setInterval(buscarDadosBrasileirao, 900000); // Atualiza a cada 15 minutos
 
     // Busca dados da Copa do Mundo 2026
     await buscarDadosCopa();

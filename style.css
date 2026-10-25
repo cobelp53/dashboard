@@ -1991,3 +1991,543 @@ section h2 {
         font-size: 0.7rem;
     }
 }
+
+/* ==========================================================================
+   ⚽ ESTILOS DO WIDGET DO BRASILEIRÃO SÉRIE A (OPÇÃO 2: JOGOS + TABELA)
+   ========================================================================== */
+
+.slide-brasileirao-container {
+    background: linear-gradient(135deg, #052e16 0%, #064e3b 50%, #004B87 100%) !important;
+    padding: 0.8vw 1.2vw !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow: hidden !important;
+}
+
+.brasileirao-widget-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+}
+
+.brasileirao-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.brasileirao-header h2 {
+    font-size: 1.2vw !important;
+    color: var(--petro-amarelo) !important;
+    font-weight: 800;
+    margin: 0;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.05vw;
+}
+
+.brasileirao-header p {
+    font-size: 0.7vw;
+    color: #cbd5e1;
+    margin: 0;
+}
+
+/* Seção Ao Vivo */
+.brasileirao-ao-vivo-secao {
+    background: rgba(220, 38, 38, 0.2);
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    border-radius: 0.6vw;
+    padding: 0.3vw 0.6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3vw;
+    animation: border-pulse 2s infinite alternate;
+}
+
+.brasileirao-badge-aovivo {
+    background: #dc2626;
+    color: white;
+    font-size: 0.68vw;
+    font-weight: 800;
+    padding: 0.12vw 0.5vw;
+    border-radius: 0.3vw;
+    letter-spacing: 0.05vw;
+    animation: pulse-badge 1s infinite alternate;
+}
+
+.brasileirao-jogos-aovivo-lista {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.8vw;
+    flex-wrap: wrap;
+}
+
+/* Colunas: Jogos e Tabela */
+.brasileirao-colunas-container {
+    display: flex;
+    gap: 0.8vw;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+}
+
+.brasileirao-coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    border-radius: 0.6vw;
+    padding: 0.5vw 0.65vw;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    min-width: 0;
+}
+
+.brasileirao-coluna-jogos {
+    flex: 1.15;
+}
+
+.brasileirao-coluna-tabela {
+    flex: 1.45;
+}
+
+.brasileirao-coluna h3 {
+    font-size: 0.85vw !important;
+    color: var(--petro-amarelo);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 0.25vw;
+    margin: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03vw;
+}
+
+/* Seção de Jogos */
+.brasileirao-secao-jogos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.brasileirao-subtitulo-jogos {
+    font-size: 0.65vw;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 0.05vw;
+    text-transform: uppercase;
+    margin-top: 0.1vw;
+}
+
+/* Lista de Jogos */
+.brasileirao-lista-jogos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+}
+
+/* Cards de Partidas */
+.brasileirao-card-jogo {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0.4vw;
+    padding: 0.25vw 0.5vw;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.4vw;
+    transition: background 0.2s ease;
+}
+
+.brasileirao-card-jogo:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.brasileirao-card-jogo.aovivo {
+    background: rgba(220, 38, 38, 0.22);
+    border-color: rgba(220, 38, 38, 0.4);
+}
+
+.brasileirao-time {
+    display: flex;
+    align-items: center;
+    gap: 0.35vw;
+    font-size: 0.75vw;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.brasileirao-time.col-time-home {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.brasileirao-time.col-time-away {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.brasileirao-time .nome-time {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 6vw;
+}
+
+/* Placar */
+.brasileirao-placar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25vw;
+    font-size: 0.85vw;
+    font-weight: 800;
+    color: var(--petro-amarelo);
+    background: rgba(0, 0, 0, 0.35);
+    padding: 0.12vw 0.4vw;
+    border-radius: 0.3vw;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    min-width: 3.2vw;
+}
+
+.brasileirao-placar.aovivo {
+    position: relative;
+    padding-bottom: 0.55vw;
+}
+
+.brasileirao-placar.aovivo .tempo-jogo {
+    position: absolute;
+    bottom: 0.03vw;
+    font-size: 0.48vw;
+    color: #ef4444;
+    font-weight: 800;
+    letter-spacing: 0.02vw;
+}
+
+.brasileirao-placar.agendado {
+    font-size: 0.6vw;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.12);
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Escudos dos Clubes */
+.escudo-clube-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.3vw;
+    height: 1.3vw;
+    min-width: 18px;
+    min-height: 18px;
+    flex-shrink: 0;
+}
+
+.escudo-clube-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.escudo-clube-fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.52vw;
+    font-weight: 900;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Tabela de Classificação */
+.brasileirao-tabela-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding-bottom: 0.25vw;
+}
+
+.brasileirao-tabela-header-flex h3 {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+}
+
+.brasileirao-legenda-tabela {
+    display: flex;
+    gap: 0.4vw;
+    font-size: 0.6vw;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.legenda-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2vw;
+}
+
+.cor-legenda {
+    width: 0.5vw;
+    height: 0.5vw;
+    border-radius: 0.15vw;
+    display: inline-block;
+}
+
+.cor-legenda.lib { background: #16a34a; }
+.cor-legenda.pre { background: #0284c7; }
+.cor-legenda.sula { background: #d97706; }
+.cor-legenda.z4 { background: #dc2626; }
+
+.brasileirao-tabela-wrapper {
+    overflow-y: auto;
+    flex: 1;
+}
+
+.brasileirao-secao-jogos::-webkit-scrollbar,
+.brasileirao-tabela-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+
+.brasileirao-secao-jogos::-webkit-scrollbar-track,
+.brasileirao-tabela-wrapper::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.brasileirao-secao-jogos::-webkit-scrollbar-thumb,
+.brasileirao-tabela-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+}
+
+.brasileirao-secao-jogos::-webkit-scrollbar-thumb:hover,
+.brasileirao-tabela-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--petro-amarelo);
+}
+
+.brasileirao-tabela {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.15vw;
+    font-size: 0.72vw;
+    color: #f8fafc;
+}
+
+.brasileirao-tabela thead th {
+    font-size: 0.6vw;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    padding: 0.15vw 0.3vw;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.brasileirao-tabela thead th.col-time {
+    text-align: left;
+}
+
+.brasileirao-tabela tbody tr {
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.15s ease;
+}
+
+.brasileirao-tabela tbody tr:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.brasileirao-tabela td {
+    padding: 0.2vw 0.3vw;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.brasileirao-tabela td.col-pos {
+    width: 1.8vw;
+}
+
+.badge-pos {
+    display: inline-block;
+    padding: 0.08vw 0.3vw;
+    border-radius: 0.25vw;
+    font-size: 0.62vw;
+    font-weight: 800;
+}
+
+.badge-pos.pos-libertadores {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.badge-pos.pos-pre-liberta {
+    background: #0284c7;
+    color: #ffffff;
+}
+
+.badge-pos.pos-sul-americana {
+    background: #d97706;
+    color: #ffffff;
+}
+
+.badge-pos.pos-z4 {
+    background: #dc2626;
+    color: #ffffff;
+}
+
+.badge-pos.pos-neutra {
+    background: rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+}
+
+.brasileirao-tabela td.col-time {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.3vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nome-clube-tabela {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 0.72vw;
+}
+
+.brasileirao-tabela td.col-pts {
+    font-weight: 800;
+    color: var(--petro-amarelo);
+    font-size: 0.76vw;
+}
+
+.brasileirao-tabela td.col-dado {
+    color: #cbd5e1;
+    font-size: 0.66vw;
+}
+
+/* Responsividade Mobile para Brasileirão */
+@media (max-width: 768px) {
+    .slide-brasileirao-container {
+        padding: 15px !important;
+        height: auto !important;
+        position: relative !important;
+        overflow-y: auto !important;
+    }
+
+    .brasileirao-widget-container {
+        gap: 12px;
+    }
+
+    .brasileirao-header h2 {
+        font-size: 1.3rem !important;
+    }
+
+    .brasileirao-header p {
+        font-size: 0.8rem !important;
+    }
+
+    .brasileirao-colunas-container {
+        flex-direction: column !important;
+        gap: 15px;
+    }
+
+    .brasileirao-coluna {
+        padding: 10px;
+    }
+
+    .brasileirao-coluna h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .brasileirao-subtitulo-jogos {
+        font-size: 0.75rem;
+    }
+
+    .brasileirao-lista-jogos {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .brasileirao-card-jogo {
+        padding: 6px 10px;
+        grid-template-columns: 1fr auto 1fr;
+    }
+
+    .brasileirao-time {
+        font-size: 0.85rem;
+    }
+
+    .brasileirao-time .nome-time {
+        max-width: 80px;
+    }
+
+    .brasileirao-placar {
+        font-size: 0.95rem;
+    }
+
+    .brasileirao-placar.agendado {
+        font-size: 0.65rem;
+    }
+
+    .escudo-clube-wrapper {
+        width: 22px;
+        height: 22px;
+    }
+
+    .escudo-clube-fallback {
+        font-size: 9px;
+    }
+
+    .brasileirao-legenda-tabela {
+        font-size: 0.65rem;
+    }
+
+    .cor-legenda {
+        width: 8px;
+        height: 8px;
+    }
+
+    .brasileirao-tabela {
+        font-size: 0.75rem;
+    }
+
+    .brasileirao-tabela thead th {
+        font-size: 0.65rem;
+    }
+
+    .badge-pos {
+        font-size: 0.65rem;
+    }
+
+    .nome-clube-tabela {
+        font-size: 0.82rem;
+    }
+
+    .brasileirao-tabela td.col-pts {
+        font-size: 0.85rem;
+    }
+
+    .brasileirao-tabela td.col-dado {
+        font-size: 0.7rem;
+    }
+}
