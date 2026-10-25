@@ -126,10 +126,10 @@
       "visivel": false
     },
     {
-      "tempo": 10000,
-      "visivel": false,
-      "url": "imagens/bannervacina.png",
-      "legenda": ""
+      "tempo": 5000,
+      "visivel": true,
+      "url": "imagens/banneer cinema.jpg",
+      "legenda": "Use o QR Code para votar!"
     },
     {
       "tempo": 3000,
