@@ -128,11 +128,11 @@
     {
       "tempo": 5000,
       "visivel": true,
-      "url": "imagens/banner_cinema.jpg",
-      "legenda": "",
       "diasSemana": [
         "Dom"
-      ]
+      ],
+      "url": "imagens/banner_cinema.jpg",
+      "legenda": ""
     },
     {
       "tempo": 3000,
@@ -159,7 +159,7 @@
     },
     {
       "tempo": 10000,
-      "visivel": false,
+      "visivel": true,
       "titulo": "Bem-Estar e Lazer em Evolução",
       "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong e mesa de carteado. Em breve Pebolim. <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
     },
