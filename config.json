@@ -121,9 +121,21 @@
   ],
   "destaques": [
     {
+      "tempo": 6000,
+      "visivel": true,
+      "url": "imagens/plataformadefrentedia.jpg",
+      "legenda": "Plataforma P53 - Produção atual: 45.783 bbl e 868 mil m3 de gás"
+    },
+    {
       "tipo": "voos",
       "tempo": 15000,
       "visivel": true
+    },
+    {
+      "tempo": 5000,
+      "visivel": true,
+      "url": "imagens/banner_cinema.jpg",
+      "legenda": ""
     },
     {
       "tipo": "brasileirao",
@@ -134,18 +146,6 @@
       "tipo": "copa",
       "tempo": 14000,
       "visivel": false
-    },
-    {
-      "tempo": 5000,
-      "visivel": true,
-      "url": "imagens/banner_cinema.jpg",
-      "legenda": ""
-    },
-    {
-      "tempo": 5000,
-      "visivel": true,
-      "url": "imagens/plataformadefrentedia.jpg",
-      "legenda": "Plataforma P53 - Produção: 45.783 bbl e 868 mil m3 de gás"
     },
     {
       "tempo": 6000,
