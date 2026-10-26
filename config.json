@@ -131,9 +131,10 @@
       "visivel": true
     },
     {
-      "tipo": "copa",
-      "tempo": 14000,
-      "visivel": false
+      "tempo": 5000,
+      "visivel": true,
+      "url": "imagens/plataformadefrentedia.jpg",
+      "legenda": "Plataforma P53"
     },
     {
       "tempo": 5000,
@@ -145,14 +146,13 @@
       "legenda": ""
     },
     {
-      "tempo": 5000,
-      "visivel": true,
-      "url": "imagens/plataformadefrentedia.jpg",
-      "legenda": "Plataforma P53"
+      "tipo": "copa",
+      "tempo": 14000,
+      "visivel": false
     },
     {
-      "tempo": 8000,
-      "visivel": false,
+      "tempo": 4000,
+      "visivel": true,
       "url": "imagens/salajogos6.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor."
     },
