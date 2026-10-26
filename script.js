@@ -111,6 +111,7 @@ let programacaoSemana = [
 // 🔹 SLIDES DO CARROSSEL DE DESTAQUES (Textos/Imagens e tempos individuais em milissegundos)
 // Dica: vídeos (ex: .mp4, .mov) rodam inteiros e passam para o próximo slide automaticamente quando terminam!
 let destaques = [
+    { tipo: "voos", tempo: 15000, visivel: true },
     { tipo: "brasileirao", tempo: 15000, visivel: true },
     { tipo: "copa", tempo: 15000, visivel: false },
     { url: "imagens/paltaformanoite1.jpeg", legenda: "Foto do mês - Plataforma P53", tempo: 3000, visivel: true },
@@ -712,6 +713,93 @@ function renderizarCarrossel() {
                             </div>
                         </div>
                     </div>
+                </div>
+            `;
+            container.appendChild(div);
+        } else if (item.tipo === "voos") {
+            // Slide do Informativo de Voos SITAER (P-53)
+            const div = document.createElement('div');
+            div.className = `slide-texto slide-voos-container ${i === 0 ? 'ativa' : ''}`;
+
+            const dados = dadosVoosSitaer || {};
+            const voos = dados.voos || [];
+            const ultimaAtualizacao = dados.ultima_atualizacao || new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+            let htmlConteudoVoos = '';
+            if (voos.length === 0) {
+                htmlConteudoVoos = `
+                    <div class="voos-vazio-box">
+                        <div class="voos-vazio-icone">🚁</div>
+                        <h3>Nenhum voo programado no momento para a P-53</h3>
+                        <p>O painel consulta automaticamente o SITAER e exibirá as partidas, chegadas e status assim que houver voos cadastrados no dia.</p>
+                        <span class="voos-vazio-tag">Unidade: P-53 (Cód. SITAER 6228) • Atualizado: ${ultimaAtualizacao}</span>
+                    </div>
+                `;
+            } else {
+                const linhasVoos = voos.map(v => {
+                    const statusClass = obterClasseStatusVoo(v.status);
+                    const logoHtml = v.logo_empresa
+                        ? `<img src="${v.logo_empresa}" alt="Cia" class="voo-logo-cia" onerror="this.style.display='none';">`
+                        : `<span class="voo-icone-cia">🚁</span>`;
+
+                    return `
+                        <tr class="voo-linha">
+                            <td class="col-voo-num">
+                                <div class="voo-cia-wrapper">
+                                    ${logoHtml}
+                                    <div class="voo-identificacao">
+                                        <span class="voo-numero">${v.numero_voo || '--'}</span>
+                                        <span class="voo-prefixo">${v.prefixo || ''}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-voo-modelo"><span class="badge-modelo">${v.modelo || '--'}</span></td>
+                            <td class="col-voo-rota"><strong>${v.rota || 'P-53'}</strong></td>
+                            <td class="col-voo-status"><span class="badge-status-voo ${statusClass}">${v.status || 'Previsto'}</span></td>
+                            <td class="col-voo-hora">${v.previsao_decolagem || '--:--'}</td>
+                            <td class="col-voo-hora">${v.horario_real && v.horario_real !== '00:00' ? v.horario_real : '--:--'}</td>
+                            <td class="col-voo-hora">${v.previsao_retorno || '--:--'}</td>
+                            <td class="col-voo-obs">${v.observacao || '<span class="obs-vazia">Sem observações</span>'}</td>
+                        </tr>
+                    `;
+                }).join('');
+
+                htmlConteudoVoos = `
+                    <div class="voos-tabela-wrapper">
+                        <table class="voos-tabela">
+                            <thead>
+                                <tr>
+                                    <th class="col-voo-num">Voo / Prefixo</th>
+                                    <th class="col-voo-modelo">Aeronave</th>
+                                    <th class="col-voo-rota">Rota</th>
+                                    <th class="col-voo-status">Status</th>
+                                    <th class="col-voo-hora">Prev. Decol.</th>
+                                    <th class="col-voo-hora">Real</th>
+                                    <th class="col-voo-hora">Prev. Retorno</th>
+                                    <th class="col-voo-obs">Observação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${linhasVoos}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            div.innerHTML = `
+                <div class="voos-widget-container">
+                    <div class="voos-header">
+                        <div class="voos-header-titulo">
+                            <h2>🚁 INFORMATIVO DE VOOS • SITAER</h2>
+                            <p>Unidade Marítima <strong>P-53</strong> • Acompanhamento Diário de Transporte Aéreo</p>
+                        </div>
+                        <div class="voos-header-meta">
+                            <span class="voos-badge-unidade">📍 PLATAFORMA P-53</span>
+                            <span class="voos-atualizacao">🔄 Atualizado: ${ultimaAtualizacao}</span>
+                        </div>
+                    </div>
+                    ${htmlConteudoVoos}
                 </div>
             `;
             container.appendChild(div);
@@ -1345,11 +1433,12 @@ function cobelCarrosselRenderLista() {
     const listDiv = document.getElementById('carrossel-lista-cards');
     if (!listDiv) return;
     listDiv.innerHTML = destaques.map((item, index) => {
+        const isVoos = item.tipo === "voos";
         const isBrasileirao = item.tipo === "brasileirao";
         const isCopa = item.tipo === "copa";
         const isIframe = item.tipo === "iframe" || item.tipo === "url";
-        const isText = (item.texto || item.titulo) && !isCopa && !isBrasileirao && !isIframe;
-        const isMedia = !isCopa && !isBrasileirao && !isIframe && !isText;
+        const isText = (item.texto || item.titulo) && !isCopa && !isBrasileirao && !isVoos && !isIframe;
+        const isMedia = !isCopa && !isBrasileirao && !isVoos && !isIframe && !isText;
 
         const isVideo = isMedia && item.url && /\.(mp4|webm|ogg|mov)$/i.test(item.url);
         const isImage = isMedia && item.url && !isVideo;
@@ -1361,6 +1450,8 @@ function cobelCarrosselRenderLista() {
             previewHTML = `<video src="${item.url}" muted playsinline></video>`;
         } else if (isIframe) {
             previewHTML = `<span class="cobel-carrossel-card-preview-text">🌐</span>`;
+        } else if (isVoos) {
+            previewHTML = `<span class="cobel-carrossel-card-preview-text">🚁</span>`;
         } else if (isBrasileirao) {
             previewHTML = `<span class="cobel-carrossel-card-preview-text">⚽</span>`;
         } else if (isCopa) {
@@ -1376,6 +1467,7 @@ function cobelCarrosselRenderLista() {
                     <option value="media" ${isMedia ? 'selected' : ''}>🖼️ Imagem / Vídeo</option>
                     <option value="texto" ${isText ? 'selected' : ''}>📝 Card de Texto</option>
                     <option value="iframe" ${isIframe ? 'selected' : ''}>🌐 URL (Iframe)</option>
+                    <option value="voos" ${isVoos ? 'selected' : ''}>🚁 Informativo de Voos P-53 (SITAER)</option>
                     <option value="brasileirao" ${isBrasileirao ? 'selected' : ''}>⚽ Brasileirão Série A (Automático)</option>
                     <option value="copa" ${isCopa ? 'selected' : ''}>🏆 Copa do Mundo 2026 (Automático)</option>
                 </select>
@@ -1403,6 +1495,13 @@ function cobelCarrosselRenderLista() {
                 <div class="cobel-form-grupo" style="margin-bottom:8px;">
                     <label style="font-size:0.8rem;">Legenda:</label>
                     <input type="text" class="carrossel-item-legenda" value="${item.legenda || ''}" placeholder="Legenda do frame">
+                </div>
+            `;
+        } else if (isVoos) {
+            fieldsHTML = `
+                <div class="cobel-form-grupo" style="margin-bottom:8px; background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px; border-radius: 6px; flex-direction: column; align-items: flex-start; gap: 4px;">
+                    <p style="margin: 0; color: #1e40af; font-size: 0.85rem; font-weight: bold;">🚁 Informativo de Voos P-53 (SITAER)</p>
+                    <p style="margin: 0; color: #1d4ed8; font-size: 0.8rem; line-height: 1.3;">Consulta automaticamente os voos do dia para a unidade P-53 (código 6228) no SITAER da Petrobras, exibindo número do voo, aeronave, status, horários previstos/reais e observações.</p>
                 </div>
             `;
         } else if (isBrasileirao) {
@@ -1446,7 +1545,7 @@ function cobelCarrosselRenderLista() {
                         <input type="checkbox" class="carrossel-item-visivel" ${item.visivel !== false ? 'checked' : ''} style="width: auto; cursor: pointer;">
                         <label style="font-size:0.85rem; font-weight: bold; color: var(--texto); cursor: pointer; margin: 0;">Visível no Painel</label>
                     </div>
-                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isBrasileirao ? "Brasileirão" : isCopa ? "Copa 2026" : isIframe ? "Iframe" : isVideo ? "Vídeo" : "Imagem"}</span>
+                    <span style="font-size: 0.85rem; font-weight: bold; color: var(--petro-azul);">Tipo: ${isText ? "Texto" : isVoos ? "Voos P-53" : isBrasileirao ? "Brasileirão" : isCopa ? "Copa 2026" : isIframe ? "Iframe" : isVideo ? "Vídeo" : "Imagem"}</span>
                 </div>
             </div>
         `;
@@ -1525,6 +1624,8 @@ function cobelCarrosselMudarTipo(index, novoTipo) {
         item.url = "https://";
         item.tipo = "iframe";
         item.legenda = "";
+    } else if (novoTipo === "voos") {
+        item.tipo = "voos";
     } else if (novoTipo === "brasileirao") {
         item.tipo = "brasileirao";
     } else if (novoTipo === "copa") {
@@ -1634,6 +1735,8 @@ function cobelLerListasDaMemoriaHTML() {
             if (itemOriginal.tipo === "iframe" || itemOriginal.tipo === "url") {
                 itemNovo.tipo = "iframe";
             }
+        } else if (itemOriginal.tipo === "voos") {
+            itemNovo.tipo = "voos";
         } else if (itemOriginal.tipo === "brasileirao") {
             itemNovo.tipo = "brasileirao";
         } else if (itemOriginal.tipo === "copa") {
@@ -2409,9 +2512,144 @@ async function buscarDadosCopa() {
     }
 }
 
+// =========================================================================
+// 🚁 LÓGICA E INTEGRAÇÃO DO INFORMATIVO DE VOOS SITAER (P-53)
+// =========================================================================
+
+let dadosVoosSitaer = {
+    plataforma: "P-53",
+    codigo_plataforma: "6228",
+    ultima_atualizacao: "",
+    voos: []
+};
+
+function obterClasseStatusVoo(status) {
+    if (!status) return "status-previsto";
+    const s = status.toLowerCase();
+    if (s.includes("finalizado") || s.includes("corte") || s.includes("desembarcando")) return "status-finalizado";
+    if (s.includes("decolagem") || s.includes("pouso") || s.includes("acionamento")) return "status-em-voo";
+    if (s.includes("check in") || s.includes("briefing") || s.includes("embarque") || s.includes("embarcando")) return "status-embarque";
+    if (s.includes("atrasado") || s.includes("cancelado") || s.includes("interrompido") || s.includes("transferido")) return "status-alerta";
+    return "status-previsto";
+}
+
+function parsearHTMLSitaerCliente(htmlTexto) {
+    const voos = [];
+    if (!htmlTexto || htmlTexto.includes("Não existem dados para exibição")) {
+        return voos;
+    }
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlTexto, "text/html");
+    const tabelas = doc.querySelectorAll("table.tableVoo");
+
+    tabelas.forEach((tabela, idx) => {
+        const getTxt = (sel) => {
+            const el = tabela.querySelector(sel);
+            return el ? el.textContent.replace(/\u00a0/g, " ").trim() : "";
+        };
+
+        const imgEl = tabela.querySelector("td.empresa img");
+        let logoEmpresa = "";
+        if (imgEl && imgEl.getAttribute("src")) {
+            const src = imgEl.getAttribute("src");
+            logoEmpresa = src.startsWith("http")
+                ? src
+                : `https://sitaer-infovoo.petrobras.com.br/${src.replace(/^\//, "")}`;
+        }
+
+        const numeroVoo = getTxt(".numeroVooDetalhe");
+        const prefixo = getTxt(".prefixoAeronave");
+        const modelo = getTxt(".modelo");
+        const rota = getTxt(".rota");
+        const status = getTxt(".newStatus");
+        const previsaoDecolagem = getTxt(".previsaodecolagem");
+        let horarioReal = getTxt(".newDecolagem");
+        const previsaoRetorno = getTxt(".newPrevisaoretorno");
+        const observacao = getTxt(".newObservacaoSemPax") || getTxt(".newObservacao");
+
+        if (horarioReal === "00:00") horarioReal = "";
+
+        if (numeroVoo || prefixo || rota || status) {
+            voos.push({
+                id: idx + 1,
+                numero_voo: numeroVoo,
+                prefixo: prefixo,
+                modelo: modelo,
+                rota: rota || "P-53",
+                status: status || "Previsto",
+                previsao_decolagem: previsaoDecolagem || "--:--",
+                horario_real: horarioReal || "--:--",
+                previsao_retorno: previsaoRetorno || "--:--",
+                observacao: observacao,
+                logo_empresa: logoEmpresa
+            });
+        }
+    });
+
+    return voos;
+}
+
+async function buscarDadosVoos() {
+    // 1. Tenta consultar diretamente o SITAER (funciona quando na rede corporativa ou se CORS liberado)
+    try {
+        const resDireto = await fetch("https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+            body: "operacao=LoadData&aeroporto=&plataforma=6228&status="
+        });
+        if (resDireto.ok) {
+            const htmlTexto = await resDireto.text();
+            if (htmlTexto && (htmlTexto.includes("tableVoo") || htmlTexto.includes("Não existem dados"))) {
+                const voosDiretos = parsearHTMLSitaerCliente(htmlTexto);
+                const agoraStr = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                dadosVoosSitaer = {
+                    plataforma: "P-53",
+                    codigo_plataforma: "6228",
+                    ultima_atualizacao: agoraStr,
+                    voos: voosDiretos
+                };
+                localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
+                console.log("Dados de voos P-53 atualizados diretamente do SITAER.");
+                return;
+            }
+        }
+    } catch (e) {
+        // Silencioso: navegador comum bloqueia por CORS, segue para voos_data.json
+    }
+
+    // 2. Busca do arquivo espelho voos_data.json (atualizado automaticamente pelo GitHub Actions a cada 15 min)
+    try {
+        const res = await fetch(`./voos_data.json?v=${new Date().getTime()}`);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data.voos)) {
+                dadosVoosSitaer = data;
+                localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
+                console.log("Dados de voos P-53 atualizados via voos_data.json.");
+                return;
+            }
+        }
+    } catch (e) {
+        console.warn("Aviso ao buscar voos_data.json:", e.message);
+    }
+
+    // 3. Fallback via cache no localStorage
+    const cached = localStorage.getItem('cobel_voos_sitaer');
+    if (cached) {
+        try {
+            dadosVoosSitaer = JSON.parse(cached);
+        } catch (e) {}
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 0. Carrega a configuração dinâmica externa
     await carregarConfiguracao();
+
+    // Busca dados de Voos SITAER (P-53)
+    await buscarDadosVoos();
+    setInterval(buscarDadosVoos, 600000); // Atualiza a cada 10 minutos
 
     // Busca dados do Brasileirão Série A
     await buscarDadosBrasileirao();

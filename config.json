@@ -9,9 +9,9 @@
       "tituloDestaques": "🖼️ DESTAQUES",
       "tituloVotacaoPC": "💬 PARTICIPE DA COBEL",
       "tituloVotacaoMobile": "📈 RESULTADO DA VOTAÇÃO",
-      "subtituloVotacao": "Leve o painel no seu bolso!",
+      "subtituloVotacao": "Leve com você nosso painel!",
       "rotuloVotacaoFilme": "🗳️ Votação do filme",
-      "textoVotacaoPCInstrucao": "Use o QR Code acima para votar!",
+      "textoVotacaoPCInstrucao": "Use o QR Code acima para votar e acessar nosso painel.",
       "textoVotacaoMobileBotao": "📲 CLIQUE AQUI PARA VOTAR!",
       "textoVotoSucesso": "✨ Sucesso! O comando de limpeza foi enviado.",
       "rodapeTicker": "Sejam bem-vindos à Plataforma P53, boa estadia! | Portal desenvolvido pela Automação de P53 © 2026"
@@ -92,7 +92,7 @@
   "programacaoSemana": [
     {
       "dia": "Dom",
-      "evento": "🥩 Churrasco 11h as 13h"
+      "evento": "🥩 Churrasco de 11h as 13h"
     },
     {
       "dia": "Seg",
@@ -104,7 +104,7 @@
     },
     {
       "dia": "Qua",
-      "evento": "🍕 Pizza 21h as 22h"
+      "evento": "🍕 Pizza de 21h as 22h"
     },
     {
       "dia": "Qui",
@@ -112,14 +112,19 @@
     },
     {
       "dia": "Sex",
-      "evento": "🍔 Hambúrguer 21h as 21h30"
+      "evento": "🍔 Hambúrguer de 21h as 21h30h"
     },
     {
       "dia": "Sab",
-      "evento": "🍕 Pizza 21h as 22h"
+      "evento": "🍕 Pizza de 21h as 22h"
     }
   ],
   "destaques": [
+    {
+      "tipo": "voos",
+      "tempo": 15000,
+      "visivel": true
+    },
     {
       "tipo": "brasileirao",
       "tempo": 15000,
@@ -137,13 +142,13 @@
         "Dom"
       ],
       "url": "imagens/banner_cinema.jpg",
-      "legenda": "Filme Hoje 25/10!!"
+      "legenda": ""
     },
     {
       "tempo": 5000,
       "visivel": true,
       "url": "imagens/plataformadefrentedia.jpg",
-      "legenda": "Plataforma P53 - Produção atual: 46.079 Barris de Óleo e 872 Mil m3 de gás"
+      "legenda": "Plataforma P53"
     },
     {
       "tempo": 8000,
