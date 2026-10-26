@@ -122,12 +122,12 @@
   "destaques": [
     {
       "tipo": "voos",
-      "tempo": 10000,
+      "tempo": 15000,
       "visivel": true
     },
     {
       "tipo": "brasileirao",
-      "tempo": 10000,
+      "tempo": 15000,
       "visivel": true
     },
     {
@@ -138,9 +138,6 @@
     {
       "tempo": 5000,
       "visivel": true,
-      "diasSemana": [
-        "Dom"
-      ],
       "url": "imagens/banner_cinema.jpg",
       "legenda": ""
     },
@@ -151,8 +148,8 @@
       "legenda": "Plataforma P53 - Produção: 45.783 bbl e 868 mil m3 de gás"
     },
     {
-      "tempo": 8000,
-      "visivel": false,
+      "tempo": 6000,
+      "visivel": true,
       "url": "imagens/salajogos6.jpg",
       "legenda": "A Sala de Jogos está ficando cada dia melhor."
     },
@@ -171,7 +168,7 @@
       "tempo": 10000,
       "visivel": true,
       "titulo": "Bem-Estar e Lazer em Evolução",
-      "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong, mesa de carteado, pebolim, dominó, xadrez, etc... <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
+      "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong, mesa de carteado, Pebolim, dominó, xadrez, etc... <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
     },
     {
       "visivel": false,
