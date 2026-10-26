@@ -1,0 +1,32 @@
+name: Update Brasileirao Data
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Executa a cada 30 minutos
+  workflow_dispatch: # Permite execução manual pelo painel do GitHub Actions
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch Brasileirao Data
+        run: |
+          python3 .github/scripts/fetch_brasileirao.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name "Brasileirao Auto-Updater"
+          git config --global user.email "brasileirao-updater@github.com"
+          git add brasileirao_data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-update brasileirao data [skip ci]" && git push)
