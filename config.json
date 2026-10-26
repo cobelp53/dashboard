@@ -122,12 +122,12 @@
   "destaques": [
     {
       "tipo": "voos",
-      "tempo": 15000,
+      "tempo": 10000,
       "visivel": true
     },
     {
       "tipo": "brasileirao",
-      "tempo": 15000,
+      "tempo": 10000,
       "visivel": true
     },
     {
@@ -171,7 +171,7 @@
       "tempo": 10000,
       "visivel": true,
       "titulo": "Bem-Estar e Lazer em Evolução",
-      "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong, mesa de carteado, Pebolim, dominó, xadrez, etc... <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
+      "texto": "<br>Confira as atualizações que estão transformando nossos espaços de convivência:<br><br>🎮 Nossa Sala de Jogos já está disponível! E temos fliperamas, ping-pong, mesa de carteado, pebolim, dominó, xadrez, etc... <br><br>⚽ Reforma da Quadra: As obras na quadra estão a todo vapor! Estamos renovando a estrutura para garantir partidas com mais qualidade e segurança.<br><br>"
     },
     {
       "visivel": false,
@@ -179,7 +179,7 @@
       "legenda": ""
     },
     {
-      "visivel": false,
+      "visivel": true,
       "url": "imagens/pordosol.MP4",
       "legenda": "O pôr do sol da P53 é diferenciado!"
     }
