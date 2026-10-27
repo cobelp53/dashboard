@@ -8,10 +8,8 @@ import html as html_lib
 import json
 import os
 import re
-import ssl
-import http.cookiejar
-import urllib.parse
-import urllib.request
+import subprocess
+import time
 from datetime import datetime, timezone, timedelta
 
 CAMINHO_JSON = "voos_data.json"
@@ -49,7 +47,6 @@ def parsear_html_sitaer(conteudo_html):
     tabelas = partes[1:] if len(partes) > 1 else []
 
     for idx, bloco in enumerate(tabelas, 1):
-        # Extrai imagem da empresa
         m_img = re.search(r'<img[^>]*src=["\']([^"\']*GetCompanyImage\.aspx\?codEmpresa=(\d+))["\']', bloco, re.IGNORECASE)
         cod_empresa = m_img.group(2) if m_img else ""
         logo_empresa = f"{URL_SITAER_BASE}GetCompanyImage.aspx?codEmpresa={cod_empresa}" if cod_empresa else ""
@@ -89,85 +86,36 @@ def parsear_html_sitaer(conteudo_html):
 
 
 def buscar_voos_sitaer(cod_plataforma=CODIGO_PLATAFORMA_P53):
-    ctx = ssl.create_default_context()
-    cj = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(
-        urllib.request.HTTPCookieProcessor(cj),
-        urllib.request.HTTPSHandler(context=ctx),
-    )
+    post_data = f"operacao=LoadData&aeroporto=&plataforma={cod_plataforma}&status="
 
-    headers_padrao = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Referer": URL_SITAER_BASE,
-    }
-
-    # Passo 0: Abre a página inicial para receber os cookies de sessão ASP.NET_SessionId e TS01...
-    try:
-        req_init = urllib.request.Request(URL_SITAER_BASE, headers=headers_padrao, method="GET")
-        with opener.open(req_init, timeout=15) as _:
-            pass
-    except Exception as e:
-        print(f"Aviso ao iniciar sessão SITAER: {e}")
-
-    headers_post = {
-        **headers_padrao,
-        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-        "X-Requested-With": "XMLHttpRequest",
-        "Origin": "https://sitaer-infovoo.petrobras.com.br",
-    }
-
-    aeroportos_principais = "4181,4184,4183,4180,4185,7776,6429,8483,7891,8456,8473,7887,8255"
-
-    # 1. Tenta consultar direto pela Plataforma P-53 (6228) sem e com aeroportos
-    for filtro_aero in ["", aeroportos_principais]:
+    # Usa curl nativo com até 4 tentativas rápidas (10s cada) para evitar bloqueios de TLS/SSL do Python
+    for tentativa in range(1, 5):
         try:
-            dados_post = urllib.parse.urlencode({
-                "operacao": "LoadData",
-                "aeroporto": filtro_aero,
-                "plataforma": cod_plataforma,
-                "status": "",
-            }).encode("utf-8")
-
-            req = urllib.request.Request(
-                URL_SITAER_SERVICE,
-                data=dados_post,
-                headers=headers_post,
-                method="POST",
+            proc = subprocess.run(
+                [
+                    "curl",
+                    "-sL",
+                    "-m", "10",
+                    "--retry", "2",
+                    "--retry-delay", "2",
+                    "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                    "-H", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8",
+                    "-d", post_data,
+                    URL_SITAER_SERVICE,
+                ],
+                capture_output=True,
+                text=True,
+                timeout=35,
             )
-
-            with opener.open(req, timeout=20) as resp:
-                raw_html = resp.read().decode("utf-8", errors="replace")
-                voos = parsear_html_sitaer(raw_html)
-                if voos:
-                    return voos
+            raw_html = proc.stdout or ""
+            if "tableVoo" in raw_html or "Não existem dados para exibição" in raw_html:
+                return parsear_html_sitaer(raw_html), True
+            print(f"Tentativa {tentativa}: resposta incompleta do SITAER (código {proc.returncode}).")
         except Exception as e:
-            print(f"Aviso na consulta direta (aero='{filtro_aero}'): {e}")
+            print(f"Tentativa {tentativa} falhou: {e}")
+        time.sleep(2)
 
-    # 2. Se ainda vier vazio, busca nos aeroportos da Bacia de Campos e filtra qualquer voo cuja rota contenha P-53 / P53
-    dados_post_aero = urllib.parse.urlencode({
-        "operacao": "LoadData",
-        "aeroporto": aeroportos_principais,
-        "plataforma": "",
-        "status": "",
-    }).encode("utf-8")
-
-    req_aero = urllib.request.Request(
-        URL_SITAER_SERVICE,
-        data=dados_post_aero,
-        headers=headers_post,
-        method="POST",
-    )
-
-    with opener.open(req_aero, timeout=20) as resp:
-        raw_html = resp.read().decode("utf-8", errors="replace")
-        todos_voos = parsear_html_sitaer(raw_html)
-        voos_p53 = [
-            v for v in todos_voos
-            if "P-53" in v.get("rota", "").upper() or "P53" in v.get("rota", "").upper()
-        ]
-        return voos_p53
+    return [], False
 
 
 def atualizar():
@@ -181,18 +129,19 @@ def atualizar():
         "voos": [],
     }
 
-    try:
-        voos = buscar_voos_sitaer(CODIGO_PLATAFORMA_P53)
+    voos, sucesso_conexao = buscar_voos_sitaer(CODIGO_PLATAFORMA_P53)
+    if sucesso_conexao:
         resultado["voos"] = voos
-        print(f"Consulta SITAER P-53 concluída: {len(voos)} voo(s) encontrado(s).")
-    except Exception as e:
-        print(f"Aviso ao consultar SITAER P-53: {e}")
+        print(f"Consulta SITAER P-53 concluída com sucesso: {len(voos)} voo(s) encontrado(s).")
+    else:
+        print("Não foi possível conectar ao SITAER nesta execução. Preservando últimos voos conhecidos.")
         if os.path.exists(CAMINHO_JSON):
             try:
                 with open(CAMINHO_JSON, "r", encoding="utf-8") as f:
                     existente = json.load(f)
                     if existente and "voos" in existente:
                         resultado["voos"] = existente["voos"]
+                        resultado["ultima_atualizacao"] = existente.get("ultima_atualizacao", resultado["ultima_atualizacao"])
             except Exception:
                 pass
 
