@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 32,
-  "ultima_atualizacao": "25/10/2026 14:00",
+  "ultima_atualizacao": "27/10/2026 01:44",
   "jogos": [
     {
       "id": 1,
@@ -135,25 +135,225 @@
     }
   ],
   "tabela": [
-    { "posicao": 1, "time": "Palmeiras", "sigla": "PAL", "pontos": 69, "jogos": 32, "vitorias": 20, "empates": 9, "derrotas": 3, "sg": 34 },
-    { "posicao": 2, "time": "Flamengo", "sigla": "FLA", "pontos": 67, "jogos": 31, "vitorias": 20, "empates": 7, "derrotas": 4, "sg": 36 },
-    { "posicao": 3, "time": "Cruzeiro", "sigla": "CRU", "pontos": 54, "jogos": 32, "vitorias": 16, "empates": 6, "derrotas": 10, "sg": 5 },
-    { "posicao": 4, "time": "Athletico-PR", "sigla": "CAP", "pontos": 54, "jogos": 32, "vitorias": 15, "empates": 9, "derrotas": 8, "sg": 12 },
-    { "posicao": 5, "time": "Fluminense", "sigla": "FLU", "pontos": 51, "jogos": 32, "vitorias": 14, "empates": 9, "derrotas": 9, "sg": 9 },
-    { "posicao": 6, "time": "Atlético-MG", "sigla": "CAM", "pontos": 50, "jogos": 31, "vitorias": 14, "empates": 8, "derrotas": 9, "sg": 7 },
-    { "posicao": 7, "time": "Bahia", "sigla": "BAH", "pontos": 50, "jogos": 32, "vitorias": 13, "empates": 11, "derrotas": 8, "sg": 5 },
-    { "posicao": 8, "time": "Santos", "sigla": "SAN", "pontos": 46, "jogos": 32, "vitorias": 12, "empates": 10, "derrotas": 10, "sg": 2 },
-    { "posicao": 9, "time": "São Paulo", "sigla": "SAO", "pontos": 43, "jogos": 32, "vitorias": 12, "empates": 7, "derrotas": 13, "sg": 1 },
-    { "posicao": 10, "time": "Red Bull Bragantino", "sigla": "RBB", "pontos": 41, "jogos": 32, "vitorias": 11, "empates": 8, "derrotas": 13, "sg": 1 },
-    { "posicao": 11, "time": "Botafogo", "sigla": "BOT", "pontos": 39, "jogos": 32, "vitorias": 10, "empates": 9, "derrotas": 13, "sg": -7 },
-    { "posicao": 12, "time": "Coritiba", "sigla": "CFC", "pontos": 39, "jogos": 31, "vitorias": 10, "empates": 9, "derrotas": 12, "sg": -11 },
-    { "posicao": 13, "time": "Vasco", "sigla": "VAS", "pontos": 38, "jogos": 31, "vitorias": 10, "empates": 8, "derrotas": 13, "sg": -6 },
-    { "posicao": 14, "time": "Vitória", "sigla": "VIT", "pontos": 38, "jogos": 32, "vitorias": 10, "empates": 8, "derrotas": 14, "sg": -11 },
-    { "posicao": 15, "time": "Mirassol", "sigla": "MIR", "pontos": 37, "jogos": 32, "vitorias": 9, "empates": 10, "derrotas": 13, "sg": -8 },
-    { "posicao": 16, "time": "Internacional", "sigla": "INT", "pontos": 35, "jogos": 32, "vitorias": 8, "empates": 11, "derrotas": 13, "sg": -4 },
-    { "posicao": 17, "time": "Corinthians", "sigla": "COR", "pontos": 33, "jogos": 32, "vitorias": 8, "empates": 9, "derrotas": 15, "sg": -8 },
-    { "posicao": 18, "time": "Grêmio", "sigla": "GRE", "pontos": 31, "jogos": 31, "vitorias": 7, "empates": 10, "derrotas": 14, "sg": -10 },
-    { "posicao": 19, "time": "Remo", "sigla": "REM", "pontos": 26, "jogos": 32, "vitorias": 5, "empates": 11, "derrotas": 16, "sg": -16 },
-    { "posicao": 20, "time": "Chapecoense", "sigla": "CHA", "pontos": 21, "jogos": 31, "vitorias": 4, "empates": 9, "derrotas": 18, "sg": -31 }
+    {
+      "posicao": 1,
+      "time": "Palmeiras",
+      "sigla": "PAL",
+      "pontos": 69,
+      "jogos": 32,
+      "vitorias": 20,
+      "empates": 9,
+      "derrotas": 3,
+      "sg": 34
+    },
+    {
+      "posicao": 2,
+      "time": "Flamengo",
+      "sigla": "FLA",
+      "pontos": 67,
+      "jogos": 31,
+      "vitorias": 20,
+      "empates": 7,
+      "derrotas": 4,
+      "sg": 36
+    },
+    {
+      "posicao": 3,
+      "time": "Cruzeiro",
+      "sigla": "CRU",
+      "pontos": 54,
+      "jogos": 32,
+      "vitorias": 16,
+      "empates": 6,
+      "derrotas": 10,
+      "sg": 5
+    },
+    {
+      "posicao": 4,
+      "time": "Athletico-PR",
+      "sigla": "CAP",
+      "pontos": 54,
+      "jogos": 32,
+      "vitorias": 15,
+      "empates": 9,
+      "derrotas": 8,
+      "sg": 12
+    },
+    {
+      "posicao": 5,
+      "time": "Fluminense",
+      "sigla": "FLU",
+      "pontos": 51,
+      "jogos": 32,
+      "vitorias": 14,
+      "empates": 9,
+      "derrotas": 9,
+      "sg": 9
+    },
+    {
+      "posicao": 6,
+      "time": "Atlético-MG",
+      "sigla": "CAM",
+      "pontos": 50,
+      "jogos": 31,
+      "vitorias": 14,
+      "empates": 8,
+      "derrotas": 9,
+      "sg": 7
+    },
+    {
+      "posicao": 7,
+      "time": "Bahia",
+      "sigla": "BAH",
+      "pontos": 50,
+      "jogos": 32,
+      "vitorias": 13,
+      "empates": 11,
+      "derrotas": 8,
+      "sg": 5
+    },
+    {
+      "posicao": 8,
+      "time": "Santos",
+      "sigla": "SAN",
+      "pontos": 46,
+      "jogos": 32,
+      "vitorias": 12,
+      "empates": 10,
+      "derrotas": 10,
+      "sg": 2
+    },
+    {
+      "posicao": 9,
+      "time": "São Paulo",
+      "sigla": "SAO",
+      "pontos": 43,
+      "jogos": 32,
+      "vitorias": 12,
+      "empates": 7,
+      "derrotas": 13,
+      "sg": 1
+    },
+    {
+      "posicao": 10,
+      "time": "Red Bull Bragantino",
+      "sigla": "RBB",
+      "pontos": 41,
+      "jogos": 32,
+      "vitorias": 11,
+      "empates": 8,
+      "derrotas": 13,
+      "sg": 1
+    },
+    {
+      "posicao": 11,
+      "time": "Botafogo",
+      "sigla": "BOT",
+      "pontos": 39,
+      "jogos": 32,
+      "vitorias": 10,
+      "empates": 9,
+      "derrotas": 13,
+      "sg": -7
+    },
+    {
+      "posicao": 12,
+      "time": "Coritiba",
+      "sigla": "CFC",
+      "pontos": 39,
+      "jogos": 31,
+      "vitorias": 10,
+      "empates": 9,
+      "derrotas": 12,
+      "sg": -11
+    },
+    {
+      "posicao": 13,
+      "time": "Vasco",
+      "sigla": "VAS",
+      "pontos": 38,
+      "jogos": 31,
+      "vitorias": 10,
+      "empates": 8,
+      "derrotas": 13,
+      "sg": -6
+    },
+    {
+      "posicao": 14,
+      "time": "Vitória",
+      "sigla": "VIT",
+      "pontos": 38,
+      "jogos": 32,
+      "vitorias": 10,
+      "empates": 8,
+      "derrotas": 14,
+      "sg": -11
+    },
+    {
+      "posicao": 15,
+      "time": "Mirassol",
+      "sigla": "MIR",
+      "pontos": 37,
+      "jogos": 32,
+      "vitorias": 9,
+      "empates": 10,
+      "derrotas": 13,
+      "sg": -8
+    },
+    {
+      "posicao": 16,
+      "time": "Internacional",
+      "sigla": "INT",
+      "pontos": 35,
+      "jogos": 32,
+      "vitorias": 8,
+      "empates": 11,
+      "derrotas": 13,
+      "sg": -4
+    },
+    {
+      "posicao": 17,
+      "time": "Corinthians",
+      "sigla": "COR",
+      "pontos": 33,
+      "jogos": 32,
+      "vitorias": 8,
+      "empates": 9,
+      "derrotas": 15,
+      "sg": -8
+    },
+    {
+      "posicao": 18,
+      "time": "Grêmio",
+      "sigla": "GRE",
+      "pontos": 31,
+      "jogos": 31,
+      "vitorias": 7,
+      "empates": 10,
+      "derrotas": 14,
+      "sg": -10
+    },
+    {
+      "posicao": 19,
+      "time": "Remo",
+      "sigla": "REM",
+      "pontos": 26,
+      "jogos": 32,
+      "vitorias": 5,
+      "empates": 11,
+      "derrotas": 16,
+      "sg": -16
+    },
+    {
+      "posicao": 20,
+      "time": "Chapecoense",
+      "sigla": "CHA",
+      "pontos": 21,
+      "jogos": 31,
+      "vitorias": 4,
+      "empates": 9,
+      "derrotas": 18,
+      "sg": -31
+    }
   ]
 }
