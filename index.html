@@ -314,6 +314,13 @@
                     <h3>📊 Controle de Votação e Administração</h3>
                     <p style="color:#64748b; font-size: 0.95rem; margin-bottom: 20px;">Zerar a contagem de votos da planilha e monitorar o status do painel.</p>
                     <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
+                        <h4>🚁 Informativo de Voos SITAER (P-53)</h4>
+                        <p style="color:#64748b; font-size: 0.9rem; margin-bottom: 10px;">Dispara imediatamente o robô de consulta ao SITAER no GitHub Actions para buscar os voos atuais da P-53.</p>
+                        <button id="cobel-btn-atualizar-voos" class="cobel-btn-adicionar" style="padding: 12px 24px; font-size: 0.9rem;" onclick="cobelDispararAtualizacaoVoos()">🔄 Atualizar Voos do SITAER Agora</button>
+                        <span id="cobel-status-voos-acao" class="cobel-status-mensagem"></span>
+                    </div>
+
+                    <div class="cobel-admin-card-acoes" style="margin-bottom: 20px;">
                         <h4>🗑️ Zerar Planilha de Votos</h4>
                         <p style="color:#64748b; font-size: 0.9rem; margin-bottom: 10px;">Remove permanentemente todas as respostas de votos de filmes acumulados.</p>
                         <button id="cobel-btn-limpar" class="cobel-btn-acao-perigo" onclick="cobelLimparPlanilhaVotos()">🗑️ Limpar Todos os Votos Atuais</button>

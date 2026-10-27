@@ -2551,65 +2551,120 @@ section h2 {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.6vw;
+    gap: 0.45vw;
 }
 
-.voos-header {
+/* Cabeçalho Institucional Padrão SITAER Petrobras */
+.sitaer-topo-oficial {
+    background: #ffffff;
+    border-radius: 0.5vw 0.5vw 0 0;
+    padding: 0.45vw 0.9vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding-bottom: 0.4vw;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    border-top: 0.25vw solid var(--petro-amarelo);
+    border-bottom: 0.2vw solid var(--petro-verde);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     flex-shrink: 0;
 }
 
-.voos-header-titulo {
+.sitaer-topo-logos {
+    display: flex;
+    align-items: center;
+    gap: 0.8vw;
+}
+
+.sitaer-logo-petro {
+    height: 2.1vw;
+    width: auto;
+    object-fit: contain;
+}
+
+.sitaer-divisor-vertical {
+    width: 2px;
+    height: 1.9vw;
+    background: #cbd5e1;
+}
+
+.sitaer-marca-bloco {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    line-height: 1.1;
 }
 
-.voos-header-titulo h2 {
-    font-size: 1.25vw !important;
-    color: var(--petro-amarelo) !important;
-    font-weight: 800;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    letter-spacing: 0.04vw;
+.sitaer-sigla {
+    font-size: 1.25vw;
+    font-weight: 900;
+    color: #006837;
+    letter-spacing: 0.06vw;
 }
 
-.voos-header-titulo p {
-    font-size: 0.72vw !important;
-    color: #cbd5e1 !important;
-    margin: 0.1vw 0 0 0 !important;
+.sitaer-subtitulo {
+    font-size: 0.62vw;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.02vw;
 }
 
-.voos-header-meta {
+.sitaer-topo-direita {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.2vw;
+    gap: 0.18vw;
 }
 
-.voos-badge-unidade {
-    background: var(--petro-amarelo);
-    color: #0f172a;
-    font-size: 0.68vw;
-    font-weight: 800;
+.sitaer-filtro-simulado {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35vw;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
     padding: 0.15vw 0.55vw;
-    border-radius: 0.35vw;
-    letter-spacing: 0.04vw;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0.3vw;
+}
+
+.sitaer-filtro-label {
+    font-size: 0.62vw;
+    font-weight: 700;
+    color: #475569;
+    text-transform: uppercase;
+}
+
+.sitaer-filtro-valor {
+    font-size: 0.75vw;
+    font-weight: 900;
+    color: #004B87;
 }
 
 .voos-atualizacao {
-    font-size: 0.6vw;
-    color: #94a3b8;
+    font-size: 0.58vw;
+    color: #64748b;
+    font-weight: 700;
+}
+
+.sitaer-faixa-titulo {
+    background: linear-gradient(90deg, #006837 0%, #10422a 100%);
+    color: #ffffff;
+    padding: 0.28vw 0.9vw;
+    border-radius: 0 0 0.4vw 0.4vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72vw;
+    font-weight: 800;
+    letter-spacing: 0.04vw;
+    border-left: 0.3vw solid var(--petro-amarelo);
+    flex-shrink: 0;
+}
+
+.sitaer-url-ref {
+    font-size: 0.58vw;
+    color: var(--petro-amarelo);
     font-weight: 600;
+    opacity: 0.95;
 }
 
 /* Estado vazio (sem voos no momento) */
@@ -2837,43 +2892,74 @@ section h2 {
     }
 
     .voos-widget-container {
-        gap: 12px;
-    }
-
-    .voos-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
         gap: 8px;
-        padding-bottom: 10px;
     }
 
-    .voos-header-titulo {
-        align-items: center;
-        text-align: center;
+    .sitaer-topo-oficial {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px 12px;
+        border-radius: 8px 8px 0 0;
+        border-top-width: 3px;
+        border-bottom-width: 2px;
     }
 
-    .voos-header-titulo h2 {
-        font-size: 1.25rem !important;
+    .sitaer-topo-logos {
+        justify-content: center;
+        gap: 10px;
     }
 
-    .voos-header-titulo p {
-        font-size: 0.8rem !important;
+    .sitaer-logo-petro {
+        height: 28px;
     }
 
-    .voos-header-meta {
+    .sitaer-divisor-vertical {
+        height: 24px;
+    }
+
+    .sitaer-sigla {
+        font-size: 1.15rem;
+    }
+
+    .sitaer-subtitulo {
+        font-size: 0.65rem;
+    }
+
+    .sitaer-topo-direita {
         align-items: center;
         gap: 4px;
     }
 
-    .voos-badge-unidade {
-        font-size: 0.75rem;
+    .sitaer-filtro-simulado {
         padding: 3px 10px;
         border-radius: 5px;
+        gap: 6px;
+    }
+
+    .sitaer-filtro-label {
+        font-size: 0.7rem;
+    }
+
+    .sitaer-filtro-valor {
+        font-size: 0.85rem;
     }
 
     .voos-atualizacao {
         font-size: 0.7rem;
+    }
+
+    .sitaer-faixa-titulo {
+        flex-direction: column;
+        gap: 2px;
+        padding: 6px 10px;
+        border-radius: 0 0 8px 8px;
+        font-size: 0.78rem;
+        text-align: center;
+        border-left-width: 4px;
+    }
+
+    .sitaer-url-ref {
+        font-size: 0.65rem;
     }
 
     .voos-vazio-box {

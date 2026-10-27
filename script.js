@@ -769,13 +769,13 @@ function renderizarCarrossel() {
                         <table class="voos-tabela">
                             <thead>
                                 <tr>
-                                    <th class="col-voo-num">Voo / Prefixo</th>
-                                    <th class="col-voo-modelo">Aeronave</th>
+                                    <th class="col-voo-num">Empresa / nº do voo</th>
+                                    <th class="col-voo-modelo">Mod. Aeronave</th>
                                     <th class="col-voo-rota">Rota</th>
                                     <th class="col-voo-status">Status</th>
-                                    <th class="col-voo-hora">Prev. Decol.</th>
-                                    <th class="col-voo-hora">Real</th>
-                                    <th class="col-voo-hora">Prev. Retorno</th>
+                                    <th class="col-voo-hora">Horário previsto</th>
+                                    <th class="col-voo-hora">Horário real</th>
+                                    <th class="col-voo-hora">Prev. retorno</th>
                                     <th class="col-voo-obs">Observação</th>
                                 </tr>
                             </thead>
@@ -789,15 +789,27 @@ function renderizarCarrossel() {
 
             div.innerHTML = `
                 <div class="voos-widget-container">
-                    <div class="voos-header">
-                        <div class="voos-header-titulo">
-                            <h2>🚁 INFORMATIVO DE VOOS • SITAER</h2>
-                            <p>Unidade Marítima <strong>P-53</strong> • Acompanhamento Diário de Transporte Aéreo</p>
+                    <!-- Cabeçalho Institucional Padrão SITAER Petrobras -->
+                    <div class="sitaer-topo-oficial">
+                        <div class="sitaer-topo-logos">
+                            <img src="imagens/logopetrobras.png" alt="Petrobras" class="sitaer-logo-petro">
+                            <div class="sitaer-divisor-vertical"></div>
+                            <div class="sitaer-marca-bloco">
+                                <span class="sitaer-sigla">SITAER</span>
+                                <span class="sitaer-subtitulo">Sistema Integrado do Transporte Aéreo</span>
+                            </div>
                         </div>
-                        <div class="voos-header-meta">
-                            <span class="voos-badge-unidade">📍 PLATAFORMA P-53</span>
+                        <div class="sitaer-topo-direita">
+                            <div class="sitaer-filtro-simulado">
+                                <span class="sitaer-filtro-label">Plataforma:</span>
+                                <span class="sitaer-filtro-valor">P-53</span>
+                            </div>
                             <span class="voos-atualizacao">🔄 Atualizado: ${ultimaAtualizacao}</span>
                         </div>
+                    </div>
+                    <div class="sitaer-faixa-titulo">
+                        <span>✈️ INFORMATIVO DE VOOS • UNIDADE MARÍTIMA P-53</span>
+                        <span class="sitaer-url-ref">sitaer-infovoo.petrobras.com.br</span>
                     </div>
                     ${htmlConteudoVoos}
                 </div>
@@ -2052,6 +2064,86 @@ async function cobelCarrosselFazerUpload(inputElement) {
     
     // Lê o arquivo como DataURL (Base64)
     reader.readAsDataURL(file);
+}
+
+/**
+ * Dispara o workflow update_voos.yml no GitHub Actions e atualiza o painel de voos
+ */
+async function cobelDispararAtualizacaoVoos() {
+    const botao = document.getElementById('cobel-btn-atualizar-voos');
+    const statusTxt = document.getElementById('cobel-status-voos-acao');
+    const caixaLog = document.getElementById('cobel-status-log');
+
+    const owner = (document.getElementById('git-owner')?.value || CONFIG_GLOBAL.github?.owner || 'cobelp53').trim();
+    const repo = (document.getElementById('git-repo')?.value || CONFIG_GLOBAL.github?.repo || 'dashboard').trim();
+    const branch = (document.getElementById('git-branch')?.value || CONFIG_GLOBAL.github?.branch || 'main').trim();
+    const token = (document.getElementById('git-token')?.value || localStorage.getItem('cobel_git_token') || '').trim();
+
+    if (!token) {
+        alert("⚠️ ATENÇÃO: Insira seu GitHub Token na aba 'Integração GitHub' para poder disparar a atualização remota.");
+        return;
+    }
+
+    if (botao) {
+        botao.disabled = true;
+        botao.innerText = "⏳ Consultando SITAER via GitHub...";
+    }
+    if (statusTxt) {
+        statusTxt.style.color = "#2563eb";
+        statusTxt.innerText = "Disparando robô do SITAER...";
+    }
+
+    try {
+        const dispatchUrl = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update_voos.yml/dispatches`;
+        const res = await fetch(dispatchUrl, {
+            method: 'POST',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ ref: branch })
+        });
+
+        if (!res.ok) {
+            const errTxt = await res.text();
+            throw new Error(`HTTP ${res.status}: ${errTxt}`);
+        }
+
+        if (statusTxt) {
+            statusTxt.style.color = "#d97706";
+            statusTxt.innerText = "⏳ Robô iniciado! Aguardando ~15s para sincronizar os voos...";
+        }
+
+        const horaLog = new Date().toLocaleTimeString('pt-BR');
+        if (caixaLog) {
+            caixaLog.innerHTML = `<span class="cobel-log-info">[${horaLog}] 🚁 Workflow SITAER (P-53) disparado no GitHub Actions.</span><br>` + caixaLog.innerHTML;
+        }
+
+        setTimeout(async () => {
+            await buscarDadosVoos();
+            renderizarCarrossel();
+            if (statusTxt) {
+                statusTxt.style.color = "#16a34a";
+                statusTxt.innerText = `✅ Atualizado! (${dadosVoosSitaer.voos?.length || 0} voo(s) encontrado(s))`;
+            }
+            if (botao) {
+                botao.disabled = false;
+                botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
+            }
+        }, 16000);
+
+    } catch (erro) {
+        console.error("Erro ao disparar atualização de voos:", erro);
+        if (statusTxt) {
+            statusTxt.style.color = "#dc2626";
+            statusTxt.innerText = `❌ Erro: ${erro.message}`;
+        }
+        if (botao) {
+            botao.disabled = false;
+            botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
+        }
+    }
 }
 
 /**
