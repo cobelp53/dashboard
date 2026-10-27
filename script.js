@@ -3007,7 +3007,7 @@ async function buscarDadosVoos(evitarAutoDispatch = false) {
         console.log(`Dados de voos P-53 sincronizados (última atualização: ${dadosVoosSitaer.ultima_atualizacao}).`);
     }
 
-    // 3. Se os dados estiverem com mais de 12 minutos e houver token do GitHub salvo no navegador, dispara o robô automaticamente em background
+    // 3. Se os dados estiverem com 5 minutos ou mais e houver token do GitHub salvo no navegador, dispara o robô automaticamente em background
     if (!evitarAutoDispatch) {
         const tokenSalvo = localStorage.getItem('cobel_git_token');
         if (tokenSalvo) {
@@ -3016,8 +3016,8 @@ async function buscarDadosVoos(evitarAutoDispatch = false) {
             const ultimoDispatch = Number(localStorage.getItem('cobel_last_voos_dispatch_ts') || 0);
             const minDesdeUltimoDispatch = (Date.now() - ultimoDispatch) / 60000;
 
-            if (idadeMinutos > 12 && minDesdeUltimoDispatch > 8) {
-                console.log("Dados de voos com mais de 12 min — disparando atualização automática via GitHub Actions...");
+            if (idadeMinutos >= 5 && minDesdeUltimoDispatch >= 4.5) {
+                console.log("Disparando atualização automática de voos via GitHub Actions (ciclo de 5 min)...");
                 cobelDispararAtualizacaoVoos(true);
             }
         }
@@ -3028,9 +3028,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 0. Carrega a configuração dinâmica externa
     await carregarConfiguracao();
 
-    // Busca dados de Voos SITAER (P-53)
+    // Busca dados de Voos SITAER (P-53) e dispara a função de atualização do Admin automaticamente de 5 em 5 minutos
     await buscarDadosVoos();
-    setInterval(buscarDadosVoos, 300000); // Atualiza a cada 5 minutos
+    setInterval(() => {
+        cobelDispararAtualizacaoVoos(true);
+        buscarDadosVoos(true);
+    }, 300000); // Executa a cada 5 minutos (300.000 ms)
 
     // Busca dados do Brasileirão Série A
     await buscarDadosBrasileirao();
