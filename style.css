@@ -390,34 +390,78 @@ section h2 {
     border-radius: var(--radius);
 }
 
-/* 🔹 BOTÕES DO CARROSSEL - ESCONDIDOS NO PC */
+/* 🔹 BOTÕES DO CARROSSEL - VISÍVEIS NO PC E NO MOBILE */
 .btn-carrossel {
-    display: none;
-    /* Oculta no PC conforme solicitado */
+    display: flex;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.4);
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+    background: rgba(0, 0, 0, 0.45);
     color: white;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     cursor: pointer;
     z-index: 10;
     border-radius: 50%;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .btn-carrossel:hover {
     background: var(--petro-amarelo);
     color: var(--petro-azul);
+    border-color: var(--petro-amarelo);
+    transform: translateY(-50%) scale(1.08);
 }
 
 .btn-carrossel.anterior {
-    left: 15px;
+    left: 14px;
 }
 
 .btn-carrossel.proximo {
-    right: 15px;
+    right: 14px;
+}
+
+/* 🔹 INDICADORES DE PÁGINA (BOLINHAS) DO CARROSSEL */
+.carrossel-indicadores {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 10px 4px;
+    flex-shrink: 0;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.carrossel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: #cbd5e1;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    opacity: 0.75;
+}
+
+.carrossel-dot:hover {
+    background: var(--petro-azul);
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.carrossel-dot.ativa {
+    width: 26px;
+    background: var(--petro-verde);
+    box-shadow: 0 0 0 2px rgba(253, 185, 19, 0.65);
+    opacity: 1;
 }
 
 /* 🔹 VOTAÇÃO E GRÁFICO (PC) */

@@ -671,14 +671,14 @@ function renderizarCarrossel() {
                         <div class="brasileirao-coluna brasileirao-coluna-jogos">
                             <h3>📅 JOGOS DA RODADA</h3>
                             <div class="brasileirao-secao-jogos">
-                                <div class="brasileirao-subtitulo-jogos">ÚLTIMOS RESULTADOS</div>
-                                <div class="brasileirao-lista-jogos">
-                                    ${htmlFinalizados || '<p class="sem-jogos">Nenhum resultado registrado.</p>'}
-                                </div>
-
                                 <div class="brasileirao-subtitulo-jogos">PRÓXIMAS PARTIDAS</div>
                                 <div class="brasileirao-lista-jogos">
                                     ${htmlAgendados || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
+                                </div>
+
+                                <div class="brasileirao-subtitulo-jogos">ÚLTIMOS RESULTADOS</div>
+                                <div class="brasileirao-lista-jogos">
+                                    ${htmlFinalizados || '<p class="sem-jogos">Nenhum resultado registrado.</p>'}
                                 </div>
                             </div>
                         </div>
@@ -759,6 +759,7 @@ function renderizarCarrossel() {
             container.appendChild(div);
         }
     });
+    renderizarIndicadoresCarrossel();
     atualizarLegenda(0);
 
     // Se o primeiro slide for vídeo, inicia a reprodução do início
@@ -767,6 +768,46 @@ function renderizarCarrossel() {
         primeiroSlide.currentTime = 0;
         primeiroSlide.play().catch(e => console.log("Erro ao reproduzir primeiro vídeo:", e));
     }
+}
+
+/**
+ * Renderiza as bolinhas indicadoras abaixo do carrossel e permite clicar para navegar
+ */
+function renderizarIndicadoresCarrossel() {
+    const containerDots = document.getElementById('carrossel-indicadores');
+    if (!containerDots) return;
+    containerDots.innerHTML = '';
+
+    if (!destaquesAtivos || destaquesAtivos.length <= 1) {
+        containerDots.style.display = 'none';
+        return;
+    }
+
+    containerDots.style.display = 'flex';
+    destaquesAtivos.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = `carrossel-dot ${idx === indiceImagem ? 'ativa' : ''}`;
+        dot.setAttribute('aria-label', `Ir para o banner ${idx + 1}`);
+        dot.onclick = () => irParaSlideManual(idx);
+        containerDots.appendChild(dot);
+    });
+}
+
+function atualizarIndicadoresCarrossel(index) {
+    const dots = document.querySelectorAll('#carrossel-indicadores .carrossel-dot');
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('ativa', i === index);
+    });
+}
+
+function irParaSlideManual(novoIndice) {
+    const slides = document.querySelectorAll('#carrossel-imagens > *');
+    if (slides.length === 0 || novoIndice === indiceImagem) return;
+    clearTimeout(timerCarrossel);
+    const delta = (novoIndice - indiceImagem + slides.length) % slides.length;
+    mudarSlide(delta);
+    iniciarCarrossel();
 }
 
 /**
@@ -888,9 +929,10 @@ function iniciarCarrossel() {
 }
 
 /**
- * Atualiza o painel inferior de legenda com base no slide selecionado
+ * Atualiza o painel inferior de legenda e as bolinhas indicadoras com base no slide selecionado
  */
 function atualizarLegenda(index) {
+    atualizarIndicadoresCarrossel(index);
     if (index >= destaquesAtivos.length || index < 0) return;
     const item = destaquesAtivos[index];
     const elLegenda = document.getElementById('legenda-imagem');
