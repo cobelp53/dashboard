@@ -124,11 +124,11 @@
       "tempo": 6000,
       "visivel": true,
       "url": "imagens/plataformadefrentedia.jpg",
-      "legenda": "Plataforma P53 - Produção atual: 45.783 bbl e 868 mil m3 de gás"
+      "legenda": "Plataforma P53 - Produção atual: 47.606 bbl/dia e 876 mil m3 de gás/dia"
     },
     {
       "tipo": "voos",
-      "tempo": 15000,
+      "tempo": 10000,
       "visivel": true
     },
     {
