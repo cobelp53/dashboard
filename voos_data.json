@@ -1,6 +1,37 @@
 {
   "plataforma": "P-53",
   "codigo_plataforma": "6228",
-  "ultima_atualizacao": "27/10/2026 07:51",
-  "voos": []
+  "ultima_atualizacao": "27/10/2026 08:02",
+  "voos": [
+    {
+      "id": 1,
+      "numero_voo": "509595941",
+      "prefixo": "PR-JBP",
+      "modelo": "S-92A",
+      "rota": "P-53",
+      "status": "Previsto",
+      "horario_programado": "",
+      "previsao_decolagem": "09:45",
+      "horario_real": "--:--",
+      "previsao_retorno": "11:23",
+      "observacao": "",
+      "cod_empresa": "123",
+      "logo_empresa": "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+    },
+    {
+      "id": 2,
+      "numero_voo": "509595985",
+      "prefixo": "PR-JBP",
+      "modelo": "S-92A",
+      "rota": "P-53",
+      "status": "Previsto",
+      "horario_programado": "",
+      "previsao_decolagem": "13:00",
+      "horario_real": "--:--",
+      "previsao_retorno": "14:38",
+      "observacao": "",
+      "cod_empresa": "123",
+      "logo_empresa": "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+    }
+  ]
 }

@@ -2537,8 +2537,8 @@ section h2 {
    ========================================================================== */
 
 .slide-voos-container {
-    background: linear-gradient(135deg, #0a192f 0%, #0f3156 50%, #004B87 100%) !important;
-    padding: 0.9vw 1.3vw !important;
+    background: #f1f5f9 !important;
+    padding: 0.7vw 1vw !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
@@ -2551,39 +2551,32 @@ section h2 {
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.45vw;
+    gap: 0.4vw;
 }
 
-/* Cabeçalho Institucional Padrão SITAER Petrobras */
+/* Cabeçalho Institucional Fiel ao SITAER Petrobras */
 .sitaer-topo-oficial {
     background: #ffffff;
-    border-radius: 0.5vw 0.5vw 0 0;
-    padding: 0.45vw 0.9vw;
+    border-radius: 0.4vw 0.4vw 0 0;
+    padding: 0.4vw 0.9vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 0.25vw solid var(--petro-amarelo);
-    border-bottom: 0.2vw solid var(--petro-verde);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-bottom: 3px solid #2b8cbe;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     flex-shrink: 0;
 }
 
 .sitaer-topo-logos {
     display: flex;
     align-items: center;
-    gap: 0.8vw;
+    gap: 0.7vw;
 }
 
-.sitaer-logo-petro {
-    height: 2.1vw;
+.sitaer-logo-heli {
+    height: 2.8vw;
     width: auto;
     object-fit: contain;
-}
-
-.sitaer-divisor-vertical {
-    width: 2px;
-    height: 1.9vw;
-    background: #cbd5e1;
 }
 
 .sitaer-marca-bloco {
@@ -2595,48 +2588,61 @@ section h2 {
 }
 
 .sitaer-sigla {
-    font-size: 1.25vw;
-    font-weight: 900;
-    color: #006837;
-    letter-spacing: 0.06vw;
+    font-size: 1.55vw;
+    font-weight: 800;
+    color: #58595b;
+    letter-spacing: 0.04vw;
 }
 
 .sitaer-subtitulo {
-    font-size: 0.62vw;
-    font-weight: 700;
-    color: #475569;
-    text-transform: uppercase;
-    letter-spacing: 0.02vw;
+    font-size: 0.68vw;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(90deg, #005b8f 0%, #2b8cbe 100%);
+    padding: 0.12vw 0.6vw;
+    border-radius: 0.15vw;
+    margin-top: 0.1vw;
 }
 
 .sitaer-topo-direita {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.18vw;
+    gap: 0.25vw;
+}
+
+.sitaer-logo-petro {
+    height: 1.6vw;
+    width: auto;
+    object-fit: contain;
+}
+
+.sitaer-meta-linha {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
 }
 
 .sitaer-filtro-simulado {
     display: inline-flex;
     align-items: center;
-    gap: 0.35vw;
-    background: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    padding: 0.15vw 0.55vw;
-    border-radius: 0.3vw;
+    gap: 0.3vw;
+    background: #ededed;
+    border: 1px solid #a3a4a4;
+    padding: 0.1vw 0.5vw;
+    border-radius: 0.2vw;
 }
 
 .sitaer-filtro-label {
-    font-size: 0.62vw;
+    font-size: 0.6vw;
     font-weight: 700;
-    color: #475569;
-    text-transform: uppercase;
+    color: #58595b;
 }
 
 .sitaer-filtro-valor {
-    font-size: 0.75vw;
-    font-weight: 900;
-    color: #004B87;
+    font-size: 0.7vw;
+    font-weight: 800;
+    color: #1e293b;
 }
 
 .voos-atualizacao {
@@ -2646,82 +2652,80 @@ section h2 {
 }
 
 .sitaer-faixa-titulo {
-    background: linear-gradient(90deg, #006837 0%, #10422a 100%);
+    background: linear-gradient(180deg, #007d43 0%, #309e69 100%);
     color: #ffffff;
-    padding: 0.28vw 0.9vw;
-    border-radius: 0 0 0.4vw 0.4vw;
+    padding: 0.3vw 0.8vw;
+    border-radius: 0.2vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.72vw;
+    font-size: 0.78vw;
     font-weight: 800;
-    letter-spacing: 0.04vw;
-    border-left: 0.3vw solid var(--petro-amarelo);
+    letter-spacing: 0.03vw;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
     flex-shrink: 0;
 }
 
 .sitaer-url-ref {
-    font-size: 0.58vw;
-    color: var(--petro-amarelo);
+    font-size: 0.6vw;
+    color: #e2e8f0;
     font-weight: 600;
-    opacity: 0.95;
 }
 
 /* Estado vazio (sem voos no momento) */
 .voos-vazio-box {
     flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px dashed rgba(255, 255, 255, 0.2);
-    border-radius: 0.8vw;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.4vw;
     padding: 2vw;
     text-align: center;
     gap: 0.5vw;
 }
 
 .voos-vazio-icone {
-    font-size: 3vw;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+    font-size: 2.8vw;
 }
 
 .voos-vazio-box h3 {
-    font-size: 1.15vw !important;
-    color: #ffffff !important;
+    font-size: 1.1vw !important;
+    color: #334155 !important;
     margin: 0 !important;
     font-weight: 700;
 }
 
 .voos-vazio-box p {
-    font-size: 0.78vw !important;
-    color: #cbd5e1 !important;
+    font-size: 0.76vw !important;
+    color: #64748b !important;
     max-width: 75%;
     margin: 0 !important;
 }
 
 .voos-vazio-tag {
-    margin-top: 0.4vw;
+    margin-top: 0.3vw;
     font-size: 0.65vw;
-    color: var(--petro-amarelo);
-    background: rgba(253, 185, 19, 0.12);
-    border: 1px solid rgba(253, 185, 19, 0.3);
+    color: #005b8f;
+    background: #e0f2fe;
+    border: 1px solid #bae6fd;
     padding: 0.2vw 0.7vw;
     border-radius: 1vw;
     font-weight: 700;
 }
 
-/* Tabela de Voos */
+/* Tabela de Voos Fiel ao SITAER */
 .voos-tabela-wrapper {
     flex: 1;
     width: 100%;
     overflow-y: auto;
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(8px);
-    border-radius: 0.6vw;
-    padding: 0.5vw 0.65vw;
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #ffffff;
+    border-radius: 0.3vw;
+    padding: 0;
+    border: 1px solid #cbd5e1;
 }
 
 .voos-tabela-wrapper::-webkit-scrollbar {
@@ -2729,67 +2733,77 @@ section h2 {
 }
 
 .voos-tabela-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
+    background: #94a3b8;
     border-radius: 4px;
 }
 
 .voos-tabela {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 0.25vw;
-    font-size: 0.75vw;
-    color: #f8fafc;
+    border-collapse: collapse;
+    font-size: 0.72vw;
+    color: #334155;
 }
 
 .voos-tabela thead th {
-    font-size: 0.62vw;
-    font-weight: 800;
-    color: var(--petro-amarelo);
-    text-transform: uppercase;
-    padding: 0.25vw 0.4vw;
+    background: #005b8f;
+    color: #ffffff;
+    font-size: 0.64vw;
+    font-weight: 700;
+    padding: 0.4vw 0.35vw;
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    letter-spacing: 0.03vw;
+    border-right: 1px solid #ffffff;
 }
 
-.voos-tabela thead th.col-voo-num,
-.voos-tabela thead th.col-voo-obs {
-    text-align: left;
+.voos-tabela thead th:last-child {
+    border-right: none;
 }
 
-.voos-tabela tbody tr.voo-linha {
-    background: rgba(255, 255, 255, 0.07);
-    transition: background 0.2s ease;
+.voos-tabela tbody tr.voo-linha:nth-child(odd) {
+    background: #e2e2e2;
+}
+
+.voos-tabela tbody tr.voo-linha:nth-child(even) {
+    background: #d8e1e8;
 }
 
 .voos-tabela tbody tr.voo-linha:hover {
-    background: rgba(255, 255, 255, 0.14);
+    filter: brightness(0.97);
 }
 
 .voos-tabela td {
-    padding: 0.35vw 0.4vw;
+    padding: 0.45vw 0.4vw;
     vertical-align: middle;
     text-align: center;
+    border-right: 1px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
+    color: #475569;
+    font-weight: 600;
+}
+
+.voos-tabela td:last-child {
+    border-right: none;
 }
 
 .voos-tabela td.col-voo-num {
-    text-align: left;
+    text-align: center;
+    width: 16%;
 }
 
 .voo-cia-wrapper {
     display: flex;
     align-items: center;
-    gap: 0.4vw;
+    justify-content: center;
+    gap: 0.45vw;
 }
 
 .voo-logo-cia {
-    height: 1.5vw;
+    height: 1.6vw;
     width: auto;
-    max-width: 3.2vw;
+    max-width: 3.4vw;
     object-fit: contain;
     background: #ffffff;
-    padding: 0.1vw 0.2vw;
-    border-radius: 0.25vw;
+    padding: 0.08vw 0.15vw;
+    border-radius: 0.15vw;
 }
 
 .voo-icone-cia {
@@ -2800,48 +2814,45 @@ section h2 {
     display: flex;
     flex-direction: column;
     line-height: 1.15;
+    text-align: center;
 }
 
 .voo-numero {
     font-weight: 800;
-    color: #ffffff;
-    font-size: 0.76vw;
+    color: #475569;
+    font-size: 0.78vw;
 }
 
 .voo-prefixo {
-    font-size: 0.62vw;
-    color: #94a3b8;
-    font-weight: 700;
+    font-size: 0.68vw;
+    color: #58595b;
+    font-weight: 800;
 }
 
 .badge-modelo {
-    background: rgba(255, 255, 255, 0.12);
-    color: #e2e8f0;
-    padding: 0.1vw 0.35vw;
-    border-radius: 0.25vw;
+    color: #475569;
     font-weight: 700;
-    font-size: 0.68vw;
+    font-size: 0.72vw;
 }
 
 .col-voo-rota strong {
-    color: var(--petro-amarelo);
-    font-size: 0.78vw;
+    color: #334155;
+    font-size: 0.74vw;
+    font-weight: 700;
 }
 
 .badge-status-voo {
     display: inline-block;
     padding: 0.15vw 0.45vw;
-    border-radius: 0.3vw;
-    font-size: 0.65vw;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.02vw;
+    border-radius: 0.25vw;
+    font-size: 0.66vw;
+    font-weight: 700;
     white-space: nowrap;
 }
 
 .badge-status-voo.status-previsto {
-    background: #0284c7;
-    color: #ffffff;
+    background: transparent;
+    color: #334155;
 }
 
 .badge-status-voo.status-embarque {
@@ -2860,26 +2871,25 @@ section h2 {
 }
 
 .badge-status-voo.status-finalizado {
-    background: rgba(255, 255, 255, 0.18);
-    color: #cbd5e1;
+    background: #64748b;
+    color: #ffffff;
 }
 
 .col-voo-hora {
     font-weight: 700;
-    color: #f1f5f9;
+    color: #475569;
     font-variant-numeric: tabular-nums;
 }
 
 .voos-tabela td.col-voo-obs {
     text-align: left;
-    font-size: 0.66vw;
-    color: #cbd5e1;
+    font-size: 0.65vw;
+    color: #475569;
     max-width: 14vw;
 }
 
 .obs-vazia {
-    color: rgba(255, 255, 255, 0.35);
-    font-style: italic;
+    color: transparent;
 }
 
 /* Responsividade Mobile para Informativo de Voos */

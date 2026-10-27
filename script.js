@@ -756,10 +756,11 @@ function renderizarCarrossel() {
                             <td class="col-voo-modelo"><span class="badge-modelo">${v.modelo || '--'}</span></td>
                             <td class="col-voo-rota"><strong>${v.rota || 'P-53'}</strong></td>
                             <td class="col-voo-status"><span class="badge-status-voo ${statusClass}">${v.status || 'Previsto'}</span></td>
+                            <td class="col-voo-hora">${v.horario_programado || ''}</td>
                             <td class="col-voo-hora">${v.previsao_decolagem || '--:--'}</td>
-                            <td class="col-voo-hora">${v.horario_real && v.horario_real !== '00:00' ? v.horario_real : '--:--'}</td>
+                            <td class="col-voo-hora">${v.horario_real && v.horario_real !== '00:00' ? v.horario_real : ''}</td>
                             <td class="col-voo-hora">${v.previsao_retorno || '--:--'}</td>
-                            <td class="col-voo-obs">${v.observacao || '<span class="obs-vazia">Sem observações</span>'}</td>
+                            <td class="col-voo-obs">${v.observacao || ''}</td>
                         </tr>
                     `;
                 }).join('');
@@ -773,6 +774,7 @@ function renderizarCarrossel() {
                                     <th class="col-voo-modelo">Mod. Aeronave</th>
                                     <th class="col-voo-rota">Rota</th>
                                     <th class="col-voo-status">Status</th>
+                                    <th class="col-voo-hora">Horário programado</th>
                                     <th class="col-voo-hora">Horário previsto</th>
                                     <th class="col-voo-hora">Horário real</th>
                                     <th class="col-voo-hora">Prev. retorno</th>
@@ -789,27 +791,29 @@ function renderizarCarrossel() {
 
             div.innerHTML = `
                 <div class="voos-widget-container">
-                    <!-- Cabeçalho Institucional Padrão SITAER Petrobras -->
+                    <!-- Cabeçalho Institucional Fiel ao SITAER Petrobras -->
                     <div class="sitaer-topo-oficial">
                         <div class="sitaer-topo-logos">
-                            <img src="imagens/logopetrobras.png" alt="Petrobras" class="sitaer-logo-petro">
-                            <div class="sitaer-divisor-vertical"></div>
+                            <img src="imagens/sitaer_logo.png" alt="SITAER" class="sitaer-logo-heli" onerror="this.style.display='none';">
                             <div class="sitaer-marca-bloco">
                                 <span class="sitaer-sigla">SITAER</span>
                                 <span class="sitaer-subtitulo">Sistema Integrado do Transporte Aéreo</span>
                             </div>
                         </div>
                         <div class="sitaer-topo-direita">
-                            <div class="sitaer-filtro-simulado">
-                                <span class="sitaer-filtro-label">Plataforma:</span>
-                                <span class="sitaer-filtro-valor">P-53</span>
+                            <img src="imagens/logopetrobras.png" alt="Petrobras" class="sitaer-logo-petro">
+                            <div class="sitaer-meta-linha">
+                                <div class="sitaer-filtro-simulado">
+                                    <span class="sitaer-filtro-label">Plataforma:</span>
+                                    <span class="sitaer-filtro-valor">P-53</span>
+                                </div>
+                                <span class="voos-atualizacao">🔄 ${ultimaAtualizacao}</span>
                             </div>
-                            <span class="voos-atualizacao">🔄 Atualizado: ${ultimaAtualizacao}</span>
                         </div>
                     </div>
                     <div class="sitaer-faixa-titulo">
-                        <span>✈️ INFORMATIVO DE VOOS • UNIDADE MARÍTIMA P-53</span>
-                        <span class="sitaer-url-ref">sitaer-infovoo.petrobras.com.br</span>
+                        <span>INFORMATIVO DE VOOS</span>
+                        <span class="sitaer-url-ref">Unidade Marítima P-53 • sitaer-infovoo.petrobras.com.br</span>
                     </div>
                     ${htmlConteudoVoos}
                 </div>
@@ -2611,8 +2615,37 @@ async function buscarDadosCopa() {
 let dadosVoosSitaer = {
     plataforma: "P-53",
     codigo_plataforma: "6228",
-    ultima_atualizacao: "",
-    voos: []
+    ultima_atualizacao: "27/10/2026 08:05",
+    voos: [
+        {
+            id: 1,
+            numero_voo: "509595941",
+            prefixo: "PR-JBP",
+            modelo: "S-92A",
+            rota: "SBCB -> P-53 -> SBCB",
+            status: "Previsto",
+            previsao_decolagem: "09:45",
+            horario_previsto: "",
+            horario_real: "--:--",
+            previsao_retorno: "11:23",
+            observacao: "",
+            logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+        },
+        {
+            id: 2,
+            numero_voo: "509595985",
+            prefixo: "PR-JBP",
+            modelo: "S-92A",
+            rota: "SBCB -> P-53 -> SBCB",
+            status: "Previsto",
+            previsao_decolagem: "13:00",
+            horario_previsto: "",
+            horario_real: "--:--",
+            previsao_retorno: "14:38",
+            observacao: "",
+            logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+        }
+    ]
 };
 
 function obterClasseStatusVoo(status) {
@@ -2656,10 +2689,12 @@ function parsearHTMLSitaerCliente(htmlTexto) {
         const rota = getTxt(".rota");
         const status = getTxt(".newStatus");
         const previsaoDecolagem = getTxt(".previsaodecolagem");
+        let horarioPrevisto = getTxt(".horarioPrevisto");
         let horarioReal = getTxt(".newDecolagem");
         const previsaoRetorno = getTxt(".newPrevisaoretorno");
         const observacao = getTxt(".newObservacaoSemPax") || getTxt(".newObservacao");
 
+        if (horarioPrevisto === "00:00") horarioPrevisto = "";
         if (horarioReal === "00:00") horarioReal = "";
 
         if (numeroVoo || prefixo || rota || status) {
@@ -2671,6 +2706,7 @@ function parsearHTMLSitaerCliente(htmlTexto) {
                 rota: rota || "P-53",
                 status: status || "Previsto",
                 previsao_decolagem: previsaoDecolagem || "--:--",
+                horario_previsto: horarioPrevisto || "",
                 horario_real: horarioReal || "--:--",
                 previsao_retorno: previsaoRetorno || "--:--",
                 observacao: observacao,
@@ -2741,7 +2777,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Busca dados de Voos SITAER (P-53)
     await buscarDadosVoos();
-    setInterval(buscarDadosVoos, 600000); // Atualiza a cada 10 minutos
+    setInterval(buscarDadosVoos, 300000); // Atualiza a cada 5 minutos
 
     // Busca dados do Brasileirão Série A
     await buscarDadosBrasileirao();
