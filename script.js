@@ -720,104 +720,7 @@ function renderizarCarrossel() {
             // Slide do Informativo de Voos SITAER (P-53)
             const div = document.createElement('div');
             div.className = `slide-texto slide-voos-container ${i === 0 ? 'ativa' : ''}`;
-
-            const dados = dadosVoosSitaer || {};
-            const voos = dados.voos || [];
-            const ultimaAtualizacao = dados.ultima_atualizacao || new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-
-            let htmlConteudoVoos = '';
-            if (voos.length === 0) {
-                htmlConteudoVoos = `
-                    <div class="voos-vazio-box">
-                        <div class="voos-vazio-icone">🚁</div>
-                        <h3>Nenhum voo programado no momento para a P-53</h3>
-                        <p>O painel consulta automaticamente o SITAER e exibirá as partidas, chegadas e status assim que houver voos cadastrados no dia.</p>
-                        <span class="voos-vazio-tag">Unidade: P-53 (Cód. SITAER 6228) • Atualizado: ${ultimaAtualizacao}</span>
-                    </div>
-                `;
-            } else {
-                const linhasVoos = voos.map(v => {
-                    const statusClass = obterClasseStatusVoo(v.status);
-                    const logoHtml = v.logo_empresa
-                        ? `<img src="${v.logo_empresa}" alt="Cia" class="voo-logo-cia" onerror="this.style.display='none';">`
-                        : `<span class="voo-icone-cia">🚁</span>`;
-
-                    return `
-                        <tr class="voo-linha">
-                            <td class="col-voo-num">
-                                <div class="voo-cia-wrapper">
-                                    ${logoHtml}
-                                    <div class="voo-identificacao">
-                                        <span class="voo-numero">${v.numero_voo || '--'}</span>
-                                        <span class="voo-prefixo">${v.prefixo || ''}</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="col-voo-modelo"><span class="badge-modelo">${v.modelo || '--'}</span></td>
-                            <td class="col-voo-rota"><strong>${v.rota || 'P-53'}</strong></td>
-                            <td class="col-voo-status"><span class="badge-status-voo ${statusClass}">${v.status || 'Previsto'}</span></td>
-                            <td class="col-voo-hora">${v.horario_programado || ''}</td>
-                            <td class="col-voo-hora">${v.previsao_decolagem || '--:--'}</td>
-                            <td class="col-voo-hora">${v.horario_real && v.horario_real !== '00:00' ? v.horario_real : ''}</td>
-                            <td class="col-voo-hora">${v.previsao_retorno || '--:--'}</td>
-                            <td class="col-voo-obs">${v.observacao || ''}</td>
-                        </tr>
-                    `;
-                }).join('');
-
-                htmlConteudoVoos = `
-                    <div class="voos-tabela-wrapper">
-                        <table class="voos-tabela">
-                            <thead>
-                                <tr>
-                                    <th class="col-voo-num">Empresa / nº do voo</th>
-                                    <th class="col-voo-modelo">Mod. Aeronave</th>
-                                    <th class="col-voo-rota">Rota</th>
-                                    <th class="col-voo-status">Status</th>
-                                    <th class="col-voo-hora">Horário programado</th>
-                                    <th class="col-voo-hora">Horário previsto</th>
-                                    <th class="col-voo-hora">Horário real</th>
-                                    <th class="col-voo-hora">Prev. retorno</th>
-                                    <th class="col-voo-obs">Observação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${linhasVoos}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-            }
-
-            div.innerHTML = `
-                <div class="voos-widget-container">
-                    <!-- Cabeçalho Institucional Fiel ao SITAER Petrobras -->
-                    <div class="sitaer-topo-oficial">
-                        <div class="sitaer-topo-logos">
-                            <img src="imagens/sitaer_logo.png" alt="SITAER" class="sitaer-logo-heli" onerror="this.style.display='none';">
-                            <div class="sitaer-marca-bloco">
-                                <span class="sitaer-sigla">SITAER</span>
-                                <span class="sitaer-subtitulo">Sistema Integrado do Transporte Aéreo</span>
-                            </div>
-                        </div>
-                        <div class="sitaer-topo-direita">
-                            <img src="imagens/logopetrobras.png" alt="Petrobras" class="sitaer-logo-petro">
-                            <div class="sitaer-meta-linha">
-                                <div class="sitaer-filtro-simulado">
-                                    <span class="sitaer-filtro-label">Plataforma:</span>
-                                    <span class="sitaer-filtro-valor">P-53</span>
-                                </div>
-                                <span class="voos-atualizacao">🔄 ${ultimaAtualizacao}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sitaer-faixa-titulo">
-                        <span>INFORMATIVO DE VOOS</span>
-                        <span class="sitaer-url-ref">Unidade Marítima P-53 • sitaer-infovoo.petrobras.com.br</span>
-                    </div>
-                    ${htmlConteudoVoos}
-                </div>
-            `;
+            div.innerHTML = gerarHTMLSlideVoos();
             container.appendChild(div);
         } else if (item.tipo === "iframe" || item.tipo === "url") {
             // Slide contendo iframe/URL externa
@@ -2071,33 +1974,133 @@ async function cobelCarrosselFazerUpload(inputElement) {
 }
 
 /**
+ * Sincroniza o script Python corrigido (com suporte a SSL/TLS -k no Ubuntu) no GitHub e dispara o workflow update_voos.yml
+ */
+async function cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, token) {
+    if (localStorage.getItem('cobel_sitaer_script_v3_synced') === 'true') return;
+    try {
+        const checkUrl = `https://api.github.com/repos/${owner}/${repo}/contents/.github/scripts/fetch_voos.py?ref=${branch}&_cb=${Date.now()}`;
+        const res = await fetch(checkUrl, {
+            headers: {
+                'Authorization': `token ${token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+        if (res.ok) {
+            const info = await res.json();
+            const atual = decodeURIComponent(escape(atob((info.content || '').replace(/\s/g, ''))));
+            if (atual.includes('UnsafeLegacyRenegotiation') && atual.includes('"-k"')) {
+                localStorage.setItem('cobel_sitaer_script_v3_synced', 'true');
+                return;
+            }
+        }
+        const scriptPy = [
+            '#!/usr/bin/env python3',
+            'import html as html_lib, json, os, re, ssl, subprocess, tempfile, time, urllib.request',
+            'from datetime import datetime, timezone, timedelta',
+            'CAMINHO_JSON = "voos_data.json"',
+            'CODIGO_PLATAFORMA_P53 = "6228"',
+            'NOME_PLATAFORMA = "P-53"',
+            'URL_SITAER_SERVICE = "https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx"',
+            'URL_SITAER_BASE = "https://sitaer-infovoo.petrobras.com.br/"',
+            'OPENSSL_CNF = "openssl_conf = openssl_init\\n[openssl_init]\\nssl_conf = ssl_sect\\n[ssl_sect]\\nsystem_default = system_default_sect\\n[system_default_sect]\\nOptions = UnsafeLegacyRenegotiation\\nCipherString = DEFAULT@SECLEVEL=1\\n"',
+            'def limpar_texto(t):',
+            '    if not t: return ""',
+            '    t = re.sub(r"<[^>]+>", "", html_lib.unescape(t)).replace("\\xa0", " ").strip()',
+            '    return re.sub(r"\\s+", " ", t)',
+            'def extrair_campo(b, c):',
+            '    m = re.search(rf\'<td[^>]*class=["\\\'][^"\\\']*\\b{re.escape(c)}\\b[^"\\\']*["\\\'][^>]*>(.*?)</td>\', b, re.DOTALL | re.I)',
+            '    return limpar_texto(m.group(1)) if m else ""',
+            'def parsear_html_sitaer(h):',
+            '    voos = []',
+            '    if not h or "Não existem dados para exibição" in h: return voos',
+            '    partes = re.split(r\'<table[^>]*class=["\\\'][^"\\\']*\\btableVoo\\b[^"\\\']*["\\\'][^>]*>\', h, flags=re.I)',
+            '    for idx, b in enumerate(partes[1:], 1):',
+            '        m_img = re.search(r\'<img[^>]*src=["\\\']([^"\\\']*GetCompanyImage\\.aspx\\?codEmpresa=(\\d+))["\\\']\', b, re.I)',
+            '        cod = m_img.group(2) if m_img else ""',
+            '        logo = f"{URL_SITAER_BASE}GetCompanyImage.aspx?codEmpresa={cod}" if cod else ""',
+            '        num = extrair_campo(b, "numeroVooDetalhe")',
+            '        pref = extrair_campo(b, "prefixoAeronave")',
+            '        mod = extrair_campo(b, "modelo")',
+            '        rota = extrair_campo(b, "rota")',
+            '        st = extrair_campo(b, "newStatus")',
+            '        h_prog = extrair_campo(b, "dataHoraProgramacaoSAP")',
+            '        prev_dec = extrair_campo(b, "previsaodecolagem")',
+            '        h_real = extrair_campo(b, "newDecolagem")',
+            '        prev_ret = extrair_campo(b, "newPrevisaoretorno")',
+            '        obs = extrair_campo(b, "newObservacaoSemPax") or extrair_campo(b, "newObservacao")',
+            '        if h_real == "00:00": h_real = ""',
+            '        if num or pref or rota or st:',
+            '            voos.append({"id": idx, "numero_voo": num, "prefixo": pref, "modelo": mod, "rota": rota or NOME_PLATAFORMA, "status": st or "Previsto", "horario_programado": h_prog, "previsao_decolagem": prev_dec or "--:--", "horario_real": h_real or "--:--", "previsao_retorno": prev_ret or "--:--", "observacao": obs, "cod_empresa": cod, "logo_empresa": logo})',
+            '    return voos',
+            'def buscar_voos_sitaer(cod=CODIGO_PLATAFORMA_P53):',
+            '    post_data = f"operacao=LoadData&aeroporto=&plataforma={cod}&status="',
+            '    cnf = os.path.join(tempfile.gettempdir(), "openssl_sitaer.cnf")',
+            '    open(cnf, "w").write(OPENSSL_CNF)',
+            '    for tentativa in range(1, 5):',
+            '        for usar_cnf in (True, False):',
+            '            try:',
+            '                env = os.environ.copy()',
+            '                if usar_cnf: env["OPENSSL_CONF"] = cnf',
+            '                proc = subprocess.run(["curl", "-k", "-sL", "--http1.1", "-m", "15", "-A", "Mozilla/5.0", "-H", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8", "-d", post_data, URL_SITAER_SERVICE], capture_output=True, text=True, timeout=20, env=env)',
+            '                raw = proc.stdout or ""',
+            '                if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
+            '                    return parsear_html_sitaer(raw), True',
+            '            except Exception as e: print(e)',
+            '        time.sleep(2)',
+            '    return [], False',
+            'def atualizar():',
+            '    agora = datetime.now(timezone(timedelta(hours=-3)))',
+            '    res = {"plataforma": NOME_PLATAFORMA, "codigo_plataforma": CODIGO_PLATAFORMA_P53, "ultima_atualizacao": agora.strftime("%d/%m/%Y %H:%M"), "voos": []}',
+            '    voos, ok = buscar_voos_sitaer()',
+            '    if ok:',
+            '        res["voos"] = voos',
+            '        with open(CAMINHO_JSON, "w", encoding="utf-8") as f: json.dump(res, f, ensure_ascii=False, indent=2)',
+            'if __name__ == "__main__": atualizar()'
+        ].join('\n');
+        const b64 = btoa(unescape(encodeURIComponent(scriptPy)));
+        await cobelGitCommitFile(owner, repo, branch, token, ".github/scripts/fetch_voos.py", b64, "fix: suporte SSL/TLS (-k e OpenSSL legacy) no robo SITAER P-53");
+        localStorage.setItem('cobel_sitaer_script_v3_synced', 'true');
+        console.log("Script fetch_voos.py atualizado automaticamente no GitHub.");
+    } catch (e) {
+        console.warn("Aviso ao verificar/sincronizar fetch_voos.py:", e.message);
+    }
+}
+
+/**
  * Dispara o workflow update_voos.yml no GitHub Actions e atualiza o painel de voos
  */
-async function cobelDispararAtualizacaoVoos() {
+async function cobelDispararAtualizacaoVoos(silencioso = false) {
     const botao = document.getElementById('cobel-btn-atualizar-voos');
     const statusTxt = document.getElementById('cobel-status-voos-acao');
     const caixaLog = document.getElementById('cobel-status-log');
 
-    const owner = (document.getElementById('git-owner')?.value || CONFIG_GLOBAL.github?.owner || 'cobelp53').trim();
-    const repo = (document.getElementById('git-repo')?.value || CONFIG_GLOBAL.github?.repo || 'dashboard').trim();
-    const branch = (document.getElementById('git-branch')?.value || CONFIG_GLOBAL.github?.branch || 'main').trim();
+    const owner = (document.getElementById('git-owner')?.value || localStorage.getItem('cobel_git_owner') || CONFIG_GLOBAL.github?.owner || 'cobelp53').trim();
+    const repo = (document.getElementById('git-repo')?.value || localStorage.getItem('cobel_git_repo') || CONFIG_GLOBAL.github?.repo || 'dashboard').trim();
+    const branch = (document.getElementById('git-branch')?.value || localStorage.getItem('cobel_git_branch') || CONFIG_GLOBAL.github?.branch || 'main').trim();
     const token = (document.getElementById('git-token')?.value || localStorage.getItem('cobel_git_token') || '').trim();
 
     if (!token) {
-        alert("⚠️ ATENÇÃO: Insira seu GitHub Token na aba 'Integração GitHub' para poder disparar a atualização remota.");
+        if (!silencioso) {
+            alert("⚠️ ATENÇÃO: Insira seu GitHub Token na aba 'Integração GitHub' para poder disparar a atualização remota.");
+        }
         return;
     }
 
-    if (botao) {
-        botao.disabled = true;
-        botao.innerText = "⏳ Consultando SITAER via GitHub...";
-    }
-    if (statusTxt) {
-        statusTxt.style.color = "#2563eb";
-        statusTxt.innerText = "Disparando robô do SITAER...";
+    if (!silencioso) {
+        if (botao) {
+            botao.disabled = true;
+            botao.innerText = "⏳ Consultando SITAER via GitHub...";
+        }
+        if (statusTxt) {
+            statusTxt.style.color = "#2563eb";
+            statusTxt.innerText = "Sincronizando e disparando robô do SITAER...";
+        }
     }
 
     try {
+        await cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, token);
+
         const dispatchUrl = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update_voos.yml/dispatches`;
         const res = await fetch(dispatchUrl, {
             method: 'POST',
@@ -2114,9 +2117,11 @@ async function cobelDispararAtualizacaoVoos() {
             throw new Error(`HTTP ${res.status}: ${errTxt}`);
         }
 
-        if (statusTxt) {
+        localStorage.setItem('cobel_last_voos_dispatch_ts', String(Date.now()));
+
+        if (!silencioso && statusTxt) {
             statusTxt.style.color = "#d97706";
-            statusTxt.innerText = "⏳ Robô iniciado! Aguardando ~15s para sincronizar os voos...";
+            statusTxt.innerText = "⏳ Robô iniciado! Aguardando ~18s para sincronizar os voos...";
         }
 
         const horaLog = new Date().toLocaleTimeString('pt-BR');
@@ -2125,27 +2130,33 @@ async function cobelDispararAtualizacaoVoos() {
         }
 
         setTimeout(async () => {
-            await buscarDadosVoos();
-            renderizarCarrossel();
+            await buscarDadosVoos(true);
+            if (!silencioso) {
+                if (statusTxt) {
+                    statusTxt.style.color = "#16a34a";
+                    statusTxt.innerText = `✅ Atualizado (${dadosVoosSitaer.ultima_atualizacao}) — ${dadosVoosSitaer.voos?.length || 0} voo(s)!`;
+                }
+                if (botao) {
+                    botao.disabled = false;
+                    botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
+                }
+            }
+        }, 18000);
+
+        // Segunda checagem após 30s caso o runner do GitHub demore alguns segundos a mais na fila
+        setTimeout(() => buscarDadosVoos(true), 32000);
+
+    } catch (erro) {
+        console.error("Erro ao disparar atualização de voos:", erro);
+        if (!silencioso) {
             if (statusTxt) {
-                statusTxt.style.color = "#16a34a";
-                statusTxt.innerText = `✅ Atualizado! (${dadosVoosSitaer.voos?.length || 0} voo(s) encontrado(s))`;
+                statusTxt.style.color = "#dc2626";
+                statusTxt.innerText = `❌ Erro: ${erro.message}`;
             }
             if (botao) {
                 botao.disabled = false;
                 botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
             }
-        }, 16000);
-
-    } catch (erro) {
-        console.error("Erro ao disparar atualização de voos:", erro);
-        if (statusTxt) {
-            statusTxt.style.color = "#dc2626";
-            statusTxt.innerText = `❌ Erro: ${erro.message}`;
-        }
-        if (botao) {
-            botao.disabled = false;
-            botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
         }
     }
 }
@@ -2615,35 +2626,52 @@ async function buscarDadosCopa() {
 let dadosVoosSitaer = {
     plataforma: "P-53",
     codigo_plataforma: "6228",
-    ultima_atualizacao: "27/10/2026 08:05",
+    ultima_atualizacao: "27/10/2026 12:12",
     voos: [
         {
             id: 1,
             numero_voo: "509595941",
-            prefixo: "PR-JBP",
-            modelo: "S-92A",
-            rota: "SBCB -> P-53 -> SBCB",
-            status: "Previsto",
+            prefixo: "PR-OTS",
+            modelo: "H175",
+            rota: "P-53",
+            status: "Decolagem",
+            horario_programado: "",
             previsao_decolagem: "09:45",
-            horario_previsto: "",
             horario_real: "--:--",
-            previsao_retorno: "11:23",
-            observacao: "",
-            logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+            previsao_retorno: "11:17",
+            observacao: "ATRASO DEVIDO A CONDIÇÕES OPERACIONAIS.",
+            cod_empresa: "126",
+            logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=126"
         },
         {
             id: 2,
             numero_voo: "509595985",
-            prefixo: "PR-JBP",
+            prefixo: "PR-JKM",
             modelo: "S-92A",
-            rota: "SBCB -> P-53 -> SBCB",
-            status: "Previsto",
+            rota: "P-53",
+            status: "CheckIn Aberto",
+            horario_programado: "",
             previsao_decolagem: "13:00",
-            horario_previsto: "",
             horario_real: "--:--",
             previsao_retorno: "14:38",
             observacao: "",
+            cod_empresa: "123",
             logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=123"
+        },
+        {
+            id: 3,
+            numero_voo: "509595774",
+            prefixo: "PR-OTS",
+            modelo: "H175",
+            rota: "P-53 / FPAN",
+            status: "Previsto",
+            horario_programado: "",
+            previsao_decolagem: "13:25",
+            horario_real: "--:--",
+            previsao_retorno: "14:53",
+            observacao: "",
+            cod_empresa: "126",
+            logo_empresa: "https://sitaer-infovoo.petrobras.com.br/GetCompanyImage.aspx?codEmpresa=126"
         }
     ]
 };
@@ -2653,9 +2681,127 @@ function obterClasseStatusVoo(status) {
     const s = status.toLowerCase();
     if (s.includes("finalizado") || s.includes("corte") || s.includes("desembarcando")) return "status-finalizado";
     if (s.includes("decolagem") || s.includes("pouso") || s.includes("acionamento")) return "status-em-voo";
-    if (s.includes("check in") || s.includes("briefing") || s.includes("embarque") || s.includes("embarcando")) return "status-embarque";
+    if (s.includes("check in") || s.includes("checkin") || s.includes("briefing") || s.includes("embarque") || s.includes("embarcando")) return "status-embarque";
     if (s.includes("atrasado") || s.includes("cancelado") || s.includes("interrompido") || s.includes("transferido")) return "status-alerta";
     return "status-previsto";
+}
+
+function gerarHTMLSlideVoos() {
+    const dados = dadosVoosSitaer || {};
+    const voos = dados.voos || [];
+    const ultimaAtualizacao = dados.ultima_atualizacao || new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+    let htmlConteudoVoos = '';
+    if (voos.length === 0) {
+        htmlConteudoVoos = `
+            <div class="voos-vazio-box">
+                <div class="voos-vazio-icone">🚁</div>
+                <h3>Nenhum voo programado no momento para a P-53</h3>
+                <p>O painel consulta automaticamente o SITAER e exibirá as partidas, chegadas e status assim que houver voos cadastrados no dia.</p>
+                <span class="voos-vazio-tag">Unidade: P-53 (Cód. SITAER 6228) • Atualizado: ${ultimaAtualizacao}</span>
+            </div>
+        `;
+    } else {
+        const linhasVoos = voos.map(v => {
+            const statusClass = obterClasseStatusVoo(v.status);
+            const logoHtml = v.logo_empresa
+                ? `<img src="${v.logo_empresa}" alt="Cia" class="voo-logo-cia" onerror="this.style.display='none';">`
+                : `<span class="voo-icone-cia">🚁</span>`;
+
+            return `
+                <tr class="voo-linha">
+                    <td class="col-voo-num">
+                        <div class="voo-cia-wrapper">
+                            ${logoHtml}
+                            <div class="voo-identificacao">
+                                <span class="voo-numero">${v.numero_voo || '--'}</span>
+                                <span class="voo-prefixo">${v.prefixo || ''}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="col-voo-modelo"><span class="badge-modelo">${v.modelo || '--'}</span></td>
+                    <td class="col-voo-rota"><strong>${v.rota || 'P-53'}</strong></td>
+                    <td class="col-voo-status"><span class="badge-status-voo ${statusClass}">${v.status || 'Previsto'}</span></td>
+                    <td class="col-voo-hora">${v.horario_programado || ''}</td>
+                    <td class="col-voo-hora">${v.previsao_decolagem || '--:--'}</td>
+                    <td class="col-voo-hora">${v.horario_real && v.horario_real !== '00:00' ? v.horario_real : ''}</td>
+                    <td class="col-voo-hora">${v.previsao_retorno || '--:--'}</td>
+                    <td class="col-voo-obs">${v.observacao || ''}</td>
+                </tr>
+            `;
+        }).join('');
+
+        htmlConteudoVoos = `
+            <div class="voos-tabela-wrapper">
+                <table class="voos-tabela">
+                    <thead>
+                        <tr>
+                            <th class="col-voo-num">Empresa / nº do voo</th>
+                            <th class="col-voo-modelo">Mod. Aeronave</th>
+                            <th class="col-voo-rota">Rota</th>
+                            <th class="col-voo-status">Status</th>
+                            <th class="col-voo-hora">Horário programado</th>
+                            <th class="col-voo-hora">Horário previsto</th>
+                            <th class="col-voo-hora">Horário real</th>
+                            <th class="col-voo-hora">Prev. retorno</th>
+                            <th class="col-voo-obs">Observação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${linhasVoos}
+                    </tbody>
+                </table>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="voos-widget-container">
+            <!-- Cabeçalho Institucional Fiel ao SITAER Petrobras -->
+            <div class="sitaer-topo-oficial">
+                <div class="sitaer-topo-logos">
+                    <img src="imagens/sitaer_logo.png" alt="SITAER" class="sitaer-logo-heli" onerror="this.style.display='none';">
+                    <div class="sitaer-marca-bloco">
+                        <span class="sitaer-sigla">SITAER</span>
+                        <span class="sitaer-subtitulo">Sistema Integrado do Transporte Aéreo</span>
+                    </div>
+                </div>
+                <div class="sitaer-topo-direita">
+                    <img src="imagens/logopetrobras.png" alt="Petrobras" class="sitaer-logo-petro">
+                    <div class="sitaer-meta-linha">
+                        <div class="sitaer-filtro-simulado">
+                            <span class="sitaer-filtro-label">Plataforma:</span>
+                            <span class="sitaer-filtro-valor">P-53</span>
+                        </div>
+                        <span class="voos-atualizacao">🔄 ${ultimaAtualizacao}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sitaer-faixa-titulo">
+                <span>INFORMATIVO DE VOOS</span>
+                <span class="sitaer-url-ref">Unidade Marítima P-53 • sitaer-infovoo.petrobras.com.br</span>
+            </div>
+            ${htmlConteudoVoos}
+        </div>
+    `;
+}
+
+function atualizarSlideVoosNaTela() {
+    const containers = document.querySelectorAll('.slide-voos-container');
+    if (containers.length > 0) {
+        const html = gerarHTMLSlideVoos();
+        containers.forEach(el => {
+            el.innerHTML = html;
+        });
+    }
+}
+
+function parsearDataHoraAtualizacaoBR(str) {
+    if (!str || typeof str !== 'string') return 0;
+    const limpo = str.replace(',', '').trim();
+    const m = limpo.match(/(\d{2})\/(\d{2})\/(\d{4})\s+(\d{2}):(\d{2})/);
+    if (!m) return 0;
+    return new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]), Number(m[4]), Number(m[5])).getTime();
 }
 
 function parsearHTMLSitaerCliente(htmlTexto) {
@@ -2688,13 +2834,12 @@ function parsearHTMLSitaerCliente(htmlTexto) {
         const modelo = getTxt(".modelo");
         const rota = getTxt(".rota");
         const status = getTxt(".newStatus");
+        const horarioProgramado = getTxt(".dataHoraProgramacaoSAP");
         const previsaoDecolagem = getTxt(".previsaodecolagem");
-        let horarioPrevisto = getTxt(".horarioPrevisto");
         let horarioReal = getTxt(".newDecolagem");
         const previsaoRetorno = getTxt(".newPrevisaoretorno");
         const observacao = getTxt(".newObservacaoSemPax") || getTxt(".newObservacao");
 
-        if (horarioPrevisto === "00:00") horarioPrevisto = "";
         if (horarioReal === "00:00") horarioReal = "";
 
         if (numeroVoo || prefixo || rota || status) {
@@ -2705,8 +2850,8 @@ function parsearHTMLSitaerCliente(htmlTexto) {
                 modelo: modelo,
                 rota: rota || "P-53",
                 status: status || "Previsto",
+                horario_programado: horarioProgramado || "",
                 previsao_decolagem: previsaoDecolagem || "--:--",
-                horario_previsto: horarioPrevisto || "",
                 horario_real: horarioReal || "--:--",
                 previsao_retorno: previsaoRetorno || "--:--",
                 observacao: observacao,
@@ -2718,7 +2863,7 @@ function parsearHTMLSitaerCliente(htmlTexto) {
     return voos;
 }
 
-async function buscarDadosVoos() {
+async function buscarDadosVoos(evitarAutoDispatch = false) {
     // 1. Tenta consultar diretamente o SITAER (funciona quando na rede corporativa ou se CORS liberado)
     try {
         const resDireto = await fetch("https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx", {
@@ -2730,7 +2875,13 @@ async function buscarDadosVoos() {
             const htmlTexto = await resDireto.text();
             if (htmlTexto && (htmlTexto.includes("tableVoo") || htmlTexto.includes("Não existem dados"))) {
                 const voosDiretos = parsearHTMLSitaerCliente(htmlTexto);
-                const agoraStr = new Date().toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                const agora = new Date();
+                const dd = String(agora.getDate()).padStart(2, '0');
+                const mm = String(agora.getMonth() + 1).padStart(2, '0');
+                const yyyy = agora.getFullYear();
+                const hh = String(agora.getHours()).padStart(2, '0');
+                const min = String(agora.getMinutes()).padStart(2, '0');
+                const agoraStr = `${dd}/${mm}/${yyyy} ${hh}:${min}`;
                 dadosVoosSitaer = {
                     plataforma: "P-53",
                     codigo_plataforma: "6228",
@@ -2738,6 +2889,7 @@ async function buscarDadosVoos() {
                     voos: voosDiretos
                 };
                 localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
+                atualizarSlideVoosNaTela();
                 console.log("Dados de voos P-53 atualizados diretamente do SITAER.");
                 return;
             }
@@ -2746,28 +2898,79 @@ async function buscarDadosVoos() {
         // Silencioso: navegador comum bloqueia por CORS, segue para voos_data.json
     }
 
-    // 2. Busca do arquivo espelho voos_data.json (atualizado automaticamente pelo GitHub Actions a cada 15 min)
-    try {
-        const res = await fetch(`./voos_data.json?v=${new Date().getTime()}`);
-        if (res.ok) {
-            const data = await res.json();
-            if (data && Array.isArray(data.voos)) {
-                dadosVoosSitaer = data;
-                localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
-                console.log("Dados de voos P-53 atualizados via voos_data.json.");
-                return;
-            }
-        }
-    } catch (e) {
-        console.warn("Aviso ao buscar voos_data.json:", e.message);
-    }
+    // 2. Consulta simultânea do arquivo local, GitHub API (sem cache CDN) e GitHub Raw, escolhendo sempre o mais recente
+    const owner = CONFIG_GLOBAL.github?.owner || 'cobelp53';
+    const repo = CONFIG_GLOBAL.github?.repo || 'dashboard';
+    const branch = CONFIG_GLOBAL.github?.branch || 'main';
+    const ts = Date.now();
 
-    // 3. Fallback via cache no localStorage
+    const candidatos = [];
+
+    // Candidato A: memória atual e localStorage
+    if (dadosVoosSitaer && Array.isArray(dadosVoosSitaer.voos)) {
+        candidatos.push(dadosVoosSitaer);
+    }
     const cached = localStorage.getItem('cobel_voos_sitaer');
     if (cached) {
         try {
-            dadosVoosSitaer = JSON.parse(cached);
+            const parsed = JSON.parse(cached);
+            if (parsed && Array.isArray(parsed.voos)) candidatos.push(parsed);
         } catch (e) {}
+    }
+
+    // Candidato B: ./voos_data.json local / GitHub Pages
+    const promLocal = fetch(`./voos_data.json?v=${ts}`, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+
+    // Candidato C: GitHub Contents API (tempo real, sem cache de CDN do GitHub Pages)
+    const promApi = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/voos_data.json?ref=${branch}&_cb=${ts}`, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' },
+        cache: 'no-store'
+    })
+        .then(async r => {
+            if (!r.ok) return null;
+            const info = await r.json();
+            if (!info || !info.content) return null;
+            const jsonStr = decodeURIComponent(escape(atob(info.content.replace(/\s/g, ''))));
+            return JSON.parse(jsonStr);
+        })
+        .catch(() => null);
+
+    // Candidato D: GitHub Raw
+    const promRaw = fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/voos_data.json?v=${ts}`, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+
+    const resultados = await Promise.all([promLocal, promApi, promRaw]);
+    resultados.forEach(d => {
+        if (d && Array.isArray(d.voos)) {
+            candidatos.push(d);
+        }
+    });
+
+    if (candidatos.length > 0) {
+        candidatos.sort((a, b) => parsearDataHoraAtualizacaoBR(b.ultima_atualizacao) - parsearDataHoraAtualizacaoBR(a.ultima_atualizacao));
+        dadosVoosSitaer = candidatos[0];
+        localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
+        atualizarSlideVoosNaTela();
+        console.log(`Dados de voos P-53 sincronizados (última atualização: ${dadosVoosSitaer.ultima_atualizacao}).`);
+    }
+
+    // 3. Se os dados estiverem com mais de 12 minutos e houver token do GitHub salvo no navegador, dispara o robô automaticamente em background
+    if (!evitarAutoDispatch) {
+        const tokenSalvo = localStorage.getItem('cobel_git_token');
+        if (tokenSalvo) {
+            const tsDados = parsearDataHoraAtualizacaoBR(dadosVoosSitaer?.ultima_atualizacao);
+            const idadeMinutos = tsDados > 0 ? (Date.now() - tsDados) / 60000 : 999;
+            const ultimoDispatch = Number(localStorage.getItem('cobel_last_voos_dispatch_ts') || 0);
+            const minDesdeUltimoDispatch = (Date.now() - ultimoDispatch) / 60000;
+
+            if (idadeMinutos > 12 && minDesdeUltimoDispatch > 8) {
+                console.log("Dados de voos com mais de 12 min — disparando atualização automática via GitHub Actions...");
+                cobelDispararAtualizacaoVoos(true);
+            }
+        }
     }
 }
 
