@@ -8,8 +8,11 @@ import html as html_lib
 import json
 import os
 import re
+import ssl
 import subprocess
+import tempfile
 import time
+import urllib.request
 from datetime import datetime, timezone, timedelta
 
 CAMINHO_JSON = "voos_data.json"
@@ -17,6 +20,19 @@ CODIGO_PLATAFORMA_P53 = "6228"
 NOME_PLATAFORMA = "P-53"
 URL_SITAER_SERVICE = "https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx"
 URL_SITAER_BASE = "https://sitaer-infovoo.petrobras.com.br/"
+
+OPENSSL_CNF_CONTENT = """openssl_conf = openssl_init
+
+[openssl_init]
+ssl_conf = ssl_sect
+
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+Options = UnsafeLegacyRenegotiation
+CipherString = DEFAULT@SECLEVEL=1
+"""
 
 
 def limpar_texto(texto):
@@ -85,34 +101,91 @@ def parsear_html_sitaer(conteudo_html):
     return voos
 
 
+def tentar_urllib_sitaer(post_data):
+    """Fallback nativo em Python com SSL permissivo e suporte a Legacy Renegotiation (OpenSSL 3)."""
+    try:
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        ctx.options |= getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0x4)
+        try:
+            ctx.set_ciphers("DEFAULT@SECLEVEL=1")
+        except Exception:
+            pass
+
+        req = urllib.request.Request(
+            URL_SITAER_SERVICE,
+            data=post_data.encode("utf-8"),
+            headers={
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Origin": "https://sitaer-infovoo.petrobras.com.br",
+                "Referer": "https://sitaer-infovoo.petrobras.com.br/InformativoPlataforma.aspx",
+            },
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
+            raw_html = resp.read().decode("utf-8", errors="ignore")
+            if "tableVoo" in raw_html or "Não existem dados para exibição" in raw_html:
+                return raw_html
+    except Exception as e:
+        print(f"Aviso no fallback urllib: {e}")
+    return ""
+
+
 def buscar_voos_sitaer(cod_plataforma=CODIGO_PLATAFORMA_P53):
     post_data = f"operacao=LoadData&aeroporto=&plataforma={cod_plataforma}&status="
 
-    # Usa curl nativo com até 4 tentativas rápidas (10s cada) para evitar bloqueios de TLS/SSL do Python
+    # Prepara configuração OpenSSL compatível com servidores IIS legados no Ubuntu 24.04 (OpenSSL 3)
+    openssl_cnf_path = os.path.join(tempfile.gettempdir(), "openssl_sitaer.cnf")
+    try:
+        with open(openssl_cnf_path, "w", encoding="utf-8") as f:
+            f.write(OPENSSL_CNF_CONTENT)
+    except Exception:
+        openssl_cnf_path = None
+
     for tentativa in range(1, 5):
-        try:
-            proc = subprocess.run(
-                [
+        # 1. Tenta com curl (-k para ignorar cadeia intermediária ausente no Ubuntu, --http1.1)
+        for usar_openssl_cnf in ([True, False] if openssl_cnf_path else [False]):
+            try:
+                env = os.environ.copy()
+                if usar_openssl_cnf and openssl_cnf_path:
+                    env["OPENSSL_CONF"] = openssl_cnf_path
+
+                cmd = [
                     "curl",
+                    "-k",
                     "-sL",
-                    "-m", "10",
-                    "--retry", "2",
-                    "--retry-delay", "2",
+                    "--http1.1",
+                    "-m", "15",
                     "-A", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
                     "-H", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8",
+                    "-H", "Origin: https://sitaer-infovoo.petrobras.com.br",
+                    "-H", "Referer: https://sitaer-infovoo.petrobras.com.br/InformativoPlataforma.aspx",
                     "-d", post_data,
                     URL_SITAER_SERVICE,
-                ],
-                capture_output=True,
-                text=True,
-                timeout=35,
-            )
-            raw_html = proc.stdout or ""
-            if "tableVoo" in raw_html or "Não existem dados para exibição" in raw_html:
-                return parsear_html_sitaer(raw_html), True
-            print(f"Tentativa {tentativa}: resposta incompleta do SITAER (código {proc.returncode}).")
-        except Exception as e:
-            print(f"Tentativa {tentativa} falhou: {e}")
+                ]
+                proc = subprocess.run(
+                    cmd,
+                    capture_output=True,
+                    text=True,
+                    timeout=20,
+                    env=env,
+                )
+                raw_html = proc.stdout or ""
+                if "tableVoo" in raw_html or "Não existem dados para exibição" in raw_html:
+                    return parsear_html_sitaer(raw_html), True
+                err_msg = (proc.stderr or "").strip()
+                print(f"Tentativa {tentativa} (curl cnf={usar_openssl_cnf}): código {proc.returncode}. {err_msg[:160]}")
+            except Exception as e:
+                print(f"Tentativa {tentativa} (curl) falhou: {e}")
+
+        # 2. Tenta via urllib com SSLContext customizado
+        raw_urllib = tentar_urllib_sitaer(post_data)
+        if raw_urllib:
+            return parsear_html_sitaer(raw_urllib), True
+
         time.sleep(2)
 
     return [], False
