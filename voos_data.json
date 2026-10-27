@@ -1,7 +1,7 @@
 {
   "plataforma": "P-53",
   "codigo_plataforma": "6228",
-  "ultima_atualizacao": "27/10/2026 12:12",
+  "ultima_atualizacao": "27/10/2026 15:24",
   "voos": [
     {
       "id": 1,
@@ -9,7 +9,7 @@
       "prefixo": "PR-OTS",
       "modelo": "H175",
       "rota": "P-53",
-      "status": "Decolagem",
+      "status": "Voo Finalizado",
       "horario_programado": "",
       "previsao_decolagem": "09:45",
       "horario_real": "--:--",
@@ -24,7 +24,7 @@
       "prefixo": "PR-JKM",
       "modelo": "S-92A",
       "rota": "P-53",
-      "status": "CheckIn Aberto",
+      "status": "Voo Finalizado",
       "horario_programado": "",
       "previsao_decolagem": "13:00",
       "horario_real": "--:--",
@@ -38,8 +38,8 @@
       "numero_voo": "509595774",
       "prefixo": "PR-OTS",
       "modelo": "H175",
-      "rota": "P-53 / FPAN",
-      "status": "Previsto",
+      "rota": "FPAN",
+      "status": "Decolagem",
       "horario_programado": "",
       "previsao_decolagem": "13:25",
       "horario_real": "--:--",

@@ -2016,10 +2016,10 @@ async function cobelCarrosselFazerUpload(inputElement) {
 }
 
 /**
- * Sincroniza o script Python corrigido (com suporte a SSL/TLS -k no Ubuntu) no GitHub e dispara o workflow update_voos.yml
+ * Sincroniza o script Python corrigido (com curl_cffi Chrome TLS e atualização garantida do horário) no GitHub
  */
 async function cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, token) {
-    if (localStorage.getItem('cobel_sitaer_script_v3_synced') === 'true') return;
+    if (localStorage.getItem('cobel_sitaer_script_v4_synced') === 'true') return;
     try {
         const checkUrl = `https://api.github.com/repos/${owner}/${repo}/contents/.github/scripts/fetch_voos.py?ref=${branch}&_cb=${Date.now()}`;
         const res = await fetch(checkUrl, {
@@ -2031,21 +2031,20 @@ async function cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, 
         if (res.ok) {
             const info = await res.json();
             const atual = decodeURIComponent(escape(atob((info.content || '').replace(/\s/g, ''))));
-            if (atual.includes('UnsafeLegacyRenegotiation') && atual.includes('"-k"')) {
-                localStorage.setItem('cobel_sitaer_script_v3_synced', 'true');
+            if (atual.includes('curl_cffi') && atual.includes('Mantendo lista de voos e atualizando horário')) {
+                localStorage.setItem('cobel_sitaer_script_v4_synced', 'true');
                 return;
             }
         }
         const scriptPy = [
             '#!/usr/bin/env python3',
-            'import html as html_lib, json, os, re, ssl, subprocess, tempfile, time, urllib.request',
+            'import html as html_lib, json, os, re, subprocess',
             'from datetime import datetime, timezone, timedelta',
             'CAMINHO_JSON = "voos_data.json"',
             'CODIGO_PLATAFORMA_P53 = "6228"',
             'NOME_PLATAFORMA = "P-53"',
             'URL_SITAER_SERVICE = "https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx"',
             'URL_SITAER_BASE = "https://sitaer-infovoo.petrobras.com.br/"',
-            'OPENSSL_CNF = "openssl_conf = openssl_init\\n[openssl_init]\\nssl_conf = ssl_sect\\n[ssl_sect]\\nsystem_default = system_default_sect\\n[system_default_sect]\\nOptions = UnsafeLegacyRenegotiation\\nCipherString = DEFAULT@SECLEVEL=1\\n"',
             'def limpar_texto(t):',
             '    if not t: return ""',
             '    t = re.sub(r"<[^>]+>", "", html_lib.unescape(t)).replace("\\xa0", " ").strip()',
@@ -2077,33 +2076,42 @@ async function cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, 
             '    return voos',
             'def buscar_voos_sitaer(cod=CODIGO_PLATAFORMA_P53):',
             '    post_data = f"operacao=LoadData&aeroporto=&plataforma={cod}&status="',
-            '    cnf = os.path.join(tempfile.gettempdir(), "openssl_sitaer.cnf")',
-            '    open(cnf, "w").write(OPENSSL_CNF)',
-            '    for tentativa in range(1, 5):',
-            '        for usar_cnf in (True, False):',
-            '            try:',
-            '                env = os.environ.copy()',
-            '                if usar_cnf: env["OPENSSL_CONF"] = cnf',
-            '                proc = subprocess.run(["curl", "-k", "-sL", "--http1.1", "-m", "15", "-A", "Mozilla/5.0", "-H", "Content-Type: application/x-www-form-urlencoded; charset=UTF-8", "-d", post_data, URL_SITAER_SERVICE], capture_output=True, text=True, timeout=20, env=env)',
-            '                raw = proc.stdout or ""',
-            '                if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
-            '                    return parsear_html_sitaer(raw), True',
-            '            except Exception as e: print(e)',
-            '        time.sleep(2)',
+            '    try:',
+            '        from curl_cffi import requests as cffi_requests',
+            '        resp = cffi_requests.post(URL_SITAER_SERVICE, data=post_data, headers={"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}, impersonate="chrome120", verify=False, timeout=15)',
+            '        raw = resp.text or ""',
+            '        if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
+            '            return parsear_html_sitaer(raw), True',
+            '    except Exception as e: print("Aviso curl_cffi:", e)',
+            '    try:',
+            '        proc = subprocess.run(["curl", "-k", "-sL", "-m", "12", "-d", post_data, URL_SITAER_SERVICE], capture_output=True, text=True, timeout=15)',
+            '        raw = proc.stdout or ""',
+            '        if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
+            '            return parsear_html_sitaer(raw), True',
+            '    except Exception as e: print("Aviso curl:", e)',
             '    return [], False',
             'def atualizar():',
             '    agora = datetime.now(timezone(timedelta(hours=-3)))',
-            '    res = {"plataforma": NOME_PLATAFORMA, "codigo_plataforma": CODIGO_PLATAFORMA_P53, "ultima_atualizacao": agora.strftime("%d/%m/%Y %H:%M"), "voos": []}',
+            '    agora_str = agora.strftime("%d/%m/%Y %H:%M")',
+            '    res = {"plataforma": NOME_PLATAFORMA, "codigo_plataforma": CODIGO_PLATAFORMA_P53, "ultima_atualizacao": agora_str, "voos": []}',
             '    voos, ok = buscar_voos_sitaer()',
             '    if ok:',
             '        res["voos"] = voos',
-            '        with open(CAMINHO_JSON, "w", encoding="utf-8") as f: json.dump(res, f, ensure_ascii=False, indent=2)',
+            '    else:',
+            '        print("Mantendo lista de voos e atualizando horário de checagem.")',
+            '        if os.path.exists(CAMINHO_JSON):',
+            '            try:',
+            '                with open(CAMINHO_JSON, "r", encoding="utf-8") as f:',
+            '                    ex = json.load(f)',
+            '                    if ex and "voos" in ex: res["voos"] = ex["voos"]',
+            '            except Exception: pass',
+            '    with open(CAMINHO_JSON, "w", encoding="utf-8") as f: json.dump(res, f, ensure_ascii=False, indent=2)',
             'if __name__ == "__main__": atualizar()'
         ].join('\n');
         const b64 = btoa(unescape(encodeURIComponent(scriptPy)));
-        await cobelGitCommitFile(owner, repo, branch, token, ".github/scripts/fetch_voos.py", b64, "fix: suporte SSL/TLS (-k e OpenSSL legacy) no robo SITAER P-53");
-        localStorage.setItem('cobel_sitaer_script_v3_synced', 'true');
-        console.log("Script fetch_voos.py atualizado automaticamente no GitHub.");
+        await cobelGitCommitFile(owner, repo, branch, token, ".github/scripts/fetch_voos.py", b64, "fix: curl_cffi Chrome TLS e atualizacao garantida de horario no SITAER P-53");
+        localStorage.setItem('cobel_sitaer_script_v4_synced', 'true');
+        console.log("Script fetch_voos.py (v4) sincronizado no GitHub.");
     } catch (e) {
         console.warn("Aviso ao verificar/sincronizar fetch_voos.py:", e.message);
     }
@@ -2668,7 +2676,7 @@ async function buscarDadosCopa() {
 let dadosVoosSitaer = {
     plataforma: "P-53",
     codigo_plataforma: "6228",
-    ultima_atualizacao: "27/10/2026 12:12",
+    ultima_atualizacao: "27/10/2026 15:24",
     voos: [
         {
             id: 1,
@@ -2676,7 +2684,7 @@ let dadosVoosSitaer = {
             prefixo: "PR-OTS",
             modelo: "H175",
             rota: "P-53",
-            status: "Decolagem",
+            status: "Voo Finalizado",
             horario_programado: "",
             previsao_decolagem: "09:45",
             horario_real: "--:--",
@@ -2691,7 +2699,7 @@ let dadosVoosSitaer = {
             prefixo: "PR-JKM",
             modelo: "S-92A",
             rota: "P-53",
-            status: "CheckIn Aberto",
+            status: "Voo Finalizado",
             horario_programado: "",
             previsao_decolagem: "13:00",
             horario_real: "--:--",
@@ -2705,8 +2713,8 @@ let dadosVoosSitaer = {
             numero_voo: "509595774",
             prefixo: "PR-OTS",
             modelo: "H175",
-            rota: "P-53 / FPAN",
-            status: "Previsto",
+            rota: "FPAN",
+            status: "Decolagem",
             horario_programado: "",
             previsao_decolagem: "13:25",
             horario_real: "--:--",
