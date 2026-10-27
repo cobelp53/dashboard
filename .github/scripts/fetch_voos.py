@@ -9,6 +9,7 @@ import json
 import os
 import re
 import ssl
+import http.cookiejar
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone, timedelta
@@ -88,28 +89,85 @@ def parsear_html_sitaer(conteudo_html):
 
 
 def buscar_voos_sitaer(cod_plataforma=CODIGO_PLATAFORMA_P53):
-    dados_post = urllib.parse.urlencode({
+    ctx = ssl.create_default_context()
+    cj = http.cookiejar.CookieJar()
+    opener = urllib.request.build_opener(
+        urllib.request.HTTPCookieProcessor(cj),
+        urllib.request.HTTPSHandler(context=ctx),
+    )
+
+    headers_padrao = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Referer": URL_SITAER_BASE,
+    }
+
+    # Passo 0: Abre a página inicial para receber os cookies de sessão ASP.NET_SessionId e TS01...
+    try:
+        req_init = urllib.request.Request(URL_SITAER_BASE, headers=headers_padrao, method="GET")
+        with opener.open(req_init, timeout=15) as _:
+            pass
+    except Exception as e:
+        print(f"Aviso ao iniciar sessão SITAER: {e}")
+
+    headers_post = {
+        **headers_padrao,
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "X-Requested-With": "XMLHttpRequest",
+        "Origin": "https://sitaer-infovoo.petrobras.com.br",
+    }
+
+    aeroportos_principais = "4181,4184,4183,4180,4185,7776,6429,8483,7891,8456,8473,7887,8255"
+
+    # 1. Tenta consultar direto pela Plataforma P-53 (6228) sem e com aeroportos
+    for filtro_aero in ["", aeroportos_principais]:
+        try:
+            dados_post = urllib.parse.urlencode({
+                "operacao": "LoadData",
+                "aeroporto": filtro_aero,
+                "plataforma": cod_plataforma,
+                "status": "",
+            }).encode("utf-8")
+
+            req = urllib.request.Request(
+                URL_SITAER_SERVICE,
+                data=dados_post,
+                headers=headers_post,
+                method="POST",
+            )
+
+            with opener.open(req, timeout=20) as resp:
+                raw_html = resp.read().decode("utf-8", errors="replace")
+                voos = parsear_html_sitaer(raw_html)
+                if voos:
+                    return voos
+        except Exception as e:
+            print(f"Aviso na consulta direta (aero='{filtro_aero}'): {e}")
+
+    # 2. Se ainda vier vazio, busca nos aeroportos da Bacia de Campos e filtra qualquer voo cuja rota contenha P-53 / P53
+    dados_post_aero = urllib.parse.urlencode({
         "operacao": "LoadData",
-        "aeroporto": "",
-        "plataforma": cod_plataforma,
+        "aeroporto": aeroportos_principais,
+        "plataforma": "",
         "status": "",
     }).encode("utf-8")
 
-    ctx = ssl.create_default_context()
-    req = urllib.request.Request(
+    req_aero = urllib.request.Request(
         URL_SITAER_SERVICE,
-        data=dados_post,
-        headers={
-            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-            "Referer": URL_SITAER_BASE,
-        },
+        data=dados_post_aero,
+        headers=headers_post,
         method="POST",
     )
 
-    with urllib.request.urlopen(req, timeout=20, context=ctx) as resp:
+    with opener.open(req_aero, timeout=20) as resp:
         raw_html = resp.read().decode("utf-8", errors="replace")
-        return parsear_html_sitaer(raw_html)
+        todos_voos = parsear_html_sitaer(raw_html)
+        voos_p53 = [
+            v for v in todos_voos
+            if "P-53" in v.get("rota", "").upper() or "P53" in v.get("rota", "").upper()
+        ]
+        return voos_p53
 
 
 def atualizar():
