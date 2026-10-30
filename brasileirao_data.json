@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 33,
-  "ultima_atualizacao": "30/10/2026 20:12",
+  "ultima_atualizacao": "30/10/2026 20:14",
   "jogos": [
     {
       "id": 401841295,
@@ -12,7 +12,7 @@
       "gols_mandante": 0,
       "gols_visitante": 0,
       "status": "aovivo",
-      "tempo": "10'",
+      "tempo": "12'",
       "data": "Sex 30/10 • 20:00",
       "data_curta": "30/10",
       "estadio": "Neo Química Arena"
