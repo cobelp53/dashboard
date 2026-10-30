@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 33,
-  "ultima_atualizacao": "30/10/2026 16:36",
+  "ultima_atualizacao": "30/10/2026 20:12",
   "jogos": [
     {
       "id": 401841295,
@@ -9,10 +9,10 @@
       "mandante_sigla": "COR",
       "visitante": "Mirassol",
       "visitante_sigla": "MIR",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "10'",
       "data": "Sex 30/10 • 20:00",
       "data_curta": "30/10",
       "estadio": "Neo Química Arena"
@@ -114,6 +114,20 @@
       "data": "Qua 04/11 • 21:30",
       "data_curta": "04/11",
       "estadio": "Joao Havelange Stadium"
+    },
+    {
+      "id": 401841298,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Corinthians",
+      "visitante_sigla": "COR",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 04/11 • 21:30",
+      "data_curta": "04/11",
+      "estadio": "Estádio Vila Belmiro (Urbano Caldeira)"
     },
     {
       "id": 401841290,
