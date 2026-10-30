@@ -559,162 +559,7 @@ function renderizarCarrossel() {
             // Slide do Campeonato Brasileiro Série A (Opção 2: Jogos da Rodada + Tabela de Classificação)
             const div = document.createElement('div');
             div.className = `slide-texto slide-brasileirao-container ${i === 0 ? 'ativa' : ''}`;
-
-            const dados = dadosBrasileirao || {};
-            const rodadaAtual = dados.rodada_atual || 32;
-            const jogos = dados.jogos || [];
-            const tabela = dados.tabela || [];
-
-            const aoVivo = jogos.filter(j => j.status === "aovivo");
-            const finalizados = jogos.filter(j => j.status === "finalizado");
-            const agendados = jogos.filter(j => j.status === "agendado");
-
-            let htmlJogosAoVivo = '';
-            if (aoVivo.length > 0) {
-                htmlJogosAoVivo = `
-                    <div class="brasileirao-ao-vivo-secao">
-                        <span class="brasileirao-badge-aovivo">🔴 AO VIVO</span>
-                        <div class="brasileirao-jogos-aovivo-lista">
-                            ${aoVivo.map(j => `
-                                <div class="brasileirao-card-jogo aovivo">
-                                    <div class="brasileirao-time col-time-home">
-                                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
-                                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
-                                    </div>
-                                    <div class="brasileirao-placar aovivo">
-                                        <span class="gols">${j.gols_mandante !== null ? j.gols_mandante : 0}</span>
-                                        <span class="vs">x</span>
-                                        <span class="gols">${j.gols_visitante !== null ? j.gols_visitante : 0}</span>
-                                        <span class="tempo-jogo">${j.tempo || "Ao vivo"}</span>
-                                    </div>
-                                    <div class="brasileirao-time col-time-away">
-                                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
-                                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            }
-
-            const htmlFinalizados = finalizados.map(j => `
-                <div class="brasileirao-card-jogo">
-                    <div class="brasileirao-time col-time-home">
-                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
-                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
-                    </div>
-                    <div class="brasileirao-placar">
-                        <span class="gols">${j.gols_mandante}</span>
-                        <span class="vs">-</span>
-                        <span class="gols">${j.gols_visitante}</span>
-                    </div>
-                    <div class="brasileirao-time col-time-away">
-                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
-                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
-                    </div>
-                </div>
-            `).join('');
-
-            const htmlAgendados = agendados.map(j => `
-                <div class="brasileirao-card-jogo agendado">
-                    <div class="brasileirao-time col-time-home">
-                        ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
-                        <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
-                    </div>
-                    <div class="brasileirao-placar agendado">
-                        <span class="data-jogo">${j.data || 'A definir'}</span>
-                    </div>
-                    <div class="brasileirao-time col-time-away">
-                        <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
-                        ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
-                    </div>
-                </div>
-            `).join('');
-
-            // Mostra a tabela completa (scrollável)
-            const htmlTabelaLinhas = tabela.map(t => {
-                let badgeClass = 'pos-neutra';
-                if (t.posicao <= 4) badgeClass = 'pos-libertadores';
-                else if (t.posicao <= 6) badgeClass = 'pos-pre-liberta';
-                else if (t.posicao <= 12) badgeClass = 'pos-sul-americana';
-                else if (t.posicao >= 17) badgeClass = 'pos-z4';
-
-                const sgTexto = t.sg > 0 ? `+${t.sg}` : `${t.sg}`;
-
-                return `
-                    <tr class="${badgeClass}-linha">
-                        <td class="col-pos"><span class="badge-pos ${badgeClass}">${t.posicao}º</span></td>
-                        <td class="col-time">
-                            ${gerarHTMLClubeEscudo(t.time, t.sigla)}
-                            <span class="nome-clube-tabela">${t.time}</span>
-                        </td>
-                        <td class="col-pts"><strong>${t.pontos}</strong></td>
-                        <td class="col-dado">${t.jogos}</td>
-                        <td class="col-dado">${t.vitorias}</td>
-                        <td class="col-dado">${sgTexto}</td>
-                    </tr>
-                `;
-            }).join('');
-
-            div.innerHTML = `
-                <div class="brasileirao-widget-container">
-                    <div class="brasileirao-header">
-                        <h2>⚽ BRASILEIRÃO • SÉRIE A</h2>
-                        <p>Rodada ${rodadaAtual} • Resultados, Agenda e Classificação</p>
-                    </div>
-
-                    ${htmlJogosAoVivo}
-
-                    <div class="brasileirao-colunas-container">
-                        <!-- Coluna 1: Jogos da Rodada -->
-                        <div class="brasileirao-coluna brasileirao-coluna-jogos">
-                            <h3>📅 JOGOS DA RODADA</h3>
-                            <div class="brasileirao-secao-jogos">
-                                <div class="brasileirao-subtitulo-jogos">PRÓXIMAS PARTIDAS</div>
-                                <div class="brasileirao-lista-jogos">
-                                    ${htmlAgendados || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
-                                </div>
-
-                                <div class="brasileirao-subtitulo-jogos">ÚLTIMOS RESULTADOS</div>
-                                <div class="brasileirao-lista-jogos">
-                                    ${htmlFinalizados || '<p class="sem-jogos">Nenhum resultado registrado.</p>'}
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Coluna 2: Tabela de Classificação -->
-                        <div class="brasileirao-coluna brasileirao-coluna-tabela">
-                            <div class="brasileirao-tabela-header-flex">
-                                <h3>🏆 CLASSIFICAÇÃO</h3>
-                                <div class="brasileirao-legenda-tabela">
-                                    <span class="legenda-item"><span class="cor-legenda lib"></span> G-4</span>
-                                    <span class="legenda-item"><span class="cor-legenda pre"></span> Pré</span>
-                                    <span class="legenda-item"><span class="cor-legenda sula"></span> Sula</span>
-                                    <span class="legenda-item"><span class="cor-legenda z4"></span> Z-4</span>
-                                </div>
-                            </div>
-                            <div class="brasileirao-tabela-wrapper">
-                                <table class="brasileirao-tabela">
-                                    <thead>
-                                        <tr>
-                                            <th class="col-pos">#</th>
-                                            <th class="col-time">Clube</th>
-                                            <th class="col-pts">PTS</th>
-                                            <th class="col-dado">J</th>
-                                            <th class="col-dado">V</th>
-                                            <th class="col-dado">SG</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${htmlTabelaLinhas}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            div.innerHTML = gerarHTMLSlideBrasileirao();
             container.appendChild(div);
         } else if (item.tipo === "voos") {
             // Slide do Informativo de Voos SITAER (P-53)
@@ -2016,111 +1861,12 @@ async function cobelCarrosselFazerUpload(inputElement) {
 }
 
 /**
- * Sincroniza o script Python corrigido (com curl_cffi Chrome TLS e atualização garantida do horário) no GitHub
- */
-async function cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, token) {
-    if (localStorage.getItem('cobel_sitaer_script_v4_synced') === 'true') return;
-    try {
-        const checkUrl = `https://api.github.com/repos/${owner}/${repo}/contents/.github/scripts/fetch_voos.py?ref=${branch}&_cb=${Date.now()}`;
-        const res = await fetch(checkUrl, {
-            headers: {
-                'Authorization': `token ${token}`,
-                'Accept': 'application/vnd.github.v3+json'
-            }
-        });
-        if (res.ok) {
-            const info = await res.json();
-            const atual = decodeURIComponent(escape(atob((info.content || '').replace(/\s/g, ''))));
-            if (atual.includes('curl_cffi') && atual.includes('Mantendo lista de voos e atualizando horário')) {
-                localStorage.setItem('cobel_sitaer_script_v4_synced', 'true');
-                return;
-            }
-        }
-        const scriptPy = [
-            '#!/usr/bin/env python3',
-            'import html as html_lib, json, os, re, subprocess',
-            'from datetime import datetime, timezone, timedelta',
-            'CAMINHO_JSON = "voos_data.json"',
-            'CODIGO_PLATAFORMA_P53 = "6228"',
-            'NOME_PLATAFORMA = "P-53"',
-            'URL_SITAER_SERVICE = "https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx"',
-            'URL_SITAER_BASE = "https://sitaer-infovoo.petrobras.com.br/"',
-            'def limpar_texto(t):',
-            '    if not t: return ""',
-            '    t = re.sub(r"<[^>]+>", "", html_lib.unescape(t)).replace("\\xa0", " ").strip()',
-            '    return re.sub(r"\\s+", " ", t)',
-            'def extrair_campo(b, c):',
-            '    m = re.search(rf\'<td[^>]*class=["\\\'][^"\\\']*\\b{re.escape(c)}\\b[^"\\\']*["\\\'][^>]*>(.*?)</td>\', b, re.DOTALL | re.I)',
-            '    return limpar_texto(m.group(1)) if m else ""',
-            'def parsear_html_sitaer(h):',
-            '    voos = []',
-            '    if not h or "Não existem dados para exibição" in h: return voos',
-            '    partes = re.split(r\'<table[^>]*class=["\\\'][^"\\\']*\\btableVoo\\b[^"\\\']*["\\\'][^>]*>\', h, flags=re.I)',
-            '    for idx, b in enumerate(partes[1:], 1):',
-            '        m_img = re.search(r\'<img[^>]*src=["\\\']([^"\\\']*GetCompanyImage\\.aspx\\?codEmpresa=(\\d+))["\\\']\', b, re.I)',
-            '        cod = m_img.group(2) if m_img else ""',
-            '        logo = f"{URL_SITAER_BASE}GetCompanyImage.aspx?codEmpresa={cod}" if cod else ""',
-            '        num = extrair_campo(b, "numeroVooDetalhe")',
-            '        pref = extrair_campo(b, "prefixoAeronave")',
-            '        mod = extrair_campo(b, "modelo")',
-            '        rota = extrair_campo(b, "rota")',
-            '        st = extrair_campo(b, "newStatus")',
-            '        h_prog = extrair_campo(b, "dataHoraProgramacaoSAP")',
-            '        prev_dec = extrair_campo(b, "previsaodecolagem")',
-            '        h_real = extrair_campo(b, "newDecolagem")',
-            '        prev_ret = extrair_campo(b, "newPrevisaoretorno")',
-            '        obs = extrair_campo(b, "newObservacaoSemPax") or extrair_campo(b, "newObservacao")',
-            '        if h_real == "00:00": h_real = ""',
-            '        if num or pref or rota or st:',
-            '            voos.append({"id": idx, "numero_voo": num, "prefixo": pref, "modelo": mod, "rota": rota or NOME_PLATAFORMA, "status": st or "Previsto", "horario_programado": h_prog, "previsao_decolagem": prev_dec or "--:--", "horario_real": h_real or "--:--", "previsao_retorno": prev_ret or "--:--", "observacao": obs, "cod_empresa": cod, "logo_empresa": logo})',
-            '    return voos',
-            'def buscar_voos_sitaer(cod=CODIGO_PLATAFORMA_P53):',
-            '    post_data = f"operacao=LoadData&aeroporto=&plataforma={cod}&status="',
-            '    try:',
-            '        from curl_cffi import requests as cffi_requests',
-            '        resp = cffi_requests.post(URL_SITAER_SERVICE, data=post_data, headers={"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}, impersonate="chrome120", verify=False, timeout=15)',
-            '        raw = resp.text or ""',
-            '        if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
-            '            return parsear_html_sitaer(raw), True',
-            '    except Exception as e: print("Aviso curl_cffi:", e)',
-            '    try:',
-            '        proc = subprocess.run(["curl", "-k", "-sL", "-m", "12", "-d", post_data, URL_SITAER_SERVICE], capture_output=True, text=True, timeout=15)',
-            '        raw = proc.stdout or ""',
-            '        if "tableVoo" in raw or "Não existem dados para exibição" in raw:',
-            '            return parsear_html_sitaer(raw), True',
-            '    except Exception as e: print("Aviso curl:", e)',
-            '    return [], False',
-            'def atualizar():',
-            '    agora = datetime.now(timezone(timedelta(hours=-3)))',
-            '    agora_str = agora.strftime("%d/%m/%Y %H:%M")',
-            '    res = {"plataforma": NOME_PLATAFORMA, "codigo_plataforma": CODIGO_PLATAFORMA_P53, "ultima_atualizacao": agora_str, "voos": []}',
-            '    voos, ok = buscar_voos_sitaer()',
-            '    if ok:',
-            '        res["voos"] = voos',
-            '    else:',
-            '        print("Mantendo lista de voos e atualizando horário de checagem.")',
-            '        if os.path.exists(CAMINHO_JSON):',
-            '            try:',
-            '                with open(CAMINHO_JSON, "r", encoding="utf-8") as f:',
-            '                    ex = json.load(f)',
-            '                    if ex and "voos" in ex: res["voos"] = ex["voos"]',
-            '            except Exception: pass',
-            '    with open(CAMINHO_JSON, "w", encoding="utf-8") as f: json.dump(res, f, ensure_ascii=False, indent=2)',
-            'if __name__ == "__main__": atualizar()'
-        ].join('\n');
-        const b64 = btoa(unescape(encodeURIComponent(scriptPy)));
-        await cobelGitCommitFile(owner, repo, branch, token, ".github/scripts/fetch_voos.py", b64, "fix: curl_cffi Chrome TLS e atualizacao garantida de horario no SITAER P-53");
-        localStorage.setItem('cobel_sitaer_script_v4_synced', 'true');
-        console.log("Script fetch_voos.py (v4) sincronizado no GitHub.");
-    } catch (e) {
-        console.warn("Aviso ao verificar/sincronizar fetch_voos.py:", e.message);
-    }
-}
-
-/**
- * Dispara o workflow update_voos.yml no GitHub Actions e atualiza o painel de voos
+ * Dispara manualmente o workflow update_voos.yml no GitHub Actions (exclusivo quando clicado pelo Admin)
  */
 async function cobelDispararAtualizacaoVoos(silencioso = false) {
+    // Nunca dispara POST automaticamente em background para evitar alertas de DLP na rede Petrobras
+    if (silencioso) return;
+
     const botao = document.getElementById('cobel-btn-atualizar-voos');
     const statusTxt = document.getElementById('cobel-status-voos-acao');
     const caixaLog = document.getElementById('cobel-status-log');
@@ -2131,26 +1877,20 @@ async function cobelDispararAtualizacaoVoos(silencioso = false) {
     const token = (document.getElementById('git-token')?.value || localStorage.getItem('cobel_git_token') || '').trim();
 
     if (!token) {
-        if (!silencioso) {
-            alert("⚠️ ATENÇÃO: Insira seu GitHub Token na aba 'Integração GitHub' para poder disparar a atualização remota.");
-        }
+        alert("⚠️ ATENÇÃO: Insira seu GitHub Token na aba 'Integração GitHub' para poder disparar a atualização remota.");
         return;
     }
 
-    if (!silencioso) {
-        if (botao) {
-            botao.disabled = true;
-            botao.innerText = "⏳ Consultando SITAER via GitHub...";
-        }
-        if (statusTxt) {
-            statusTxt.style.color = "#2563eb";
-            statusTxt.innerText = "Sincronizando e disparando robô do SITAER...";
-        }
+    if (botao) {
+        botao.disabled = true;
+        botao.innerText = "⏳ Consultando SITAER via GitHub...";
+    }
+    if (statusTxt) {
+        statusTxt.style.color = "#2563eb";
+        statusTxt.innerText = "Disparando robô do SITAER na nuvem...";
     }
 
     try {
-        await cobelSincronizarScriptRobosVoosSeNecessario(owner, repo, branch, token);
-
         const dispatchUrl = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/update_voos.yml/dispatches`;
         const res = await fetch(dispatchUrl, {
             method: 'POST',
@@ -2167,9 +1907,7 @@ async function cobelDispararAtualizacaoVoos(silencioso = false) {
             throw new Error(`HTTP ${res.status}: ${errTxt}`);
         }
 
-        localStorage.setItem('cobel_last_voos_dispatch_ts', String(Date.now()));
-
-        if (!silencioso && statusTxt) {
+        if (statusTxt) {
             statusTxt.style.color = "#d97706";
             statusTxt.innerText = "⏳ Robô iniciado! Aguardando ~18s para sincronizar os voos...";
         }
@@ -2180,33 +1918,28 @@ async function cobelDispararAtualizacaoVoos(silencioso = false) {
         }
 
         setTimeout(async () => {
-            await buscarDadosVoos(true);
-            if (!silencioso) {
-                if (statusTxt) {
-                    statusTxt.style.color = "#16a34a";
-                    statusTxt.innerText = `✅ Atualizado (${dadosVoosSitaer.ultima_atualizacao}) — ${dadosVoosSitaer.voos?.length || 0} voo(s)!`;
-                }
-                if (botao) {
-                    botao.disabled = false;
-                    botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
-                }
-            }
-        }, 18000);
-
-        // Segunda checagem após 30s caso o runner do GitHub demore alguns segundos a mais na fila
-        setTimeout(() => buscarDadosVoos(true), 32000);
-
-    } catch (erro) {
-        console.error("Erro ao disparar atualização de voos:", erro);
-        if (!silencioso) {
+            await buscarDadosVoos();
             if (statusTxt) {
-                statusTxt.style.color = "#dc2626";
-                statusTxt.innerText = `❌ Erro: ${erro.message}`;
+                statusTxt.style.color = "#16a34a";
+                statusTxt.innerText = `✅ Atualizado (${dadosVoosSitaer.ultima_atualizacao}) — ${dadosVoosSitaer.voos?.length || 0} voo(s)!`;
             }
             if (botao) {
                 botao.disabled = false;
                 botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
             }
+        }, 18000);
+
+        setTimeout(() => buscarDadosVoos(), 32000);
+
+    } catch (erro) {
+        console.error("Erro ao disparar atualização de voos:", erro);
+        if (statusTxt) {
+            statusTxt.style.color = "#dc2626";
+            statusTxt.innerText = `❌ Erro: ${erro.message}`;
+        }
+        if (botao) {
+            botao.disabled = false;
+            botao.innerText = "🔄 Atualizar Voos do SITAER Agora";
         }
     }
 }
@@ -2418,76 +2151,529 @@ function gerarHTMLClubeEscudo(nome, siglaParam) {
     }
 }
 
-async function buscarDadosBrasileirao() {
-    // 1. Tenta buscar do arquivo local brasileirao_data.json atualizado
-    try {
-        const res = await fetch(`./brasileirao_data.json?v=${new Date().getTime()}`);
-        if (res.ok) {
-            const data = await res.json();
-            if (data && (data.jogos || data.tabela)) {
-                dadosBrasileirao = data;
-                localStorage.setItem('cobel_brasileirao_dados', JSON.stringify(dadosBrasileirao));
-                console.log("Dados do Brasileirão atualizados via arquivo local.");
-                return;
-            }
-        }
-    } catch (e) {
-        console.warn("Aviso ao buscar brasileirao_data.json:", e.message);
+function normalizarClubeBrasileirao(nomeRaw, siglaRaw) {
+    const mapaNomes = {
+        "Flamengo": ["Flamengo", "FLA"],
+        "Palmeiras": ["Palmeiras", "PAL"],
+        "Cruzeiro": ["Cruzeiro", "CRU"],
+        "Fluminense": ["Fluminense", "FLU"],
+        "Athletico Paranaense": ["Athletico-PR", "CAP"],
+        "Athletico-PR": ["Athletico-PR", "CAP"],
+        "Bahia": ["Bahia", "BAH"],
+        "Atlético-MG": ["Atlético-MG", "CAM"],
+        "Atletico-MG": ["Atlético-MG", "CAM"],
+        "Santos": ["Santos", "SAN"],
+        "Red Bull Bragantino": ["Red Bull Bragantino", "RBB"],
+        "Bragantino": ["Red Bull Bragantino", "RBB"],
+        "São Paulo": ["São Paulo", "SAO"],
+        "Sao Paulo": ["São Paulo", "SAO"],
+        "Botafogo": ["Botafogo", "BOT"],
+        "Coritiba": ["Coritiba", "CFC"],
+        "Vasco da Gama": ["Vasco", "VAS"],
+        "Vasco": ["Vasco", "VAS"],
+        "Vitória": ["Vitória", "VIT"],
+        "Vitoria": ["Vitória", "VIT"],
+        "Grêmio": ["Grêmio", "GRE"],
+        "Gremio": ["Grêmio", "GRE"],
+        "Mirassol": ["Mirassol", "MIR"],
+        "Internacional": ["Internacional", "INT"],
+        "Corinthians": ["Corinthians", "COR"],
+        "Remo": ["Remo", "REM"],
+        "Chapecoense": ["Chapecoense", "CHA"]
+    };
+    const mapaSiglas = { "BRA": "RBB", "REMO": "REM" };
+    const nLimpo = (nomeRaw || "").trim();
+    const sLimpa = (siglaRaw || "").trim().toUpperCase();
+    if (mapaNomes[nLimpo]) return { nome: mapaNomes[nLimpo][0], sigla: mapaNomes[nLimpo][1] };
+    const sNorm = mapaSiglas[sLimpa] || sLimpa;
+    for (const k in mapaNomes) {
+        if (mapaNomes[k][1] === sNorm) return { nome: mapaNomes[k][0], sigla: mapaNomes[k][1] };
+    }
+    return { nome: nLimpo || sNorm, sigla: sNorm ? sNorm.substring(0, 3) : "TBD" };
+}
+
+function formatarDataEventoBrasileirao(isoStr) {
+    if (!isoStr) return { texto: "A definir", curta: "", ts: 0 };
+    const dt = new Date(isoStr);
+    if (isNaN(dt.getTime())) return { texto: "A definir", curta: "", ts: 0 };
+    const dias = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+    const diaSem = dias[dt.getDay()];
+    const dd = String(dt.getDate()).padStart(2, '0');
+    const mm = String(dt.getMonth() + 1).padStart(2, '0');
+    const hh = String(dt.getHours()).padStart(2, '0');
+    const min = String(dt.getMinutes()).padStart(2, '0');
+    return {
+        texto: `${diaSem} ${dd}/${mm} • ${hh}:${min}`,
+        curta: `${dd}/${mm}`,
+        ts: dt.getTime()
+    };
+}
+
+function gerarHTMLSlideBrasileirao() {
+    const dados = dadosBrasileirao || {};
+    const rodadaAtual = dados.rodada_atual || 33;
+    const ultimaAtualizacao = dados.ultima_atualizacao || "";
+    const jogos = dados.jogos || [];
+    const tabela = dados.tabela || [];
+
+    const aoVivo = jogos.filter(j => j.status === "aovivo");
+    const finalizados = jogos.filter(j => j.status === "finalizado");
+    const agendados = jogos.filter(j => j.status === "agendado");
+
+    let htmlJogosAoVivo = '';
+    if (aoVivo.length > 0) {
+        htmlJogosAoVivo = `
+            <div class="brasileirao-ao-vivo-secao">
+                <span class="brasileirao-badge-aovivo">🔴 AO VIVO</span>
+                <div class="brasileirao-jogos-aovivo-lista">
+                    ${aoVivo.map(j => `
+                        <div class="brasileirao-card-jogo aovivo">
+                            <div class="brasileirao-time col-time-home">
+                                ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                                <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+                            </div>
+                            <div class="brasileirao-placar aovivo">
+                                <span class="gols">${j.gols_mandante !== null ? j.gols_mandante : 0}</span>
+                                <span class="vs">x</span>
+                                <span class="gols">${j.gols_visitante !== null ? j.gols_visitante : 0}</span>
+                                <span class="tempo-jogo">${j.tempo || "Ao vivo"}</span>
+                            </div>
+                            <div class="brasileirao-time col-time-away">
+                                <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                                ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `;
     }
 
-    // 2. Fallback via cache no localStorage (apenas se for de 2026 / rodada atual)
+    const htmlFinalizados = finalizados.map(j => {
+        const dataCurta = j.data_curta || ((j.data && /\d{2}\/\d{2}/.test(j.data)) ? j.data.match(/\d{2}\/\d{2}/)[0] : '');
+        return `
+            <div class="brasileirao-card-jogo" title="${j.data || ''}">
+                <div class="brasileirao-time col-time-home">
+                    ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                    <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+                </div>
+                <div class="brasileirao-placar ${dataCurta ? 'com-data-curta' : ''}">
+                    <div class="placar-gols-linha">
+                        <span class="gols">${j.gols_mandante}</span>
+                        <span class="vs">-</span>
+                        <span class="gols">${j.gols_visitante}</span>
+                    </div>
+                    ${dataCurta ? `<span class="data-jogo-finalizado">${dataCurta}</span>` : ''}
+                </div>
+                <div class="brasileirao-time col-time-away">
+                    <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                    ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const htmlAgendados = agendados.map(j => `
+        <div class="brasileirao-card-jogo agendado">
+            <div class="brasileirao-time col-time-home">
+                ${gerarHTMLClubeEscudo(j.mandante, j.mandante_sigla)}
+                <span class="nome-time">${j.mandante_sigla || j.mandante}</span>
+            </div>
+            <div class="brasileirao-placar agendado">
+                <span class="data-jogo">${j.data || 'A definir'}</span>
+            </div>
+            <div class="brasileirao-time col-time-away">
+                <span class="nome-time">${j.visitante_sigla || j.visitante}</span>
+                ${gerarHTMLClubeEscudo(j.visitante, j.visitante_sigla)}
+            </div>
+        </div>
+    `).join('');
+
+    const htmlTabelaLinhas = tabela.map(t => {
+        let badgeClass = 'pos-neutra';
+        if (t.posicao <= 4) badgeClass = 'pos-libertadores';
+        else if (t.posicao <= 6) badgeClass = 'pos-pre-liberta';
+        else if (t.posicao <= 12) badgeClass = 'pos-sul-americana';
+        else if (t.posicao >= 17) badgeClass = 'pos-z4';
+
+        const sgTexto = t.sg > 0 ? `+${t.sg}` : `${t.sg}`;
+
+        return `
+            <tr class="${badgeClass}-linha">
+                <td class="col-pos"><span class="badge-pos ${badgeClass}">${t.posicao}º</span></td>
+                <td class="col-time">
+                    ${gerarHTMLClubeEscudo(t.time, t.sigla)}
+                    <span class="nome-clube-tabela">${t.time}</span>
+                </td>
+                <td class="col-pts"><strong>${t.pontos}</strong></td>
+                <td class="col-dado">${t.jogos}</td>
+                <td class="col-dado">${t.vitorias}</td>
+                <td class="col-dado">${sgTexto}</td>
+            </tr>
+        `;
+    }).join('');
+
+    return `
+        <div class="brasileirao-widget-container">
+            <div class="brasileirao-header">
+                <h2>⚽ BRASILEIRÃO • SÉRIE A</h2>
+                <p>Rodada ${rodadaAtual} • Resultados, Agenda e Classificação${ultimaAtualizacao ? ` • 🔄 ${ultimaAtualizacao}` : ''}</p>
+            </div>
+
+            ${htmlJogosAoVivo}
+
+            <div class="brasileirao-colunas-container">
+                <!-- Coluna 1: Jogos da Rodada -->
+                <div class="brasileirao-coluna brasileirao-coluna-jogos">
+                    <h3>📅 JOGOS DA RODADA</h3>
+                    <div class="brasileirao-secao-jogos">
+                        <div class="brasileirao-subtitulo-jogos">PRÓXIMAS PARTIDAS</div>
+                        <div class="brasileirao-lista-jogos">
+                            ${htmlAgendados || '<p class="sem-jogos">Nenhuma partida agendada.</p>'}
+                        </div>
+
+                        <div class="brasileirao-subtitulo-jogos">ÚLTIMOS RESULTADOS</div>
+                        <div class="brasileirao-lista-jogos">
+                            ${htmlFinalizados || '<p class="sem-jogos">Nenhum resultado registrado.</p>'}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna 2: Tabela de Classificação -->
+                <div class="brasileirao-coluna brasileirao-coluna-tabela">
+                    <div class="brasileirao-tabela-header-flex">
+                        <h3>🏆 CLASSIFICAÇÃO</h3>
+                        <div class="brasileirao-legenda-tabela">
+                            <span class="legenda-item"><span class="cor-legenda lib"></span> G-4</span>
+                            <span class="legenda-item"><span class="cor-legenda pre"></span> Pré</span>
+                            <span class="legenda-item"><span class="cor-legenda sula"></span> Sula</span>
+                            <span class="legenda-item"><span class="cor-legenda z4"></span> Z-4</span>
+                        </div>
+                    </div>
+                    <div class="brasileirao-tabela-wrapper">
+                        <table class="brasileirao-tabela">
+                            <thead>
+                                <tr>
+                                    <th class="col-pos">#</th>
+                                    <th class="col-time">Clube</th>
+                                    <th class="col-pts">PTS</th>
+                                    <th class="col-dado">J</th>
+                                    <th class="col-dado">V</th>
+                                    <th class="col-dado">SG</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${htmlTabelaLinhas}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function atualizarSlideBrasileiraoNaTela() {
+    const containers = document.querySelectorAll('.slide-brasileirao-container');
+    if (containers.length > 0) {
+        const html = gerarHTMLSlideBrasileirao();
+        containers.forEach(el => {
+            el.innerHTML = html;
+        });
+    }
+}
+
+/**
+ * Consulta ao vivo a API pública da ESPN via requisições exclusivamente GET (CORS aberto, sem chave)
+ */
+async function buscarBrasileiraoDiretoESPN() {
+    const urlStandings = "https://site.api.espn.com/apis/v2/sports/soccer/bra.1/standings";
+    const urlScoreboard = "https://site.api.espn.com/apis/site/v2/sports/soccer/bra.1/scoreboard";
+
+    const [resSt, resSb] = await Promise.all([
+        fetch(urlStandings, { cache: 'no-store' }),
+        fetch(urlScoreboard, { cache: 'no-store' })
+    ]);
+
+    if (!resSt.ok || !resSb.ok) return null;
+    const [stData, sbBase] = await Promise.all([resSt.json(), resSb.json()]);
+
+    // 1. Extrai Tabela de Classificação
+    const entries = stData?.children?.[0]?.standings?.entries || [];
+    const tabela = entries.map((entry, idx) => {
+        const team = entry.team || {};
+        const norm = normalizarClubeBrasileirao(team.displayName || team.name, team.abbreviation);
+        const stats = {};
+        (entry.stats || []).forEach(s => {
+            if (s.name && s.value !== undefined) stats[s.name] = Math.round(Number(s.value));
+        });
+        return {
+            posicao: stats.rank || (idx + 1),
+            time: norm.nome,
+            sigla: norm.sigla,
+            pontos: stats.points || 0,
+            jogos: stats.gamesPlayed || 0,
+            vitorias: stats.wins || 0,
+            empates: stats.ties || 0,
+            derrotas: stats.losses || 0,
+            sg: stats.pointDifferential || 0
+        };
+    }).sort((a, b) => a.posicao - b.posicao);
+
+    if (tabela.length < 10) return null;
+
+    // 2. Identifica datas de jogos em [-7 dias, +12 dias] no calendário da temporada
+    const calendario = sbBase?.leagues?.[0]?.calendar || [];
+    const hojeMs = Date.now();
+    const datasYMD = [];
+
+    calendario.forEach(calStr => {
+        const dtStr = String(calStr).substring(0, 10);
+        const partes = dtStr.split('-');
+        if (partes.length === 3) {
+            const dtCal = new Date(Number(partes[0]), Number(partes[1]) - 1, Number(partes[2]), 12, 0, 0);
+            const diffDias = (dtCal.getTime() - hojeMs) / 86400000;
+            if (diffDias >= -7.5 && diffDias <= 12.5) {
+                datasYMD.push(dtStr.replace(/-/g, ''));
+            }
+        }
+    });
+
+    const promessasDatas = datasYMD.map(ymd =>
+        fetch(`${urlScoreboard}?dates=${ymd}`, { cache: 'no-store' })
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null)
+    );
+    const respostasDatas = await Promise.all(promessasDatas);
+
+    const eventosMap = new Map();
+    if (Array.isArray(sbBase.events)) {
+        sbBase.events.forEach(ev => { if (ev && ev.id) eventosMap.set(ev.id, ev); });
+    }
+    respostasDatas.forEach(d => {
+        if (d && Array.isArray(d.events)) {
+            d.events.forEach(ev => { if (ev && ev.id) eventosMap.set(ev.id, ev); });
+        }
+    });
+
+    const aovivo = [];
+    const agendados = [];
+    const finalizados = [];
+
+    eventosMap.forEach(ev => {
+        const comp = ev?.competitions?.[0];
+        const competitors = comp?.competitors || [];
+        if (competitors.length < 2) return;
+
+        const cHome = competitors.find(c => c.homeAway === "home") || competitors[0];
+        const cAway = competitors.find(c => c.homeAway === "away") || competitors[1];
+
+        const mNorm = normalizarClubeBrasileirao(cHome?.team?.displayName, cHome?.team?.abbreviation);
+        const vNorm = normalizarClubeBrasileirao(cAway?.team?.displayName, cAway?.team?.abbreviation);
+
+        const state = ev?.status?.type?.state || "pre";
+        const shortDetail = ev?.status?.type?.shortDetail || "";
+        const dtInfo = formatarDataEventoBrasileirao(ev.date);
+        const estadio = comp?.venue?.fullName || "";
+
+        const golsM = parseInt(cHome?.score || "0", 10);
+        const golsV = parseInt(cAway?.score || "0", 10);
+
+        if (state === "post") {
+            finalizados.push({
+                id: ev.id,
+                mandante: mNorm.nome,
+                mandante_sigla: mNorm.sigla,
+                visitante: vNorm.nome,
+                visitante_sigla: vNorm.sigla,
+                gols_mandante: isNaN(golsM) ? 0 : golsM,
+                gols_visitante: isNaN(golsV) ? 0 : golsV,
+                status: "finalizado",
+                tempo: "FIM",
+                data: dtInfo.texto,
+                data_curta: dtInfo.curta,
+                estadio: estadio,
+                _ts: dtInfo.ts
+            });
+        } else if (state === "in") {
+            aovivo.push({
+                id: ev.id,
+                mandante: mNorm.nome,
+                mandante_sigla: mNorm.sigla,
+                visitante: vNorm.nome,
+                visitante_sigla: vNorm.sigla,
+                gols_mandante: isNaN(golsM) ? 0 : golsM,
+                gols_visitante: isNaN(golsV) ? 0 : golsV,
+                status: "aovivo",
+                tempo: shortDetail || "AO VIVO",
+                data: dtInfo.texto,
+                data_curta: dtInfo.curta,
+                estadio: estadio,
+                _ts: dtInfo.ts
+            });
+        } else {
+            agendados.push({
+                id: ev.id,
+                mandante: mNorm.nome,
+                mandante_sigla: mNorm.sigla,
+                visitante: vNorm.nome,
+                visitante_sigla: vNorm.sigla,
+                gols_mandante: null,
+                gols_visitante: null,
+                status: "agendado",
+                tempo: "AGENDADO",
+                data: dtInfo.texto,
+                data_curta: dtInfo.curta,
+                estadio: estadio,
+                _ts: dtInfo.ts
+            });
+        }
+    });
+
+    agendados.sort((a, b) => a._ts - b._ts);
+    finalizados.sort((a, b) => b._ts - a._ts);
+    aovivo.sort((a, b) => a._ts - b._ts);
+
+    const jogosCombinados = [...aovivo, ...agendados.slice(0, 8), ...finalizados.slice(0, 8)].map(j => {
+        const copia = { ...j };
+        delete copia._ts;
+        return copia;
+    });
+
+    const maxJogos = Math.max(...tabela.map(t => t.jogos || 0), 33);
+    const agora = new Date();
+    const dd = String(agora.getDate()).padStart(2, '0');
+    const mm = String(agora.getMonth() + 1).padStart(2, '0');
+    const yyyy = agora.getFullYear();
+    const hh = String(agora.getHours()).padStart(2, '0');
+    const min = String(agora.getMinutes()).padStart(2, '0');
+
+    return {
+        campeonato: "Campeonato Brasileiro Série A 2026",
+        rodada_atual: Math.min(38, Math.max(1, maxJogos)),
+        ultima_atualizacao: `${dd}/${mm}/${yyyy} ${hh}:${min}`,
+        jogos: jogosCombinados,
+        tabela: tabela
+    };
+}
+
+async function buscarDadosBrasileirao() {
+    // 1. Camada Principal: Busca ao vivo diretamente na API pública da ESPN (apenas GET, sem bloqueio DLP)
+    try {
+        const dadosAoVivo = await buscarBrasileiraoDiretoESPN();
+        if (dadosAoVivo && Array.isArray(dadosAoVivo.tabela) && dadosAoVivo.tabela.length >= 10) {
+            dadosBrasileirao = dadosAoVivo;
+            localStorage.setItem('cobel_brasileirao_dados', JSON.stringify(dadosBrasileirao));
+            atualizarSlideBrasileiraoNaTela();
+            console.log(`Dados do Brasileirão atualizados ao vivo via ESPN (${dadosBrasileirao.ultima_atualizacao}).`);
+            return;
+        }
+    } catch (e) {
+        console.warn("Aviso ao consultar ESPN diretamente, tentando espelhos do GitHub...", e.message);
+    }
+
+    // 2. Camada Secundária: Consulta simultânea do brasileirao_data.json (Local, GitHub Raw e GitHub API via GET)
+    const owner = CONFIG_GLOBAL.github?.owner || 'cobelp53';
+    const repo = CONFIG_GLOBAL.github?.repo || 'dashboard';
+    const branch = CONFIG_GLOBAL.github?.branch || 'main';
+    const ts = Date.now();
+
+    const candidatos = [];
+    const promLocal = fetch(`./brasileirao_data.json?v=${ts}`, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+    const promRaw = fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/brasileirao_data.json?v=${ts}`, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+    const promApi = fetch(`https://api.github.com/repos/${owner}/${repo}/contents/brasileirao_data.json?ref=${branch}&_cb=${ts}`, {
+        headers: { 'Accept': 'application/vnd.github.v3+json' },
+        cache: 'no-store'
+    })
+        .then(async r => {
+            if (!r.ok) return null;
+            const info = await r.json();
+            if (!info || !info.content) return null;
+            const jsonStr = decodeURIComponent(escape(atob(info.content.replace(/\s/g, ''))));
+            return JSON.parse(jsonStr);
+        })
+        .catch(() => null);
+
+    const resultados = await Promise.all([promLocal, promRaw, promApi]);
+    resultados.forEach(d => {
+        if (d && (Array.isArray(d.jogos) || Array.isArray(d.tabela))) {
+            candidatos.push(d);
+        }
+    });
+
+    if (candidatos.length > 0) {
+        candidatos.sort((a, b) => parsearDataHoraAtualizacaoBR(b.ultima_atualizacao) - parsearDataHoraAtualizacaoBR(a.ultima_atualizacao));
+        dadosBrasileirao = candidatos[0];
+        localStorage.setItem('cobel_brasileirao_dados', JSON.stringify(dadosBrasileirao));
+        atualizarSlideBrasileiraoNaTela();
+        console.log(`Dados do Brasileirão sincronizados via repositório (${dadosBrasileirao.ultima_atualizacao || 'atual'}).`);
+        return;
+    }
+
+    // 3. Fallback via cache no localStorage
     const cached = localStorage.getItem('cobel_brasileirao_dados');
     if (cached) {
         try {
             const parsed = JSON.parse(cached);
-            if (parsed && parsed.rodada_atual >= 32) {
+            if (parsed && parsed.rodada_atual >= 33) {
                 dadosBrasileirao = parsed;
+                atualizarSlideBrasileiraoNaTela();
                 return;
-            } else {
-                localStorage.removeItem('cobel_brasileirao_dados');
             }
         } catch (e) {}
     }
 
-    // 3. Fallback estático (Rodada 32 - Outubro/2026)
+    // 4. Fallback estático atualizado (Rodada 33 - Outubro/Novembro 2026)
     dadosBrasileirao = {
         campeonato: "Campeonato Brasileiro Série A 2026",
-        rodada_atual: 32,
+        rodada_atual: 33,
+        ultima_atualizacao: "30/10/2026 16:04",
         jogos: [
-            { id: 1, mandante: "Palmeiras", mandante_sigla: "PAL", visitante: "Red Bull Bragantino", visitante_sigla: "RBB", gols_mandante: 2, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "Arena Barueri" },
-            { id: 2, mandante: "Internacional", mandante_sigla: "INT", visitante: "Botafogo", visitante_sigla: "BOT", gols_mandante: 3, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sábado - 16:30", estadio: "Beira-Rio" },
-            { id: 3, mandante: "Vasco", mandante_sigla: "VAS", visitante: "Corinthians", visitante_sigla: "COR", gols_mandante: 3, gols_visitante: 2, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "São Januário" },
-            { id: 4, mandante: "Santos", mandante_sigla: "SAN", visitante: "Bahia", visitante_sigla: "BAH", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 21:00", estadio: "Vila Belmiro" },
-            { id: 5, mandante: "Mirassol", mandante_sigla: "MIR", visitante: "São Paulo", visitante_sigla: "SAO", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 18:30", estadio: "Maião" },
-            { id: 6, mandante: "Cruzeiro", mandante_sigla: "CRU", visitante: "Remo", visitante_sigla: "REM", gols_mandante: 1, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Sexta - 21:30", estadio: "Mineirão" },
-            { id: 7, mandante: "Chapecoense", mandante_sigla: "CHA", visitante: "Fluminense", visitante_sigla: "FLU", gols_mandante: 2, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 19:00", estadio: "Arena Condá" },
-            { id: 8, mandante: "Vitória", mandante_sigla: "VIT", visitante: "Athletico-PR", visitante_sigla: "CAP", gols_mandante: 1, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Sábado - 16:00", estadio: "Barradão" },
-            { id: 9, mandante: "Coritiba", mandante_sigla: "CFC", visitante: "Grêmio", visitante_sigla: "GRE", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Segunda - 19:30", estadio: "Couto Pereira" },
-            { id: 10, mandante: "Flamengo", mandante_sigla: "FLA", visitante: "Atlético-MG", visitante_sigla: "CAM", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Segunda - 20:00", estadio: "Maracanã" }
+            { id: 401841295, mandante: "Corinthians", mandante_sigla: "COR", visitante: "Mirassol", visitante_sigla: "MIR", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Sex 30/10 • 20:00", data_curta: "30/10", estadio: "Neo Química Arena" },
+            { id: 401841294, mandante: "Coritiba", mandante_sigla: "CFC", visitante: "Vitória", visitante_sigla: "VIT", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Sáb 31/10 • 16:00", data_curta: "31/10", estadio: "Couto Pereira" },
+            { id: 401841299, mandante: "Red Bull Bragantino", mandante_sigla: "RBB", visitante: "Santos", visitante_sigla: "SAN", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Seg 02/11 • 20:00", data_curta: "02/11", estadio: "Nabi Abi Chedid" },
+            { id: 401841304, mandante: "Chapecoense", mandante_sigla: "CHA", visitante: "Mirassol", visitante_sigla: "MIR", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Ter 03/11 • 19:30", data_curta: "03/11", estadio: "Arena Condá" },
+            { id: 401841301, mandante: "Internacional", mandante_sigla: "INT", visitante: "Coritiba", visitante_sigla: "CFC", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Ter 03/11 • 21:30", data_curta: "03/11", estadio: "Beira-Rio" },
+            { id: 401841306, mandante: "Athletico-PR", mandante_sigla: "CAP", visitante: "Vasco", visitante_sigla: "VAS", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Qua 04/11 • 19:30", data_curta: "04/11", estadio: "Arena da Baixada" },
+            { id: 401841307, mandante: "Flamengo", mandante_sigla: "FLA", visitante: "Grêmio", visitante_sigla: "GRE", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Qua 04/11 • 19:30", data_curta: "04/11", estadio: "Maracanã" },
+            { id: 401841305, mandante: "Botafogo", mandante_sigla: "BOT", visitante: "Atlético-MG", visitante_sigla: "CAM", gols_mandante: null, gols_visitante: null, status: "agendado", tempo: "AGENDADO", data: "Qua 04/11 • 21:30", data_curta: "04/11", estadio: "Nilton Santos" },
+            { id: 401841290, mandante: "Grêmio", mandante_sigla: "GRE", visitante: "Athletico-PR", visitante_sigla: "CAP", gols_mandante: 2, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Qui 29/10 • 21:30", data_curta: "29/10", estadio: "Arena do Grêmio" },
+            { id: 401841292, mandante: "Vasco", mandante_sigla: "VAS", visitante: "Flamengo", visitante_sigla: "FLA", gols_mandante: 1, gols_visitante: 4, status: "finalizado", tempo: "FIM", data: "Qui 29/10 • 20:00", data_curta: "29/10", estadio: "Nilton Santos" },
+            { id: 401841288, mandante: "Atlético-MG", mandante_sigla: "CAM", visitante: "Cruzeiro", visitante_sigla: "CRU", gols_mandante: 0, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Qui 29/10 • 19:30", data_curta: "29/10", estadio: "Arena MRV" },
+            { id: 401841296, mandante: "Bahia", mandante_sigla: "BAH", visitante: "São Paulo", visitante_sigla: "SAO", gols_mandante: 3, gols_visitante: 2, status: "finalizado", tempo: "FIM", data: "Qua 28/10 • 21:30", data_curta: "28/10", estadio: "Fonte Nova" },
+            { id: 401841297, mandante: "Remo", mandante_sigla: "REM", visitante: "Botafogo", visitante_sigla: "BOT", gols_mandante: 2, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Qua 28/10 • 21:30", data_curta: "28/10", estadio: "Mangueirão" },
+            { id: 401841289, mandante: "Fluminense", mandante_sigla: "FLU", visitante: "Internacional", visitante_sigla: "INT", gols_mandante: 2, gols_visitante: 1, status: "finalizado", tempo: "FIM", data: "Qua 28/10 • 19:30", data_curta: "28/10", estadio: "Maracanã" },
+            { id: 401841291, mandante: "Red Bull Bragantino", mandante_sigla: "RBB", visitante: "Chapecoense", visitante_sigla: "CHA", gols_mandante: 3, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Qua 28/10 • 19:30", data_curta: "28/10", estadio: "Nabi Abi Chedid" },
+            { id: 401841293, mandante: "Santos", mandante_sigla: "SAN", visitante: "Palmeiras", visitante_sigla: "PAL", gols_mandante: 0, gols_visitante: 0, status: "finalizado", tempo: "FIM", data: "Qua 28/10 • 19:30", data_curta: "28/10", estadio: "Vila Belmiro" }
         ],
         tabela: [
-            { posicao: 1, time: "Palmeiras", sigla: "PAL", pontos: 69, jogos: 32, vitorias: 20, empates: 9, derrotas: 3, sg: 34 },
-            { posicao: 2, time: "Flamengo", sigla: "FLA", pontos: 67, jogos: 31, vitorias: 20, empates: 7, derrotas: 4, sg: 36 },
-            { posicao: 3, time: "Cruzeiro", sigla: "CRU", pontos: 54, jogos: 32, vitorias: 16, empates: 6, derrotas: 10, sg: 5 },
-            { posicao: 4, time: "Athletico-PR", sigla: "CAP", pontos: 54, jogos: 32, vitorias: 15, empates: 9, derrotas: 8, sg: 12 },
-            { posicao: 5, time: "Fluminense", sigla: "FLU", pontos: 51, jogos: 32, vitorias: 14, empates: 9, derrotas: 9, sg: 9 },
-            { posicao: 6, time: "Atlético-MG", sigla: "CAM", pontos: 50, jogos: 31, vitorias: 14, empates: 8, derrotas: 9, sg: 7 },
-            { posicao: 7, time: "Bahia", sigla: "BAH", pontos: 50, jogos: 32, vitorias: 13, empates: 11, derrotas: 8, sg: 5 },
-            { posicao: 8, time: "Santos", sigla: "SAN", pontos: 46, jogos: 32, vitorias: 12, empates: 10, derrotas: 10, sg: 2 },
-            { posicao: 9, time: "São Paulo", sigla: "SAO", pontos: 43, jogos: 32, vitorias: 12, empates: 7, derrotas: 13, sg: 1 },
-            { posicao: 10, time: "Red Bull Bragantino", sigla: "RBB", pontos: 41, jogos: 32, vitorias: 11, empates: 8, derrotas: 13, sg: 1 },
-            { posicao: 11, time: "Botafogo", sigla: "BOT", pontos: 39, jogos: 32, vitorias: 10, empates: 9, derrotas: 13, sg: -7 },
-            { posicao: 12, time: "Coritiba", sigla: "CFC", pontos: 39, jogos: 31, vitorias: 10, empates: 9, derrotas: 12, sg: -11 },
-            { posicao: 13, time: "Vasco", sigla: "VAS", pontos: 38, jogos: 31, vitorias: 10, empates: 8, derrotas: 13, sg: -6 },
+            { posicao: 1, time: "Flamengo", sigla: "FLA", pontos: 73, jogos: 33, vitorias: 22, empates: 7, derrotas: 4, sg: 40 },
+            { posicao: 2, time: "Palmeiras", sigla: "PAL", pontos: 70, jogos: 33, vitorias: 20, empates: 10, derrotas: 3, sg: 34 },
+            { posicao: 3, time: "Cruzeiro", sigla: "CRU", pontos: 57, jogos: 33, vitorias: 17, empates: 6, derrotas: 10, sg: 6 },
+            { posicao: 4, time: "Fluminense", sigla: "FLU", pontos: 54, jogos: 33, vitorias: 15, empates: 9, derrotas: 9, sg: 10 },
+            { posicao: 5, time: "Athletico-PR", sigla: "CAP", pontos: 54, jogos: 33, vitorias: 15, empates: 9, derrotas: 9, sg: 10 },
+            { posicao: 6, time: "Bahia", sigla: "BAH", pontos: 53, jogos: 33, vitorias: 14, empates: 11, derrotas: 8, sg: 6 },
+            { posicao: 7, time: "Atlético-MG", sigla: "CAM", pontos: 50, jogos: 33, vitorias: 14, empates: 8, derrotas: 11, sg: 5 },
+            { posicao: 8, time: "Santos", sigla: "SAN", pontos: 47, jogos: 33, vitorias: 12, empates: 11, derrotas: 10, sg: 2 },
+            { posicao: 9, time: "Red Bull Bragantino", sigla: "RBB", pontos: 44, jogos: 33, vitorias: 12, empates: 8, derrotas: 13, sg: 4 },
+            { posicao: 10, time: "São Paulo", sigla: "SAO", pontos: 43, jogos: 33, vitorias: 12, empates: 7, derrotas: 14, sg: 0 },
+            { posicao: 11, time: "Botafogo", sigla: "BOT", pontos: 39, jogos: 33, vitorias: 10, empates: 9, derrotas: 14, sg: -8 },
+            { posicao: 12, time: "Coritiba", sigla: "CFC", pontos: 39, jogos: 32, vitorias: 10, empates: 9, derrotas: 13, sg: -12 },
+            { posicao: 13, time: "Vasco", sigla: "VAS", pontos: 38, jogos: 32, vitorias: 10, empates: 8, derrotas: 14, sg: -9 },
             { posicao: 14, time: "Vitória", sigla: "VIT", pontos: 38, jogos: 32, vitorias: 10, empates: 8, derrotas: 14, sg: -11 },
-            { posicao: 15, time: "Mirassol", sigla: "MIR", pontos: 37, jogos: 32, vitorias: 9, empates: 10, derrotas: 13, sg: -8 },
-            { posicao: 16, time: "Internacional", sigla: "INT", pontos: 35, jogos: 32, vitorias: 8, empates: 11, derrotas: 13, sg: -4 },
-            { posicao: 17, time: "Corinthians", sigla: "COR", pontos: 33, jogos: 32, vitorias: 8, empates: 9, derrotas: 15, sg: -8 },
-            { posicao: 18, time: "Grêmio", sigla: "GRE", pontos: 31, jogos: 31, vitorias: 7, empates: 10, derrotas: 14, sg: -10 },
-            { posicao: 19, time: "Remo", sigla: "REM", pontos: 26, jogos: 32, vitorias: 5, empates: 11, derrotas: 16, sg: -16 },
-            { posicao: 20, time: "Chapecoense", sigla: "CHA", pontos: 21, jogos: 31, vitorias: 4, empates: 9, derrotas: 18, sg: -31 }
+            { posicao: 15, time: "Grêmio", sigla: "GRE", pontos: 37, jogos: 33, vitorias: 9, empates: 10, derrotas: 14, sg: -7 },
+            { posicao: 16, time: "Mirassol", sigla: "MIR", pontos: 37, jogos: 32, vitorias: 9, empates: 10, derrotas: 13, sg: -8 },
+            { posicao: 17, time: "Internacional", sigla: "INT", pontos: 35, jogos: 33, vitorias: 8, empates: 11, derrotas: 14, sg: -5 },
+            { posicao: 18, time: "Corinthians", sigla: "COR", pontos: 33, jogos: 32, vitorias: 8, empates: 9, derrotas: 15, sg: -8 },
+            { posicao: 19, time: "Remo", sigla: "REM", pontos: 29, jogos: 33, vitorias: 6, empates: 11, derrotas: 16, sg: -15 },
+            { posicao: 20, time: "Chapecoense", sigla: "CHA", pontos: 21, jogos: 32, vitorias: 4, empates: 9, derrotas: 19, sg: -34 }
         ]
     };
+    atualizarSlideBrasileiraoNaTela();
 }
 
 // =========================================================================
@@ -2913,42 +3099,8 @@ function parsearHTMLSitaerCliente(htmlTexto) {
     return voos;
 }
 
-async function buscarDadosVoos(evitarAutoDispatch = false) {
-    // 1. Tenta consultar diretamente o SITAER (funciona quando na rede corporativa ou se CORS liberado)
-    try {
-        const resDireto = await fetch("https://sitaer-infovoo.petrobras.com.br/InformativoPlataformaService.aspx", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
-            body: "operacao=LoadData&aeroporto=&plataforma=6228&status="
-        });
-        if (resDireto.ok) {
-            const htmlTexto = await resDireto.text();
-            if (htmlTexto && (htmlTexto.includes("tableVoo") || htmlTexto.includes("Não existem dados"))) {
-                const voosDiretos = parsearHTMLSitaerCliente(htmlTexto);
-                const agora = new Date();
-                const dd = String(agora.getDate()).padStart(2, '0');
-                const mm = String(agora.getMonth() + 1).padStart(2, '0');
-                const yyyy = agora.getFullYear();
-                const hh = String(agora.getHours()).padStart(2, '0');
-                const min = String(agora.getMinutes()).padStart(2, '0');
-                const agoraStr = `${dd}/${mm}/${yyyy} ${hh}:${min}`;
-                dadosVoosSitaer = {
-                    plataforma: "P-53",
-                    codigo_plataforma: "6228",
-                    ultima_atualizacao: agoraStr,
-                    voos: voosDiretos
-                };
-                localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
-                atualizarSlideVoosNaTela();
-                console.log("Dados de voos P-53 atualizados diretamente do SITAER.");
-                return;
-            }
-        }
-    } catch (e) {
-        // Silencioso: navegador comum bloqueia por CORS, segue para voos_data.json
-    }
-
-    // 2. Consulta simultânea do arquivo local, GitHub API (sem cache CDN) e GitHub Raw, escolhendo sempre o mais recente
+async function buscarDadosVoos() {
+    // Consulta exclusivamente via GET (sem POST/PUT para nunca acionar bloqueio DLP na rede corporativa Petrobras)
     const owner = CONFIG_GLOBAL.github?.owner || 'cobelp53';
     const repo = CONFIG_GLOBAL.github?.repo || 'dashboard';
     const branch = CONFIG_GLOBAL.github?.branch || 'main';
@@ -3004,23 +3156,7 @@ async function buscarDadosVoos(evitarAutoDispatch = false) {
         dadosVoosSitaer = candidatos[0];
         localStorage.setItem('cobel_voos_sitaer', JSON.stringify(dadosVoosSitaer));
         atualizarSlideVoosNaTela();
-        console.log(`Dados de voos P-53 sincronizados (última atualização: ${dadosVoosSitaer.ultima_atualizacao}).`);
-    }
-
-    // 3. Se os dados estiverem com 5 minutos ou mais e houver token do GitHub salvo no navegador, dispara o robô automaticamente em background
-    if (!evitarAutoDispatch) {
-        const tokenSalvo = localStorage.getItem('cobel_git_token');
-        if (tokenSalvo) {
-            const tsDados = parsearDataHoraAtualizacaoBR(dadosVoosSitaer?.ultima_atualizacao);
-            const idadeMinutos = tsDados > 0 ? (Date.now() - tsDados) / 60000 : 999;
-            const ultimoDispatch = Number(localStorage.getItem('cobel_last_voos_dispatch_ts') || 0);
-            const minDesdeUltimoDispatch = (Date.now() - ultimoDispatch) / 60000;
-
-            if (idadeMinutos >= 5 && minDesdeUltimoDispatch >= 4.5) {
-                console.log("Disparando atualização automática de voos via GitHub Actions (ciclo de 5 min)...");
-                cobelDispararAtualizacaoVoos(true);
-            }
-        }
+        console.log(`Dados de voos P-53 sincronizados via GET (última atualização: ${dadosVoosSitaer.ultima_atualizacao}).`);
     }
 }
 
@@ -3028,16 +3164,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 0. Carrega a configuração dinâmica externa
     await carregarConfiguracao();
 
-    // Busca dados de Voos SITAER (P-53) e dispara a função de atualização do Admin automaticamente de 5 em 5 minutos
+    // Busca dados de Voos SITAER (P-53) exclusivamente via GET (a cada 3 minutos)
     await buscarDadosVoos();
-    setInterval(() => {
-        cobelDispararAtualizacaoVoos(true);
-        buscarDadosVoos(true);
-    }, 300000); // Executa a cada 5 minutos (300.000 ms)
+    setInterval(buscarDadosVoos, 180000);
 
-    // Busca dados do Brasileirão Série A
+    // Busca dados do Brasileirão Série A ao vivo via GET (a cada 5 minutos)
     await buscarDadosBrasileirao();
-    setInterval(buscarDadosBrasileirao, 900000); // Atualiza a cada 15 minutos
+    setInterval(buscarDadosBrasileirao, 300000);
 
     // Busca dados da Copa do Mundo 2026
     await buscarDadosCopa();
