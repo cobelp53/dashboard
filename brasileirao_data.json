@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 33,
-  "ultima_atualizacao": "31/10/2026 15:46",
+  "ultima_atualizacao": "31/10/2026 16:13",
   "jogos": [
     {
       "id": 401841294,
@@ -9,10 +9,10 @@
       "mandante_sigla": "CFC",
       "visitante": "Vitória",
       "visitante_sigla": "VIT",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "13'",
       "data": "Sáb 31/10 • 16:00",
       "data_curta": "31/10",
       "estadio": "Couto Pereira"
@@ -114,6 +114,20 @@
       "data": "Qua 04/11 • 21:30",
       "data_curta": "04/11",
       "estadio": "Estádio Vila Belmiro (Urbano Caldeira)"
+    },
+    {
+      "id": 401841300,
+      "mandante": "Palmeiras",
+      "mandante_sigla": "PAL",
+      "visitante": "Remo",
+      "visitante_sigla": "REM",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qui 05/11 • 19:30",
+      "data_curta": "05/11",
+      "estadio": "Allianz Parque"
     },
     {
       "id": 401841295,
