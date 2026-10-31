@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 33,
-  "ultima_atualizacao": "31/10/2026 16:13",
+  "ultima_atualizacao": "31/10/2026 19:01",
   "jogos": [
-    {
-      "id": 401841294,
-      "mandante": "Coritiba",
-      "mandante_sigla": "CFC",
-      "visitante": "Vitória",
-      "visitante_sigla": "VIT",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "13'",
-      "data": "Sáb 31/10 • 16:00",
-      "data_curta": "31/10",
-      "estadio": "Couto Pereira"
-    },
     {
       "id": 401841299,
       "mandante": "Red Bull Bragantino",
@@ -130,6 +116,20 @@
       "estadio": "Allianz Parque"
     },
     {
+      "id": 401841294,
+      "mandante": "Coritiba",
+      "mandante_sigla": "CFC",
+      "visitante": "Vitória",
+      "visitante_sigla": "VIT",
+      "gols_mandante": 2,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sáb 31/10 • 16:00",
+      "data_curta": "31/10",
+      "estadio": "Couto Pereira"
+    },
+    {
       "id": 401841295,
       "mandante": "Corinthians",
       "mandante_sigla": "COR",
@@ -226,20 +226,6 @@
       "data": "Qua 28/10 • 19:30",
       "data_curta": "28/10",
       "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841291,
-      "mandante": "Red Bull Bragantino",
-      "mandante_sigla": "RBB",
-      "visitante": "Chapecoense",
-      "visitante_sigla": "CHA",
-      "gols_mandante": 3,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 28/10 • 19:30",
-      "data_curta": "28/10",
-      "estadio": "Estádio Municipal Cicero de Souza Marques"
     }
   ],
   "tabela": [
@@ -355,6 +341,17 @@
     },
     {
       "posicao": 11,
+      "time": "Coritiba",
+      "sigla": "CFC",
+      "pontos": 42,
+      "jogos": 33,
+      "vitorias": 11,
+      "empates": 9,
+      "derrotas": 13,
+      "sg": -10
+    },
+    {
+      "posicao": 12,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 39,
@@ -363,17 +360,6 @@
       "empates": 9,
       "derrotas": 14,
       "sg": -8
-    },
-    {
-      "posicao": 12,
-      "time": "Coritiba",
-      "sigla": "CFC",
-      "pontos": 39,
-      "jogos": 32,
-      "vitorias": 10,
-      "empates": 9,
-      "derrotas": 13,
-      "sg": -12
     },
     {
       "posicao": 13,
@@ -391,11 +377,11 @@
       "time": "Vitória",
       "sigla": "VIT",
       "pontos": 38,
-      "jogos": 32,
+      "jogos": 33,
       "vitorias": 10,
       "empates": 8,
-      "derrotas": 14,
-      "sg": -11
+      "derrotas": 15,
+      "sg": -13
     },
     {
       "posicao": 15,
