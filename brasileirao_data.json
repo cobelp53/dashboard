@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "03/11/2026 18:46",
+  "ultima_atualizacao": "03/11/2026 19:34",
   "jogos": [
     {
       "id": 401841304,
@@ -9,10 +9,10 @@
       "mandante_sigla": "CHA",
       "visitante": "Mirassol",
       "visitante_sigla": "MIR",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "2'",
       "data": "Ter 03/11 • 19:30",
       "data_curta": "03/11",
       "estadio": "Arena Condá"
@@ -114,6 +114,20 @@
       "data": "Qui 05/11 • 21:30",
       "data_curta": "05/11",
       "estadio": "Estadio Mineirão"
+    },
+    {
+      "id": 401841302,
+      "mandante": "Vitória",
+      "mandante_sigla": "VIT",
+      "visitante": "Fluminense",
+      "visitante_sigla": "FLU",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sex 06/11 • 20:00",
+      "data_curta": "06/11",
+      "estadio": "Estadio Manoel Barradas"
     },
     {
       "id": 401841299,
