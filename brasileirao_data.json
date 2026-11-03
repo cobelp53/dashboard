@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
-  "rodada_atual": 33,
-  "ultima_atualizacao": "02/11/2026 17:13",
+  "rodada_atual": 34,
+  "ultima_atualizacao": "02/11/2026 22:26",
   "jogos": [
-    {
-      "id": 401841299,
-      "mandante": "Red Bull Bragantino",
-      "mandante_sigla": "RBB",
-      "visitante": "Santos",
-      "visitante_sigla": "SAN",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Seg 02/11 • 20:00",
-      "data_curta": "02/11",
-      "estadio": "Estádio Municipal Cicero de Souza Marques"
-    },
     {
       "id": 401841304,
       "mandante": "Chapecoense",
@@ -116,6 +102,34 @@
       "estadio": "Allianz Parque"
     },
     {
+      "id": 401841303,
+      "mandante": "Cruzeiro",
+      "mandante_sigla": "CRU",
+      "visitante": "Bahia",
+      "visitante_sigla": "BAH",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qui 05/11 • 21:30",
+      "data_curta": "05/11",
+      "estadio": "Estadio Mineirão"
+    },
+    {
+      "id": 401841299,
+      "mandante": "Red Bull Bragantino",
+      "mandante_sigla": "RBB",
+      "visitante": "Santos",
+      "visitante_sigla": "SAN",
+      "gols_mandante": 2,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Seg 02/11 • 20:00",
+      "data_curta": "02/11",
+      "estadio": "Estádio Municipal Cicero de Souza Marques"
+    },
+    {
       "id": 401841294,
       "mandante": "Coritiba",
       "mandante_sigla": "CFC",
@@ -212,20 +226,6 @@
       "data": "Qua 28/10 • 21:30",
       "data_curta": "28/10",
       "estadio": "Mangueirão"
-    },
-    {
-      "id": 401841289,
-      "mandante": "Fluminense",
-      "mandante_sigla": "FLU",
-      "visitante": "Internacional",
-      "visitante_sigla": "INT",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 28/10 • 19:30",
-      "data_curta": "28/10",
-      "estadio": "Estadio do Maracana"
     }
   ],
   "tabela": [
@@ -308,25 +308,25 @@
     },
     {
       "posicao": 8,
-      "time": "Santos",
-      "sigla": "SAN",
+      "time": "Red Bull Bragantino",
+      "sigla": "RBB",
       "pontos": 47,
-      "jogos": 33,
-      "vitorias": 12,
-      "empates": 11,
-      "derrotas": 10,
-      "sg": 2
+      "jogos": 34,
+      "vitorias": 13,
+      "empates": 8,
+      "derrotas": 13,
+      "sg": 5
     },
     {
       "posicao": 9,
-      "time": "Red Bull Bragantino",
-      "sigla": "RBB",
-      "pontos": 44,
-      "jogos": 33,
+      "time": "Santos",
+      "sigla": "SAN",
+      "pontos": 47,
+      "jogos": 34,
       "vitorias": 12,
-      "empates": 8,
-      "derrotas": 13,
-      "sg": 4
+      "empates": 11,
+      "derrotas": 11,
+      "sg": 1
     },
     {
       "posicao": 10,
