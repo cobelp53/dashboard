@@ -1,32 +1,18 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "03/11/2026 19:34",
+  "ultima_atualizacao": "03/11/2026 22:45",
   "jogos": [
-    {
-      "id": 401841304,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Mirassol",
-      "visitante_sigla": "MIR",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "2'",
-      "data": "Ter 03/11 • 19:30",
-      "data_curta": "03/11",
-      "estadio": "Arena Condá"
-    },
     {
       "id": 401841301,
       "mandante": "Internacional",
       "mandante_sigla": "INT",
       "visitante": "Coritiba",
       "visitante_sigla": "CFC",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "50'",
       "data": "Ter 03/11 • 21:30",
       "data_curta": "03/11",
       "estadio": "Estadio Beira-Rio"
@@ -130,6 +116,34 @@
       "estadio": "Estadio Manoel Barradas"
     },
     {
+      "id": 401841311,
+      "mandante": "Mirassol",
+      "mandante_sigla": "MIR",
+      "visitante": "Atlético-MG",
+      "visitante_sigla": "CAM",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sáb 14/11 • 18:30",
+      "data_curta": "14/11",
+      "estadio": "Estadio Municipal José Maria de Campos Maia"
+    },
+    {
+      "id": 401841304,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Mirassol",
+      "visitante_sigla": "MIR",
+      "gols_mandante": 1,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Ter 03/11 • 19:30",
+      "data_curta": "03/11",
+      "estadio": "Arena Condá"
+    },
+    {
       "id": 401841299,
       "mandante": "Red Bull Bragantino",
       "mandante_sigla": "RBB",
@@ -226,20 +240,6 @@
       "data": "Qua 28/10 • 21:30",
       "data_curta": "28/10",
       "estadio": "Arena Fonte Nova"
-    },
-    {
-      "id": 401841297,
-      "mandante": "Remo",
-      "mandante_sigla": "REM",
-      "visitante": "Botafogo",
-      "visitante_sigla": "BOT",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 28/10 • 21:30",
-      "data_curta": "28/10",
-      "estadio": "Mangueirão"
     }
   ],
   "tabela": [
@@ -366,6 +366,17 @@
     },
     {
       "posicao": 12,
+      "time": "Mirassol",
+      "sigla": "MIR",
+      "pontos": 40,
+      "jogos": 34,
+      "vitorias": 10,
+      "empates": 10,
+      "derrotas": 14,
+      "sg": -9
+    },
+    {
+      "posicao": 13,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 39,
@@ -376,7 +387,7 @@
       "sg": -8
     },
     {
-      "posicao": 13,
+      "posicao": 14,
       "time": "Vasco",
       "sigla": "VAS",
       "pontos": 38,
@@ -387,7 +398,7 @@
       "sg": -9
     },
     {
-      "posicao": 14,
+      "posicao": 15,
       "time": "Vitória",
       "sigla": "VIT",
       "pontos": 38,
@@ -398,7 +409,7 @@
       "sg": -13
     },
     {
-      "posicao": 15,
+      "posicao": 16,
       "time": "Grêmio",
       "sigla": "GRE",
       "pontos": 37,
@@ -407,17 +418,6 @@
       "empates": 10,
       "derrotas": 14,
       "sg": -7
-    },
-    {
-      "posicao": 16,
-      "time": "Mirassol",
-      "sigla": "MIR",
-      "pontos": 37,
-      "jogos": 33,
-      "vitorias": 9,
-      "empates": 10,
-      "derrotas": 14,
-      "sg": -10
     },
     {
       "posicao": 17,
@@ -457,11 +457,11 @@
       "time": "Chapecoense",
       "sigla": "CHA",
       "pontos": 21,
-      "jogos": 32,
+      "jogos": 33,
       "vitorias": 4,
       "empates": 9,
-      "derrotas": 19,
-      "sg": -34
+      "derrotas": 20,
+      "sg": -35
     }
   ]
 }
