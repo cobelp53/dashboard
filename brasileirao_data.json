@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "03/11/2026 22:45",
+  "ultima_atualizacao": "03/11/2026 23:43",
   "jogos": [
-    {
-      "id": 401841301,
-      "mandante": "Internacional",
-      "mandante_sigla": "INT",
-      "visitante": "Coritiba",
-      "visitante_sigla": "CFC",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "50'",
-      "data": "Ter 03/11 • 21:30",
-      "data_curta": "03/11",
-      "estadio": "Estadio Beira-Rio"
-    },
     {
       "id": 401841306,
       "mandante": "Athletico-PR",
@@ -130,6 +116,20 @@
       "estadio": "Estadio Municipal José Maria de Campos Maia"
     },
     {
+      "id": 401841301,
+      "mandante": "Internacional",
+      "mandante_sigla": "INT",
+      "visitante": "Coritiba",
+      "visitante_sigla": "CFC",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Ter 03/11 • 21:30",
+      "data_curta": "03/11",
+      "estadio": "Estadio Beira-Rio"
+    },
+    {
       "id": 401841304,
       "mandante": "Chapecoense",
       "mandante_sigla": "CHA",
@@ -226,20 +226,6 @@
       "data": "Qui 29/10 • 19:30",
       "data_curta": "29/10",
       "estadio": "Arena MRV"
-    },
-    {
-      "id": 401841296,
-      "mandante": "Bahia",
-      "mandante_sigla": "BAH",
-      "visitante": "São Paulo",
-      "visitante_sigla": "SAO",
-      "gols_mandante": 3,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 28/10 • 21:30",
-      "data_curta": "28/10",
-      "estadio": "Arena Fonte Nova"
     }
   ],
   "tabela": [
@@ -358,11 +344,11 @@
       "time": "Coritiba",
       "sigla": "CFC",
       "pontos": 42,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 11,
       "empates": 9,
-      "derrotas": 13,
-      "sg": -10
+      "derrotas": 14,
+      "sg": -11
     },
     {
       "posicao": 12,
@@ -410,6 +396,17 @@
     },
     {
       "posicao": 16,
+      "time": "Internacional",
+      "sigla": "INT",
+      "pontos": 38,
+      "jogos": 34,
+      "vitorias": 9,
+      "empates": 11,
+      "derrotas": 14,
+      "sg": -4
+    },
+    {
+      "posicao": 17,
       "time": "Grêmio",
       "sigla": "GRE",
       "pontos": 37,
@@ -420,7 +417,7 @@
       "sg": -7
     },
     {
-      "posicao": 17,
+      "posicao": 18,
       "time": "Corinthians",
       "sigla": "COR",
       "pontos": 36,
@@ -429,17 +426,6 @@
       "empates": 9,
       "derrotas": 15,
       "sg": -6
-    },
-    {
-      "posicao": 18,
-      "time": "Internacional",
-      "sigla": "INT",
-      "pontos": 35,
-      "jogos": 33,
-      "vitorias": 8,
-      "empates": 11,
-      "derrotas": 14,
-      "sg": -5
     },
     {
       "posicao": 19,
