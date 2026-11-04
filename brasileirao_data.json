@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "04/11/2026 19:02",
+  "ultima_atualizacao": "04/11/2026 20:33",
   "jogos": [
     {
       "id": 401841306,
@@ -9,10 +9,10 @@
       "mandante_sigla": "CAP",
       "visitante": "Vasco",
       "visitante_sigla": "VAS",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "HT",
       "data": "Qua 04/11 • 19:30",
       "data_curta": "04/11",
       "estadio": "Arena da Baixada"
@@ -23,10 +23,10 @@
       "mandante_sigla": "FLA",
       "visitante": "Grêmio",
       "visitante_sigla": "GRE",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 3,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "HT",
       "data": "Qua 04/11 • 19:30",
       "data_curta": "04/11",
       "estadio": "Estadio do Maracana"
@@ -114,6 +114,20 @@
       "data": "Sáb 14/11 • 18:30",
       "data_curta": "14/11",
       "estadio": "Estadio Municipal José Maria de Campos Maia"
+    },
+    {
+      "id": 401841175,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sáb 14/11 • 20:30",
+      "data_curta": "14/11",
+      "estadio": "Arena Condá"
     },
     {
       "id": 401841301,
