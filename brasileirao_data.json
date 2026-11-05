@@ -1,46 +1,18 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "04/11/2026 20:33",
+  "ultima_atualizacao": "04/11/2026 23:22",
   "jogos": [
-    {
-      "id": 401841306,
-      "mandante": "Athletico-PR",
-      "mandante_sigla": "CAP",
-      "visitante": "Vasco",
-      "visitante_sigla": "VAS",
-      "gols_mandante": 1,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "HT",
-      "data": "Qua 04/11 • 19:30",
-      "data_curta": "04/11",
-      "estadio": "Arena da Baixada"
-    },
-    {
-      "id": 401841307,
-      "mandante": "Flamengo",
-      "mandante_sigla": "FLA",
-      "visitante": "Grêmio",
-      "visitante_sigla": "GRE",
-      "gols_mandante": 3,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "HT",
-      "data": "Qua 04/11 • 19:30",
-      "data_curta": "04/11",
-      "estadio": "Estadio do Maracana"
-    },
     {
       "id": 401841305,
       "mandante": "Botafogo",
       "mandante_sigla": "BOT",
       "visitante": "Atlético-MG",
       "visitante_sigla": "CAM",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "90'+3'",
       "data": "Qua 04/11 • 21:30",
       "data_curta": "04/11",
       "estadio": "Joao Havelange Stadium"
@@ -51,10 +23,10 @@
       "mandante_sigla": "SAO",
       "visitante": "Corinthians",
       "visitante_sigla": "COR",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "87'",
       "data": "Qua 04/11 • 21:30",
       "data_curta": "04/11",
       "estadio": "Estádio Vila Belmiro (Urbano Caldeira)"
@@ -128,6 +100,34 @@
       "data": "Sáb 14/11 • 20:30",
       "data_curta": "14/11",
       "estadio": "Arena Condá"
+    },
+    {
+      "id": 401841306,
+      "mandante": "Athletico-PR",
+      "mandante_sigla": "CAP",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": 1,
+      "gols_visitante": 3,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 04/11 • 19:30",
+      "data_curta": "04/11",
+      "estadio": "Arena da Baixada"
+    },
+    {
+      "id": 401841307,
+      "mandante": "Flamengo",
+      "mandante_sigla": "FLA",
+      "visitante": "Grêmio",
+      "visitante_sigla": "GRE",
+      "gols_mandante": 3,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 04/11 • 19:30",
+      "data_curta": "04/11",
+      "estadio": "Estadio do Maracana"
     },
     {
       "id": 401841301,
@@ -212,34 +212,6 @@
       "data": "Qui 29/10 • 21:30",
       "data_curta": "29/10",
       "estadio": "Arena do Grêmio"
-    },
-    {
-      "id": 401841292,
-      "mandante": "Vasco",
-      "mandante_sigla": "VAS",
-      "visitante": "Flamengo",
-      "visitante_sigla": "FLA",
-      "gols_mandante": 1,
-      "gols_visitante": 4,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 29/10 • 20:00",
-      "data_curta": "29/10",
-      "estadio": "Joao Havelange Stadium"
-    },
-    {
-      "id": 401841288,
-      "mandante": "Atlético-MG",
-      "mandante_sigla": "CAM",
-      "visitante": "Cruzeiro",
-      "visitante_sigla": "CRU",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 29/10 • 19:30",
-      "data_curta": "29/10",
-      "estadio": "Arena MRV"
     }
   ],
   "tabela": [
@@ -247,12 +219,12 @@
       "posicao": 1,
       "time": "Flamengo",
       "sigla": "FLA",
-      "pontos": 73,
-      "jogos": 33,
-      "vitorias": 22,
+      "pontos": 76,
+      "jogos": 34,
+      "vitorias": 23,
       "empates": 7,
       "derrotas": 4,
-      "sg": 40
+      "sg": 42
     },
     {
       "posicao": 2,
@@ -292,11 +264,11 @@
       "time": "Athletico-PR",
       "sigla": "CAP",
       "pontos": 54,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 15,
       "empates": 9,
-      "derrotas": 9,
-      "sg": 10
+      "derrotas": 10,
+      "sg": 8
     },
     {
       "posicao": 6,
@@ -366,6 +338,17 @@
     },
     {
       "posicao": 12,
+      "time": "Vasco",
+      "sigla": "VAS",
+      "pontos": 41,
+      "jogos": 33,
+      "vitorias": 11,
+      "empates": 8,
+      "derrotas": 14,
+      "sg": -7
+    },
+    {
+      "posicao": 13,
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 40,
@@ -376,7 +359,7 @@
       "sg": -9
     },
     {
-      "posicao": 13,
+      "posicao": 14,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 39,
@@ -385,17 +368,6 @@
       "empates": 9,
       "derrotas": 14,
       "sg": -8
-    },
-    {
-      "posicao": 14,
-      "time": "Vasco",
-      "sigla": "VAS",
-      "pontos": 38,
-      "jogos": 32,
-      "vitorias": 10,
-      "empates": 8,
-      "derrotas": 14,
-      "sg": -9
     },
     {
       "posicao": 15,
@@ -424,11 +396,11 @@
       "time": "Grêmio",
       "sigla": "GRE",
       "pontos": 37,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 9,
       "empates": 10,
-      "derrotas": 14,
-      "sg": -7
+      "derrotas": 15,
+      "sg": -9
     },
     {
       "posicao": 18,
