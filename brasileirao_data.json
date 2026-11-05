@@ -1,36 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "04/11/2026 23:22",
+  "ultima_atualizacao": "05/11/2026 00:43",
   "jogos": [
-    {
-      "id": 401841305,
-      "mandante": "Botafogo",
-      "mandante_sigla": "BOT",
-      "visitante": "Atlético-MG",
-      "visitante_sigla": "CAM",
-      "gols_mandante": 1,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "90'+3'",
-      "data": "Qua 04/11 • 21:30",
-      "data_curta": "04/11",
-      "estadio": "Joao Havelange Stadium"
-    },
-    {
-      "id": 401841298,
-      "mandante": "São Paulo",
-      "mandante_sigla": "SAO",
-      "visitante": "Corinthians",
-      "visitante_sigla": "COR",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "87'",
-      "data": "Qua 04/11 • 21:30",
-      "data_curta": "04/11",
-      "estadio": "Estádio Vila Belmiro (Urbano Caldeira)"
-    },
     {
       "id": 401841300,
       "mandante": "Palmeiras",
@@ -100,6 +72,34 @@
       "data": "Sáb 14/11 • 20:30",
       "data_curta": "14/11",
       "estadio": "Arena Condá"
+    },
+    {
+      "id": 401841305,
+      "mandante": "Botafogo",
+      "mandante_sigla": "BOT",
+      "visitante": "Atlético-MG",
+      "visitante_sigla": "CAM",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 04/11 • 21:30",
+      "data_curta": "04/11",
+      "estadio": "Joao Havelange Stadium"
+    },
+    {
+      "id": 401841298,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Corinthians",
+      "visitante_sigla": "COR",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 04/11 • 21:30",
+      "data_curta": "04/11",
+      "estadio": "Estádio Vila Belmiro (Urbano Caldeira)"
     },
     {
       "id": 401841306,
@@ -184,34 +184,6 @@
       "data": "Sáb 31/10 • 16:00",
       "data_curta": "31/10",
       "estadio": "Couto Pereira"
-    },
-    {
-      "id": 401841295,
-      "mandante": "Corinthians",
-      "mandante_sigla": "COR",
-      "visitante": "Mirassol",
-      "visitante_sigla": "MIR",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sex 30/10 • 20:00",
-      "data_curta": "30/10",
-      "estadio": "Neo Química Arena"
-    },
-    {
-      "id": 401841290,
-      "mandante": "Grêmio",
-      "mandante_sigla": "GRE",
-      "visitante": "Athletico-PR",
-      "visitante_sigla": "CAP",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 29/10 • 21:30",
-      "data_curta": "29/10",
-      "estadio": "Arena do Grêmio"
     }
   ],
   "tabela": [
@@ -286,11 +258,11 @@
       "time": "Atlético-MG",
       "sigla": "CAM",
       "pontos": 50,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 14,
       "empates": 8,
-      "derrotas": 11,
-      "sg": 5
+      "derrotas": 12,
+      "sg": 4
     },
     {
       "posicao": 8,
@@ -318,15 +290,26 @@
       "posicao": 10,
       "time": "São Paulo",
       "sigla": "SAO",
-      "pontos": 43,
-      "jogos": 33,
+      "pontos": 44,
+      "jogos": 34,
       "vitorias": 12,
-      "empates": 7,
+      "empates": 8,
       "derrotas": 14,
       "sg": 0
     },
     {
       "posicao": 11,
+      "time": "Botafogo",
+      "sigla": "BOT",
+      "pontos": 42,
+      "jogos": 34,
+      "vitorias": 11,
+      "empates": 9,
+      "derrotas": 14,
+      "sg": -7
+    },
+    {
+      "posicao": 12,
       "time": "Coritiba",
       "sigla": "CFC",
       "pontos": 42,
@@ -337,7 +320,7 @@
       "sg": -11
     },
     {
-      "posicao": 12,
+      "posicao": 13,
       "time": "Vasco",
       "sigla": "VAS",
       "pontos": 41,
@@ -348,7 +331,7 @@
       "sg": -7
     },
     {
-      "posicao": 13,
+      "posicao": 14,
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 40,
@@ -357,17 +340,6 @@
       "empates": 10,
       "derrotas": 14,
       "sg": -9
-    },
-    {
-      "posicao": 14,
-      "time": "Botafogo",
-      "sigla": "BOT",
-      "pontos": 39,
-      "jogos": 33,
-      "vitorias": 10,
-      "empates": 9,
-      "derrotas": 14,
-      "sg": -8
     },
     {
       "posicao": 15,
@@ -393,6 +365,17 @@
     },
     {
       "posicao": 17,
+      "time": "Corinthians",
+      "sigla": "COR",
+      "pontos": 37,
+      "jogos": 34,
+      "vitorias": 9,
+      "empates": 10,
+      "derrotas": 15,
+      "sg": -6
+    },
+    {
+      "posicao": 18,
       "time": "Grêmio",
       "sigla": "GRE",
       "pontos": 37,
@@ -401,17 +384,6 @@
       "empates": 10,
       "derrotas": 15,
       "sg": -9
-    },
-    {
-      "posicao": 18,
-      "time": "Corinthians",
-      "sigla": "COR",
-      "pontos": 36,
-      "jogos": 33,
-      "vitorias": 9,
-      "empates": 9,
-      "derrotas": 15,
-      "sg": -6
     },
     {
       "posicao": 19,
