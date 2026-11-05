@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "05/11/2026 16:00",
+  "ultima_atualizacao": "05/11/2026 19:50",
   "jogos": [
     {
       "id": 401841300,
@@ -9,10 +9,10 @@
       "mandante_sigla": "PAL",
       "visitante": "Remo",
       "visitante_sigla": "REM",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 2,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "20'",
       "data": "Qui 05/11 • 19:30",
       "data_curta": "05/11",
       "estadio": "Allianz Parque"
