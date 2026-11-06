@@ -1,36 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "05/11/2026 21:09",
+  "ultima_atualizacao": "05/11/2026 23:57",
   "jogos": [
-    {
-      "id": 401841300,
-      "mandante": "Palmeiras",
-      "mandante_sigla": "PAL",
-      "visitante": "Remo",
-      "visitante_sigla": "REM",
-      "gols_mandante": 5,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "75'",
-      "data": "Qui 05/11 • 19:30",
-      "data_curta": "05/11",
-      "estadio": "Allianz Parque"
-    },
-    {
-      "id": 401841303,
-      "mandante": "Cruzeiro",
-      "mandante_sigla": "CRU",
-      "visitante": "Bahia",
-      "visitante_sigla": "BAH",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Qui 05/11 • 21:30",
-      "data_curta": "05/11",
-      "estadio": "Estadio Mineirão"
-    },
     {
       "id": 401841302,
       "mandante": "Vitória",
@@ -72,6 +44,34 @@
       "data": "Sáb 14/11 • 20:30",
       "data_curta": "14/11",
       "estadio": "Arena Condá"
+    },
+    {
+      "id": 401841303,
+      "mandante": "Cruzeiro",
+      "mandante_sigla": "CRU",
+      "visitante": "Bahia",
+      "visitante_sigla": "BAH",
+      "gols_mandante": 3,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 05/11 • 21:30",
+      "data_curta": "05/11",
+      "estadio": "Estadio Mineirão"
+    },
+    {
+      "id": 401841300,
+      "mandante": "Palmeiras",
+      "mandante_sigla": "PAL",
+      "visitante": "Remo",
+      "visitante_sigla": "REM",
+      "gols_mandante": 6,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 05/11 • 19:30",
+      "data_curta": "05/11",
+      "estadio": "Allianz Parque"
     },
     {
       "id": 401841305,
@@ -156,34 +156,6 @@
       "data": "Ter 03/11 • 19:30",
       "data_curta": "03/11",
       "estadio": "Arena Condá"
-    },
-    {
-      "id": 401841299,
-      "mandante": "Red Bull Bragantino",
-      "mandante_sigla": "RBB",
-      "visitante": "Santos",
-      "visitante_sigla": "SAN",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Seg 02/11 • 20:00",
-      "data_curta": "02/11",
-      "estadio": "Estádio Municipal Cicero de Souza Marques"
-    },
-    {
-      "id": 401841294,
-      "mandante": "Coritiba",
-      "mandante_sigla": "CFC",
-      "visitante": "Vitória",
-      "visitante_sigla": "VIT",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 31/10 • 16:00",
-      "data_curta": "31/10",
-      "estadio": "Couto Pereira"
     }
   ],
   "tabela": [
@@ -202,23 +174,23 @@
       "posicao": 2,
       "time": "Palmeiras",
       "sigla": "PAL",
-      "pontos": 70,
-      "jogos": 33,
-      "vitorias": 20,
+      "pontos": 73,
+      "jogos": 34,
+      "vitorias": 21,
       "empates": 10,
       "derrotas": 3,
-      "sg": 34
+      "sg": 39
     },
     {
       "posicao": 3,
       "time": "Cruzeiro",
       "sigla": "CRU",
-      "pontos": 57,
-      "jogos": 33,
-      "vitorias": 17,
+      "pontos": 60,
+      "jogos": 34,
+      "vitorias": 18,
       "empates": 6,
       "derrotas": 10,
-      "sg": 6
+      "sg": 7
     },
     {
       "posicao": 4,
@@ -247,11 +219,11 @@
       "time": "Bahia",
       "sigla": "BAH",
       "pontos": 53,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 14,
       "empates": 11,
-      "derrotas": 8,
-      "sg": 6
+      "derrotas": 9,
+      "sg": 5
     },
     {
       "posicao": 7,
@@ -390,11 +362,11 @@
       "time": "Remo",
       "sigla": "REM",
       "pontos": 29,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 6,
       "empates": 11,
-      "derrotas": 16,
-      "sg": -15
+      "derrotas": 17,
+      "sg": -20
     },
     {
       "posicao": 20,
