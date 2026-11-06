@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "05/11/2026 23:57",
+  "ultima_atualizacao": "06/11/2026 03:51",
   "jogos": [
     {
       "id": 401841302,
@@ -44,6 +44,76 @@
       "data": "Sáb 14/11 • 20:30",
       "data_curta": "14/11",
       "estadio": "Arena Condá"
+    },
+    {
+      "id": 401841315,
+      "mandante": "Coritiba",
+      "mandante_sigla": "CFC",
+      "visitante": "Santos",
+      "visitante_sigla": "SAN",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 19:30",
+      "data_curta": "18/11",
+      "estadio": "Couto Pereira"
+    },
+    {
+      "id": 401841310,
+      "mandante": "Remo",
+      "mandante_sigla": "REM",
+      "visitante": "Chapecoense",
+      "visitante_sigla": "CHA",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 20:00",
+      "data_curta": "18/11",
+      "estadio": "Mangueirão"
+    },
+    {
+      "id": 401841314,
+      "mandante": "Cruzeiro",
+      "mandante_sigla": "CRU",
+      "visitante": "Palmeiras",
+      "visitante_sigla": "PAL",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 20:30",
+      "data_curta": "18/11",
+      "estadio": "Estadio Mineirão"
+    },
+    {
+      "id": 401841313,
+      "mandante": "Flamengo",
+      "mandante_sigla": "FLA",
+      "visitante": "Athletico-PR",
+      "visitante_sigla": "CAP",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 20:30",
+      "data_curta": "18/11",
+      "estadio": "Estadio do Maracana"
+    },
+    {
+      "id": 401841316,
+      "mandante": "Corinthians",
+      "mandante_sigla": "COR",
+      "visitante": "Botafogo",
+      "visitante_sigla": "BOT",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 21:30",
+      "data_curta": "18/11",
+      "estadio": "Neo Química Arena"
     },
     {
       "id": 401841303,
