@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "06/11/2026 21:22",
+  "ultima_atualizacao": "06/11/2026 23:05",
   "jogos": [
-    {
-      "id": 401841302,
-      "mandante": "Vitória",
-      "mandante_sigla": "VIT",
-      "visitante": "Fluminense",
-      "visitante_sigla": "FLU",
-      "gols_mandante": 0,
-      "gols_visitante": 2,
-      "status": "aovivo",
-      "tempo": "62'",
-      "data": "Sex 06/11 • 20:00",
-      "data_curta": "06/11",
-      "estadio": "Estadio Manoel Barradas"
-    },
     {
       "id": 401841311,
       "mandante": "Mirassol",
@@ -130,6 +116,20 @@
       "estadio": "Arena do Grêmio"
     },
     {
+      "id": 401841302,
+      "mandante": "Vitória",
+      "mandante_sigla": "VIT",
+      "visitante": "Fluminense",
+      "visitante_sigla": "FLU",
+      "gols_mandante": 0,
+      "gols_visitante": 3,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sex 06/11 • 20:00",
+      "data_curta": "06/11",
+      "estadio": "Estadio Manoel Barradas"
+    },
+    {
       "id": 401841303,
       "mandante": "Cruzeiro",
       "mandante_sigla": "CRU",
@@ -226,20 +226,6 @@
       "data": "Ter 03/11 • 21:30",
       "data_curta": "03/11",
       "estadio": "Estadio Beira-Rio"
-    },
-    {
-      "id": 401841304,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Mirassol",
-      "visitante_sigla": "MIR",
-      "gols_mandante": 1,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Ter 03/11 • 19:30",
-      "data_curta": "03/11",
-      "estadio": "Arena Condá"
     }
   ],
   "tabela": [
@@ -280,12 +266,12 @@
       "posicao": 4,
       "time": "Fluminense",
       "sigla": "FLU",
-      "pontos": 54,
-      "jogos": 33,
-      "vitorias": 15,
+      "pontos": 57,
+      "jogos": 34,
+      "vitorias": 16,
       "empates": 9,
       "derrotas": 9,
-      "sg": 10
+      "sg": 13
     },
     {
       "posicao": 5,
@@ -402,11 +388,11 @@
       "time": "Vitória",
       "sigla": "VIT",
       "pontos": 38,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 10,
       "empates": 8,
-      "derrotas": 15,
-      "sg": -13
+      "derrotas": 16,
+      "sg": -16
     },
     {
       "posicao": 16,
