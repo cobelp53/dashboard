@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "06/11/2026 19:22",
+  "ultima_atualizacao": "06/11/2026 21:22",
   "jogos": [
     {
       "id": 401841302,
@@ -9,10 +9,10 @@
       "mandante_sigla": "VIT",
       "visitante": "Fluminense",
       "visitante_sigla": "FLU",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 2,
+      "status": "aovivo",
+      "tempo": "62'",
       "data": "Sex 06/11 • 20:00",
       "data_curta": "06/11",
       "estadio": "Estadio Manoel Barradas"
@@ -114,6 +114,20 @@
       "data": "Qua 18/11 • 21:30",
       "data_curta": "18/11",
       "estadio": "Neo Química Arena"
+    },
+    {
+      "id": 401841312,
+      "mandante": "Grêmio",
+      "mandante_sigla": "GRE",
+      "visitante": "Bahia",
+      "visitante_sigla": "BAH",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 18/11 • 21:30",
+      "data_curta": "18/11",
+      "estadio": "Arena do Grêmio"
     },
     {
       "id": 401841303,
