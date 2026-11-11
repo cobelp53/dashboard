@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "10/11/2026 20:59",
+  "ultima_atualizacao": "11/11/2026 00:39",
   "jogos": [
     {
       "id": 401841311,
@@ -212,20 +212,6 @@
       "data": "Qua 04/11 • 19:30",
       "data_curta": "04/11",
       "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841301,
-      "mandante": "Internacional",
-      "mandante_sigla": "INT",
-      "visitante": "Coritiba",
-      "visitante_sigla": "CFC",
-      "gols_mandante": 1,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Ter 03/11 • 21:30",
-      "data_curta": "03/11",
-      "estadio": "Estadio Beira-Rio"
     }
   ],
   "tabela": [
