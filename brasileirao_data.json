@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "12/11/2026 23:58",
+  "ultima_atualizacao": "13/11/2026 07:22",
   "jogos": [
     {
       "id": 401841311,
@@ -128,34 +128,6 @@
       "data": "Sex 06/11 • 20:00",
       "data_curta": "06/11",
       "estadio": "Estadio Manoel Barradas"
-    },
-    {
-      "id": 401841303,
-      "mandante": "Cruzeiro",
-      "mandante_sigla": "CRU",
-      "visitante": "Bahia",
-      "visitante_sigla": "BAH",
-      "gols_mandante": 3,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 05/11 • 21:30",
-      "data_curta": "05/11",
-      "estadio": "Estadio Mineirão"
-    },
-    {
-      "id": 401841300,
-      "mandante": "Palmeiras",
-      "mandante_sigla": "PAL",
-      "visitante": "Remo",
-      "visitante_sigla": "REM",
-      "gols_mandante": 6,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 05/11 • 19:30",
-      "data_curta": "05/11",
-      "estadio": "Allianz Parque"
     }
   ],
   "tabela": [
