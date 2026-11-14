@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 34,
-  "ultima_atualizacao": "13/11/2026 20:46",
+  "ultima_atualizacao": "14/11/2026 00:09",
   "jogos": [
     {
       "id": 401841311,
@@ -114,20 +114,6 @@
       "data": "Qua 18/11 • 21:30",
       "data_curta": "18/11",
       "estadio": "Arena do Grêmio"
-    },
-    {
-      "id": 401841302,
-      "mandante": "Vitória",
-      "mandante_sigla": "VIT",
-      "visitante": "Fluminense",
-      "visitante_sigla": "FLU",
-      "gols_mandante": 0,
-      "gols_visitante": 3,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sex 06/11 • 20:00",
-      "data_curta": "06/11",
-      "estadio": "Estadio Manoel Barradas"
     }
   ],
   "tabela": [
