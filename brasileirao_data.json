@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "14/11/2026 22:12",
+  "ultima_atualizacao": "15/11/2026 03:59",
   "jogos": [
-    {
-      "id": 401841175,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Vasco",
-      "visitante_sigla": "VAS",
-      "gols_mandante": 0,
-      "gols_visitante": 2,
-      "status": "aovivo",
-      "tempo": "82'",
-      "data": "Sáb 14/11 • 20:30",
-      "data_curta": "14/11",
-      "estadio": "Arena Condá"
-    },
     {
       "id": 401841315,
       "mandante": "Coritiba",
@@ -128,6 +114,20 @@
       "data": "Qui 19/11 • 19:30",
       "data_curta": "19/11",
       "estadio": "Estadio Manoel Barradas"
+    },
+    {
+      "id": 401841175,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": 0,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sáb 14/11 • 20:30",
+      "data_curta": "14/11",
+      "estadio": "Arena Condá"
     },
     {
       "id": 401841311,
@@ -257,6 +257,17 @@
     },
     {
       "posicao": 11,
+      "time": "Vasco",
+      "sigla": "VAS",
+      "pontos": 44,
+      "jogos": 34,
+      "vitorias": 12,
+      "empates": 8,
+      "derrotas": 14,
+      "sg": -5
+    },
+    {
+      "posicao": 12,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 42,
@@ -267,7 +278,7 @@
       "sg": -7
     },
     {
-      "posicao": 12,
+      "posicao": 13,
       "time": "Coritiba",
       "sigla": "CFC",
       "pontos": 42,
@@ -276,17 +287,6 @@
       "empates": 9,
       "derrotas": 14,
       "sg": -11
-    },
-    {
-      "posicao": 13,
-      "time": "Vasco",
-      "sigla": "VAS",
-      "pontos": 41,
-      "jogos": 33,
-      "vitorias": 11,
-      "empates": 8,
-      "derrotas": 14,
-      "sg": -7
     },
     {
       "posicao": 14,
@@ -359,11 +359,11 @@
       "time": "Chapecoense",
       "sigla": "CHA",
       "pontos": 21,
-      "jogos": 33,
+      "jogos": 34,
       "vitorias": 4,
       "empates": 9,
-      "derrotas": 20,
-      "sg": -35
+      "derrotas": 21,
+      "sg": -37
     }
   ]
 }
