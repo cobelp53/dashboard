@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "14/11/2026 21:29",
+  "ultima_atualizacao": "14/11/2026 22:12",
   "jogos": [
     {
       "id": 401841175,
@@ -10,9 +10,9 @@
       "visitante": "Vasco",
       "visitante_sigla": "VAS",
       "gols_mandante": 0,
-      "gols_visitante": 1,
+      "gols_visitante": 2,
       "status": "aovivo",
-      "tempo": "HT",
+      "tempo": "82'",
       "data": "Sáb 14/11 • 20:30",
       "data_curta": "14/11",
       "estadio": "Arena Condá"
