@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "18/11/2026 16:03",
+  "ultima_atualizacao": "18/11/2026 20:25",
   "jogos": [
     {
       "id": 401841315,
@@ -9,10 +9,10 @@
       "mandante_sigla": "CFC",
       "visitante": "Santos",
       "visitante_sigla": "SAN",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "45'+5'",
       "data": "Qua 18/11 • 19:30",
       "data_curta": "18/11",
       "estadio": "Couto Pereira"
@@ -23,10 +23,10 @@
       "mandante_sigla": "REM",
       "visitante": "Chapecoense",
       "visitante_sigla": "CHA",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 2,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "23'",
       "data": "Qua 18/11 • 20:00",
       "data_curta": "18/11",
       "estadio": "Mangueirão"
@@ -114,6 +114,34 @@
       "data": "Qui 19/11 • 19:30",
       "data_curta": "19/11",
       "estadio": "Estadio Manoel Barradas"
+    },
+    {
+      "id": 401841309,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Fluminense",
+      "visitante_sigla": "FLU",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qui 19/11 • 21:30",
+      "data_curta": "19/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
+      "id": 401841322,
+      "mandante": "Palmeiras",
+      "mandante_sigla": "PAL",
+      "visitante": "Flamengo",
+      "visitante_sigla": "FLA",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sáb 21/11 • 16:30",
+      "data_curta": "21/11",
+      "estadio": "Allianz Parque"
     },
     {
       "id": 401841175,
