@@ -1,64 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "18/11/2026 22:09",
+  "ultima_atualizacao": "19/11/2026 01:26",
   "jogos": [
-    {
-      "id": 401841314,
-      "mandante": "Cruzeiro",
-      "mandante_sigla": "CRU",
-      "visitante": "Palmeiras",
-      "visitante_sigla": "PAL",
-      "gols_mandante": 1,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "77'",
-      "data": "Qua 18/11 • 20:30",
-      "data_curta": "18/11",
-      "estadio": "Estadio Mineirão"
-    },
-    {
-      "id": 401841313,
-      "mandante": "Flamengo",
-      "mandante_sigla": "FLA",
-      "visitante": "Athletico-PR",
-      "visitante_sigla": "CAP",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "76'",
-      "data": "Qua 18/11 • 20:30",
-      "data_curta": "18/11",
-      "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841316,
-      "mandante": "Corinthians",
-      "mandante_sigla": "COR",
-      "visitante": "Botafogo",
-      "visitante_sigla": "BOT",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "38'",
-      "data": "Qua 18/11 • 21:30",
-      "data_curta": "18/11",
-      "estadio": "Neo Química Arena"
-    },
-    {
-      "id": 401841312,
-      "mandante": "Grêmio",
-      "mandante_sigla": "GRE",
-      "visitante": "Bahia",
-      "visitante_sigla": "BAH",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "38'",
-      "data": "Qua 18/11 • 21:30",
-      "data_curta": "18/11",
-      "estadio": "Arena do Grêmio"
-    },
     {
       "id": 401841308,
       "mandante": "Vasco",
@@ -172,6 +116,62 @@
       "estadio": "Estadio do Maracana"
     },
     {
+      "id": 401841316,
+      "mandante": "Corinthians",
+      "mandante_sigla": "COR",
+      "visitante": "Botafogo",
+      "visitante_sigla": "BOT",
+      "gols_mandante": 4,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 18/11 • 21:30",
+      "data_curta": "18/11",
+      "estadio": "Neo Química Arena"
+    },
+    {
+      "id": 401841312,
+      "mandante": "Grêmio",
+      "mandante_sigla": "GRE",
+      "visitante": "Bahia",
+      "visitante_sigla": "BAH",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 18/11 • 21:30",
+      "data_curta": "18/11",
+      "estadio": "Arena do Grêmio"
+    },
+    {
+      "id": 401841314,
+      "mandante": "Cruzeiro",
+      "mandante_sigla": "CRU",
+      "visitante": "Palmeiras",
+      "visitante_sigla": "PAL",
+      "gols_mandante": 2,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 18/11 • 20:30",
+      "data_curta": "18/11",
+      "estadio": "Estadio Mineirão"
+    },
+    {
+      "id": 401841313,
+      "mandante": "Flamengo",
+      "mandante_sigla": "FLA",
+      "visitante": "Athletico-PR",
+      "visitante_sigla": "CAP",
+      "gols_mandante": 2,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 18/11 • 20:30",
+      "data_curta": "18/11",
+      "estadio": "Estadio do Maracana"
+    },
+    {
       "id": 401841310,
       "mandante": "Remo",
       "mandante_sigla": "REM",
@@ -233,34 +233,34 @@
       "posicao": 1,
       "time": "Flamengo",
       "sigla": "FLA",
-      "pontos": 76,
-      "jogos": 34,
-      "vitorias": 23,
+      "pontos": 79,
+      "jogos": 35,
+      "vitorias": 24,
       "empates": 7,
       "derrotas": 4,
-      "sg": 42
+      "sg": 43
     },
     {
       "posicao": 2,
       "time": "Palmeiras",
       "sigla": "PAL",
       "pontos": 73,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 21,
       "empates": 10,
-      "derrotas": 3,
-      "sg": 39
+      "derrotas": 4,
+      "sg": 38
     },
     {
       "posicao": 3,
       "time": "Cruzeiro",
       "sigla": "CRU",
-      "pontos": 60,
-      "jogos": 34,
-      "vitorias": 18,
+      "pontos": 63,
+      "jogos": 35,
+      "vitorias": 19,
       "empates": 6,
       "derrotas": 10,
-      "sg": 7
+      "sg": 8
     },
     {
       "posicao": 4,
@@ -278,20 +278,20 @@
       "time": "Athletico-PR",
       "sigla": "CAP",
       "pontos": 54,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 15,
       "empates": 9,
-      "derrotas": 10,
-      "sg": 8
+      "derrotas": 11,
+      "sg": 7
     },
     {
       "posicao": 6,
       "time": "Bahia",
       "sigla": "BAH",
-      "pontos": 53,
-      "jogos": 34,
+      "pontos": 54,
+      "jogos": 35,
       "vitorias": 14,
-      "empates": 11,
+      "empates": 12,
       "derrotas": 9,
       "sg": 5
     },
@@ -355,11 +355,11 @@
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 42,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 11,
       "empates": 9,
-      "derrotas": 14,
-      "sg": -7
+      "derrotas": 15,
+      "sg": -11
     },
     {
       "posicao": 13,
@@ -385,6 +385,17 @@
     },
     {
       "posicao": 15,
+      "time": "Corinthians",
+      "sigla": "COR",
+      "pontos": 40,
+      "jogos": 35,
+      "vitorias": 10,
+      "empates": 10,
+      "derrotas": 15,
+      "sg": -2
+    },
+    {
+      "posicao": 16,
       "time": "Vitória",
       "sigla": "VIT",
       "pontos": 38,
@@ -395,7 +406,7 @@
       "sg": -16
     },
     {
-      "posicao": 16,
+      "posicao": 17,
       "time": "Internacional",
       "sigla": "INT",
       "pontos": 38,
@@ -406,24 +417,13 @@
       "sg": -4
     },
     {
-      "posicao": 17,
-      "time": "Corinthians",
-      "sigla": "COR",
-      "pontos": 37,
-      "jogos": 34,
-      "vitorias": 9,
-      "empates": 10,
-      "derrotas": 15,
-      "sg": -6
-    },
-    {
       "posicao": 18,
       "time": "Grêmio",
       "sigla": "GRE",
-      "pontos": 37,
-      "jogos": 34,
+      "pontos": 38,
+      "jogos": 35,
       "vitorias": 9,
-      "empates": 10,
+      "empates": 11,
       "derrotas": 15,
       "sg": -9
     },
