@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "19/11/2026 18:52",
+  "ultima_atualizacao": "19/11/2026 20:48",
   "jogos": [
     {
       "id": 401841308,
@@ -9,10 +9,10 @@
       "mandante_sigla": "VAS",
       "visitante": "Internacional",
       "visitante_sigla": "INT",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "aovivo",
+      "tempo": "56'",
       "data": "Qui 19/11 • 19:30",
       "data_curta": "19/11",
       "estadio": "Estádio São Januário"
@@ -23,10 +23,10 @@
       "mandante_sigla": "VIT",
       "visitante": "Red Bull Bragantino",
       "visitante_sigla": "RBB",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 2,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "50'",
       "data": "Qui 19/11 • 19:30",
       "data_curta": "19/11",
       "estadio": "Estadio Manoel Barradas"
@@ -114,6 +114,34 @@
       "data": "Dom 22/11 • 18:30",
       "data_curta": "22/11",
       "estadio": "Estadio do Maracana"
+    },
+    {
+      "id": 401841321,
+      "mandante": "Red Bull Bragantino",
+      "mandante_sigla": "RBB",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 22/11 • 19:30",
+      "data_curta": "22/11",
+      "estadio": "Estádio Municipal Cicero de Souza Marques"
+    },
+    {
+      "id": 401841323,
+      "mandante": "Internacional",
+      "mandante_sigla": "INT",
+      "visitante": "Vitória",
+      "visitante_sigla": "VIT",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Seg 23/11 • 19:30",
+      "data_curta": "23/11",
+      "estadio": "Estadio Beira-Rio"
     },
     {
       "id": 401841316,
