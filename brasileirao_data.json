@@ -1,50 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "19/11/2026 20:48",
+  "ultima_atualizacao": "19/11/2026 23:52",
   "jogos": [
-    {
-      "id": 401841308,
-      "mandante": "Vasco",
-      "mandante_sigla": "VAS",
-      "visitante": "Internacional",
-      "visitante_sigla": "INT",
-      "gols_mandante": 1,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "56'",
-      "data": "Qui 19/11 • 19:30",
-      "data_curta": "19/11",
-      "estadio": "Estádio São Januário"
-    },
-    {
-      "id": 401841317,
-      "mandante": "Vitória",
-      "mandante_sigla": "VIT",
-      "visitante": "Red Bull Bragantino",
-      "visitante_sigla": "RBB",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "50'",
-      "data": "Qui 19/11 • 19:30",
-      "data_curta": "19/11",
-      "estadio": "Estadio Manoel Barradas"
-    },
-    {
-      "id": 401841309,
-      "mandante": "São Paulo",
-      "mandante_sigla": "SAO",
-      "visitante": "Fluminense",
-      "visitante_sigla": "FLU",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Qui 19/11 • 21:30",
-      "data_curta": "19/11",
-      "estadio": "Estádio Cícero Pompeu de Toledo"
-    },
     {
       "id": 401841322,
       "mandante": "Palmeiras",
@@ -144,6 +102,62 @@
       "estadio": "Estadio Beira-Rio"
     },
     {
+      "id": 401841326,
+      "mandante": "Botafogo",
+      "mandante_sigla": "BOT",
+      "visitante": "São Paulo",
+      "visitante_sigla": "SAO",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Seg 23/11 • 20:00",
+      "data_curta": "23/11",
+      "estadio": "Joao Havelange Stadium"
+    },
+    {
+      "id": 401841309,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Fluminense",
+      "visitante_sigla": "FLU",
+      "gols_mandante": 0,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 19/11 • 21:30",
+      "data_curta": "19/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
+      "id": 401841308,
+      "mandante": "Vasco",
+      "mandante_sigla": "VAS",
+      "visitante": "Internacional",
+      "visitante_sigla": "INT",
+      "gols_mandante": 2,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 19/11 • 19:30",
+      "data_curta": "19/11",
+      "estadio": "Estádio São Januário"
+    },
+    {
+      "id": 401841317,
+      "mandante": "Vitória",
+      "mandante_sigla": "VIT",
+      "visitante": "Red Bull Bragantino",
+      "visitante_sigla": "RBB",
+      "gols_mandante": 2,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 19/11 • 19:30",
+      "data_curta": "19/11",
+      "estadio": "Estadio Manoel Barradas"
+    },
+    {
       "id": 401841316,
       "mandante": "Corinthians",
       "mandante_sigla": "COR",
@@ -212,48 +226,6 @@
       "data": "Qua 18/11 • 20:00",
       "data_curta": "18/11",
       "estadio": "Mangueirão"
-    },
-    {
-      "id": 401841315,
-      "mandante": "Coritiba",
-      "mandante_sigla": "CFC",
-      "visitante": "Santos",
-      "visitante_sigla": "SAN",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 19:30",
-      "data_curta": "18/11",
-      "estadio": "Couto Pereira"
-    },
-    {
-      "id": 401841175,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Vasco",
-      "visitante_sigla": "VAS",
-      "gols_mandante": 0,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 14/11 • 20:30",
-      "data_curta": "14/11",
-      "estadio": "Arena Condá"
-    },
-    {
-      "id": 401841311,
-      "mandante": "Mirassol",
-      "mandante_sigla": "MIR",
-      "visitante": "Atlético-MG",
-      "visitante_sigla": "CAM",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 14/11 • 18:30",
-      "data_curta": "14/11",
-      "estadio": "Estadio Municipal José Maria de Campos Maia"
     }
   ],
   "tabela": [
@@ -294,12 +266,12 @@
       "posicao": 4,
       "time": "Fluminense",
       "sigla": "FLU",
-      "pontos": 57,
-      "jogos": 34,
-      "vitorias": 16,
+      "pontos": 60,
+      "jogos": 35,
+      "vitorias": 17,
       "empates": 9,
       "derrotas": 9,
-      "sg": 13
+      "sg": 14
     },
     {
       "posicao": 5,
@@ -350,33 +322,33 @@
       "time": "Red Bull Bragantino",
       "sigla": "RBB",
       "pontos": 47,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 13,
       "empates": 8,
-      "derrotas": 13,
-      "sg": 5
+      "derrotas": 14,
+      "sg": 4
     },
     {
       "posicao": 10,
-      "time": "São Paulo",
-      "sigla": "SAO",
-      "pontos": 44,
-      "jogos": 34,
-      "vitorias": 12,
+      "time": "Vasco",
+      "sigla": "VAS",
+      "pontos": 47,
+      "jogos": 35,
+      "vitorias": 13,
       "empates": 8,
       "derrotas": 14,
-      "sg": 0
+      "sg": -4
     },
     {
       "posicao": 11,
-      "time": "Vasco",
-      "sigla": "VAS",
+      "time": "São Paulo",
+      "sigla": "SAO",
       "pontos": 44,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 12,
       "empates": 8,
-      "derrotas": 14,
-      "sg": -5
+      "derrotas": 15,
+      "sg": -1
     },
     {
       "posicao": 12,
@@ -402,6 +374,17 @@
     },
     {
       "posicao": 14,
+      "time": "Vitória",
+      "sigla": "VIT",
+      "pontos": 41,
+      "jogos": 35,
+      "vitorias": 11,
+      "empates": 8,
+      "derrotas": 16,
+      "sg": -15
+    },
+    {
+      "posicao": 15,
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 41,
@@ -412,7 +395,7 @@
       "sg": -9
     },
     {
-      "posicao": 15,
+      "posicao": 16,
       "time": "Corinthians",
       "sigla": "COR",
       "pontos": 40,
@@ -423,26 +406,15 @@
       "sg": -2
     },
     {
-      "posicao": 16,
-      "time": "Vitória",
-      "sigla": "VIT",
-      "pontos": 38,
-      "jogos": 34,
-      "vitorias": 10,
-      "empates": 8,
-      "derrotas": 16,
-      "sg": -16
-    },
-    {
       "posicao": 17,
       "time": "Internacional",
       "sigla": "INT",
       "pontos": 38,
-      "jogos": 34,
+      "jogos": 35,
       "vitorias": 9,
       "empates": 11,
-      "derrotas": 14,
-      "sg": -4
+      "derrotas": 15,
+      "sg": -5
     },
     {
       "posicao": 18,
