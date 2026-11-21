@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
-  "rodada_atual": 35,
-  "ultima_atualizacao": "21/11/2026 18:12",
+  "rodada_atual": 36,
+  "ultima_atualizacao": "21/11/2026 19:22",
   "jogos": [
-    {
-      "id": 401841322,
-      "mandante": "Palmeiras",
-      "mandante_sigla": "PAL",
-      "visitante": "Flamengo",
-      "visitante_sigla": "FLA",
-      "gols_mandante": 1,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "82'",
-      "data": "Sáb 21/11 • 16:30",
-      "data_curta": "21/11",
-      "estadio": "Allianz Parque"
-    },
     {
       "id": 401841327,
       "mandante": "Bahia",
@@ -24,9 +10,9 @@
       "visitante": "Coritiba",
       "visitante_sigla": "CFC",
       "gols_mandante": 0,
-      "gols_visitante": 0,
+      "gols_visitante": 1,
       "status": "aovivo",
-      "tempo": "39'",
+      "tempo": "90'",
       "data": "Sáb 21/11 • 17:30",
       "data_curta": "21/11",
       "estadio": "Arena Fonte Nova"
@@ -144,6 +130,20 @@
       "estadio": "Arena Condá"
     },
     {
+      "id": 401841322,
+      "mandante": "Palmeiras",
+      "mandante_sigla": "PAL",
+      "visitante": "Flamengo",
+      "visitante_sigla": "FLA",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sáb 21/11 • 16:30",
+      "data_curta": "21/11",
+      "estadio": "Allianz Parque"
+    },
+    {
       "id": 401841309,
       "mandante": "São Paulo",
       "mandante_sigla": "SAO",
@@ -240,20 +240,6 @@
       "data": "Qua 18/11 • 20:30",
       "data_curta": "18/11",
       "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841310,
-      "mandante": "Remo",
-      "mandante_sigla": "REM",
-      "visitante": "Chapecoense",
-      "visitante_sigla": "CHA",
-      "gols_mandante": 2,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 20:00",
-      "data_curta": "18/11",
-      "estadio": "Mangueirão"
     }
   ],
   "tabela": [
@@ -261,10 +247,10 @@
       "posicao": 1,
       "time": "Flamengo",
       "sigla": "FLA",
-      "pontos": 79,
-      "jogos": 35,
+      "pontos": 80,
+      "jogos": 36,
       "vitorias": 24,
-      "empates": 7,
+      "empates": 8,
       "derrotas": 4,
       "sg": 43
     },
@@ -272,10 +258,10 @@
       "posicao": 2,
       "time": "Palmeiras",
       "sigla": "PAL",
-      "pontos": 73,
-      "jogos": 35,
+      "pontos": 74,
+      "jogos": 36,
       "vitorias": 21,
-      "empates": 10,
+      "empates": 11,
       "derrotas": 4,
       "sg": 38
     },
