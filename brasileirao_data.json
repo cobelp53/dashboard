@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 35,
-  "ultima_atualizacao": "21/11/2026 14:41",
+  "ultima_atualizacao": "21/11/2026 18:12",
   "jogos": [
     {
       "id": 401841322,
@@ -9,10 +9,10 @@
       "mandante_sigla": "PAL",
       "visitante": "Flamengo",
       "visitante_sigla": "FLA",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "aovivo",
+      "tempo": "82'",
       "data": "Sáb 21/11 • 16:30",
       "data_curta": "21/11",
       "estadio": "Allianz Parque"
@@ -23,10 +23,10 @@
       "mandante_sigla": "BAH",
       "visitante": "Coritiba",
       "visitante_sigla": "CFC",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "39'",
       "data": "Sáb 21/11 • 17:30",
       "data_curta": "21/11",
       "estadio": "Arena Fonte Nova"
@@ -114,6 +114,34 @@
       "data": "Seg 23/11 • 20:00",
       "data_curta": "23/11",
       "estadio": "Joao Havelange Stadium"
+    },
+    {
+      "id": 401841320,
+      "mandante": "Santos",
+      "mandante_sigla": "SAN",
+      "visitante": "Grêmio",
+      "visitante_sigla": "GRE",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Seg 23/11 • 21:00",
+      "data_curta": "23/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
+      "id": 401841335,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Palmeiras",
+      "visitante_sigla": "PAL",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Ter 24/11 • 18:00",
+      "data_curta": "24/11",
+      "estadio": "Arena Condá"
     },
     {
       "id": 401841309,
