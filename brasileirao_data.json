@@ -1,32 +1,18 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "22/11/2026 14:37",
+  "ultima_atualizacao": "22/11/2026 19:09",
   "jogos": [
-    {
-      "id": 401841318,
-      "mandante": "Athletico-PR",
-      "mandante_sigla": "CAP",
-      "visitante": "Remo",
-      "visitante_sigla": "REM",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Dom 22/11 • 16:00",
-      "data_curta": "22/11",
-      "estadio": "Arena da Baixada"
-    },
     {
       "id": 401841324,
       "mandante": "Fluminense",
       "mandante_sigla": "FLU",
       "visitante": "Mirassol",
       "visitante_sigla": "MIR",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "38'",
       "data": "Dom 22/11 • 18:30",
       "data_curta": "22/11",
       "estadio": "Estadio do Maracana"
@@ -114,6 +100,48 @@
       "data": "Qua 25/11 • 20:00",
       "data_curta": "25/11",
       "estadio": "Arena MRV"
+    },
+    {
+      "id": 401841329,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Remo",
+      "visitante_sigla": "REM",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qui 26/11 • 20:00",
+      "data_curta": "26/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
+      "id": 401841337,
+      "mandante": "Fluminense",
+      "mandante_sigla": "FLU",
+      "visitante": "Cruzeiro",
+      "visitante_sigla": "CRU",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sex 27/11 • 20:00",
+      "data_curta": "27/11",
+      "estadio": "Estadio do Maracana"
+    },
+    {
+      "id": 401841318,
+      "mandante": "Athletico-PR",
+      "mandante_sigla": "CAP",
+      "visitante": "Remo",
+      "visitante_sigla": "REM",
+      "gols_mandante": 4,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Dom 22/11 • 16:00",
+      "data_curta": "22/11",
+      "estadio": "Arena da Baixada"
     },
     {
       "id": 401841325,
@@ -212,20 +240,6 @@
       "data": "Qua 18/11 • 21:30",
       "data_curta": "18/11",
       "estadio": "Neo Química Arena"
-    },
-    {
-      "id": 401841312,
-      "mandante": "Grêmio",
-      "mandante_sigla": "GRE",
-      "visitante": "Bahia",
-      "visitante_sigla": "BAH",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 21:30",
-      "data_curta": "18/11",
-      "estadio": "Arena do Grêmio"
     }
   ],
   "tabela": [
@@ -277,12 +291,12 @@
       "posicao": 5,
       "time": "Athletico-PR",
       "sigla": "CAP",
-      "pontos": 54,
-      "jogos": 35,
-      "vitorias": 15,
+      "pontos": 57,
+      "jogos": 36,
+      "vitorias": 16,
       "empates": 9,
       "derrotas": 11,
-      "sg": 7
+      "sg": 9
     },
     {
       "posicao": 6,
@@ -432,11 +446,11 @@
       "time": "Remo",
       "sigla": "REM",
       "pontos": 32,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 7,
       "empates": 11,
-      "derrotas": 17,
-      "sg": -18
+      "derrotas": 18,
+      "sg": -20
     },
     {
       "posicao": 20,
