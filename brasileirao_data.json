@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "21/11/2026 22:25",
+  "ultima_atualizacao": "21/11/2026 23:24",
   "jogos": [
-    {
-      "id": 401841325,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Cruzeiro",
-      "visitante_sigla": "CRU",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "66'",
-      "data": "Sáb 21/11 • 21:00",
-      "data_curta": "21/11",
-      "estadio": "Arena Condá"
-    },
     {
       "id": 401841318,
       "mandante": "Athletico-PR",
@@ -130,6 +116,20 @@
       "estadio": "Arena MRV"
     },
     {
+      "id": 401841325,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Cruzeiro",
+      "visitante_sigla": "CRU",
+      "gols_mandante": 1,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sáb 21/11 • 21:00",
+      "data_curta": "21/11",
+      "estadio": "Arena Condá"
+    },
+    {
       "id": 401841327,
       "mandante": "Bahia",
       "mandante_sigla": "BAH",
@@ -226,20 +226,6 @@
       "data": "Qua 18/11 • 21:30",
       "data_curta": "18/11",
       "estadio": "Arena do Grêmio"
-    },
-    {
-      "id": 401841314,
-      "mandante": "Cruzeiro",
-      "mandante_sigla": "CRU",
-      "visitante": "Palmeiras",
-      "visitante_sigla": "PAL",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 20:30",
-      "data_curta": "18/11",
-      "estadio": "Estadio Mineirão"
     }
   ],
   "tabela": [
@@ -269,12 +255,12 @@
       "posicao": 3,
       "time": "Cruzeiro",
       "sigla": "CRU",
-      "pontos": 63,
-      "jogos": 35,
-      "vitorias": 19,
+      "pontos": 66,
+      "jogos": 36,
+      "vitorias": 20,
       "empates": 6,
       "derrotas": 10,
-      "sg": 8
+      "sg": 9
     },
     {
       "posicao": 4,
@@ -457,11 +443,11 @@
       "time": "Chapecoense",
       "sigla": "CHA",
       "pontos": 21,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 4,
       "empates": 9,
-      "derrotas": 22,
-      "sg": -39
+      "derrotas": 23,
+      "sg": -40
     }
   ]
 }
