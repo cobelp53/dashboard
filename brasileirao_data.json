@@ -1,32 +1,18 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "21/11/2026 19:22",
+  "ultima_atualizacao": "21/11/2026 22:25",
   "jogos": [
-    {
-      "id": 401841327,
-      "mandante": "Bahia",
-      "mandante_sigla": "BAH",
-      "visitante": "Coritiba",
-      "visitante_sigla": "CFC",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "90'",
-      "data": "Sáb 21/11 • 17:30",
-      "data_curta": "21/11",
-      "estadio": "Arena Fonte Nova"
-    },
     {
       "id": 401841325,
       "mandante": "Chapecoense",
       "mandante_sigla": "CHA",
       "visitante": "Cruzeiro",
       "visitante_sigla": "CRU",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 1,
+      "status": "aovivo",
+      "tempo": "66'",
       "data": "Sáb 21/11 • 21:00",
       "data_curta": "21/11",
       "estadio": "Arena Condá"
@@ -130,6 +116,34 @@
       "estadio": "Arena Condá"
     },
     {
+      "id": 401841319,
+      "mandante": "Atlético-MG",
+      "mandante_sigla": "CAM",
+      "visitante": "Corinthians",
+      "visitante_sigla": "COR",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 25/11 • 20:00",
+      "data_curta": "25/11",
+      "estadio": "Arena MRV"
+    },
+    {
+      "id": 401841327,
+      "mandante": "Bahia",
+      "mandante_sigla": "BAH",
+      "visitante": "Coritiba",
+      "visitante_sigla": "CFC",
+      "gols_mandante": 0,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sáb 21/11 • 17:30",
+      "data_curta": "21/11",
+      "estadio": "Arena Fonte Nova"
+    },
+    {
       "id": 401841322,
       "mandante": "Palmeiras",
       "mandante_sigla": "PAL",
@@ -226,20 +240,6 @@
       "data": "Qua 18/11 • 20:30",
       "data_curta": "18/11",
       "estadio": "Estadio Mineirão"
-    },
-    {
-      "id": 401841313,
-      "mandante": "Flamengo",
-      "mandante_sigla": "FLA",
-      "visitante": "Athletico-PR",
-      "visitante_sigla": "CAP",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 20:30",
-      "data_curta": "18/11",
-      "estadio": "Estadio do Maracana"
     }
   ],
   "tabela": [
@@ -303,11 +303,11 @@
       "time": "Bahia",
       "sigla": "BAH",
       "pontos": 54,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 14,
       "empates": 12,
-      "derrotas": 9,
-      "sg": 5
+      "derrotas": 10,
+      "sg": 4
     },
     {
       "posicao": 7,
@@ -355,6 +355,17 @@
     },
     {
       "posicao": 11,
+      "time": "Coritiba",
+      "sigla": "CFC",
+      "pontos": 45,
+      "jogos": 36,
+      "vitorias": 12,
+      "empates": 9,
+      "derrotas": 15,
+      "sg": -11
+    },
+    {
+      "posicao": 12,
       "time": "São Paulo",
       "sigla": "SAO",
       "pontos": 44,
@@ -365,7 +376,7 @@
       "sg": -1
     },
     {
-      "posicao": 12,
+      "posicao": 13,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 42,
@@ -374,17 +385,6 @@
       "empates": 9,
       "derrotas": 15,
       "sg": -11
-    },
-    {
-      "posicao": 13,
-      "time": "Coritiba",
-      "sigla": "CFC",
-      "pontos": 42,
-      "jogos": 35,
-      "vitorias": 11,
-      "empates": 9,
-      "derrotas": 15,
-      "sg": -12
     },
     {
       "posicao": 14,
