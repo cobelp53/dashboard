@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "22/11/2026 19:09",
+  "ultima_atualizacao": "22/11/2026 19:46",
   "jogos": [
     {
       "id": 401841324,
@@ -12,7 +12,7 @@
       "gols_mandante": 0,
       "gols_visitante": 0,
       "status": "aovivo",
-      "tempo": "38'",
+      "tempo": "53'",
       "data": "Dom 22/11 • 18:30",
       "data_curta": "22/11",
       "estadio": "Estadio do Maracana"
@@ -23,10 +23,10 @@
       "mandante_sigla": "RBB",
       "visitante": "Vasco",
       "visitante_sigla": "VAS",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "15'",
       "data": "Dom 22/11 • 19:30",
       "data_curta": "22/11",
       "estadio": "Estádio Municipal Cicero de Souza Marques"
@@ -128,6 +128,20 @@
       "data": "Sex 27/11 • 20:00",
       "data_curta": "27/11",
       "estadio": "Estadio do Maracana"
+    },
+    {
+      "id": 401841336,
+      "mandante": "Botafogo",
+      "mandante_sigla": "BOT",
+      "visitante": "Bahia",
+      "visitante_sigla": "BAH",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Sáb 28/11 • 21:00",
+      "data_curta": "28/11",
+      "estadio": "Joao Havelange Stadium"
     },
     {
       "id": 401841318,
