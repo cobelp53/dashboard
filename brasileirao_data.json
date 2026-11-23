@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "23/11/2026 10:21",
+  "ultima_atualizacao": "23/11/2026 19:55",
   "jogos": [
     {
       "id": 401841323,
@@ -9,10 +9,10 @@
       "mandante_sigla": "INT",
       "visitante": "Vitória",
       "visitante_sigla": "VIT",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 2,
+      "status": "aovivo",
+      "tempo": "24'",
       "data": "Seg 23/11 • 19:30",
       "data_curta": "23/11",
       "estadio": "Estadio Beira-Rio"
@@ -114,6 +114,20 @@
       "data": "Sáb 28/11 • 21:00",
       "data_curta": "28/11",
       "estadio": "Joao Havelange Stadium"
+    },
+    {
+      "id": 401841333,
+      "mandante": "Coritiba",
+      "mandante_sigla": "CFC",
+      "visitante": "Flamengo",
+      "visitante_sigla": "FLA",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 16:00",
+      "data_curta": "29/11",
+      "estadio": "Couto Pereira"
     },
     {
       "id": 401841321,
