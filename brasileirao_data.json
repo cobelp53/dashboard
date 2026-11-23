@@ -1,36 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "22/11/2026 19:46",
+  "ultima_atualizacao": "22/11/2026 23:49",
   "jogos": [
-    {
-      "id": 401841324,
-      "mandante": "Fluminense",
-      "mandante_sigla": "FLU",
-      "visitante": "Mirassol",
-      "visitante_sigla": "MIR",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "53'",
-      "data": "Dom 22/11 • 18:30",
-      "data_curta": "22/11",
-      "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841321,
-      "mandante": "Red Bull Bragantino",
-      "mandante_sigla": "RBB",
-      "visitante": "Vasco",
-      "visitante_sigla": "VAS",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "15'",
-      "data": "Dom 22/11 • 19:30",
-      "data_curta": "22/11",
-      "estadio": "Estádio Municipal Cicero de Souza Marques"
-    },
     {
       "id": 401841323,
       "mandante": "Internacional",
@@ -144,6 +116,34 @@
       "estadio": "Joao Havelange Stadium"
     },
     {
+      "id": 401841321,
+      "mandante": "Red Bull Bragantino",
+      "mandante_sigla": "RBB",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Dom 22/11 • 19:30",
+      "data_curta": "22/11",
+      "estadio": "Estádio Municipal Cicero de Souza Marques"
+    },
+    {
+      "id": 401841324,
+      "mandante": "Fluminense",
+      "mandante_sigla": "FLU",
+      "visitante": "Mirassol",
+      "visitante_sigla": "MIR",
+      "gols_mandante": 1,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Dom 22/11 • 18:30",
+      "data_curta": "22/11",
+      "estadio": "Estadio do Maracana"
+    },
+    {
       "id": 401841318,
       "mandante": "Athletico-PR",
       "mandante_sigla": "CAP",
@@ -226,34 +226,6 @@
       "data": "Qui 19/11 • 19:30",
       "data_curta": "19/11",
       "estadio": "Estádio São Januário"
-    },
-    {
-      "id": 401841317,
-      "mandante": "Vitória",
-      "mandante_sigla": "VIT",
-      "visitante": "Red Bull Bragantino",
-      "visitante_sigla": "RBB",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 19/11 • 19:30",
-      "data_curta": "19/11",
-      "estadio": "Estadio Manoel Barradas"
-    },
-    {
-      "id": 401841316,
-      "mandante": "Corinthians",
-      "mandante_sigla": "COR",
-      "visitante": "Botafogo",
-      "visitante_sigla": "BOT",
-      "gols_mandante": 4,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qua 18/11 • 21:30",
-      "data_curta": "18/11",
-      "estadio": "Neo Química Arena"
     }
   ],
   "tabela": [
@@ -294,12 +266,12 @@
       "posicao": 4,
       "time": "Fluminense",
       "sigla": "FLU",
-      "pontos": 60,
-      "jogos": 35,
-      "vitorias": 17,
+      "pontos": 63,
+      "jogos": 36,
+      "vitorias": 18,
       "empates": 9,
       "derrotas": 9,
-      "sg": 14
+      "sg": 15
     },
     {
       "posicao": 5,
@@ -336,6 +308,17 @@
     },
     {
       "posicao": 8,
+      "time": "Red Bull Bragantino",
+      "sigla": "RBB",
+      "pontos": 50,
+      "jogos": 36,
+      "vitorias": 14,
+      "empates": 8,
+      "derrotas": 14,
+      "sg": 5
+    },
+    {
+      "posicao": 9,
       "time": "Santos",
       "sigla": "SAN",
       "pontos": 50,
@@ -346,26 +329,15 @@
       "sg": 2
     },
     {
-      "posicao": 9,
-      "time": "Red Bull Bragantino",
-      "sigla": "RBB",
-      "pontos": 47,
-      "jogos": 35,
-      "vitorias": 13,
-      "empates": 8,
-      "derrotas": 14,
-      "sg": 4
-    },
-    {
       "posicao": 10,
       "time": "Vasco",
       "sigla": "VAS",
       "pontos": 47,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 13,
       "empates": 8,
-      "derrotas": 14,
-      "sg": -4
+      "derrotas": 15,
+      "sg": -5
     },
     {
       "posicao": 11,
@@ -416,11 +388,11 @@
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 41,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 10,
       "empates": 11,
-      "derrotas": 14,
-      "sg": -9
+      "derrotas": 15,
+      "sg": -10
     },
     {
       "posicao": 16,
