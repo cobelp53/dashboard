@@ -1,32 +1,18 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "23/11/2026 19:55",
+  "ultima_atualizacao": "23/11/2026 22:03",
   "jogos": [
-    {
-      "id": 401841323,
-      "mandante": "Internacional",
-      "mandante_sigla": "INT",
-      "visitante": "Vitória",
-      "visitante_sigla": "VIT",
-      "gols_mandante": 0,
-      "gols_visitante": 2,
-      "status": "aovivo",
-      "tempo": "24'",
-      "data": "Seg 23/11 • 19:30",
-      "data_curta": "23/11",
-      "estadio": "Estadio Beira-Rio"
-    },
     {
       "id": 401841326,
       "mandante": "Botafogo",
       "mandante_sigla": "BOT",
       "visitante": "São Paulo",
       "visitante_sigla": "SAO",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "aovivo",
+      "tempo": "90'+10'",
       "data": "Seg 23/11 • 20:00",
       "data_curta": "23/11",
       "estadio": "Joao Havelange Stadium"
@@ -37,10 +23,10 @@
       "mandante_sigla": "SAN",
       "visitante": "Grêmio",
       "visitante_sigla": "GRE",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 1,
+      "status": "aovivo",
+      "tempo": "HT",
       "data": "Seg 23/11 • 21:00",
       "data_curta": "23/11",
       "estadio": "Estádio Cícero Pompeu de Toledo"
@@ -128,6 +114,48 @@
       "data": "Dom 29/11 • 16:00",
       "data_curta": "29/11",
       "estadio": "Couto Pereira"
+    },
+    {
+      "id": 401841332,
+      "mandante": "Vitória",
+      "mandante_sigla": "VIT",
+      "visitante": "Santos",
+      "visitante_sigla": "SAN",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 16:00",
+      "data_curta": "29/11",
+      "estadio": "Estadio Manoel Barradas"
+    },
+    {
+      "id": 401841334,
+      "mandante": "Corinthians",
+      "mandante_sigla": "COR",
+      "visitante": "Grêmio",
+      "visitante_sigla": "GRE",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 18:30",
+      "data_curta": "29/11",
+      "estadio": "Neo Química Arena"
+    },
+    {
+      "id": 401841323,
+      "mandante": "Internacional",
+      "mandante_sigla": "INT",
+      "visitante": "Vitória",
+      "visitante_sigla": "VIT",
+      "gols_mandante": 2,
+      "gols_visitante": 5,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Seg 23/11 • 19:30",
+      "data_curta": "23/11",
+      "estadio": "Estadio Beira-Rio"
     },
     {
       "id": 401841321,
@@ -226,20 +254,6 @@
       "data": "Qui 19/11 • 21:30",
       "data_curta": "19/11",
       "estadio": "Estádio Cícero Pompeu de Toledo"
-    },
-    {
-      "id": 401841308,
-      "mandante": "Vasco",
-      "mandante_sigla": "VAS",
-      "visitante": "Internacional",
-      "visitante_sigla": "INT",
-      "gols_mandante": 2,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 19/11 • 19:30",
-      "data_curta": "19/11",
-      "estadio": "Estádio São Januário"
     }
   ],
   "tabela": [
@@ -377,6 +391,17 @@
     },
     {
       "posicao": 13,
+      "time": "Vitória",
+      "sigla": "VIT",
+      "pontos": 44,
+      "jogos": 36,
+      "vitorias": 12,
+      "empates": 8,
+      "derrotas": 16,
+      "sg": -12
+    },
+    {
+      "posicao": 14,
       "time": "Botafogo",
       "sigla": "BOT",
       "pontos": 42,
@@ -385,17 +410,6 @@
       "empates": 9,
       "derrotas": 15,
       "sg": -11
-    },
-    {
-      "posicao": 14,
-      "time": "Vitória",
-      "sigla": "VIT",
-      "pontos": 41,
-      "jogos": 35,
-      "vitorias": 11,
-      "empates": 8,
-      "derrotas": 16,
-      "sg": -15
     },
     {
       "posicao": 15,
@@ -424,11 +438,11 @@
       "time": "Internacional",
       "sigla": "INT",
       "pontos": 38,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 9,
       "empates": 11,
-      "derrotas": 15,
-      "sg": -5
+      "derrotas": 16,
+      "sg": -8
     },
     {
       "posicao": 18,
