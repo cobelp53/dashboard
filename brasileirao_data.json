@@ -1,36 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 36,
-  "ultima_atualizacao": "23/11/2026 22:03",
+  "ultima_atualizacao": "24/11/2026 03:53",
   "jogos": [
-    {
-      "id": 401841326,
-      "mandante": "Botafogo",
-      "mandante_sigla": "BOT",
-      "visitante": "São Paulo",
-      "visitante_sigla": "SAO",
-      "gols_mandante": 1,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "90'+10'",
-      "data": "Seg 23/11 • 20:00",
-      "data_curta": "23/11",
-      "estadio": "Joao Havelange Stadium"
-    },
-    {
-      "id": 401841320,
-      "mandante": "Santos",
-      "mandante_sigla": "SAN",
-      "visitante": "Grêmio",
-      "visitante_sigla": "GRE",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "aovivo",
-      "tempo": "HT",
-      "data": "Seg 23/11 • 21:00",
-      "data_curta": "23/11",
-      "estadio": "Estádio Cícero Pompeu de Toledo"
-    },
     {
       "id": 401841335,
       "mandante": "Chapecoense",
@@ -144,6 +116,34 @@
       "estadio": "Neo Química Arena"
     },
     {
+      "id": 401841320,
+      "mandante": "Santos",
+      "mandante_sigla": "SAN",
+      "visitante": "Grêmio",
+      "visitante_sigla": "GRE",
+      "gols_mandante": 0,
+      "gols_visitante": 2,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Seg 23/11 • 21:00",
+      "data_curta": "23/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
+      "id": 401841326,
+      "mandante": "Botafogo",
+      "mandante_sigla": "BOT",
+      "visitante": "São Paulo",
+      "visitante_sigla": "SAO",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Seg 23/11 • 20:00",
+      "data_curta": "23/11",
+      "estadio": "Joao Havelange Stadium"
+    },
+    {
       "id": 401841323,
       "mandante": "Internacional",
       "mandante_sigla": "INT",
@@ -226,34 +226,6 @@
       "data": "Sáb 21/11 • 17:30",
       "data_curta": "21/11",
       "estadio": "Arena Fonte Nova"
-    },
-    {
-      "id": 401841322,
-      "mandante": "Palmeiras",
-      "mandante_sigla": "PAL",
-      "visitante": "Flamengo",
-      "visitante_sigla": "FLA",
-      "gols_mandante": 1,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 21/11 • 16:30",
-      "data_curta": "21/11",
-      "estadio": "Allianz Parque"
-    },
-    {
-      "id": 401841309,
-      "mandante": "São Paulo",
-      "mandante_sigla": "SAO",
-      "visitante": "Fluminense",
-      "visitante_sigla": "FLU",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Qui 19/11 • 21:30",
-      "data_curta": "19/11",
-      "estadio": "Estádio Cícero Pompeu de Toledo"
     }
   ],
   "tabela": [
@@ -350,11 +322,11 @@
       "time": "Santos",
       "sigla": "SAN",
       "pontos": 50,
-      "jogos": 35,
+      "jogos": 36,
       "vitorias": 13,
       "empates": 11,
-      "derrotas": 11,
-      "sg": 2
+      "derrotas": 12,
+      "sg": 0
     },
     {
       "posicao": 10,
@@ -369,6 +341,17 @@
     },
     {
       "posicao": 11,
+      "time": "São Paulo",
+      "sigla": "SAO",
+      "pontos": 45,
+      "jogos": 36,
+      "vitorias": 12,
+      "empates": 9,
+      "derrotas": 15,
+      "sg": -1
+    },
+    {
+      "posicao": 12,
       "time": "Coritiba",
       "sigla": "CFC",
       "pontos": 45,
@@ -377,17 +360,6 @@
       "empates": 9,
       "derrotas": 15,
       "sg": -11
-    },
-    {
-      "posicao": 12,
-      "time": "São Paulo",
-      "sigla": "SAO",
-      "pontos": 44,
-      "jogos": 35,
-      "vitorias": 12,
-      "empates": 8,
-      "derrotas": 15,
-      "sg": -1
     },
     {
       "posicao": 13,
@@ -404,15 +376,26 @@
       "posicao": 14,
       "time": "Botafogo",
       "sigla": "BOT",
-      "pontos": 42,
-      "jogos": 35,
+      "pontos": 43,
+      "jogos": 36,
       "vitorias": 11,
-      "empates": 9,
+      "empates": 10,
       "derrotas": 15,
       "sg": -11
     },
     {
       "posicao": 15,
+      "time": "Grêmio",
+      "sigla": "GRE",
+      "pontos": 41,
+      "jogos": 36,
+      "vitorias": 10,
+      "empates": 11,
+      "derrotas": 15,
+      "sg": -7
+    },
+    {
+      "posicao": 16,
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 41,
@@ -423,7 +406,7 @@
       "sg": -10
     },
     {
-      "posicao": 16,
+      "posicao": 17,
       "time": "Corinthians",
       "sigla": "COR",
       "pontos": 40,
@@ -434,7 +417,7 @@
       "sg": -2
     },
     {
-      "posicao": 17,
+      "posicao": 18,
       "time": "Internacional",
       "sigla": "INT",
       "pontos": 38,
@@ -443,17 +426,6 @@
       "empates": 11,
       "derrotas": 16,
       "sg": -8
-    },
-    {
-      "posicao": 18,
-      "time": "Grêmio",
-      "sigla": "GRE",
-      "pontos": 38,
-      "jogos": 35,
-      "vitorias": 9,
-      "empates": 11,
-      "derrotas": 15,
-      "sg": -9
     },
     {
       "posicao": 19,
