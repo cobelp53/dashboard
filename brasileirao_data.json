@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
-  "rodada_atual": 36,
-  "ultima_atualizacao": "24/11/2026 17:55",
+  "rodada_atual": 37,
+  "ultima_atualizacao": "24/11/2026 23:49",
   "jogos": [
-    {
-      "id": 401841335,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Palmeiras",
-      "visitante_sigla": "PAL",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Ter 24/11 • 18:00",
-      "data_curta": "24/11",
-      "estadio": "Arena Condá"
-    },
     {
       "id": 401841319,
       "mandante": "Atlético-MG",
@@ -116,6 +102,34 @@
       "estadio": "Neo Química Arena"
     },
     {
+      "id": 401841331,
+      "mandante": "Internacional",
+      "mandante_sigla": "INT",
+      "visitante": "Red Bull Bragantino",
+      "visitante_sigla": "RBB",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 18:30",
+      "data_curta": "29/11",
+      "estadio": "Estadio Beira-Rio"
+    },
+    {
+      "id": 401841335,
+      "mandante": "Chapecoense",
+      "mandante_sigla": "CHA",
+      "visitante": "Palmeiras",
+      "visitante_sigla": "PAL",
+      "gols_mandante": 3,
+      "gols_visitante": 0,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Ter 24/11 • 18:00",
+      "data_curta": "24/11",
+      "estadio": "Arena Condá"
+    },
+    {
       "id": 401841320,
       "mandante": "Santos",
       "mandante_sigla": "SAN",
@@ -212,20 +226,6 @@
       "data": "Sáb 21/11 • 21:00",
       "data_curta": "21/11",
       "estadio": "Arena Condá"
-    },
-    {
-      "id": 401841327,
-      "mandante": "Bahia",
-      "mandante_sigla": "BAH",
-      "visitante": "Coritiba",
-      "visitante_sigla": "CFC",
-      "gols_mandante": 0,
-      "gols_visitante": 1,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 21/11 • 17:30",
-      "data_curta": "21/11",
-      "estadio": "Arena Fonte Nova"
     }
   ],
   "tabela": [
@@ -245,11 +245,11 @@
       "time": "Palmeiras",
       "sigla": "PAL",
       "pontos": 74,
-      "jogos": 36,
+      "jogos": 37,
       "vitorias": 21,
       "empates": 11,
-      "derrotas": 4,
-      "sg": 38
+      "derrotas": 5,
+      "sg": 35
     },
     {
       "posicao": 3,
@@ -442,12 +442,12 @@
       "posicao": 20,
       "time": "Chapecoense",
       "sigla": "CHA",
-      "pontos": 21,
-      "jogos": 36,
-      "vitorias": 4,
+      "pontos": 24,
+      "jogos": 37,
+      "vitorias": 5,
       "empates": 9,
       "derrotas": 23,
-      "sg": -40
+      "sg": -37
     }
   ]
 }
