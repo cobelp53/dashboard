@@ -1,7 +1,7 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 37,
-  "ultima_atualizacao": "26/11/2026 19:26",
+  "ultima_atualizacao": "26/11/2026 20:08",
   "jogos": [
     {
       "id": 401841329,
@@ -9,10 +9,10 @@
       "mandante_sigla": "SAO",
       "visitante": "Remo",
       "visitante_sigla": "REM",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
+      "gols_mandante": 0,
+      "gols_visitante": 0,
+      "status": "aovivo",
+      "tempo": "8'",
       "data": "Qui 26/11 • 20:00",
       "data_curta": "26/11",
       "estadio": "Estádio Cícero Pompeu de Toledo"
@@ -114,6 +114,20 @@
       "data": "Dom 29/11 • 18:30",
       "data_curta": "29/11",
       "estadio": "Estadio Municipal José Maria de Campos Maia"
+    },
+    {
+      "id": 401841328,
+      "mandante": "Atlético-MG",
+      "mandante_sigla": "CAM",
+      "visitante": "Vasco",
+      "visitante_sigla": "VAS",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 19:30",
+      "data_curta": "29/11",
+      "estadio": "Arena MRV"
     },
     {
       "id": 401841319,
