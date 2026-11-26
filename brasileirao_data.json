@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 37,
-  "ultima_atualizacao": "25/11/2026 19:46",
+  "ultima_atualizacao": "26/11/2026 00:46",
   "jogos": [
-    {
-      "id": 401841319,
-      "mandante": "Atlético-MG",
-      "mandante_sigla": "CAM",
-      "visitante": "Corinthians",
-      "visitante_sigla": "COR",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Qua 25/11 • 20:00",
-      "data_curta": "25/11",
-      "estadio": "Arena MRV"
-    },
     {
       "id": 401841329,
       "mandante": "São Paulo",
@@ -116,6 +102,34 @@
       "estadio": "Estadio Beira-Rio"
     },
     {
+      "id": 401841330,
+      "mandante": "Mirassol",
+      "mandante_sigla": "MIR",
+      "visitante": "Athletico-PR",
+      "visitante_sigla": "CAP",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Dom 29/11 • 18:30",
+      "data_curta": "29/11",
+      "estadio": "Estadio Municipal José Maria de Campos Maia"
+    },
+    {
+      "id": 401841319,
+      "mandante": "Atlético-MG",
+      "mandante_sigla": "CAM",
+      "visitante": "Corinthians",
+      "visitante_sigla": "COR",
+      "gols_mandante": 1,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qua 25/11 • 20:00",
+      "data_curta": "25/11",
+      "estadio": "Arena MRV"
+    },
+    {
       "id": 401841335,
       "mandante": "Chapecoense",
       "mandante_sigla": "CHA",
@@ -212,20 +226,6 @@
       "data": "Dom 22/11 • 16:00",
       "data_curta": "22/11",
       "estadio": "Arena da Baixada"
-    },
-    {
-      "id": 401841325,
-      "mandante": "Chapecoense",
-      "mandante_sigla": "CHA",
-      "visitante": "Cruzeiro",
-      "visitante_sigla": "CRU",
-      "gols_mandante": 1,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Sáb 21/11 • 21:00",
-      "data_curta": "21/11",
-      "estadio": "Arena Condá"
     }
   ],
   "tabela": [
@@ -299,10 +299,10 @@
       "posicao": 7,
       "time": "Atlético-MG",
       "sigla": "CAM",
-      "pontos": 51,
-      "jogos": 35,
+      "pontos": 52,
+      "jogos": 36,
       "vitorias": 14,
-      "empates": 9,
+      "empates": 10,
       "derrotas": 12,
       "sg": 4
     },
@@ -385,6 +385,17 @@
     },
     {
       "posicao": 15,
+      "time": "Corinthians",
+      "sigla": "COR",
+      "pontos": 41,
+      "jogos": 36,
+      "vitorias": 10,
+      "empates": 11,
+      "derrotas": 15,
+      "sg": -2
+    },
+    {
+      "posicao": 16,
       "time": "Grêmio",
       "sigla": "GRE",
       "pontos": 41,
@@ -395,7 +406,7 @@
       "sg": -7
     },
     {
-      "posicao": 16,
+      "posicao": 17,
       "time": "Mirassol",
       "sigla": "MIR",
       "pontos": 41,
@@ -404,17 +415,6 @@
       "empates": 11,
       "derrotas": 15,
       "sg": -10
-    },
-    {
-      "posicao": 17,
-      "time": "Corinthians",
-      "sigla": "COR",
-      "pontos": 40,
-      "jogos": 35,
-      "vitorias": 10,
-      "empates": 10,
-      "derrotas": 15,
-      "sg": -2
     },
     {
       "posicao": 18,
