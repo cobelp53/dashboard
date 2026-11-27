@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 37,
-  "ultima_atualizacao": "26/11/2026 20:08",
+  "ultima_atualizacao": "27/11/2026 01:29",
   "jogos": [
-    {
-      "id": 401841329,
-      "mandante": "São Paulo",
-      "mandante_sigla": "SAO",
-      "visitante": "Remo",
-      "visitante_sigla": "REM",
-      "gols_mandante": 0,
-      "gols_visitante": 0,
-      "status": "aovivo",
-      "tempo": "8'",
-      "data": "Qui 26/11 • 20:00",
-      "data_curta": "26/11",
-      "estadio": "Estádio Cícero Pompeu de Toledo"
-    },
     {
       "id": 401841337,
       "mandante": "Fluminense",
@@ -130,6 +116,20 @@
       "estadio": "Arena MRV"
     },
     {
+      "id": 401841329,
+      "mandante": "São Paulo",
+      "mandante_sigla": "SAO",
+      "visitante": "Remo",
+      "visitante_sigla": "REM",
+      "gols_mandante": 3,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Qui 26/11 • 20:00",
+      "data_curta": "26/11",
+      "estadio": "Estádio Cícero Pompeu de Toledo"
+    },
+    {
       "id": 401841319,
       "mandante": "Atlético-MG",
       "mandante_sigla": "CAM",
@@ -226,20 +226,6 @@
       "data": "Dom 22/11 • 18:30",
       "data_curta": "22/11",
       "estadio": "Estadio do Maracana"
-    },
-    {
-      "id": 401841318,
-      "mandante": "Athletico-PR",
-      "mandante_sigla": "CAP",
-      "visitante": "Remo",
-      "visitante_sigla": "REM",
-      "gols_mandante": 4,
-      "gols_visitante": 2,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Dom 22/11 • 16:00",
-      "data_curta": "22/11",
-      "estadio": "Arena da Baixada"
     }
   ],
   "tabela": [
@@ -344,6 +330,17 @@
     },
     {
       "posicao": 10,
+      "time": "São Paulo",
+      "sigla": "SAO",
+      "pontos": 48,
+      "jogos": 37,
+      "vitorias": 13,
+      "empates": 9,
+      "derrotas": 15,
+      "sg": 1
+    },
+    {
+      "posicao": 11,
       "time": "Vasco",
       "sigla": "VAS",
       "pontos": 47,
@@ -352,17 +349,6 @@
       "empates": 8,
       "derrotas": 15,
       "sg": -5
-    },
-    {
-      "posicao": 11,
-      "time": "São Paulo",
-      "sigla": "SAO",
-      "pontos": 45,
-      "jogos": 36,
-      "vitorias": 12,
-      "empates": 9,
-      "derrotas": 15,
-      "sg": -1
     },
     {
       "posicao": 12,
@@ -446,11 +432,11 @@
       "time": "Remo",
       "sigla": "REM",
       "pontos": 32,
-      "jogos": 36,
+      "jogos": 37,
       "vitorias": 7,
       "empates": 11,
-      "derrotas": 18,
-      "sg": -20
+      "derrotas": 19,
+      "sg": -22
     },
     {
       "posicao": 20,
