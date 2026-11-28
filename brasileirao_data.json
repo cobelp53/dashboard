@@ -1,22 +1,8 @@
 {
   "campeonato": "Campeonato Brasileiro Série A 2026",
   "rodada_atual": 37,
-  "ultima_atualizacao": "27/11/2026 19:57",
+  "ultima_atualizacao": "28/11/2026 01:23",
   "jogos": [
-    {
-      "id": 401841337,
-      "mandante": "Fluminense",
-      "mandante_sigla": "FLU",
-      "visitante": "Cruzeiro",
-      "visitante_sigla": "CRU",
-      "gols_mandante": null,
-      "gols_visitante": null,
-      "status": "agendado",
-      "tempo": "AGENDADO",
-      "data": "Sex 27/11 • 20:00",
-      "data_curta": "27/11",
-      "estadio": "Estadio do Maracana"
-    },
     {
       "id": 401841336,
       "mandante": "Botafogo",
@@ -116,6 +102,34 @@
       "estadio": "Arena MRV"
     },
     {
+      "id": 401841338,
+      "mandante": "Athletico-PR",
+      "mandante_sigla": "CAP",
+      "visitante": "São Paulo",
+      "visitante_sigla": "SAO",
+      "gols_mandante": null,
+      "gols_visitante": null,
+      "status": "agendado",
+      "tempo": "AGENDADO",
+      "data": "Qua 02/12 • 21:30",
+      "data_curta": "02/12",
+      "estadio": "Arena da Baixada"
+    },
+    {
+      "id": 401841337,
+      "mandante": "Fluminense",
+      "mandante_sigla": "FLU",
+      "visitante": "Cruzeiro",
+      "visitante_sigla": "CRU",
+      "gols_mandante": 0,
+      "gols_visitante": 1,
+      "status": "finalizado",
+      "tempo": "FIM",
+      "data": "Sex 27/11 • 20:00",
+      "data_curta": "27/11",
+      "estadio": "Estadio do Maracana"
+    },
+    {
       "id": 401841329,
       "mandante": "São Paulo",
       "mandante_sigla": "SAO",
@@ -212,20 +226,6 @@
       "data": "Dom 22/11 • 19:30",
       "data_curta": "22/11",
       "estadio": "Estádio Municipal Cicero de Souza Marques"
-    },
-    {
-      "id": 401841324,
-      "mandante": "Fluminense",
-      "mandante_sigla": "FLU",
-      "visitante": "Mirassol",
-      "visitante_sigla": "MIR",
-      "gols_mandante": 1,
-      "gols_visitante": 0,
-      "status": "finalizado",
-      "tempo": "FIM",
-      "data": "Dom 22/11 • 18:30",
-      "data_curta": "22/11",
-      "estadio": "Estadio do Maracana"
     }
   ],
   "tabela": [
@@ -255,23 +255,23 @@
       "posicao": 3,
       "time": "Cruzeiro",
       "sigla": "CRU",
-      "pontos": 66,
-      "jogos": 36,
-      "vitorias": 20,
+      "pontos": 69,
+      "jogos": 37,
+      "vitorias": 21,
       "empates": 6,
       "derrotas": 10,
-      "sg": 9
+      "sg": 10
     },
     {
       "posicao": 4,
       "time": "Fluminense",
       "sigla": "FLU",
       "pontos": 63,
-      "jogos": 36,
+      "jogos": 37,
       "vitorias": 18,
       "empates": 9,
-      "derrotas": 9,
-      "sg": 15
+      "derrotas": 10,
+      "sg": 14
     },
     {
       "posicao": 5,
